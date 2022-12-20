@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!-- Основные цвета текста-->
+	<Color x:Key="ForegroundColorKey">#ffffff</Color>
+	<Color x:Key="ForegroundOverColorKey">#ffffff</Color>
+	<Color x:Key="ForegroundPressedColorKey">#cccccc</Color>
+	<Color x:Key="ForegroundActiveColorKey">#ffff00</Color>
+	<Color x:Key="ForegroundDisabledColorKey">#cccccc</Color>
+
+	<!-- Основные цвета элементов-->
+	<Color x:Key="BrounCoolPaleColorKey">#c7b299</Color>
+	<Color x:Key="BrounCoolLightColorKey">#998675</Color>
+	<Color x:Key="BrounCoolMediumColorKey">#736357</Color>
+	<Color x:Key="BrounCoolDarkColorKey">#534741</Color>
+	<Color x:Key="BrounCoolDarkerColorKey">#362f2d</Color>
+	
+	<!-- Основные кисти управлющих элементов-->
+	<SolidColorBrush x:Key="ControlForegroundBrushKey" Color="{StaticResource ForegroundColorKey}" />
+	<SolidColorBrush x:Key="ControlForegroundOverBrushKey" Color="{StaticResource ForegroundOverColorKey}" />
+	<SolidColorBrush x:Key="ControlForegroundPressedBrushKey" Color="{StaticResource ForegroundPressedColorKey}" />
+	<SolidColorBrush x:Key="ControlForegroundActiveBrushKey" Color="{StaticResource ForegroundActiveColorKey}" />
+	<SolidColorBrush x:Key="ControlForegroundDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+
+	<SolidColorBrush x:Key="ControlBackgroundNormalBrushKey" Color="{StaticResource BrounCoolLightColorKey}" />
+	<SolidColorBrush x:Key="ControlBackgroundOverBrushKey" Color="{StaticResource BrounCoolLightColorKey}" />
+	<SolidColorBrush x:Key="ControlBackgroundPressedBrushKey" Color="{StaticResource BrounCoolDarkColorKey}" />
+	<SolidColorBrush x:Key="ControlBackgroundActiveBrushKey" Color="{StaticResource BrounCoolDarkColorKey}" />
+	<SolidColorBrush x:Key="ControlBackgroundDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+
+	<SolidColorBrush x:Key="ControlBorderNormalBrushKey" Color="{StaticResource BrounCoolDarkerColorKey}" />
+	<SolidColorBrush x:Key="ControlBorderOverBrushKey" Color="{StaticResource BrounCoolDarkColorKey}" />
+	<SolidColorBrush x:Key="ControlBorderPressedBrushKey" Color="{StaticResource BrounCoolDarkColorKey}" />
+	<SolidColorBrush x:Key="ControlBorderActiveBrushKey" Color="{StaticResource BrounCoolDarkColorKey}" />
+	<SolidColorBrush x:Key="ControlBorderDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+
+	<SolidColorBrush x:Key="ElementBackgroundNormalBrushKey" Color="{StaticResource BrounCoolPaleColorKey}" />
+	<SolidColorBrush x:Key="ElementBackgroundDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+
+	<SolidColorBrush x:Key="ItemBackgroundNormalBrushKey" Color="{StaticResource BrounCoolPaleColorKey}" />
+	<SolidColorBrush x:Key="ItemBackgroundDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+
+	<SolidColorBrush x:Key="PanelBackgroundNormalBrushKey" Color="{StaticResource BrounCoolPaleColorKey}" />
+	<SolidColorBrush x:Key="PanelBackgroundDisableBrushKey" Color="{StaticResource ForegroundDisabledColorKey}" />
+</ResourceDictionary>

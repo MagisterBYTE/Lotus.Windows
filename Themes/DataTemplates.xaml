@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ctrl="clr-namespace:Lotus.Windows">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ctrl:SharedResourceDictionary Source="ValueConverters.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+
+	<!--Шаблон для отображения заголовка группы-->
+	<DataTemplate x:Key="HeaderGroupDataGridTemplateKey">
+		<Border CornerRadius="2" BorderThickness="1" BorderBrush="Gray" 
+				Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=DataGrid}, 
+			Converter={StaticResource DoubleOffsetConverterKey}, ConverterParameter='28'}">
+			<TextBlock Padding="0 2 0 2" Text="{Binding Name}" Foreground="Blue"/>
+		</Border>
+	</DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Lotus.Windows.LotusColumnNumberFilter"
+				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:ctrl="clr-namespace:Lotus.Windows"
+				mc:Ignorable="d" 
+				d:DesignHeight="40" d:DesignWidth="300"
+				x:Name="queryNumberControl">
+	<ctrl:LotusStackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+		<ComboBox x:Name="comboOperator" MinWidth="50" 
+				  IsEnabled="{Binding ElementName=queryNumberControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
+				  SelectionChanged="OnComboOperator_SelectionChanged">
+		</ComboBox>
+		<ctrl:LotusTextBox x:Name="textValueLeft" 
+								 ShowButtonClear="True" VerticalContentAlignment="Center" 
+								 Height="{Binding ElementName=queryNumberControl, Path=Height}"
+								 Text="{Binding ElementName=queryNumberControl, Path=QueryItem.ComparisonValueLeft, 
+										UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+										Converter={StaticResource DoubleToStringConverterKey}}"
+								 IsEnabled="{Binding ElementName=queryNumberControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
+								 ctrl:LotusStackPanel.Fill="Fill"/>
+		<TextBlock x:Name="textOperator" Text=" and " VerticalAlignment="Center" Visibility="Collapsed" />
+		<ctrl:LotusTextBox x:Name="textValueRight"
+								 ShowButtonClear="True" VerticalContentAlignment="Center" 
+								 Height="{Binding ElementName=queryNumberControl, Path=Height}"
+								 Text="{Binding ElementName=queryNumberControl, Path=QueryItem.ComparisonValueRight, 
+										UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+										Converter={StaticResource DoubleToStringConverterKey}}"
+								 IsEnabled="{Binding ElementName=queryNumberControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
+								 ctrl:LotusStackPanel.Fill="Fill"
+								 Visibility="Collapsed" />
+		<ToggleButton Content="A" IsChecked="{Binding ElementName=queryNumberControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"/>
+	</ctrl:LotusStackPanel>
+</UserControl>

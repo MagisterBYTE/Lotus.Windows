@@ -1,0 +1,483 @@
+﻿<ResourceDictionary 
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:sys="clr-namespace:System;assembly=mscorlib"
+			xmlns:ctrl="clr-namespace:Lotus.Windows">
+	
+	<ResourceDictionary.MergedDictionaries>
+		<ctrl:SharedResourceDictionary Source="Pens.xaml"/>
+		<ctrl:SharedResourceDictionary Source="Transformations.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+
+	<!--УСЛОВНЫЕ ОБОЗНАЧЕНИЯ-->
+	<!--Вертикальные, шаг - 1 мм-->
+	<DrawingBrush x:Key="Vertical_s1_t1_BrushKey" Viewport="0,0,3,25" ViewportUnits="Absolute" Viewbox="0,0,3,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L3,0 L3,25 L0,25 Z"/>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M1.5,0.0 L1.5,25.0Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s1_t2_BrushKey" Viewport="0,0,4,25" ViewportUnits="Absolute" Viewbox="0,0,4,25" ViewboxUnits="Absolute" Stretch="None"  TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L4,0 L4,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M2.0,0.0 L2,25.0Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s1_t3_BrushKey" Viewport="0,0,5,25" ViewportUnits="Absolute" Viewbox="0,0,5,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L5,0 L5,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M1.5,0.0 L1.5,25.0Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Вертикальные, шаг - 2 мм-->
+	<DrawingBrush x:Key="Vertical_s2_t1_BrushKey" Viewport="0,0,7,25" ViewportUnits="Absolute" Viewbox="0,0,7,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L7,0 L7,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M3.5,0.0 L3.5,25.0Z"  />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s2_t2_BrushKey" Viewport="0,0,8,25" ViewportUnits="Absolute" Viewbox="0,0,8,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L8,0 L8,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M4.0,0.0 L4,25.0Z" />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s2_t3_BrushKey" Viewport="0,0,7,25" ViewportUnits="Absolute" Viewbox="0,0,7,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L7,0 L7,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M3.5,0.0 L3.5,25.0Z" />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s2_t4_BrushKey" Viewport="0,0,8,25" ViewportUnits="Absolute"  Viewbox="0,0,8,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L8,0 L8,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid4PenKey}" Geometry="F0 M4.0,0.0 L4,25Z" />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Vertical_s2_t5_BrushKey" Viewport="0,0,7,25" ViewportUnits="Absolute" Viewbox="0,0,7,25" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+                <GeometryDrawing Pen="{x:Null}" Brush="Transparent" Geometry="F0 M0,0 L7,0 L7,25 L0,25 Z"/>
+                <GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid5PenKey}" Geometry="F0 M3.5,0.0 L3.5,25.0Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Горизонтальные, шаг - 1 мм-->
+	<DrawingBrush x:Key="Horizontal_s1_t1_BrushKey" Viewport="0,0,25,3" ViewportUnits="Absolute" Viewbox="0,0,25,3" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0, 1.5 L25 1.5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s1_t2_BrushKey" Viewport="0,0,25,4" ViewportUnits="Absolute" Viewbox="0,0,25,4" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0, 2 L25 2Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s1_t3_BrushKey" Viewport="0,0,25,5" ViewportUnits="Absolute" Viewbox="0,0,25,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0, 2.5 L25 2.5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Горизонтальные, шаг - 2 мм-->
+	<DrawingBrush x:Key="Horizontal_s2_t1_BrushKey" Viewport="0,0,25,7" ViewportUnits="Absolute" Viewbox="0,0,25,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,3.5 L25,3.5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s2_t2_BrushKey" Viewport="0,0,25,8" ViewportUnits="Absolute" Viewbox="0,0,25,8" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,4 L25,4Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s2_t3_BrushKey" Viewport="0,0,25,7" ViewportUnits="Absolute" Viewbox="0,0,25,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,3.5 L25,3.5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s2_t4_BrushKey" Viewport="0,0,25,8" ViewportUnits="Absolute" Viewbox="0,0,25,8" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid4PenKey}" Geometry="F0 M0,4 L25,4Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Horizontal_s2_t5_BrushKey" Viewport="0,0,25,7" ViewportUnits="Absolute" Viewbox="0,0,25,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid5PenKey}" Geometry="F0 M0,3.5 L25,3.5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Диагональные (45), шаг - 1 мм-->
+	<DrawingBrush x:Key="Diagonal45_s1_t1_BrushKey" Viewport="0,0,3,3" ViewportUnits="Absolute" Viewbox="0,0,3,3" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L0,3Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s1_t2_BrushKey" Viewport="0,0,4,4" ViewportUnits="Absolute" Viewbox="0,0,4,4" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L0,4Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s1_t3_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Диагональные (45), шаг - 2 мм-->
+	<DrawingBrush x:Key="Diagonal45_s2_t1_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s2_t2_BrushKey" Viewport="0,0,6,6" ViewportUnits="Absolute" Viewbox="0,0,6,6" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L0,6Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s2_t3_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s2_t4_BrushKey" Viewport="0,0,6,6" ViewportUnits="Absolute" Viewbox="0,0,6,6" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid4PenKey}" Geometry="F0 M0,0 L0,6Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal45_s2_t5_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45Key}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid5PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Диагональные (135), шаг - 1 мм-->
+	<DrawingBrush x:Key="Diagonal135_s1_t1_BrushKey" Viewport="0,0,3,3" ViewportUnits="Absolute" Viewbox="0,0,3,3" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L0,3Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s1_t2_BrushKey" Viewport="0,0,4,4" ViewportUnits="Absolute" Viewbox="0,0,4,4" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L0,4Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s1_t3_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile" 
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Диагональные (135), шаг - 2 мм-->
+	<DrawingBrush x:Key="Diagonal135_s2_t1_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s2_t2_BrushKey" Viewport="0,0,6,6" ViewportUnits="Absolute" Viewbox="0,0,6,6" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L0,6Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s2_t3_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s2_t4_BrushKey" Viewport="0,0,6,6" ViewportUnits="Absolute" Viewbox="0,0,6,6" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid4PenKey}" Geometry="F0 M0,0 L0,6Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Diagonal135_s2_t5_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile"
+				  Transform="{StaticResource ResourceKey=Rotate45MinusKey}">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid5PenKey}" Geometry="F0 M0,0 L0,5Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крест на крест, шаг - 1 мм-->
+	<DrawingBrush x:Key="Cross_s1_t1_BrushKey" Viewport="0,0,5,5" ViewportUnits="Absolute" Viewbox="0,0,5,5" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L5,5 M5,0 L0,5"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Cross_s1_t2_BrushKey" Viewport="0,0,7,7" ViewportUnits="Absolute" Viewbox="0,0,7,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L7,7 M7,0 L0,7"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крест на крест, шаг - 2 мм-->
+	<DrawingBrush x:Key="Cross_s2_t1_BrushKey" Viewport="0,0,7,7" ViewportUnits="Absolute" Viewbox="0,0,7,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L7,7 M7,0 L0,7"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Cross_s2_t2_BrushKey" Viewport="0,0,8,8" ViewportUnits="Absolute" Viewbox="0,0,8,8" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L8,8 M8,0 L0,8"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Cross_s2_t3_BrushKey" Viewport="0,0,9,9" ViewportUnits="Absolute" Viewbox="0,0,9,9" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L9,9 M9,0 L0,9"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Cross_s2_t4_BrushKey" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid3PenKey}" Geometry="F0 M0,0 L10,10 M10,0 L0,10"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крест на крест, шаг - 3 мм-->
+	<DrawingBrush x:Key="Cross_s3_t1_BrushKey" Viewport="0,0,9,9" ViewportUnits="Absolute" Viewbox="0,0,9,9" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M0,0 L9,9 M9,0 L0,9"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Cross_s3_t2_BrushKey" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M0,0 L10,10 M10,0 L0,10"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	
+	<!--Крест прямой, шаг - 2 мм-->
+	<DrawingBrush x:Key="CrossDirecte_s2_t1_BrushKey" Viewport="0,0,7,7" ViewportUnits="Absolute" Viewbox="0,0,7,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M3.5,0 L3.5,7 M0,3.5 L7,3.5"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="CrossDirecte_s2_t2_BrushKey" Viewport="0,0,8,8" ViewportUnits="Absolute" Viewbox="0,0,8,8" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M4,0 L4,8 M0,4 L8,4"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крест прямой, шаг - 3 мм-->
+	<DrawingBrush x:Key="CrossDirecte_s3_t1_BrushKey" Viewport="0,0,11,11" ViewportUnits="Absolute" Viewbox="0,0,11,11" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M5.5,0 L5.5,11 M0,5.5 L11,5.5"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="CrossDirecte_s3_t2_BrushKey" Viewport="0,0,12,12" ViewportUnits="Absolute" Viewbox="0,0,12,12" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M6,0 L6,12 M0,6 L12,6"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Зигзаг, шаг - 2 мм-->
+	<DrawingBrush x:Key="Zigzag_s2_t1_BrushKey" Viewport="0,0,7,7" ViewportUnits="Absolute" Viewbox="0,0,7,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M3.5,7 L3.5,3.5 L7,3.5"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Zigzag_s2_t2_BrushKey" Viewport="0,0,8,8" ViewportUnits="Absolute" Viewbox="0,0,8,8" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M4,8 L4,4 L8,4"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Зигзаг, шаг - 3 мм-->
+	<DrawingBrush x:Key="Zigzag_s3_t1_BrushKey" Viewport="0,0,9,9" ViewportUnits="Absolute" Viewbox="0,0,9,9" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M3.5,7 L3.5,3.5 L7,3.5"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Zigzag_s3_t2_BrushKey" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M4,8 L4,4 L8,4"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крестики прямые, шаг - 2 мм-->
+	<DrawingBrush x:Key="CrossesDirect_s2_t1_BrushKey" Viewport="0,0,9,9" ViewportUnits="Absolute" Viewbox="0,0,9,9" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M2,4.5 L7,4.5 M4.5,2 L4.5,7"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="CrossesDirect_s2_t2_BrushKey" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M2,5 L8,5 M5,2 L5,8"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крестики прямые, шаг - 3 мм-->
+	<DrawingBrush x:Key="CrossesDirect_s3_t1_BrushKey" Viewport="0,0,11,11" ViewportUnits="Absolute" Viewbox="0,0,11,11" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M2,5.5 L9,5.5 M5.5,2 L5.5,9"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="CrossesDirect_s3_t2_BrushKey" Viewport="0,0,12,12" ViewportUnits="Absolute" Viewbox="0,0,12,12" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M2,6 L10,6 M6,2 L6,10"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крестики, шаг - 2 мм-->
+	<DrawingBrush x:Key="Crosses_s2_t1_BrushKey" Viewport="0,0,9,9" ViewportUnits="Absolute" Viewbox="0,0,9,9" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M2,2 L7,7 M7,2 L2,7"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Crosses_s2_t2_BrushKey" Viewport="0,0,10,10" ViewportUnits="Absolute" Viewbox="0,0,10,10" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M2,2 L8,8 M8,2 L2,8"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Крестики, шаг - 3 мм-->
+	<DrawingBrush x:Key="Crosses_s3_t1_BrushKey" Viewport="0,0,11,11" ViewportUnits="Absolute" Viewbox="0,0,11,11" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M2,2 L9,9 M9,2 L2,9"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Crosses_s3_t2_BrushKey" Viewport="0,0,12,12" ViewportUnits="Absolute" Viewbox="0,0,12,12" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid2PenKey}" Geometry="F0 M2,2 L10,10 M10,2 L2,10"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+
+	<!--Треугольники, шаг - 2 мм-->
+	<DrawingBrush x:Key="Triangle_s2_t1_BrushKey" Viewport="0,0,7,7" ViewportUnits="Absolute" Viewbox="0,0,7,7" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry="F0 M1.5,6 L3.5,2.5 L5.5,6 Z" />
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+	<DrawingBrush x:Key="Triangle_s2_t2_BrushKey" Viewport="0,0,50,50" ViewportUnits="Absolute" Viewbox="0,0,50,50" ViewboxUnits="Absolute" Stretch="None" TileMode="Tile">
+		<DrawingBrush.Drawing>
+			<DrawingGroup>
+				<GeometryDrawing Pen="{StaticResource ResourceKey=BlackSolid1PenKey}" Geometry=" M 17.5,5.1 L 14.0,10.4 L 21.1,5.6 Z
+								 M 34.5,51.4 L 36.0,44.0 L 36.3,48.4 Z"/>
+			</DrawingGroup>
+		</DrawingBrush.Drawing>
+	</DrawingBrush>
+</ResourceDictionary>

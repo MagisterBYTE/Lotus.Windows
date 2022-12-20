@@ -1,0 +1,34 @@
+﻿<ResourceDictionary 
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!--Стандартные сплошные перья-->
+	<Pen x:Key="BlackSolid1PenKey" Brush="Black" Thickness="1"/>
+	<Pen x:Key="BlackSolid2PenKey" Brush="Black" Thickness="2"/>
+	<Pen x:Key="BlackSolid3PenKey" Brush="Black" Thickness="3"/>
+	<Pen x:Key="BlackSolid4PenKey" Brush="Black" Thickness="4"/>
+	<Pen x:Key="BlackSolid5PenKey" Brush="Black" Thickness="5"/>
+	<Pen x:Key="BlackSolid6PenKey" Brush="Black" Thickness="6"/>
+	
+	<Pen x:Key="BlueSolid1PenKey" Brush="Blue" Thickness="1"/>
+	<Pen x:Key="BlueSolid2PenKey" Brush="Blue" Thickness="2"/>
+	<Pen x:Key="BlueSolid3PenKey" Brush="Blue" Thickness="3"/>
+	<Pen x:Key="BlueSolid4PenKey" Brush="Blue" Thickness="4"/>
+	<Pen x:Key="BlueSolid5PenKey" Brush="Blue" Thickness="5"/>
+	<Pen x:Key="BlueSolid6PenKey" Brush="Blue" Thickness="6"/>
+
+	<Pen x:Key="RedSolid1PenKey" Brush="Red" Thickness="1"/>
+	<Pen x:Key="RedSolid2PenKey" Brush="Red" Thickness="2"/>
+	<Pen x:Key="RedSolid3PenKey" Brush="Red" Thickness="3"/>
+	<Pen x:Key="RedSolid4PenKey" Brush="Red" Thickness="4"/>
+	<Pen x:Key="RedSolid5PenKey" Brush="Red" Thickness="5"/>
+	<Pen x:Key="RedSolid6PenKey" Brush="Red" Thickness="6"/>
+
+	<Pen x:Key="GreenSolid1PenKey" Brush="Green" Thickness="1"/>
+	<Pen x:Key="GreenSolid2PenKey" Brush="Green" Thickness="2"/>
+	<Pen x:Key="GreenSolid3PenKey" Brush="Green" Thickness="3"/>
+	<Pen x:Key="GreenSolid4PenKey" Brush="Green" Thickness="4"/>
+	<Pen x:Key="GreenSolid5PenKey" Brush="Green" Thickness="5"/>
+	<Pen x:Key="GreenSolid6PenKey" Brush="Green" Thickness="6"/>
+	
+</ResourceDictionary>

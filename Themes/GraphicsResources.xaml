@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:ctrl="clr-namespace:Lotus.Windows">
+
+	<ResourceDictionary.MergedDictionaries>
+
+		<!--Графические ресурсы-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/Brushes.xaml"/>
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/BrushesLegend.xaml"/>
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/BrushesMaterials.xaml"/>
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/Pens.xaml"/>
+
+	</ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

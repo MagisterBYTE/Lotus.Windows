@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Lotus.Windows.LotusVector2DEditor"
+				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+				xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+				xmlns:core="http://schemas.lotus.core"
+				mc:Ignorable="d" 
+				d:DesignHeight="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="10"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="14"/>
+		</Grid.ColumnDefinitions>
+		<TextBlock Text="X" Grid.Row="0" Grid.Column="0" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" />
+		<xctk:DoubleUpDown x:Name="spinnerX"  Grid.Row="0" Grid.Column="1"  Margin="1" HorizontalAlignment="Stretch" 
+						   ValueChanged="OnSpinnerX_ValueChanged" 
+						   FormatString="F2" ParsingNumberStyle="Float" />
+		
+		<TextBlock Text="Y" Grid.Row="0" Grid.Column="2" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" />
+		<xctk:DoubleUpDown x:Name="spinnerY" Grid.Row="0" Grid.Column="3"  Margin="1" HorizontalAlignment="Stretch" 
+						   ValueChanged="OnSpinnerY_ValueChanged" 
+						   FormatString="F2" ParsingNumberStyle="Float" />
+
+		<Button x:Name="ButtonMenu" 
+				Grid.Row="0" 
+				Grid.Column="4" 
+				Click="OnButtonMenu_Click" 
+				Content="▼">
+			<Button.ContextMenu>
+				<ContextMenu>
+					<MenuItem x:Name="miCopy" Header="Копировать" Click="OnMenuItemCopyVector_Click">
+						<MenuItem.Icon>
+							<Image Width="22" Height="22" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_copy_32.png"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="miPaste" Header="Вставить" Click="OnMenuItemPasteVector_Click">
+						<MenuItem.Icon>
+							<Image Width="22" Height="22" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_paste_32.png"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="miClear" Header="Очистка" Click="OnMenuItemClearVector_Click">
+						<MenuItem.Icon>
+							<Image Width="22" Height="22" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_delete_32.png"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator/>
+					<MenuItem x:Name="miDefault" Header="Значение по умолчанию" Click="OnMenuItemSetDefaultVector_Click">
+						<MenuItem.Icon>
+							<Image Width="22" Height="22" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_refresh_32.png"/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator/>
+					<RadioButton Checked="OnRadixZero_Checked">Разрядность 0</RadioButton>
+					<RadioButton Checked="OnRadixOne_Checked">Разрядность 0,0</RadioButton>
+					<RadioButton IsChecked="True" Checked="OnRadixTwo_Checked">Разрядность 0,00</RadioButton>
+				</ContextMenu>
+			</Button.ContextMenu>
+		</Button>
+	</Grid>
+</UserControl>

@@ -1,0 +1,4 @@
+﻿Themes (Темы для стандартных элементов управления)
+	/ Infragistics (Темы от Infragistics)
+	/ Telerik (Темы от Telerik для стандартных элементов управления Windows)
+	/ Toolkit (6 стандартных тем WPF Themes. В теме WhistlerBlue увеличен значок сворачивания/разворачивания элемента TreeView)

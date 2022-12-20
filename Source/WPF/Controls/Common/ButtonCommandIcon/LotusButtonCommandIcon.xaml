@@ -1,0 +1,12 @@
+﻿<Button x:Class="Lotus.Windows.LotusButtonCommandIcon"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 mc:Ignorable="d" 
+			 d:DesignHeight="40" d:DesignWidth="120">
+	<StackPanel Orientation="Horizontal">
+		<Image Width="22" Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}, Path=Command.MiddleIcon}" />
+		<Label Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}, Path=Command.Text}"/>
+	</StackPanel>
+</Button>

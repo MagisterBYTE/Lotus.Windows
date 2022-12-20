@@ -1,0 +1,19 @@
+﻿<ResourceDictionary 
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!--Трансформации поворота-->
+	<RotateTransform x:Key="Rotate90Key" Angle="90"/>
+	<RotateTransform x:Key="Rotate75Key" Angle="75"/>
+	<RotateTransform x:Key="Rotate60Key" Angle="60"/>
+	<RotateTransform x:Key="Rotate45Key" Angle="45"/>
+	<RotateTransform x:Key="Rotate30Key" Angle="30"/>
+	<RotateTransform x:Key="Rotate15Key" Angle="15"/>
+	<RotateTransform x:Key="Rotate15MinusKey" Angle="-15"/>
+	<RotateTransform x:Key="Rotate30MinusKey" Angle="-30"/>
+	<RotateTransform x:Key="Rotate45MinusKey" Angle="-45"/>
+	<RotateTransform x:Key="Rotate60MinusKey" Angle="-60"/>
+	<RotateTransform x:Key="Rotate75MinusKey" Angle="-75"/>
+	<RotateTransform x:Key="Rotate90MinusKey" Angle="-90"/>
+	
+</ResourceDictionary>

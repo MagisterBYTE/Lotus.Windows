@@ -1,0 +1,27 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+
+		<!--Графические ресурсы-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/Brushes.xaml"/>
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Graphics/Pens.xaml"/>
+
+		<!--Конверторы данных-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ValueConverters.xaml"/>
+
+		<!--Общие шаблоны-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/DataTemplates.xaml"/>
+
+		<!--Стили элементов-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ElementStyles.xaml"/>
+
+		<!--Шаблоны данных-->
+
+
+		<!--Шаблоны элементов управления-->
+		<!--<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/WPF/Controls/Special/TreeFileExplorer/LotusElementFileSystemDataTemplate.xaml" />-->
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/WPF/Controls/Layout/ContentViewer/LotusContentViewerTemplate.xaml" />
+		<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/Core/FileSystem/LotusFileSystemDataTemplate.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

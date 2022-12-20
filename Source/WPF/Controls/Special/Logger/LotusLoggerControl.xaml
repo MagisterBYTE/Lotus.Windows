@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Lotus.Windows.LotusLoggerControl"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:ctrl="clr-namespace:Lotus.Windows"
+			mc:Ignorable="d" 
+			d:DesignHeight="200" d:DesignWidth="800">
+	<UserControl.Resources>
+		<ctrl:CLogTypeToImageConverter x:Key="LogTypeToImageConverterKey"
+									   Info="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_information_32.png"
+									   Warning="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_warning_32.png"
+									   Error="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_error_32.png"
+									   Succeed="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_security_high_32.png"
+									   Failed="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_security_low_32.png"
+									   >
+		</ctrl:CLogTypeToImageConverter>
+
+		<!--Шаблон для отображения простого сообщения-->
+		<DataTemplate x:Key="SimpleMessageKey">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="2,0" Height="24" VerticalAlignment="Center" Source="{Binding Path=Type, 
+						Converter={StaticResource LogTypeToImageConverterKey}}" />
+					<TextBlock VerticalAlignment="Center" Margin="8,0" Text="{Binding Path=Text}"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
+
+		<!--Шаблон для отображения простого сообщения с указанием модуля-->
+		<DataTemplate x:Key="SimpleModuleMessageKey">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="2,0" Height="24" VerticalAlignment="Center" Source="{Binding Path=Type, 
+						Converter={StaticResource LogTypeToImageConverterKey}}" />
+					<TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Path=Module, StringFormat='[\{0\}]'}"/>
+					<TextBlock VerticalAlignment="Center" Margin="8,0" Text="{Binding Path=Text}"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
+
+		<!--Шаблон для отображения сообщения с трассировкой-->
+		<DataTemplate x:Key="TraceMessageKey">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="2,0" Height="24" VerticalAlignment="Center" Source="{Binding Path=Type, 
+						Converter={StaticResource LogTypeToImageConverterKey}}" />
+					<TextBlock VerticalAlignment="Center" Margin="8,0" Text="{Binding Path=Text}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock VerticalAlignment="Center" Margin="8,0,0,0" 
+									   FontSize="10" Foreground="Gray"
+									   FontWeight="Bold" Text="{Binding TraceShort}"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
+
+		<!--Шаблон для отображения сообщения с трассировкой с указанием модуля-->
+		<DataTemplate x:Key="TraceModuleMessageKey">
+			<StackPanel Orientation="Vertical">
+				<StackPanel Orientation="Horizontal">
+					<Image Margin="2,0" Height="24" VerticalAlignment="Center" Source="{Binding Path=Type, 
+						Converter={StaticResource LogTypeToImageConverterKey}}" />
+					<TextBlock VerticalAlignment="Center" FontWeight="Bold" Text="{Binding Path=Module, StringFormat='[\{0\}]'}"/>
+					<TextBlock VerticalAlignment="Center" Margin="8,0" Text="{Binding Path=Text}"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock VerticalAlignment="Center" Margin="8,0,0,0" 
+									   FontSize="10" Foreground="Gray"
+									   FontWeight="Bold" Text="{Binding TraceShort}"/>
+				</StackPanel>
+			</StackPanel>
+		</DataTemplate>
+
+		<ctrl:CLogViewItemDataSelector x:Key="logDataSelectorKey"
+									Simple="{StaticResource SimpleMessageKey}"
+									Trace="{StaticResource TraceMessageKey}" 
+									SimpleModule="{StaticResource SimpleModuleMessageKey}"
+									TraceModule="{StaticResource TraceModuleMessageKey}"/>
+
+	</UserControl.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Horizontal">
+			<Button Margin="2" Height="24" Content="Очистить" Click="OnButtonMessageClear_Click"/>
+			<Button Margin="2" Height="24" Content="Сохранить" Click="OnButtonSave_Click"/>
+		</StackPanel>
+		<ListBox x:Name="outputData" Grid.Row="1" Margin="2,0,2,2" 
+				 ItemTemplateSelector="{StaticResource ResourceKey=logDataSelectorKey}" >
+		</ListBox>
+	</Grid>
+</UserControl>
