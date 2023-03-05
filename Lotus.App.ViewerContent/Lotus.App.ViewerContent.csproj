@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Lotus</RootNamespace>
+    <Authors>MagistrBYTE aka DanielDem</Authors>
+    <Company>LotusPlatform</Company>
+    <OutputPath>..\Output\$(Configuration)\</OutputPath>
+    <Description>Универсальный обозреватель файлов и редактор контента</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="LotusViewerContentApp.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.2.0.78" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.70.3" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.70.3" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.70.3" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="4.70.3" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
+    <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
+    <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
+    <PackageReference Include="FreeImage.Standard" Version="4.3.9-beta4" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.58.0.2859" />
+    <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.23.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.23.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.23.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Source\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lotus.Windows\Lotus.Windows.UI\Lotus.Windows.UI.csproj" />
+    <ProjectReference Include="..\..\Lotus.Windows\Lotus.Windows\Lotus.Windows.csproj" />
+    <ProjectReference Include="..\Lotus.Windows.ViewerContent3D\Lotus.Windows.ViewerContent3D.csproj" />
+    <ProjectReference Include="..\Lotus.Windows.ViewerImage\Lotus.Windows.ViewerImage.csproj" />
+    <ProjectReference Include="..\Lotus.Windows.ViewerText\Lotus.Windows.ViewerText.csproj" />
+  </ItemGroup>
+
+</Project>

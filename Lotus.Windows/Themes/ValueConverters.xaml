@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+
+    <!--  Конверторы логического типа  -->
+    <ctrl:BooleanInverseConverter x:Key="BooleanInverseConverterKey" />
+    <ctrl:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverterKey" />
+    <ctrl:BooleanInverseToVisibilityConverter x:Key="BooleanInverseToVisibilityConverterKey" />
+    <ctrl:BooleanNullToVisibilityConverter x:Key="BooleanNullToVisibilityConverterKey" />
+    <ctrl:BooleanTrueToCollapsedConverter x:Key="BooleanTrueToCollapsedConverterKey" />
+    <ctrl:BooleanFalseToCollapsedConverter x:Key="BooleanFalseToCollapsedConverterKey" />
+
+    <ctrl:VisibilityToBooleanNullConverter x:Key="VisibilityToBooleanNullConverterKey" />
+
+    <!--  Конверторы вещественного типа  -->
+    <ctrl:DoubleToStringConverter x:Key="DoubleToStringConverterKey" />
+    <ctrl:DoubleOffsetConverter x:Key="DoubleOffsetConverterKey" />
+
+    <!--  Конверторы числовых типов  -->
+    <ctrl:NumberToDoubleConverter x:Key="NumberToDoubleConverterKey" />
+    <ctrl:NumberToDecimalConverter x:Key="NumberToDecimalConverterKey" />
+
+    <!--  Конверторы типа перечисления  -->
+    <ctrl:EnumToIntConverter x:Key="EnumToIntConverterKey" />
+    <ctrl:EnumToStringConverter x:Key="EnumToStringConverterKey" />
+
+    <!--  Конверторы типа Point  -->
+    <ctrl:PointToStringConverter x:Key="PointToStringConverterKey" />
+
+    <!--  Конверторы типа Size  -->
+    <ctrl:SizeToStringConverter x:Key="SizeToStringConverterKey" />
+
+    <!--  Конверторы типа Rect  -->
+    <ctrl:RectToStringConverter x:Key="RectToStringConverterKey" />
+
+    <!--  Конверторы типа Color  -->
+    <ctrl:ColorToBrushConverter x:Key="ColorToBrushConverterKey" />
+    <ctrl:ColorToColorTypeConverter x:Key="ColorToColorTypeConverterKey" />
+
+    <!--  Конверторы типа Vector  -->
+    <ctrl:Vector2DToVector2DConverter x:Key="Vector2DToVector2DConverterKey" />
+</ResourceDictionary>

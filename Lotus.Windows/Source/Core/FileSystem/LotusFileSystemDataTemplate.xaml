@@ -1,0 +1,93 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:Lotus.Core;assembly=Lotus.Core"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
+    xmlns:local="clr-namespace:Lotus.Core">
+    <ResourceDictionary.MergedDictionaries>
+        <!--  Конверторы данных  -->
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ValueConverters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  ШАБЛОНЫ  -->
+    <!--  Шаблон для диска  -->
+    <HierarchicalDataTemplate
+        x:Key="FileSystemDiskKey"
+        DataType="{x:Type local:CViewItemFSWindows}"
+        ItemsSource="{Binding Path=IViewItems}">
+        <StackPanel Orientation="Horizontal">
+            <Image
+                Width="16"
+                Height="16"
+                Margin="2"
+                Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/WinterShadow_diskdrive_48.png" />
+            <TextBlock Margin="4" Text="{Binding Path=Name}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <!--  Шаблон для директории  -->
+    <HierarchicalDataTemplate
+        x:Key="FileSystemDirectoryKey"
+        DataType="{x:Type local:CViewItemFSWindows}"
+        ItemsSource="{Binding Path=IViewItems}">
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Margin="2" IsChecked="{Binding IsChecked}" />
+            <Image
+                x:Name="imageFolder"
+                Width="16"
+                Height="16"
+                Margin="2"
+                Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/Fugue_folder_horizontal_24.png" />
+            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+        </StackPanel>
+        <HierarchicalDataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                <Setter TargetName="imageFolder" Property="Source" Value="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/Fugue_folder_horizontal_open_24.png" />
+            </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>
+    </HierarchicalDataTemplate>
+
+    <!--  Шаблон для файла  -->
+    <HierarchicalDataTemplate x:Key="FileSystemFileKey" DataType="{x:Type local:CViewItemFSWindows}">
+        <StackPanel Orientation="Horizontal">
+            <CheckBox
+                Margin="2"
+                VerticalAlignment="Center"
+                VerticalContentAlignment="Center"
+                IsChecked="{Binding IsChecked}" />
+            <Image
+                Width="20"
+                Height="20"
+                Margin="2"
+                SnapsToDevicePixels="True"
+                Source="{Binding Path=IconSource}"
+                Stretch="Fill" />
+            <TextBlock
+                Margin="4,0"
+                VerticalAlignment="Center"
+                Text="{Binding Path=DataContext.Name}"
+                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
+            <TextBox
+                Margin="4,0"
+                VerticalAlignment="Center"
+                AcceptsReturn="False"
+                Text="{Binding Path=DataContext.Name, UpdateSourceTrigger=LostFocus}"
+                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <!--  Шаблон для неизвестного типа  -->
+    <HierarchicalDataTemplate x:Key="FileSystemUnknowKey">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="4,0" Text="Неизвестный тип" />
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <!--  СЕЛЕКТОР ШАБЛОНА  -->
+    <ctrl:CFileSystemEntityDataSelector
+        x:Key="FileSystemEntityDataSelectorKey"
+        Directory="{StaticResource FileSystemDirectoryKey}"
+        Disk="{StaticResource FileSystemDiskKey}"
+        File="{StaticResource FileSystemFileKey}"
+        Unknow="{StaticResource FileSystemUnknowKey}" />
+</ResourceDictionary>

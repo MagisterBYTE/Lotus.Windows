@@ -1,0 +1,40 @@
+﻿<fluent:RibbonTabItem x:Class="Lotus.Windows.LotusRibbonTabViewConfiguration"
+					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+					  xmlns:fluent="urn:fluent-ribbon"
+					  mc:Ignorable="d" 
+					  d:DesignHeight="450"
+					  d:DesignWidth="800"
+					  Header="Окна и конфигурация"
+					  Loaded="OnRibbonTabItem_Loaded">
+	<fluent:RibbonGroupBox x:Name="ribbonTabViewManagerActivedManager" Header="Активировать менеджеры">
+		<fluent:Button Tag="layoutAnchorableSolutionExplore" Header="Обозреватель проекта" Size="Middle" Click="OnDockingManagerTabActive"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/Fatcow_folders_explorer_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/Fatcow_folders_explorer_32.png" />
+
+		<fluent:Button Tag="layoutAnchorableInspectorProperties" Header="Инспектор свойств" Size="Middle" Click="OnDockingManagerTabActive"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/NuoveXT_document_properties_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/NuoveXT_document_properties_32.png" />
+
+		<fluent:Button Tag="layoutAnchorableLogger" Header="Консоль данных" Size="Middle" Click="OnDockingManagerTabActive"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/Fatcow_file_extension_log_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Panels/Fatcow_file_extension_log_32.png" />
+	</fluent:RibbonGroupBox>
+
+	<fluent:RibbonGroupBox x:Name="ribbonTabViewState" Header="Вид рабочего пространства">
+		<fluent:SplitButton Header="Загрузить вид" Size="Middle" Click="OnDockingManagerViewLoad"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_multiple_objects_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_multiple_objects_32.png" />
+
+		<fluent:Button Header="Сохранить" Size="Middle" Click="OnDockingManagerViewSave"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png" />
+
+		<fluent:Button Header="Восстановить" Size="Middle" Click="OnDockingManagerViewRestore"
+								   Icon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_restore_32.png"
+								   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_restore_32.png" />
+
+	</fluent:RibbonGroupBox>
+</fluent:RibbonTabItem>

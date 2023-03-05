@@ -1,0 +1,276 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ctrl:SharedResourceDictionary Source="Graphics/Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  TEXT_BLOCK  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="TextBlockHeaderStyleKey">
+        <Setter Property="Control.FontFamily" Value="Verdana" />
+        <Setter Property="Control.FontSize" Value="14" />
+        <Setter Property="Control.FontWeight" Value="Bold" />
+        <Setter Property="Control.HorizontalAlignment" Value="Left" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="TextBlockStatusStyleKey">
+        <Setter Property="Control.FontFamily" Value="Verdana" />
+        <Setter Property="Control.FontSize" Value="12" />
+        <Setter Property="Control.FontWeight" Value="Bold" />
+        <Setter Property="Control.HorizontalAlignment" Value="Left" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="TextBlockParametrStyleKey">
+        <Setter Property="Control.FontFamily" Value="Verdana" />
+        <Setter Property="Control.FontSize" Value="12" />
+        <Setter Property="Control.FontWeight" Value="Bold" />
+        <Setter Property="Control.HorizontalAlignment" Value="Left" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="TextBlockFinanceValueStyleKey">
+        <Setter Property="Control.FontFamily" Value="Arial Narrow" />
+        <Setter Property="Control.Foreground" Value="Blue" />
+        <Setter Property="Control.FontSize" Value="12" />
+        <Setter Property="Control.FontWeight" Value="Bold" />
+        <Setter Property="Control.HorizontalAlignment" Value="Left" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+        <Setter Property="Control.Margin" Value="4,0,2,0" />
+    </Style>
+
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  LABEL  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="LabelStatusStyleKey">
+        <Setter Property="Control.FontFamily" Value="Verdana" />
+        <Setter Property="Control.FontSize" Value="12" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="LabelValueStyleKey">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        VerticalAlignment="Center"
+                        Background="BlanchedAlmond"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  BUTTON  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="ButtonStatusStyleKey">
+        <Setter Property="Control.FontFamily" Value="Verdana" />
+        <Setter Property="Control.FontSize" Value="12" />
+        <Setter Property="TextOptions.TextHintingMode" Value="Fixed" />
+        <Setter Property="Control.Foreground" Value="{StaticResource ControlForeground}" />
+        <Setter Property="Control.Background" Value="{StaticResource ControlBackgroundNormal}" />
+        <Setter Property="Control.BorderThickness" Value="1" />
+        <Setter Property="Control.BorderBrush" Value="{StaticResource ControlBorderNormal}" />
+    </Style>
+
+    <Style x:Key="ButtonFlatStyleKey" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                TextElement.FontSize="{TemplateBinding FontSize}"
+                                TextElement.FontStretch="{TemplateBinding FontStretch}"
+                                TextElement.FontWeight="{TemplateBinding FontWeight}"
+                                TextElement.Foreground="{TemplateBinding Foreground}" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  TOGGLE_BUTTON  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="ToggleButtonExpandCollapseStyleKey">
+        <Setter Property="Control.Focusable" Value="False" />
+        <Setter Property="Control.Width" Value="20" />
+        <Setter Property="Control.Height" Value="20" />
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        Width="20"
+                        Height="20"
+                        Background="Transparent">
+                        <Path
+                            x:Name="ExpandPath"
+                            Margin="1,1,1,1"
+                            Data="M 3,3 L 17,10 L 3,17 L 3,3 Z"
+                            Fill="Brown" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ExpandPath" Property="Data" Value="M 3,3 L 17,3 L 10,17 L 3,3 Z" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ToggleButtonRedStyleKey">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        x:Name="border"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1,1,1,1"
+                        CornerRadius="2"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  RADIO_BUTTON  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="RadioButtonRedStyleKey">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        x:Name="border"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+                        BorderBrush="#FF000000"
+                        BorderThickness="1,1,1,1"
+                        CornerRadius="2"
+                        SnapsToDevicePixels="True">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  STATUS_BAR  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <Style x:Key="StatusBarStyleKey">
+        <Setter Property="Control.OverridesDefaultStyle" Value="True" />
+        <Setter Property="Control.SnapsToDevicePixels" Value="True" />
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type StatusBar}">
+                    <Border BorderThickness="0,1">
+                        <Border
+                            Height="Auto"
+                            Background="{DynamicResource ListBoxBackgroundBrush}"
+                            BorderThickness="0,1">
+                            <ItemsPresenter Height="Auto" />
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  GROUP_ITEM  -->
+    <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
+    <!--  Отображает группу которую можно свернуть  -->
+    <Style x:Key="GroupExpanderStyleKey" TargetType="{x:Type GroupItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupItem}">
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Margin="0,0,5,0" Text=":" />
+                                <TextBlock Text="{Binding Items.Count}" />
+                            </StackPanel>
+                        </Expander.Header>
+                        <Expander.Content>
+                            <ItemsPresenter />
+                        </Expander.Content>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Отображает группу которую можно свернуть. Шаблон заголовка группы задается в GroupStyle.HeaderTemplate  -->
+    <Style x:Key="GroupExpanderHeaderStyleKey" TargetType="{x:Type GroupItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GroupItem}">
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <ContentPresenter />
+                        </Expander.Header>
+                        <Expander.Content>
+                            <ItemsPresenter />
+                        </Expander.Content>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
