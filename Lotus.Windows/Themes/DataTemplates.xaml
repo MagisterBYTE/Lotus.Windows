@@ -10,7 +10,10 @@
     <!--  Шаблон для отображения заголовка группы  -->
     <DataTemplate x:Key="HeaderGroupDataGridTemplateKey">
         <Border
-            Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource AncestorType=DataGrid}, Converter={StaticResource DoubleOffsetConverterKey}, ConverterParameter='28'}"
+            Width="{Binding Path=ActualWidth,
+                            RelativeSource={RelativeSource AncestorType=DataGrid},
+                            Converter={StaticResource DoubleOffsetConverterKey},
+                            ConverterParameter='28'}"
             BorderBrush="Gray"
             BorderThickness="1"
             CornerRadius="2">

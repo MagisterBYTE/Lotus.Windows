@@ -1,58 +1,76 @@
-﻿<TextBox x:Class="Lotus.Windows.LotusTextBox"
-			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			xmlns:ctrl="clr-namespace:Lotus.Windows"
-			mc:Ignorable="d"
-			x:Name="textBox"
-			d:DesignWidth="300">
-	<TextBox.Resources>
-		<Style x:Key="PlaceHolderTextBoxStyleKey" TargetType="{x:Type ctrl:LotusTextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type ctrl:LotusTextBox}">
-						<Border Name="borderMain" BorderThickness="{TemplateBinding BorderThickness}" 
-								BorderBrush="{TemplateBinding BorderBrush}">
-							<ctrl:LotusStackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-								<Grid ctrl:LotusStackPanel.Fill="Fill">
-									<ScrollViewer Margin="{TemplateBinding Padding}" x:Name="PART_ContentHost" Height="{TemplateBinding Height}"
-												  Background="{TemplateBinding Background}"
-												  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-												  Panel.ZIndex="1"/>
-									<TextBlock Margin ="4 0 0 0"  x:Name="textPlaceholder" Height="{TemplateBinding Height}"
-												VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-											   Visibility="Collapsed"
-											   Foreground="Gray" FontStyle="Italic"
-											   Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ctrl:LotusTextBox}}, Path=PlaceholderText}" 
-											   Panel.ZIndex="2"/>
-								</Grid>
-								<Button x:Name="buttonClear" Content="X"
-										HorizontalAlignment="Right"
-										Visibility="Collapsed"
-										Background="Transparent"
-										BorderBrush="Transparent" 
-										BorderThickness="0"
-										Click="OnButtonClear_Click"/>
-							</ctrl:LotusStackPanel>
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="Text" Value="">
-								<Setter TargetName="textPlaceholder" Property="Visibility" Value="Visible"/>
-							</Trigger>
-							<Trigger Property="ShowButtonClear" Value="True">
-								<Setter TargetName="buttonClear" Property="Visibility" Value="Visible"/>
-							</Trigger>
-							<Trigger Property="IsFocused" Value="True">
-								<Setter TargetName="borderMain" Property="BorderBrush" Value="LightBlue"/>
-							</Trigger>
-							<Trigger Property="IsEnabled" Value="False">
-								<Setter Property="Foreground" Value="DarkGray"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-	</TextBox.Resources>
+﻿<TextBox
+    x:Class="Lotus.Windows.LotusTextBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="textBox"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <TextBox.Resources>
+        <Style
+            x:Key="PlaceHolderTextBoxStyleKey"
+            BasedOn="{StaticResource {x:Type TextBox}}"
+            TargetType="{x:Type ctrl:LotusTextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ctrl:LotusTextBox}">
+                        <Border
+                            Name="borderMain"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ctrl:LotusStackPanel
+                                HorizontalAlignment="Stretch"
+                                Orientation="Horizontal">
+                                <Grid ctrl:LotusStackPanel.Fill="Fill">
+                                    <ScrollViewer
+                                        x:Name="PART_ContentHost"
+                                        Height="{TemplateBinding Height}"
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Panel.ZIndex="1"
+                                        Background="{TemplateBinding Background}" />
+                                    <TextBlock
+                                        x:Name="textPlaceholder"
+                                        Height="{TemplateBinding Height}"
+                                        Margin="4,0,0,0"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Panel.ZIndex="2"
+                                        FontStyle="Italic"
+                                        Foreground="Gray"
+                                        Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type ctrl:LotusTextBox}},
+                                                       Path=PlaceholderText}"
+                                        Visibility="Collapsed" />
+                                </Grid>
+                                <Button
+                                    x:Name="buttonClear"
+                                    HorizontalAlignment="Right"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    Click="OnButtonClear_Click"
+                                    Content="X"
+                                    Visibility="Collapsed" />
+                            </ctrl:LotusStackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="textPlaceholder" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="ShowButtonClear" Value="True">
+                                <Setter TargetName="buttonClear" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="borderMain" Property="BorderBrush" Value="LightBlue" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </TextBox.Resources>
 </TextBox>

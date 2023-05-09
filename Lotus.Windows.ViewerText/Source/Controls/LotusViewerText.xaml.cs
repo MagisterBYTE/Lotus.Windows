@@ -8,7 +8,7 @@
 */
 //---------------------------------------------------------------------------------------------------------------------
 // Версия: 1.0.0.0
-// Последнее изменение от 27.03.2022
+// Последнее изменение от 30.04.2023
 //=====================================================================================================================
 using System;
 using System.Collections.Generic;
@@ -32,8 +32,8 @@ namespace Lotus
 	namespace Windows
 	{
 		//-------------------------------------------------------------------------------------------------------------
-		//! \addtogroup WindowsViewerTextControls
-		/*@{*/
+		/** \addtogroup WindowsViewerTextControls
+		*@{*/
 		//-------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Allows producing foldings from a document based on braces
@@ -60,6 +60,11 @@ namespace Lotus
 				this.ClosingBrace = '}';
 			}
 
+			/// <summary>
+			/// 
+			/// </summary>
+			/// <param name="manager"></param>
+			/// <param name="document"></param>
 			public void UpdateFoldings(FoldingManager manager, TextDocument document)
 			{
 				Int32 firstErrorOffset;
@@ -70,6 +75,9 @@ namespace Lotus
 			/// <summary>
 			/// Create <see cref="NewFolding"/>s for the specified document.
 			/// </summary>
+			/// <param name="document"></param>
+			/// <param name="firstErrorOffset"></param>
+			/// <returns></returns>
 			public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out Int32 firstErrorOffset)
 			{
 				firstErrorOffset = -1;
@@ -79,6 +87,8 @@ namespace Lotus
 			/// <summary>
 			/// Create <see cref="NewFolding"/>s for the specified document.
 			/// </summary>
+			/// <param name="document"></param>
+			/// <returns></returns>
 			public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
 			{
 				List<NewFolding> newFoldings = new List<NewFolding>();
@@ -519,7 +529,7 @@ namespace Lotus
 			#endregion
 		}
 		//-------------------------------------------------------------------------------------------------------------
-		/*@}*/
+		/**@}*/
 		//-------------------------------------------------------------------------------------------------------------
 	}
 }

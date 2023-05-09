@@ -547,8 +547,12 @@ namespace Lotus
 
 					// Загружаем файл контента
 					CParameters parameters = new CParameters();
-					parameters.AddObject("tree_view_model_structure", treeSolutionExplore, false);
+					parameters.AddObject("tree_view_model_structure", treeViewModel, false);
 					viewerContent3D.OpenFile(file.FullName, parameters);
+
+					DataTemplateSelector templateSelector = Resources["HelixToolkitDataSelectorKey"] as DataTemplateSelector;
+					treeViewModel.ItemTemplateSelector = templateSelector;
+					//treeViewModel.ItemsSource = viewerContent3D.Scene;
 				}
 
 				//

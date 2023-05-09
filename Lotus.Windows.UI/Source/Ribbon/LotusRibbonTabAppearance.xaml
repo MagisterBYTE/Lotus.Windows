@@ -1,63 +1,131 @@
-﻿<fluent:RibbonTabItem x:Class="Lotus.Windows.LotusRibbonTabAppearance"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:fluent="urn:fluent-ribbon"
-		mc:Ignorable="d" 
-		Header="Внешний вид"
-		ToolTip="Выбор внешнего вида элементов управления"
-		d:DesignHeight="450"
-		d:DesignWidth="800"
-		Name="ribbonTabView"
-		Loaded="OnRibbonTabView_Loaded">
-	<fluent:RibbonGroupBox Name="ribbonTabViewRibbon" Header="Лента" MinWidth="150">
+﻿<fluent:RibbonTabItem
+    x:Class="Lotus.Windows.LotusRibbonTabAppearance"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fluent="urn:fluent-ribbon"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="ribbonTabView"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Header="Внешний вид"
+    Loaded="OnRibbonTabView_Loaded"
+    ToolTip="Выбор внешнего вида элементов управления"
+    mc:Ignorable="d">
+    <fluent:RibbonGroupBox
+        Name="ribbonTabViewRibbon"
+        MinWidth="150"
+        Header="Лента">
 
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="Акцент темы: " Margin="4" MinWidth="100" VerticalAlignment="Center"/>
-			<fluent:ComboBox x:Name="ribbonDropAccentTheme" InputWidth="90"
-										 IsEditable="False"
-										 Text="{Binding SelectedItem, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"
-										 SelectionChanged="OnViewStyleRibbon_Checked">
-				<fluent:ComboBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="Bold"/>
-					</DataTemplate>
-				</fluent:ComboBox.ItemTemplate>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                MinWidth="100"
+                Margin="4"
+                VerticalAlignment="Center"
+                Text="Акцент темы: " />
+            <fluent:ComboBox
+                x:Name="ribbonDropAccentTheme"
+                InputWidth="90"
+                IsEditable="False"
+                SelectionChanged="OnViewStyleRibbon_Checked"
+                Text="{Binding SelectedItem,
+                               RelativeSource={RelativeSource Mode=Self},
+                               Mode=OneWay}">
+                <fluent:ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="{Binding}" />
+                    </DataTemplate>
+                </fluent:ComboBox.ItemTemplate>
 
-			</fluent:ComboBox>
-		</StackPanel>
+            </fluent:ComboBox>
+        </StackPanel>
 
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="Цветовая гамма: " Margin="4" MinWidth="100" VerticalAlignment="Center"/>
-			<fluent:ComboBox x:Name="ribbonDropAppTheme" InputWidth="90"
-										 IsEditable="False"
-										 Text="{Binding SelectedItem, RelativeSource={RelativeSource Mode=Self}, Mode=OneWay}"
-										 SelectionChanged="OnViewStyleRibbon_Checked">
-				<fluent:ComboBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="Bold"/>
-					</DataTemplate>
-				</fluent:ComboBox.ItemTemplate>
-			</fluent:ComboBox>
-		</StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock
+                MinWidth="100"
+                Margin="4"
+                VerticalAlignment="Center"
+                Text="Цветовая гамма: " />
+            <fluent:ComboBox
+                x:Name="ribbonDropAppTheme"
+                InputWidth="90"
+                IsEditable="False"
+                SelectionChanged="OnViewStyleRibbon_Checked"
+                Text="{Binding SelectedItem,
+                               RelativeSource={RelativeSource Mode=Self},
+                               Mode=OneWay}">
+                <fluent:ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            Text="{Binding}" />
+                    </DataTemplate>
+                </fluent:ComboBox.ItemTemplate>
+            </fluent:ComboBox>
+        </StackPanel>
 
-	</fluent:RibbonGroupBox>
-	<fluent:RibbonGroupBox Name="ribbonTabViewControls" Header="Основные элементы" MinWidth="150">
-		<fluent:RadioButton Header="Infragistics" Checked="OnViewStyleControl_Checked"/>
-		<fluent:RadioButton Header="Office 2010" Checked="OnViewStyleControl_Checked"/>
-		<fluent:RadioButton Header="Office 2013" Checked="OnViewStyleControl_Checked" IsChecked="True"/>
-	</fluent:RibbonGroupBox>
-	<fluent:RibbonGroupBox Name="ribbonTabViewGrid" Header="Таблицы" MinWidth="150">
-		<fluent:RadioButton Tag="ClassicSystem" Header="ClassicSystem" Checked="OnViewStyleTable_Checked" IsChecked="True"/>
-		<fluent:RadioButton Tag="LunaNormal" Header="Luna Normal"  Checked="OnViewStyleTable_Checked"/>
-		<fluent:RadioButton Tag="LunaMetallic" Header="Luna Metallic" Checked="OnViewStyleTable_Checked"/>
-		<fluent:RadioButton Tag="Royale" Header="Royale" Checked="OnViewStyleTable_Checked"/>
-	</fluent:RibbonGroupBox>
-	<fluent:RibbonGroupBox Name="ribbonTabViewDock" Header="Панели" MinWidth="150">
-		<fluent:RadioButton Tag="Aero" Header="Aero" Checked="OnViewStyleDocking_Checked" IsChecked="True"/>
-		<fluent:RadioButton Tag="Metro" Header="Metro"  Checked="OnViewStyleDocking_Checked"/>
-		<fluent:RadioButton Tag="VS2010" Header="VS2010" Checked="OnViewStyleDocking_Checked"/>
-		<fluent:RadioButton Tag="VS2013" Header="VS2013" Checked="OnViewStyleDocking_Checked"/>
-	</fluent:RibbonGroupBox>
+    </fluent:RibbonGroupBox>
+    <fluent:RibbonGroupBox
+        Name="ribbonTabViewControls"
+        MinWidth="150"
+        Header="Основные элементы">
+        <fluent:RadioButton
+            Checked="OnViewStyleControl_Checked"
+            Header="Infragistics" />
+        <fluent:RadioButton
+            Checked="OnViewStyleControl_Checked"
+            Header="Office 2010" />
+        <fluent:RadioButton
+            Checked="OnViewStyleControl_Checked"
+            Header="Office 2013"
+            IsChecked="True" />
+    </fluent:RibbonGroupBox>
+    <fluent:RibbonGroupBox
+        Name="ribbonTabViewGrid"
+        MinWidth="150"
+        Header="Таблицы">
+        <fluent:RadioButton
+            Checked="OnViewStyleTable_Checked"
+            Header="ClassicSystem"
+            IsChecked="True"
+            Tag="ClassicSystem" />
+        <fluent:RadioButton
+            Checked="OnViewStyleTable_Checked"
+            Header="Luna Normal"
+            Tag="LunaNormal" />
+        <fluent:RadioButton
+            Checked="OnViewStyleTable_Checked"
+            Header="Luna Metallic"
+            Tag="LunaMetallic" />
+        <fluent:RadioButton
+            Checked="OnViewStyleTable_Checked"
+            Header="Royale"
+            Tag="Royale" />
+    </fluent:RibbonGroupBox>
+    <fluent:RibbonGroupBox
+        Name="ribbonTabViewDock"
+        MinWidth="150"
+        Header="Панели">
+        <fluent:RadioButton
+            Checked="OnViewStyleDocking_Checked"
+            Header="Aero"
+            IsChecked="True"
+            Tag="Aero" />
+        <fluent:RadioButton
+            Checked="OnViewStyleDocking_Checked"
+            Header="Metro"
+            Tag="Metro" />
+        <fluent:RadioButton
+            Checked="OnViewStyleDocking_Checked"
+            Header="VS2010"
+            Tag="VS2010" />
+        <fluent:RadioButton
+            Checked="OnViewStyleDocking_Checked"
+            Header="VS2013"
+            Tag="VS2013" />
+    </fluent:RibbonGroupBox>
 </fluent:RibbonTabItem>

@@ -21,7 +21,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/WinterShadow_diskdrive_48.png" />
-            <TextBlock Margin="4" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -31,24 +33,32 @@
         DataType="{x:Type local:CViewItemFSWindows}"
         ItemsSource="{Binding Path=IViewItems}">
         <StackPanel Orientation="Horizontal">
-            <CheckBox Margin="2" IsChecked="{Binding IsChecked}" />
+            <CheckBox
+                Margin="2"
+                IsChecked="{Binding IsChecked}" />
             <Image
                 x:Name="imageFolder"
                 Width="16"
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/Fugue_folder_horizontal_24.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
         <HierarchicalDataTemplate.Triggers>
-            <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+            <DataTrigger
+                Binding="{Binding IsExpanded}"
+                Value="True">
                 <Setter TargetName="imageFolder" Property="Source" Value="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Folders/Fugue_folder_horizontal_open_24.png" />
             </DataTrigger>
         </HierarchicalDataTemplate.Triggers>
     </HierarchicalDataTemplate>
 
     <!--  Шаблон для файла  -->
-    <HierarchicalDataTemplate x:Key="FileSystemFileKey" DataType="{x:Type local:CViewItemFSWindows}">
+    <HierarchicalDataTemplate
+        x:Key="FileSystemFileKey"
+        DataType="{x:Type local:CViewItemFSWindows}">
         <StackPanel Orientation="Horizontal">
             <CheckBox
                 Margin="2"
@@ -66,20 +76,25 @@
                 Margin="4,0"
                 VerticalAlignment="Center"
                 Text="{Binding Path=DataContext.Name}"
-                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
+                Visibility="{Binding IsEditMode,
+                                     Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
             <TextBox
                 Margin="4,0"
                 VerticalAlignment="Center"
                 AcceptsReturn="False"
-                Text="{Binding Path=DataContext.Name, UpdateSourceTrigger=LostFocus}"
-                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />
+                Text="{Binding Path=DataContext.Name,
+                               UpdateSourceTrigger=LostFocus}"
+                Visibility="{Binding IsEditMode,
+                                     Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
     <!--  Шаблон для неизвестного типа  -->
     <HierarchicalDataTemplate x:Key="FileSystemUnknowKey">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="4,0" Text="Неизвестный тип" />
+            <TextBlock
+                Margin="4,0"
+                Text="Неизвестный тип" />
         </StackPanel>
     </HierarchicalDataTemplate>
 

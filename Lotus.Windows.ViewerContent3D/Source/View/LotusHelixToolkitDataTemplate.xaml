@@ -17,7 +17,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_root_16.png" />
-            <TextBlock Margin="4" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -32,8 +34,12 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_root_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
-            <TextBlock Margin="4,0" Text="{Binding Path=ModelMatrix}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=ModelMatrix}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -48,7 +54,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_boundbox_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -58,8 +66,12 @@
         DataType="{x:Type hxscene:MeshNode}"
         ItemsSource="{Binding Path=Items}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="4,0" Text="Неизвестный узел" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="Неизвестный узел" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 

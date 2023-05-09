@@ -8,9 +8,9 @@
     <Authors>MagistrBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <Copyright>MagistrBYTE aka DanielDem</Copyright>
-    <AssemblyVersion>1.7.0.0</AssemblyVersion>
-    <FileVersion>1.7.0.0</FileVersion>
-    <Version>1.7.0</Version>
+    <AssemblyVersion>1.8.0.0</AssemblyVersion>
+    <FileVersion>1.8.0.0</FileVersion>
+    <Version>1.8.0</Version>
     <Title>Lotus.Windows.UI</Title>
     <PackageTags></PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -39,10 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.70.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.70.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="4.70.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.70.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.71.2" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.71.2" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="4.71.2" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.71.2" />
     <PackageReference Include="Fluent.Ribbon" Version="9.0.4" />
   </ItemGroup>
 

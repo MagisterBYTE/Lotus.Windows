@@ -89,7 +89,9 @@
         <Setter Property="Control.BorderBrush" Value="{StaticResource ControlBorderNormal}" />
     </Style>
 
-    <Style x:Key="ButtonFlatStyleKey" TargetType="{x:Type Button}">
+    <Style
+        x:Key="ButtonFlatStyleKey"
+        TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -234,7 +236,9 @@
     <!--  GROUP_ITEM  -->
     <!--  //////////////////////////////////////////////////////////////////////////////////////////////////  -->
     <!--  Отображает группу которую можно свернуть  -->
-    <Style x:Key="GroupExpanderStyleKey" TargetType="{x:Type GroupItem}">
+    <Style
+        x:Key="GroupExpanderStyleKey"
+        TargetType="{x:Type GroupItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GroupItem}">
@@ -242,7 +246,9 @@
                         <Expander.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Name}" />
-                                <TextBlock Margin="0,0,5,0" Text=":" />
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    Text=":" />
                                 <TextBlock Text="{Binding Items.Count}" />
                             </StackPanel>
                         </Expander.Header>
@@ -256,7 +262,9 @@
     </Style>
 
     <!--  Отображает группу которую можно свернуть. Шаблон заголовка группы задается в GroupStyle.HeaderTemplate  -->
-    <Style x:Key="GroupExpanderHeaderStyleKey" TargetType="{x:Type GroupItem}">
+    <Style
+        x:Key="GroupExpanderHeaderStyleKey"
+        TargetType="{x:Type GroupItem}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GroupItem}">
