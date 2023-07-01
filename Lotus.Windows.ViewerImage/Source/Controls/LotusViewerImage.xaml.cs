@@ -86,7 +86,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Boolean IsSupportFormatFile(String extension)
 			{
-				return (SupportFormatFile.Contains(extension));
+				return SupportFormatFile.Contains(extension);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -109,18 +109,18 @@ namespace Lotus
 					// Error handling
 					if (dib.IsNull)
 					{
-						return (null);
+						return null;
 					}
 
-					BitmapSource image = FreeImage.GetBitmap(dib).ToBitmapSource();
+					var image = FreeImage.GetBitmap(dib).ToBitmapSource();
 					FreeImage.UnloadEx(ref dib);
 
-					return (image);
+					return image;
 				}
 				catch(Exception exc)
 				{
 					XLogger.LogExceptionModule(nameof(LotusViewerImage), exc);
-					return (null);
+					return null;
 				}
 			}
 
@@ -146,18 +146,18 @@ namespace Lotus
 					// Error handling
 					if (dib.IsNull)
 					{
-						return (null);
+						return null;
 					}
 
-					BitmapSource image = FreeImage.GetBitmap(dib).ToBitmapSource(width, height);
+					var image = FreeImage.GetBitmap(dib).ToBitmapSource(width, height);
 					FreeImage.UnloadEx(ref dib);
 
-					return (image);
+					return image;
 				}
 				catch (Exception exc)
 				{
 					XLogger.LogExceptionModule(nameof(LotusViewerImage), exc);
-					return (null);
+					return null;
 				}
 			}
 			#endregion
@@ -216,7 +216,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mImageWidth);
+					return mImageWidth;
 				}
 			}
 
@@ -227,7 +227,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mImageHeight);
+					return mImageHeight;
 				}
 			}
 
@@ -238,7 +238,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mImageResolutionX);
+					return mImageResolutionX;
 				}
 			}
 
@@ -249,7 +249,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mImageResolutionY);
+					return mImageResolutionY;
 				}
 			}
 
@@ -260,7 +260,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mFreeImageFormat);
+					return mFreeImageFormat;
 				}
 			}
 
@@ -271,7 +271,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mFreeImageType);
+					return mFreeImageType;
 				}
 			}
 
@@ -282,7 +282,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mFreeImageColorType);
+					return mFreeImageColorType;
 				}
 			}
 
@@ -291,7 +291,7 @@ namespace Lotus
 			/// </summary>
 			public Int32 ImageColorDepth
 			{
-				get { return (mColorDepth); }
+				get { return mColorDepth; }
 			}
 
 			/// <summary>
@@ -299,7 +299,7 @@ namespace Lotus
 			/// </summary>
 			public PixelFormat ImagePixelFormat
 			{
-				get { return (mPixelFormat); }
+				get { return mPixelFormat; }
 			}
 
 			/// <summary>
@@ -307,7 +307,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsTransparentImage
 			{
-				get { return (mIsTransparentImage); }
+				get { return mIsTransparentImage; }
 			}
 
 			/// <summary>
@@ -315,7 +315,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageRedMask
 			{
-				get { return (mImageRedMask); }
+				get { return mImageRedMask; }
 			}
 
 			/// <summary>
@@ -323,7 +323,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageGreenMask
 			{
-				get { return (mImageGreenMask); }
+				get { return mImageGreenMask; }
 			}
 
 			/// <summary>
@@ -331,7 +331,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageBlueMask
 			{
-				get { return (mImageBlueMask); }
+				get { return mImageBlueMask; }
 			}
 			#endregion
 

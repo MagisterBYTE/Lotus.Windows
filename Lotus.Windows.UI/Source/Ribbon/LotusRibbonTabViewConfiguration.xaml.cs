@@ -366,8 +366,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerTabActive(Object sender, RoutedEventArgs args)
 			{
-				String text = (sender as Fluent.Button).Tag.ToString();
-				LayoutAnchorable layout = DockManager.FindName(text) as LayoutAnchorable;
+				var text = (sender as Fluent.Button).Tag.ToString();
+				var layout = DockManager.FindName(text) as LayoutAnchorable;
 				if (layout != null)
 				{
 					switch (text)
@@ -375,7 +375,7 @@ namespace Lotus
 						case "layoutAnchorableSolutionExplore":
 							{
 								ActivePane(layout, LayoutAnchorablePaneLeft, LayoutAnchorablePaneGroupLeft, LayoutPanelRoot);
-								Int32 index = LayoutPanelRoot.Children.IndexOf(LayoutAnchorablePaneGroupLeft);
+								var index = LayoutPanelRoot.Children.IndexOf(LayoutAnchorablePaneGroupLeft);
 								if (index != 0 && index > 0)
 								{
 									LayoutPanelRoot.MoveChild(index, 0);

@@ -40,8 +40,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetMimeType(String file_name)
 			{
-				String mime_type = "application/unknown";
-				String ext = System.IO.Path.GetExtension(file_name).ToLower();
+				var mime_type = "application/unknown";
+				var ext = System.IO.Path.GetExtension(file_name).ToLower();
 				Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
 				if (regKey != null && regKey.GetValue("Content Type") != null)
 					mime_type = regKey.GetValue("Content Type").ToString();

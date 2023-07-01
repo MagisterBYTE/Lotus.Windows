@@ -107,7 +107,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Boolean IsSupportFormatFile(String extension)
 			{
-				return (OpenFileFilter.Contains(extension));
+				return OpenFileFilter.Contains(extension);
 			}
 			#endregion
 
@@ -376,7 +376,7 @@ namespace Lotus
 			/// </summary>
 			public CScene3D Scene
 			{
-				get { return (mScene); }
+				get { return mScene; }
 				set
 				{
 					if (mScene != value)
@@ -392,7 +392,7 @@ namespace Lotus
 			/// </summary>
 			public SceneNode SceneRoot
 			{
-				get { return (mSceneRoot); }
+				get { return mSceneRoot; }
 				set
 				{
 					if (mSceneRoot != value)
@@ -408,7 +408,7 @@ namespace Lotus
 			/// </summary>
 			public Helix.SceneNodeGroupModel3D GroupModel
 			{
-				get { return (mGroupModel); }
+				get { return mGroupModel; }
 				set
 				{
 					if (mGroupModel != value)
@@ -424,7 +424,7 @@ namespace Lotus
 			/// </summary>
 			public Helix.GeometryModel3D SelectedModel
 			{
-				get { return (mSelectedModel); }
+				get { return mSelectedModel; }
 				set
 				{
 					if (mSelectedModel != value)

@@ -65,9 +65,9 @@ namespace Lotus
 			public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, Double to_value, 
 				Double animation_duration, EventHandler completed_handler)
 			{
-				Double fromValue = (Double)animatable_element.GetValue(dependency_property);
+				var fromValue = (Double)animatable_element.GetValue(dependency_property);
 
-				DoubleAnimation animation = new DoubleAnimation();
+				var animation = new DoubleAnimation();
 				animation.From = fromValue;
 				animation.To = to_value;
 				animation.Duration = TimeSpan.FromSeconds(animation_duration);

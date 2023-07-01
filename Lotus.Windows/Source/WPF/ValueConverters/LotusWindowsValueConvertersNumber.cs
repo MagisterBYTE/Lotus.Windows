@@ -37,14 +37,14 @@ namespace Lotus
 			/// Конвертация числового значения в тип Double
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (System.Convert.ToDouble(value));
+				return System.Convert.ToDouble(value);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -52,14 +52,14 @@ namespace Lotus
 			/// Конвертация объекта типа Double в соответствующий числовой тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр(реальный тип для преобразования)</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (XConverter.ToNumber(target_type, (Double)value));
+				return XConverter.ToNumber(targetType, (Double)value);
 			}
 			#endregion
 		}
@@ -77,14 +77,14 @@ namespace Lotus
 			/// Конвертация числового значения в тип Decimal
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (System.Convert.ToDecimal(value));
+				return System.Convert.ToDecimal(value);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -92,14 +92,14 @@ namespace Lotus
 			/// Конвертация объекта типа Decimal в соответствующий числовой тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр(реальный тип для преобразования)</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (XConverter.ToNumber(target_type, (Decimal)value));
+				return XConverter.ToNumber(targetType, (Decimal)value);
 			}
 			#endregion
 		}

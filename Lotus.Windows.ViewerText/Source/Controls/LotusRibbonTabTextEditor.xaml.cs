@@ -87,7 +87,7 @@ namespace Lotus
 			private void OnRibbonTabTextEditor_Loaded(Object sender, RoutedEventArgs args)
 			{
 				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-				Encoding[] encodings = new Encoding[]
+				var encodings = new Encoding[]
 				{
 					Encoding.ASCII,
 					Encoding.UTF8,
@@ -126,7 +126,7 @@ namespace Lotus
 			{
 				if (TextViewEditor != null && XFilePath.CheckCorrectFileName(TextViewEditor.FileName))
 				{
-					String file_name_param = XChar.DoubleQuotes + TextViewEditor.FileName + XChar.DoubleQuotes;
+					var file_name_param = XChar.DoubleQuotes + TextViewEditor.FileName + XChar.DoubleQuotes;
 					XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, null, TShowCommands.SW_NORMAL);
 				}
 			}

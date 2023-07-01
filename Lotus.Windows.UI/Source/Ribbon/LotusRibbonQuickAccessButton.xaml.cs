@@ -55,7 +55,7 @@ namespace Lotus
 			{
 				if (Command != null)
 				{
-					RoutedIconUICommand command_ui = Command as RoutedIconUICommand;
+					var command_ui = Command as RoutedIconUICommand;
 					if (command_ui != null)
 					{
 						IsChecked = true;

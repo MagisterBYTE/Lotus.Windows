@@ -47,25 +47,25 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static BitmapSource Bgra32ToBgr24(BitmapSource bitmap_source)
 			{
-				Int32 PixelWidth = bitmap_source.PixelWidth;
-				Int32 PixelHeight = bitmap_source.PixelHeight;
-				Double DpiX = bitmap_source.DpiX;
-				Double DpiY = bitmap_source.DpiY;
+				var PixelWidth = bitmap_source.PixelWidth;
+				var PixelHeight = bitmap_source.PixelHeight;
+				var DpiX = bitmap_source.DpiX;
+				var DpiY = bitmap_source.DpiY;
 
 				PixelFormat InputPixelFormat = bitmap_source.Format;
 				BitmapPalette InputPalette = bitmap_source.Palette;
-				Int32 InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
-				Int32 InputStride = PixelWidth * InputBitsPerPixel / 8;
-				Byte[] InputPixelsArray = new Byte[InputStride * PixelHeight];
+				var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
+				var InputStride = PixelWidth * InputBitsPerPixel / 8;
+				var InputPixelsArray = new Byte[InputStride * PixelHeight];
 				bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
 
 				PixelFormat PixelFormat = PixelFormats.Bgr24;
 				BitmapPalette Palette = null;
-				Int32 BitsPerPixel = 24;
-				Int32 Stride = PixelWidth * BitsPerPixel / 8;
-				Byte[] PixelsArray = new Byte[InputStride * PixelHeight / 4 * 3];
+				var BitsPerPixel = 24;
+				var Stride = PixelWidth * BitsPerPixel / 8;
+				var PixelsArray = new Byte[InputStride * PixelHeight / 4 * 3];
 
-				Int32 i = 0; Int32 j = 0; Int32 k = 0;
+				var i = 0; var j = 0; var k = 0;
 				while (i < InputPixelsArray.Length / 4)
 				{
 					PixelsArray[k] = InputPixelsArray[j];
@@ -90,25 +90,25 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static BitmapSource Bgra32ToGray8(BitmapSource bitmap_source)
 			{
-				Int32 PixelWidth = bitmap_source.PixelWidth;
-				Int32 PixelHeight = bitmap_source.PixelHeight;
-				Double DpiX = bitmap_source.DpiX;
-				Double DpiY = bitmap_source.DpiY;
+				var PixelWidth = bitmap_source.PixelWidth;
+				var PixelHeight = bitmap_source.PixelHeight;
+				var DpiX = bitmap_source.DpiX;
+				var DpiY = bitmap_source.DpiY;
 
 				PixelFormat InputPixelFormat = bitmap_source.Format;
 				BitmapPalette InputPalette = bitmap_source.Palette;
-				Int32 InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
-				Int32 InputStride = PixelWidth * InputBitsPerPixel / 8;
-				Byte[] InputPixelsArray = new Byte[InputStride * PixelHeight];
+				var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
+				var InputStride = PixelWidth * InputBitsPerPixel / 8;
+				var InputPixelsArray = new Byte[InputStride * PixelHeight];
 				bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
 
 				PixelFormat PixelFormat = PixelFormats.Gray8;
 				BitmapPalette Palette = null;
-				Int32 BitsPerPixel = 8;
-				Int32 Stride = PixelWidth * BitsPerPixel / 8;
-				Byte[] A_PixelsArray = new Byte[InputStride * PixelHeight / 4];
+				var BitsPerPixel = 8;
+				var Stride = PixelWidth * BitsPerPixel / 8;
+				var A_PixelsArray = new Byte[InputStride * PixelHeight / 4];
 
-				Int32 i = 0; Int32 j = 3;
+				var i = 0; var j = 3;
 				while (i < InputPixelsArray.Length / 4)
 				{
 					A_PixelsArray[i] = InputPixelsArray[j];
@@ -130,13 +130,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static IList<Point> ConvertToWindowsPoints(this IList<Vector2Df> values)
 			{
-				Point[] list = new Point[values.Count];
-				for (Int32 i = 0; i < values.Count; i++)
+				var list = new Point[values.Count];
+				for (var i = 0; i < values.Count; i++)
 				{
 					list[i] = new Point(values[i].X, values[i].Y);
 				}
 
-				return (list);
+				return list;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -148,13 +148,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static IList<Point> ConvertToWindowsPoints(this IList<Vector2D> values)
 			{
-				Point[] list = new Point[values.Count];
-				for (Int32 i = 0; i < values.Count; i++)
+				var list = new Point[values.Count];
+				for (var i = 0; i < values.Count; i++)
 				{
 					list[i] = new Point(values[i].X, values[i].Y);
 				}
 
-				return (list);
+				return list;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ namespace Lotus
 						break;
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -301,7 +301,7 @@ namespace Lotus
 						break;
 				}
 
-				return (result);
+				return result;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

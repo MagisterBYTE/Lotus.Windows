@@ -77,9 +77,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void OnColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				Color old_color = (Color)args.OldValue;
-				Color new_сolor = (Color)args.NewValue;
-				LotusColorPicker color_picker = (LotusColorPicker)sender;
+				var old_color = (Color)args.OldValue;
+				var new_сolor = (Color)args.NewValue;
+				var color_picker = (LotusColorPicker)sender;
 				color_picker.Red = new_сolor.R;
 				color_picker.Green = new_сolor.G;
 				color_picker.Blue = new_сolor.B;
@@ -94,7 +94,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void OnColorRGBChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusColorPicker color_picker = (LotusColorPicker)sender;
+				var color_picker = (LotusColorPicker)sender;
 				Color color = color_picker.Color;
 				if (args.Property == RedProperty)
 					color.R = (Byte)args.NewValue;

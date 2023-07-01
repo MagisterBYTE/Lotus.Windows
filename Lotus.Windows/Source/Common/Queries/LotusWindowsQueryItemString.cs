@@ -51,7 +51,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mSearchOption);
+					return mSearchOption;
 				}
 				set
 				{
@@ -72,7 +72,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mSearchValue);
+					return mSearchValue;
 				}
 				set
 				{
@@ -120,9 +120,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override String ToString()
 			{
-				String name = "";
+				var name = "";
 				ComputeSQLQuery(ref name);
-				return (name);
+				return name;
 			}
 			#endregion
 
@@ -161,10 +161,10 @@ namespace Lotus
 							break;
 					}
 
-					return (true);
+					return true;
 				}
 
-				return (false);
+				return false;
 			}
 			#endregion
 
@@ -180,7 +180,7 @@ namespace Lotus
 			{
 				if(text_box != null)
 				{
-					System.Windows.Data.Binding binding = new System.Windows.Data.Binding();
+					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
 					binding.Path = new System.Windows.PropertyPath(nameof(SearchValue));
 
@@ -199,7 +199,7 @@ namespace Lotus
 			{
 				if (combo_box != null)
 				{
-					System.Windows.Data.Binding binding = new System.Windows.Data.Binding();
+					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
 					binding.Path = new System.Windows.PropertyPath(nameof(SearchOption));
 					binding.Converter = EnumToStringConverter.Instance;

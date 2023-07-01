@@ -169,7 +169,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ContentScale_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusContentViewer content_viewer = (LotusContentViewer)obj;
+				var content_viewer = (LotusContentViewer)obj;
 				content_viewer.OnContentViewerContentScaleChanged();
 
 				if (content_viewer.mContentScaleTransform != null)
@@ -202,12 +202,12 @@ namespace Lotus
 						// focused on the mContent focus point (and also so that the mContent focus is locked to the 
 						// viewport focus point - this is how the google maps style zooming works).
 						//
-						Double viewportOffsetX = content_viewer.ViewportZoomFocusX - (content_viewer.ViewportWidth / 2);
-						Double viewportOffsetY = content_viewer.ViewportZoomFocusY - (content_viewer.ViewportHeight / 2);
-						Double contentOffsetX = viewportOffsetX / content_viewer.ContentScale;
-						Double contentOffsetY = viewportOffsetY / content_viewer.ContentScale;
-						content_viewer.ContentOffsetX = (content_viewer.ContentZoomFocusX - (content_viewer.ContentViewportWidth / 2)) - contentOffsetX;
-						content_viewer.ContentOffsetY = (content_viewer.ContentZoomFocusY - (content_viewer.ContentViewportHeight / 2)) - contentOffsetY;
+						var viewportOffsetX = content_viewer.ViewportZoomFocusX - (content_viewer.ViewportWidth / 2);
+						var viewportOffsetY = content_viewer.ViewportZoomFocusY - (content_viewer.ViewportHeight / 2);
+						var contentOffsetX = viewportOffsetX / content_viewer.ContentScale;
+						var contentOffsetY = viewportOffsetY / content_viewer.ContentScale;
+						content_viewer.ContentOffsetX = content_viewer.ContentZoomFocusX - (content_viewer.ContentViewportWidth / 2) - contentOffsetX;
+						content_viewer.ContentOffsetY = content_viewer.ContentZoomFocusY - (content_viewer.ContentViewportHeight / 2) - contentOffsetY;
 					}
 					finally
 					{
@@ -241,10 +241,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static Object ContentScale_Coerce(DependencyObject obj, Object base_value)
 			{
-				LotusContentViewer c = (LotusContentViewer)obj;
-				Double value = (Double)base_value;
+				var c = (LotusContentViewer)obj;
+				var value = (Double)base_value;
 				value = Math.Min(Math.Max(value, c.MinContentScale), c.MaxContentScale);
-				return (value);
+				return value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -256,7 +256,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void MinOrMaxContentScale_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusContentViewer c = (LotusContentViewer)obj;
+				var c = (LotusContentViewer)obj;
 				c.ContentScale = Math.Min(Math.Max(c.ContentScale, c.MinContentScale), c.MaxContentScale);
 			}
 
@@ -269,7 +269,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ContentOffsetX_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusContentViewer content_viewer = (LotusContentViewer)obj;
+				var content_viewer = (LotusContentViewer)obj;
 				content_viewer.OnContentViewerContentOffsetChanged();
 				content_viewer.UpdateTranslationX();
 
@@ -311,12 +311,12 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static Object ContentOffsetX_Coerce(DependencyObject obj, Object base_value)
 			{
-				LotusContentViewer c = (LotusContentViewer)obj;
-				Double value = (Double)base_value;
-				Double min_offset_x = 0.0;
-				Double max_offset_x = Math.Max(0.0, c.mUnScaledExtent.Width - c.mConstrainedContentViewportWidth);
+				var c = (LotusContentViewer)obj;
+				var value = (Double)base_value;
+				var min_offset_x = 0.0;
+				var max_offset_x = Math.Max(0.0, c.mUnScaledExtent.Width - c.mConstrainedContentViewportWidth);
 				value = Math.Min(Math.Max(value, min_offset_x), max_offset_x);
-				return (value);
+				return value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -328,7 +328,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ContentOffsetY_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusContentViewer content_viewer = (LotusContentViewer)obj;
+				var content_viewer = (LotusContentViewer)obj;
 				content_viewer.OnContentViewerContentOffsetChanged();
 				content_viewer.UpdateTranslationY();
 
@@ -370,12 +370,12 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static Object ContentOffsetY_Coerce(DependencyObject obj, Object base_value)
 			{
-				LotusContentViewer c = (LotusContentViewer)obj;
-				Double value = (Double)base_value;
-				Double min_offset_y = 0.0;
-				Double max_offset_y = Math.Max(0.0, c.mUnScaledExtent.Height - c.mConstrainedContentViewportHeight);
+				var c = (LotusContentViewer)obj;
+				var value = (Double)base_value;
+				var min_offset_y = 0.0;
+				var max_offset_y = Math.Max(0.0, c.mUnScaledExtent.Height - c.mConstrainedContentViewportHeight);
 				value = Math.Min(Math.Max(value, min_offset_y), max_offset_y);
-				return (value);
+				return value;
 			}
 			#endregion
 
@@ -442,7 +442,7 @@ namespace Lotus
 				{
 					var prop = DesignerProperties.IsInDesignModeProperty;
 					var is_design_mode = (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
-					return (is_design_mode);
+					return is_design_mode;
 				}
 			}
 
@@ -591,7 +591,7 @@ namespace Lotus
 			/// </summary>
 			public ScrollViewer ScrollOwner
 			{
-				get { return (mScrollOwner); }
+				get { return mScrollOwner; }
 				set { mScrollOwner = value; }
 			}
 
@@ -600,7 +600,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean CanVerticallyScroll
 			{
-				get { return (mCanVerticallyScroll); }
+				get { return mCanVerticallyScroll; }
 				set
 				{
 					mCanVerticallyScroll = value;
@@ -613,7 +613,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean CanHorizontallyScroll
 			{
-				get { return (mCanHorizontallyScroll); }
+				get { return mCanHorizontallyScroll; }
 				set
 				{
 					mCanHorizontallyScroll = value;
@@ -626,7 +626,7 @@ namespace Lotus
 			/// </summary>
 			public Double ExtentWidth
 			{
-				get { return (mUnScaledExtent.Width * ContentScale); }
+				get { return mUnScaledExtent.Width * ContentScale; }
 			}
 
 			/// <summary>
@@ -634,7 +634,7 @@ namespace Lotus
 			/// </summary>
 			public Double ExtentHeight
 			{
-				get { return (mUnScaledExtent.Height * ContentScale); }
+				get { return mUnScaledExtent.Height * ContentScale; }
 			}
 
 			/// <summary>
@@ -642,7 +642,7 @@ namespace Lotus
 			/// </summary>
 			public Double ViewportWidth
 			{
-				get { return (mViewportScroll.Width); }
+				get { return mViewportScroll.Width; }
 			}
 
 			/// <summary>
@@ -650,7 +650,7 @@ namespace Lotus
 			/// </summary>
 			public Double ViewportHeight
 			{
-				get { return (mViewportScroll.Height); }
+				get { return mViewportScroll.Height; }
 			}
 
 			/// <summary>
@@ -658,7 +658,7 @@ namespace Lotus
 			/// </summary>
 			public Double HorizontalOffset
 			{
-				get { return (ContentOffsetX * ContentScale); }
+				get { return ContentOffsetX * ContentScale; }
 			}
 
 			/// <summary>
@@ -666,7 +666,7 @@ namespace Lotus
 			/// </summary>
 			public Double VerticalOffset
 			{
-				get { return (ContentOffsetY * ContentScale); }
+				get { return ContentOffsetY * ContentScale; }
 			}
 
 			//
@@ -677,7 +677,7 @@ namespace Lotus
 			/// </summary>
 			public TViewHandling OperationCurrent
 			{
-				get { return (mOperationCurrent); }
+				get { return mOperationCurrent; }
 			}
 
 			/// <summary>
@@ -685,7 +685,7 @@ namespace Lotus
 			/// </summary>
 			public TViewHandling OperationPreview
 			{
-				get { return (mOperationPreview); }
+				get { return mOperationPreview; }
 			}
 
 			/// <summary>
@@ -693,7 +693,7 @@ namespace Lotus
 			/// </summary>
 			public String OperationDesc
 			{
-				get { return (mOperationDesc); }
+				get { return mOperationDesc; }
 			}
 
 			//
@@ -705,7 +705,7 @@ namespace Lotus
 			[Description("Возможность увеличение прямоугольной области")]
 			public Boolean ZoomingIsSupport
 			{
-				get { return (mZoomingIsSupport); }
+				get { return mZoomingIsSupport; }
 				set { mZoomingIsSupport = value; }
 			}
 
@@ -714,7 +714,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean ZoomingStarting
 			{
-				get { return (mZoomingStarting); }
+				get { return mZoomingStarting; }
 			}
 
 			/// <summary>
@@ -723,7 +723,7 @@ namespace Lotus
 			[Description("Минимальное смещение для увеличения области")]
 			public Single ZoomingDragCorrect
 			{
-				get { return (mZoomingDragCorrect); }
+				get { return mZoomingDragCorrect; }
 				set { mZoomingDragCorrect = value; }
 			}
 
@@ -732,7 +732,7 @@ namespace Lotus
 			/// </summary>
 			public Rect ZoomingRect
 			{
-				get { return (mZoomingRect); }
+				get { return mZoomingRect; }
 			}
 
 			//
@@ -744,7 +744,7 @@ namespace Lotus
 			[Description("Возможность выбора прямоугольной области")]
 			public Boolean SelectingIsSupport
 			{
-				get { return (mSelectingIsSupport); }
+				get { return mSelectingIsSupport; }
 				set { mSelectingIsSupport = value; }
 			}
 
@@ -754,7 +754,7 @@ namespace Lotus
 			[Description("Минимальное смещение для выбора области")]
 			public Single SelectingDragCorrect
 			{
-				get { return (mSelectingDragCorrect); }
+				get { return mSelectingDragCorrect; }
 				set { mSelectingDragCorrect = value; }
 			}
 
@@ -763,7 +763,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean SelectingRightToLeft
 			{
-				get { return (mSelectingRightToLeft); }
+				get { return mSelectingRightToLeft; }
 				set { mSelectingRightToLeft = value; }
 			}
 
@@ -772,7 +772,7 @@ namespace Lotus
 			/// </summary>
 			public Rect SelectingRect
 			{
-				get { return (mSelectingRect); }
+				get { return mSelectingRect; }
 			}
 			#endregion
 
@@ -988,7 +988,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void UpdateTranslationX()
 			{
-				Double scaled_сontent_width = mUnScaledExtent.Width * ContentScale;
+				var scaled_сontent_width = mUnScaledExtent.Width * ContentScale;
 				if (scaled_сontent_width < ViewportWidth)
 				{
 					//
@@ -1009,7 +1009,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void UpdateTranslationY()
 			{
-				Double scaled_content_height = mUnScaledExtent.Height * ContentScale;
+				var scaled_content_height = mUnScaledExtent.Height * ContentScale;
 				if (scaled_content_height < ViewportHeight)
 				{
 					//
@@ -1102,7 +1102,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void LineUp()
 			{
-				ContentOffsetY -= (ContentViewportHeight / 10);
+				ContentOffsetY -= ContentViewportHeight / 10;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1112,7 +1112,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void LineDown()
 			{
-				ContentOffsetY += (ContentViewportHeight / 10);
+				ContentOffsetY += ContentViewportHeight / 10;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1122,7 +1122,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void LineLeft()
 			{
-				ContentOffsetX -= (ContentViewportWidth / 10);
+				ContentOffsetX -= ContentViewportWidth / 10;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1132,7 +1132,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void LineRight()
 			{
-				ContentOffsetX += (ContentViewportWidth / 10);
+				ContentOffsetX += ContentViewportWidth / 10;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1240,7 +1240,7 @@ namespace Lotus
 				if (mContent.IsAncestorOf(visual))
 				{
 					Rect transformedRect = visual.TransformToAncestor(mContent).TransformBounds(rectangle);
-					Rect viewportRect = new Rect(ContentOffsetX, ContentOffsetY, ContentViewportWidth, ContentViewportHeight);
+					var viewportRect = new Rect(ContentOffsetX, ContentOffsetY, ContentViewportWidth, ContentViewportHeight);
 					if (!transformedRect.Contains(viewportRect))
 					{
 						Double horizOffset = 0;
@@ -1279,7 +1279,7 @@ namespace Lotus
 						SnapContentOffsetTo(new Point(ContentOffsetX + horizOffset, ContentOffsetY + vertOffset));
 					}
 				}
-				return (rectangle);
+				return rectangle;
 			}
 			#endregion
 
@@ -1310,10 +1310,10 @@ namespace Lotus
 			/// Метод, который по заданному available_size определяет желаемые размеры и выставляет их в this.DesiredSize.
 			/// В описании к методу написано, что результирующий DesiredSize может быть > availableSize, но для наследников FrameworkElement это не так.
 			/// </remarks>
-			/// <param name="available_size">Имеющиеся размеры</param>
+			/// <param name="constraint">Имеющиеся размеры</param>
 			/// <returns>Размер элемента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			protected override Size MeasureOverride(Size available_size)
+			protected override Size MeasureOverride(Size constraint)
 			{
 				if (mContent == null)
 				{
@@ -1325,7 +1325,7 @@ namespace Lotus
 					InitContentTransformation();
 				}
 
-				Size infinite_size = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
+				var infinite_size = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
 				Size child_size = base.MeasureOverride(infinite_size);
 
 				if (child_size != mUnScaledExtent)
@@ -1344,10 +1344,10 @@ namespace Lotus
 				//
 				// Update the size of the viewport onto the mContent based on the passed in 'constraint'.
 				//
-				UpdateViewportSize(available_size);
+				UpdateViewportSize(constraint);
 
-				Double width = available_size.Width;
-				Double height = available_size.Height;
+				var width = constraint.Width;
+				var height = constraint.Height;
 
 				if (Double.IsInfinity(width))
 				{
@@ -1380,10 +1380,10 @@ namespace Lotus
 			/// <summary>
 			/// Окончательно определить размеры
 			/// </summary>
-			/// <param name="arrange_bounds">Требуемые размеры</param>
+			/// <param name="arrangeBounds">Требуемые размеры</param>
 			/// <returns>Размер элемента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			protected override Size ArrangeOverride(Size arrange_bounds)
+			protected override Size ArrangeOverride(Size arrangeBounds)
 			{
 				Size size = base.ArrangeOverride(this.DesiredSize);
 
@@ -1408,7 +1408,7 @@ namespace Lotus
 				//
 				// Update the size of the viewport onto the mContent based on the passed in 'arrangeBounds'.
 				//
-				UpdateViewportSize(arrange_bounds);
+				UpdateViewportSize(arrangeBounds);
 
 				NotifyPropertyChanged(PropertyArgsExtentWidth);
 				NotifyPropertyChanged(PropertyArgsExtentHeight);
@@ -1450,9 +1450,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void AnimatedZoomTo(Rect content_rect)
 			{
-				Double scale_x = ContentViewportWidth / content_rect.Width;
-				Double scale_y = ContentViewportHeight / content_rect.Height;
-				Double new_scale = ContentScale * Math.Min(scale_x, scale_y);
+				var scale_x = ContentViewportWidth / content_rect.Width;
+				var scale_y = ContentViewportHeight / content_rect.Height;
+				var new_scale = ContentScale * Math.Min(scale_x, scale_y);
 
 				AnimatedZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)), null);
 			}
@@ -1465,9 +1465,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void ZoomTo(Rect content_rect)
 			{
-				Double scale_x = ContentViewportWidth / content_rect.Width;
-				Double scale_y = ContentViewportHeight / content_rect.Height;
-				Double new_scale = ContentScale * Math.Min(scale_x, scale_y);
+				var scale_x = ContentViewportWidth / content_rect.Width;
+				var scale_y = ContentViewportHeight / content_rect.Height;
+				var new_scale = ContentScale * Math.Min(scale_x, scale_y);
 
 				ZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)));
 			}
@@ -1510,8 +1510,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void AnimatedSnapTo(Point content_point)
 			{
-				Double newX = content_point.X - (ContentViewportWidth / 2);
-				Double newY = content_point.Y - (ContentViewportHeight / 2);
+				var newX = content_point.X - (ContentViewportWidth / 2);
+				var newY = content_point.Y - (ContentViewportHeight / 2);
 
 				XAnimationHelper.StartAnimation(this, ContentOffsetXProperty, newX, AnimationDuration);
 				XAnimationHelper.StartAnimation(this, ContentOffsetYProperty, newY, AnimationDuration);
@@ -1563,12 +1563,12 @@ namespace Lotus
 			{
 				new_content_scale = Math.Min(Math.Max(new_content_scale, MinContentScale), MaxContentScale);
 
-				Double screenSpaceZoomOffsetX = (content_zoom_focus.X - ContentOffsetX) * ContentScale;
-				Double screenSpaceZoomOffsetY = (content_zoom_focus.Y - ContentOffsetY) * ContentScale;
-				Double contentSpaceZoomOffsetX = screenSpaceZoomOffsetX / new_content_scale;
-				Double contentSpaceZoomOffsetY = screenSpaceZoomOffsetY / new_content_scale;
-				Double newContentOffsetX = content_zoom_focus.X - contentSpaceZoomOffsetX;
-				Double newContentOffsetY = content_zoom_focus.Y - contentSpaceZoomOffsetY;
+				var screenSpaceZoomOffsetX = (content_zoom_focus.X - ContentOffsetX) * ContentScale;
+				var screenSpaceZoomOffsetY = (content_zoom_focus.Y - ContentOffsetY) * ContentScale;
+				var contentSpaceZoomOffsetX = screenSpaceZoomOffsetX / new_content_scale;
+				var contentSpaceZoomOffsetY = screenSpaceZoomOffsetY / new_content_scale;
+				var newContentOffsetX = content_zoom_focus.X - contentSpaceZoomOffsetX;
+				var newContentOffsetY = content_zoom_focus.Y - contentSpaceZoomOffsetY;
 
 				XAnimationHelper.CancelAnimation(this, ContentScaleProperty);
 				XAnimationHelper.CancelAnimation(this, ContentOffsetXProperty);
@@ -1587,7 +1587,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void AnimatedZoomTo(Double content_scale)
 			{
-				Point zoom_center = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
+				var zoom_center = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
 				AnimatedZoomAboutPoint(content_scale, zoom_center);
 			}
 
@@ -1599,7 +1599,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void ZoomTo(Double content_scale)
 			{
-				Point zoom_сenter = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
+				var zoom_сenter = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
 				ZoomAboutPoint(content_scale, zoom_сenter);
 			}
 
@@ -1833,7 +1833,7 @@ namespace Lotus
 			protected virtual void ProcessPanning()
 			{
 				// Смещаем смотровое окно
-				Vector drag_offset = new Vector((MousePositionCurrent - MousePositionMiddleDown).X,
+				var drag_offset = new Vector((MousePositionCurrent - MousePositionMiddleDown).X,
 					(MousePositionCurrent - MousePositionMiddleDown).Y);
 
 				this.ContentOffsetX -= drag_offset.X;
@@ -1905,23 +1905,23 @@ namespace Lotus
 			/// <summary>
 			/// Нажатия кнопки мыши
 			/// </summary>
-			/// <param name="args">Аргументы события</param>
+			/// <param name="e">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnMouseDown(MouseButtonEventArgs args)
+			protected override void OnMouseDown(MouseButtonEventArgs e)
 			{
-				base.OnMouseDown(args);
+				base.OnMouseDown(e);
 
-				Boolean status = mContent.Focus();
+				var status = mContent.Focus();
 				Keyboard.Focus(mContent);
 
 				// 1) Получаем позиции курсора в координатах канвы
-				MousePositionCurrent = mContentTotalTransform.Inverse.Transform(args.GetPosition(this)).ToVector2Df();
+				MousePositionCurrent = mContentTotalTransform.Inverse.Transform(e.GetPosition(this)).ToVector2Df();
 
 				// 2) Сохраняем текущую операцию
 				mOperationPreview = mOperationCurrent;
 
 				// 3) Нажата левая кнопка мыши
-				if (args.ChangedButton == MouseButton.Left)
+				if (e.ChangedButton == MouseButton.Left)
 				{
 					MousePositionLeftDown = MousePositionCurrent;
 
@@ -1938,7 +1938,7 @@ namespace Lotus
 				}
 
 				// Правая кнопка мыши - Открывание контекстного меню
-				if (args.ChangedButton == MouseButton.Right)
+				if (e.ChangedButton == MouseButton.Right)
 				{
 					if (ContextMenu != null)
 					{
@@ -1948,7 +1948,7 @@ namespace Lotus
 				}
 
 				// Перемещение
-				if (args.ChangedButton == MouseButton.Middle)
+				if (e.ChangedButton == MouseButton.Middle)
 				{
 					MousePositionMiddleDown = MousePositionCurrent;
 					StartPanning();
@@ -1958,7 +1958,7 @@ namespace Lotus
 				if (mOperationCurrent != TViewHandling.None)
 				{
 					CaptureMouse();
-					args.Handled = true;
+					e.Handled = true;
 				}
 			}
 
@@ -1966,14 +1966,14 @@ namespace Lotus
 			/// <summary>
 			/// Перемещение курсора мыши
 			/// </summary>
-			/// <param name="args">Аргументы события</param>
+			/// <param name="e">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnMouseMove(MouseEventArgs args)
+			protected override void OnMouseMove(MouseEventArgs e)
 			{
-				base.OnMouseMove(args);
+				base.OnMouseMove(e);
 
 				// Получаем текущие координаты
-				Vector2Df current_content = mContentTotalTransform.Inverse.Transform(args.GetPosition(this)).ToVector2Df();
+				var current_content = mContentTotalTransform.Inverse.Transform(e.GetPosition(this)).ToVector2Df();
 
 				// Смотрим смещение
 				MouseDeltaCurrent = current_content - MousePositionCurrent;
@@ -1982,7 +1982,7 @@ namespace Lotus
 				MousePositionCurrent = current_content;
 
 				// Если зажата левая кнопка мыши
-				if (args.LeftButton == MouseButtonState.Pressed)
+				if (e.LeftButton == MouseButtonState.Pressed)
 				{
 					// Увеличение региона
 					if (mZoomingStarting)
@@ -2000,7 +2000,7 @@ namespace Lotus
 				}
 				else
 				{
-					if (args.MiddleButton == MouseButtonState.Pressed)
+					if (e.MiddleButton == MouseButtonState.Pressed)
 					{
 						// Перемещение
 						if (mOperationCurrent == TViewHandling.Panning)
@@ -2008,7 +2008,7 @@ namespace Lotus
 							ProcessPanning();
 						}
 
-						args.Handled = true;
+						e.Handled = true;
 					}
 					else
 					{
@@ -2020,13 +2020,13 @@ namespace Lotus
 			/// <summary>
 			/// Отпускание кнопки мыши
 			/// </summary>
-			/// <param name="args">Аргументы события</param>
+			/// <param name="e">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnMouseUp(MouseButtonEventArgs args)
+			protected override void OnMouseUp(MouseButtonEventArgs e)
 			{
-				base.OnMouseUp(args);
+				base.OnMouseUp(e);
 
-				if (args.ChangedButton == MouseButton.Left)
+				if (e.ChangedButton == MouseButton.Left)
 				{
 					if (mOperationCurrent == TViewHandling.ZoomingRegion)
 					{
@@ -2042,7 +2042,7 @@ namespace Lotus
 				}
 				else
 				{
-					if (args.ChangedButton == MouseButton.Middle)
+					if (e.ChangedButton == MouseButton.Middle)
 					{
 						EndPanning();
 					}
@@ -2053,24 +2053,24 @@ namespace Lotus
 				}
 
 				ReleaseMouseCapture();
-				args.Handled = true;
+				e.Handled = true;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Вращение колеса мыши
 			/// </summary>
-			/// <param name="args">Аргументы события</param>
+			/// <param name="e">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnMouseWheel(MouseWheelEventArgs args)
+			protected override void OnMouseWheel(MouseWheelEventArgs e)
 			{
-				base.OnMouseWheel(args);
+				base.OnMouseWheel(e);
 
-				args.Handled = true;
+				e.Handled = true;
 
-				if (args.Delta > 0)
+				if (e.Delta > 0)
 				{
-					Point curContentMousePoint = args.GetPosition(mContent);
+					Point curContentMousePoint = e.GetPosition(mContent);
 					if (Keyboard.IsKeyDown(Key.LeftCtrl))
 					{
 						this.ZoomAboutPoint(this.ContentScale + 0.1, curContentMousePoint);
@@ -2080,9 +2080,9 @@ namespace Lotus
 						this.ZoomAboutPoint(this.ContentScale + 0.01, curContentMousePoint);
 					}
 				}
-				else if (args.Delta < 0)
+				else if (e.Delta < 0)
 				{
-					Point curContentMousePoint = args.GetPosition(mContent);
+					Point curContentMousePoint = e.GetPosition(mContent);
 					if (Keyboard.IsKeyDown(Key.LeftCtrl))
 					{
 						this.ZoomAboutPoint(this.ContentScale - 0.1, curContentMousePoint);

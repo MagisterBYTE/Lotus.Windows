@@ -131,7 +131,7 @@ namespace Lotus
 			/// </summary>
 			public PropertyInfo Info
 			{
-				get { return (mInfo); }
+				get { return mInfo; }
 				set
 				{
 					mInfo = value;
@@ -143,7 +143,7 @@ namespace Lotus
 			/// </summary>
 			public TPropertyType PropertyType
 			{
-				get { return (mPropertyType); }
+				get { return mPropertyType; }
 				set
 				{
 					mPropertyType = value;
@@ -155,7 +155,7 @@ namespace Lotus
 			/// </summary>
 			public System.Object Instance
 			{
-				get { return (mInstance); }
+				get { return mInstance; }
 				set
 				{
 					if (mInstance != null)
@@ -163,7 +163,7 @@ namespace Lotus
 						if (mInstance != value)
 						{
 							// Если объект поддерживает стандартную нотификацию
-							INotifyPropertyChanged property_changed_prev = mInstance as INotifyPropertyChanged;
+							var property_changed_prev = mInstance as INotifyPropertyChanged;
 							if (property_changed_prev != null)
 							{
 								property_changed_prev.PropertyChanged -= OnPropertyChangedFromInstance;
@@ -175,7 +175,7 @@ namespace Lotus
 					if (mInstance != null)
 					{
 						// Если объект поддерживает стандартную нотификацию
-						INotifyPropertyChanged property_changed = mInstance as INotifyPropertyChanged;
+						var property_changed = mInstance as INotifyPropertyChanged;
 						if (property_changed != null)
 						{
 							property_changed.PropertyChanged += OnPropertyChangedFromInstance;
@@ -200,16 +200,16 @@ namespace Lotus
 					{
 						if (mInfo != null)
 						{
-							return (mInfo.Name);
+							return mInfo.Name;
 						}
 						else
 						{
-							return ("Noname");
+							return "Noname";
 						}
 					}
 					else
 					{
-						return (mDisplayName);
+						return mDisplayName;
 					}
 				}
 				set
@@ -223,7 +223,7 @@ namespace Lotus
 			/// </summary>
 			public String Description
 			{
-				get { return (mDescription); }
+				get { return mDescription; }
 				set
 				{
 					mDescription = value;
@@ -235,7 +235,7 @@ namespace Lotus
 			/// </summary>
 			public Int32 PropertyOrder
 			{
-				get { return (mPropertyOrder); }
+				get { return mPropertyOrder; }
 				set
 				{
 					mPropertyOrder = value;
@@ -247,7 +247,7 @@ namespace Lotus
 			/// </summary>
 			public String Category
 			{
-				get { return (mCategory); }
+				get { return mCategory; }
 				set
 				{
 					mCategory = value;
@@ -259,7 +259,7 @@ namespace Lotus
 			/// </summary>
 			public Int32 CategoryOrder
 			{
-				get { return (mCategoryOrder); }
+				get { return mCategoryOrder; }
 				set
 				{
 					mCategoryOrder = value;
@@ -274,7 +274,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsReadOnly
 			{
-				get { return (mIsReadOnly); }
+				get { return mIsReadOnly; }
 				set
 				{
 					mIsReadOnly = value;
@@ -286,7 +286,7 @@ namespace Lotus
 			/// </summary>
 			public Object DefaultValue
 			{
-				get { return (mDefaultValue); }
+				get { return mDefaultValue; }
 				set
 				{
 					mDefaultValue = value;
@@ -298,7 +298,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsDefaultValue
 			{
-				get { return (mDefaultValue != null); }
+				get { return mDefaultValue != null; }
 			}
 
 			/// <summary>
@@ -306,7 +306,7 @@ namespace Lotus
 			/// </summary>
 			public String FormatValue
 			{
-				get { return (mFormatValue); }
+				get { return mFormatValue; }
 				set
 				{
 					mFormatValue = value;
@@ -318,7 +318,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsFormatValue
 			{
-				get { return (String.IsNullOrEmpty(FormatValue) == false); }
+				get { return String.IsNullOrEmpty(FormatValue) == false; }
 			}
 
 			//
@@ -329,7 +329,7 @@ namespace Lotus
 			/// </summary>
 			public Object ListValues
 			{
-				get { return (mListValues); }
+				get { return mListValues; }
 				set
 				{
 					mListValues = value;
@@ -341,7 +341,7 @@ namespace Lotus
 			/// </summary>
 			public String ListValuesMemberName
 			{
-				get { return (mListValuesMemberName); }
+				get { return mListValuesMemberName; }
 				set
 				{
 					mListValuesMemberName = value;
@@ -353,7 +353,7 @@ namespace Lotus
 			/// </summary>
 			public TInspectorMemberType ListValuesMemberType
 			{
-				get { return (mListValuesMemberType); }
+				get { return mListValuesMemberType; }
 				set
 				{
 					mListValuesMemberType = value;
@@ -365,7 +365,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsListValues
 			{
-				get { return (mListValues != null || mListValuesMemberName.IsExists()); }
+				get { return mListValues != null || mListValuesMemberName.IsExists(); }
 			}
 
 			/// <summary>
@@ -373,7 +373,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsValueFromList
 			{
-				get { return (mIsValueFromList); }
+				get { return mIsValueFromList; }
 				set
 				{
 					mIsValueFromList = value;
@@ -389,7 +389,7 @@ namespace Lotus
 			/// </summary>
 			public String ButtonCaption
 			{
-				get { return (mButtonCaption); }
+				get { return mButtonCaption; }
 			}
 
 			/// <summary>
@@ -397,7 +397,7 @@ namespace Lotus
 			/// </summary>
 			public String ButtonMethodName
 			{
-				get { return (mButtonMethodName); }
+				get { return mButtonMethodName; }
 			}
 
 			/// <summary>
@@ -405,7 +405,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsButtonMethod
 			{
-				get { return (mButtonMethodName.IsExists()); }
+				get { return mButtonMethodName.IsExists(); }
 			}
 			#endregion
 
@@ -471,29 +471,29 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Int32 CompareTo(CPropertyModelBase other)
 			{
-				Int32 category_order = mCategoryOrder.CompareTo(other.CategoryOrder);
+				var category_order = mCategoryOrder.CompareTo(other.CategoryOrder);
 				if(category_order == 0)
 				{
 					if (mCategory.IsExists())
 					{
-						Int32 category = mCategory.CompareTo(other.Category);
+						var category = mCategory.CompareTo(other.Category);
 						if (category == 0)
 						{
-							return (mPropertyOrder.CompareTo(other.PropertyOrder));
+							return mPropertyOrder.CompareTo(other.PropertyOrder);
 						}
 						else
 						{
-							return (category);
+							return category;
 						}
 					}
 					else
 					{
-						return (1);
+						return 1;
 					}
 				}
 				else
 				{
-					return (category_order);
+					return category_order;
 				}
 			}
 
@@ -505,7 +505,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override String ToString()
 			{
-				return (DisplayName);
+				return DisplayName;
 			}
 			#endregion
 
@@ -634,7 +634,7 @@ namespace Lotus
 			{
 				if (descs != null && descs.Count > 0)
 				{
-					for (Int32 i = 0; i < descs.Count; i++)
+					for (var i = 0; i < descs.Count; i++)
 					{
 						CPropertyDesc desc = descs[i];
 						if (desc != null)
@@ -721,7 +721,7 @@ namespace Lotus
 			{
 				if (IsListValues)
 				{
-					IEnumerable enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName, 
+					var enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName, 
 						mListValuesMemberType, mInstance) as IEnumerable;
 					if (context_menu != null && enumerable != null)
 					{

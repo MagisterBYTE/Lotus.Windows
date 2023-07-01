@@ -90,8 +90,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnViewStyleRibbon_Checked(Object sender, SelectionChangedEventArgs args)
 			{
-				String base_color = ribbonDropAccentTheme.SelectedItem as String;
-				String color_schemes = ribbonDropAppTheme.SelectedItem as String;
+				var base_color = ribbonDropAccentTheme.SelectedItem as String;
+				var color_schemes = ribbonDropAppTheme.SelectedItem as String;
 				if (String.IsNullOrEmpty(base_color) == false && String.IsNullOrEmpty(color_schemes) == false)
 				{
 					ControlzEx.Theming.ThemeManager.Current.ChangeTheme(Application.Current, base_color, color_schemes);
@@ -109,9 +109,9 @@ namespace Lotus
 			{
 				if (this.IsLoaded)
 				{
-					String style = ((Fluent.RadioButton)sender).Header.ToString();
-					String control = "";
-					String toolkit = "";
+					var style = ((Fluent.RadioButton)sender).Header.ToString();
+					var control = "";
+					var toolkit = "";
 					switch (style)
 					{
 						case "Infragistics":
@@ -135,13 +135,13 @@ namespace Lotus
 
 					if (!String.IsNullOrEmpty(control))
 					{
-						ResourceDictionary resource_controls = new ResourceDictionary();
+						var resource_controls = new ResourceDictionary();
 						resource_controls.Source = new Uri(control, UriKind.Absolute);
 						Application.Current.Resources.MergedDictionaries.Add(resource_controls);
 
 						if (String.IsNullOrEmpty(toolkit) == false)
 						{
-							ResourceDictionary resource_toolkit = new ResourceDictionary();
+							var resource_toolkit = new ResourceDictionary();
 							resource_toolkit.Source = new Uri(toolkit, UriKind.Absolute);
 							this.Resources.MergedDictionaries.Add(resource_toolkit);
 						}
@@ -172,7 +172,7 @@ namespace Lotus
 			{
 				if (this.IsLoaded && DockManager != null)
 				{
-					String style = ((Fluent.RadioButton)sender).Tag.ToString();
+					var style = ((Fluent.RadioButton)sender).Tag.ToString();
 					switch (style)
 					{
 						case "Aero":

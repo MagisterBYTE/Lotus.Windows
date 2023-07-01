@@ -52,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public static String DirectoryData
 			{
-				get { return (mDirectoryData); }
+				get { return mDirectoryData; }
 				set
 				{
 					mDirectoryData = value;
@@ -64,7 +64,7 @@ namespace Lotus
 			/// </summary>
 			public static String DirectorySettings
 			{
-				get { return (mDirectorySettings); }
+				get { return mDirectorySettings; }
 				set
 				{
 					mDirectorySettings = value;
@@ -76,7 +76,7 @@ namespace Lotus
 			/// </summary>
 			public static String DirectoryPlugins
 			{
-				get { return (mDirectoryPlugins); }
+				get { return mDirectoryPlugins; }
 				set
 				{
 					mDirectoryPlugins = value;
@@ -94,7 +94,7 @@ namespace Lotus
 					{
 						mProjectName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
 					}
-					return (mProjectName); 
+					return mProjectName; 
 				}
 			}
 			#endregion
@@ -111,7 +111,7 @@ namespace Lotus
 				if (String.IsNullOrEmpty(mCurrentDirectory))
 				{
 					// Получаем путь
-					String path = Environment.CurrentDirectory;
+					var path = Environment.CurrentDirectory;
 
 					// Удаляем все до директории LotusPlatform
 					path = path.RemoveFrom("LotusPlatform");
@@ -125,7 +125,7 @@ namespace Lotus
 					}
 				}
 
-				return (mCurrentDirectory);
+				return mCurrentDirectory;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetPathDirectoryData()
 			{
-				return (Path.Combine(GetPath(), mDirectoryData));
+				return Path.Combine(GetPath(), mDirectoryData);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -148,9 +148,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetPathFileData(String file_name)
 			{
-				String path = Path.Combine(GetPath(), mDirectoryData, file_name);
+				var path = Path.Combine(GetPath(), mDirectoryData, file_name);
 				path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-				return (path);
+				return path;
 			}
 			#endregion
 		}

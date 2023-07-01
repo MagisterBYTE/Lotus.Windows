@@ -36,7 +36,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static String GetFilterFromExt(String extension)
 			{
-				String result = "";
+				var result = "";
 				switch (extension.ToLower())
 				{
 					case XFileExtension.TXT:
@@ -73,7 +73,7 @@ namespace Lotus
 						break;
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ namespace Lotus
 			public String Open(String title, String directory, String extension)
 			{
 				// Конфигурация диалога
-				Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+				var dialog = new Microsoft.Win32.OpenFileDialog();
 				dialog.Title = title;
 				dialog.InitialDirectory = directory;
 				
@@ -111,15 +111,15 @@ namespace Lotus
 				}
 
 				// Показываем диалог открытия
-				Nullable<Boolean> result = dialog.ShowDialog();
+				var result = dialog.ShowDialog();
 
 				// Если успешно
 				if (result == true)
 				{
-					return (dialog.FileName);
+					return dialog.FileName;
 				}
 
-				return ("");
+				return "";
 
 			}
 
@@ -129,30 +129,30 @@ namespace Lotus
 			/// </summary>
 			/// <param name="title">Заголовок диалога</param>
 			/// <param name="directory">Директория для сохранения файла</param>
-			/// <param name="default_name">Имя файла по умолчанию</param>
+			/// <param name="defaultName">Имя файла по умолчанию</param>
 			/// <param name="extension">Расширение файла без точки</param>
 			/// <returns>Полное имя файла или null</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String Save(String title, String directory, String default_name, String extension)
+			public String Save(String title, String directory, String defaultName, String extension)
 			{
 				// Конфигурация диалога
-				Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+				var dialog = new Microsoft.Win32.SaveFileDialog();
 				dialog.DefaultExt = extension[0] == XChar.Dot ? extension : XChar.Dot + extension;
 				dialog.Title = title;
 				dialog.InitialDirectory = directory;
-				dialog.FileName = default_name;
+				dialog.FileName = defaultName;
 				dialog.Filter = GetFilterFromExt(extension);
 
 				// Показываем диалог открытия
-				Nullable<Boolean> result = dialog.ShowDialog();
+				var result = dialog.ShowDialog();
 
 				// Если успешно
 				if (result == true)
 				{
-					return (dialog.FileName);
+					return dialog.FileName;
 				}
 
-				return ("");
+				return "";
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

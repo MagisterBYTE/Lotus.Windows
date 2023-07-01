@@ -83,7 +83,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsNotifySelectedInspector
 			{
-				get { return (mIsNotifySelectedInspector); }
+				get { return mIsNotifySelectedInspector; }
 				set
 				{
 					mIsNotifySelectedInspector = value;
@@ -96,7 +96,7 @@ namespace Lotus
 			/// </summary>
 			public ILotusCollectionViewHierarchy CollectionViewHierarchy
 			{
-				get { return (ItemsSource as ILotusCollectionViewHierarchy); }
+				get { return ItemsSource as ILotusCollectionViewHierarchy; }
 			}
 
 			//
@@ -111,7 +111,7 @@ namespace Lotus
 			/// </remarks>
 			public Boolean IsPresentPolicyDefault
 			{
-				get { return (mIsPresentPolicyDefault); }
+				get { return mIsPresentPolicyDefault; }
 				set
 				{
 					mIsPresentPolicyDefault = value;
@@ -124,7 +124,7 @@ namespace Lotus
 			/// </summary>
 			public Type PresentOnlyType
 			{
-				get { return (mPresentOnlyType); }
+				get { return mPresentOnlyType; }
 				set
 				{
 					mPresentOnlyType = value;
@@ -137,7 +137,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean SendViewPresented
 			{
-				get { return (mSendViewPresented); }
+				get { return mSendViewPresented; }
 				set
 				{
 					mSendViewPresented = value;
@@ -153,7 +153,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsDragging
 			{
-				get { return (mIsDragging); }
+				get { return mIsDragging; }
 				set
 				{
 					mIsDragging = value;
@@ -166,7 +166,7 @@ namespace Lotus
 			/// </summary>
 			public TreeViewItem DraggedItem
 			{
-				get { return (mDraggedItem); }
+				get { return mDraggedItem; }
 				set { mDraggedItem = value; }
 			}
 
@@ -178,7 +178,7 @@ namespace Lotus
 			/// </summary>
 			public Action<ILotusViewItemHierarchy> OnPresentedItem
 			{
-				get { return (mOnPresentedItem); }
+				get { return mOnPresentedItem; }
 				set { mOnPresentedItem = value; }
 			}
 			#endregion
@@ -349,13 +349,13 @@ namespace Lotus
 			{
 				if (args.Data.GetDataPresent(nameof(ILotusViewItemHierarchy)))
 				{
-					ILotusViewItemHierarchy view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
+					var view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
 
 					// Над этим элементом находится перетаскиваемый объект
 					TreeViewItem over_item = ((DependencyObject)args.OriginalSource).FindVisualParent<TreeViewItem>();
 					if (over_item != null)
 					{
-						ILotusViewItemHierarchy over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
+						var over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
 						if (over_view_model != null && over_view_model.IsSupportViewItem(view_model))
 						{
 
@@ -389,11 +389,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTreeView_GiveFeedback(Object sender, GiveFeedbackEventArgs args)
 			{
-				Size popup_size = new Size(mPopupHand.ActualWidth, mPopupHand.ActualHeight);
+				var popup_size = new Size(mPopupHand.ActualWidth, mPopupHand.ActualHeight);
 
-				Win32Point mouse_pos = new Win32Point();
+				var mouse_pos = new Win32Point();
 				XNative.GetCursorPos(ref mouse_pos);
-				Point cursopr_pos = new Point(mouse_pos.X, mouse_pos.Y);
+				var cursopr_pos = new Point(mouse_pos.X, mouse_pos.Y);
 
 				mPopupHand.PlacementRectangle = new Rect(cursopr_pos, popup_size);
 			}
@@ -410,13 +410,13 @@ namespace Lotus
 			{
 				if (args.Data.GetDataPresent(nameof(ILotusViewItemHierarchy)))
 				{
-					ILotusViewItemHierarchy view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
+					var view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
 
 					// Над этим элементом находится перетаскиваемый объект
 					TreeViewItem over_item = ((DependencyObject)args.OriginalSource).FindVisualParent<TreeViewItem>();
 					if (over_item != null)
 					{
-						ILotusViewItemHierarchy over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
+						var over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
 						if (over_view_model != null && over_view_model.IsSupportViewItem(view_model))
 						{
 							// Удаляем с предыдущего элемента
@@ -474,7 +474,7 @@ namespace Lotus
 					// В иных случая это означает что событие обрабатывается иным элементом
 					if (item_sender == item_source)
 					{
-						ILotusViewItemHierarchy support_contex_menu = item_source.DataContext as ILotusViewItemHierarchy;
+						var support_contex_menu = item_source.DataContext as ILotusViewItemHierarchy;
 						if (support_contex_menu != null)
 						{
 							ContextMenu context_menu = item_source.ContextMenu;
@@ -520,7 +520,7 @@ namespace Lotus
 					// Событие обработано
 					args.Handled = true;
 
-					Boolean handled = false;
+					var handled = false;
 					if (IsPresentPolicyDefault)
 					{
 						if (mPresentOnlyType == null || view_item_presented.DataContext.GetType().IsAssignableFrom(mPresentOnlyType))

@@ -44,8 +44,8 @@ namespace Lotus.App.GeneralUtility
 			if (textCoordSource.Text == string.Empty) return;
 
 			var source = textCoordSource.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-			List <(float x, float y)> coord = new List<(float x, float y)>();
-			StringBuilder stringBuilder = new StringBuilder();
+			var coord = new List<(float x, float y)>();
+			var stringBuilder = new StringBuilder();
 
 			
 
@@ -62,7 +62,7 @@ namespace Lotus.App.GeneralUtility
 
 		private void buttonConvertXml_Click(object sender, RoutedEventArgs e)
 		{
-			XmlDocument xmlDoc = new XmlDocument();
+			var xmlDoc = new XmlDocument();
 			xmlDoc.LoadXml(textCoordSource.Text);
 			var list = xmlDoc.DocumentElement.GetElementsByTagName("gml:coordinates");
 

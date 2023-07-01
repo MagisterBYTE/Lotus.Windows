@@ -49,7 +49,7 @@ namespace Lotus
 			/// </summary>
 			public virtual TValue Value
 			{
-				get { return (mValue); }
+				get { return mValue; }
 				set
 				{
 					// Произошло изменение свойства со стороны инспектора свойств
@@ -122,7 +122,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Int32 CompareTo(PropertyModel<TValue> other)
 			{
-				return (base.CompareTo(other));
+				return base.CompareTo(other);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override String ToString()
 			{
-				return (DisplayName);
+				return DisplayName;
 			}
 			#endregion
 
@@ -198,7 +198,7 @@ namespace Lotus
 
 				if (IsListValues)
 				{
-					IEnumerable enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
+					var enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
 						mListValuesMemberType, mInstance) as IEnumerable;
 					foreach (var item in enumerable)
 					{

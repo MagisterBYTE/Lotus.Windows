@@ -39,7 +39,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String SerializeToString(this Vector vector)
 			{
-				return (String.Format("{0};{1}", vector.X, vector.Y));
+				return String.Format("{0};{1}", vector.X, vector.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -51,11 +51,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Vector DeserializeFromString(String data)
 			{
-				Vector vector = new Vector();
-				String[] vector_data = data.Split(';');
-				vector.X = (XNumbers.ParseDouble(vector_data[0]));
-				vector.Y = (XNumbers.ParseDouble(vector_data[1]));
-				return (vector);
+				var vector = new Vector();
+				var vector_data = data.Split(';');
+				vector.X = XNumbers.ParseDouble(vector_data[0]);
+				vector.Y = XNumbers.ParseDouble(vector_data[1]);
+				return vector;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -71,10 +71,10 @@ namespace Lotus
 			{
 				if ((Math.Abs(vector.X - other.X) < epsilon) && (Math.Abs(vector.Y - other.Y) < epsilon))
 				{
-					return (true);
+					return true;
 				}
 
-				return (false);
+				return false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -89,10 +89,10 @@ namespace Lotus
 			{
 				if ((Math.Abs(vector.X - other.X) < 0.001) && (Math.Abs(vector.Y - other.Y) < 0.001))
 				{
-					return (true);
+					return true;
 				}
 
-				return (false);
+				return false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Maths.Vector2D ToVector2D(this Vector vector)
 			{
-				return (new Maths.Vector2D(vector.X, vector.Y));
+				return new Maths.Vector2D(vector.X, vector.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Maths.Vector2Df ToVector2Df(this Vector vector)
 			{
-				return (new Maths.Vector2Df((Single)vector.X, (Single)vector.Y));
+				return new Maths.Vector2Df((Single)vector.X, (Single)vector.Y);
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

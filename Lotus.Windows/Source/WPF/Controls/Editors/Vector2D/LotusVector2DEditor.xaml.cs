@@ -128,8 +128,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Value_Changed(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector2DEditor vector_editor = (LotusVector2DEditor)obj;
-				Vector2D? value = ((Vector2D)(args.NewValue));
+				var vector_editor = (LotusVector2DEditor)obj;
+				Vector2D? value = (Vector2D)args.NewValue;
 				if (value.HasValue)
 				{
 					vector_editor.SetPresentValue();
@@ -180,8 +180,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector2DEditor vector_editor = (LotusVector2DEditor)sender;
-				Vector2D new_value = (Vector2D)args.NewValue;
+				var vector_editor = (LotusVector2DEditor)sender;
+				var new_value = (Vector2D)args.NewValue;
 
 				vector_editor.Value = new_value;
 				vector_editor.SetPresentValue();
@@ -197,7 +197,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Format_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector2DEditor vector_editor = (LotusVector2DEditor)sender;
+				var vector_editor = (LotusVector2DEditor)sender;
 				vector_editor.SetPresentValue();
 			}
 
@@ -210,7 +210,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector2DEditor vector_editor = (LotusVector2DEditor)sender;
+				var vector_editor = (LotusVector2DEditor)sender;
 				vector_editor.SetPresentValue();
 			}
 
@@ -223,8 +223,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector2DEditor vector_editor = (LotusVector2DEditor)sender;
-				Boolean new_read_only = (Boolean)args.NewValue;
+				var vector_editor = (LotusVector2DEditor)sender;
+				var new_read_only = (Boolean)args.NewValue;
 				if (new_read_only)
 				{
 					vector_editor.miClear.IsEnabled = false;
@@ -339,26 +339,26 @@ namespace Lotus
 			/// <summary>
 			/// Элемент редактор свойства типа Vector2D
 			/// </summary>
-			/// <param name="property_item">Параметры свойства</param>
+			/// <param name="propertyItem">Параметры свойства</param>
 			/// <returns>Редактор</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public FrameworkElement ResolveEditor(PropertyItem property_item)
+			public FrameworkElement ResolveEditor(PropertyItem propertyItem)
 			{
 				var binding = new Binding(nameof(Value));
-				binding.Source = property_item;
+				binding.Source = propertyItem;
 				binding.ValidatesOnExceptions = true;
 				binding.ValidatesOnDataErrors = true;
-				binding.Mode = property_item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
+				binding.Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
 				binding.Converter = VectorConverter;
-				binding.ConverterParameter = property_item.PropertyType;
+				binding.ConverterParameter = propertyItem.PropertyType;
 
 				// Привязываемся к свойству
 				BindingOperations.SetBinding(this, ValueProperty, binding);
 
 				// Сохраняем объект
-				mPropertyItem = property_item;
+				mPropertyItem = propertyItem;
 
-				return (this);
+				return this;
 			}
 			#endregion
 
@@ -509,12 +509,12 @@ namespace Lotus
 			{
 				if (mPropertyItem != null)
 				{
-					for (Int32 i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
+					for (var i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
 					{
 						Attribute attr = mPropertyItem.PropertyDescriptor.Attributes[i];
 						if (attr is LotusDefaultValueAttribute)
 						{
-							LotusDefaultValueAttribute def_value = attr as LotusDefaultValueAttribute;
+							var def_value = attr as LotusDefaultValueAttribute;
 
 						//	// Сначала смотрим свойства
 						//	Object v = mPropertyItem.Instance.GetObjectPropertyValue(def_value.NamePropertyDefaultValue);

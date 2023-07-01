@@ -87,7 +87,7 @@ namespace Lotus
 					writer.Write(vectors.Count);
 
 					// Записываем данные по порядку
-					for (Int32 i = 0; i < vectors.Count; i++)
+					for (var i = 0; i < vectors.Count; i++)
 					{
 						writer.Write(vectors[i].X);
 						writer.Write(vectors[i].Y);
@@ -145,7 +145,7 @@ namespace Lotus
 					writer.Write(colors.Count);
 
 					// Записываем данные по порядку
-					for (Int32 i = 0; i < colors.Count; i++)
+					for (var i = 0; i < colors.Count; i++)
 					{
 						writer.Write(colors[i].R);
 						writer.Write(colors[i].G);
@@ -205,7 +205,7 @@ namespace Lotus
 					writer.Write(rects.Count);
 
 					// Записываем данные по порядку
-					for (Int32 i = 0; i < rects.Count; i++)
+					for (var i = 0; i < rects.Count; i++)
 					{
 						writer.Write(rects[i].X);
 						writer.Write(rects[i].Y);
@@ -239,8 +239,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Vector ReadWinVector2D(this BinaryReader reader)
 			{
-				Vector vector = new Vector(reader.ReadDouble(), reader.ReadDouble());
-				return (vector);
+				var vector = new Vector(reader.ReadDouble(), reader.ReadDouble());
+				return vector;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -253,26 +253,26 @@ namespace Lotus
 			public static Vector[] ReadWinVectors2D(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
-				Int32 count = reader.ReadInt32();
+				var count = reader.ReadInt32();
 
 				// Проверка нулевых данных
 				if (count == XBinaryStreamExtension.ZERO_DATA)
 				{
-					return (null);
+					return null;
 				}
 				else
 				{
 					// Создаем массив
-					Vector[] vectors = new Vector[count];
+					var vectors = new Vector[count];
 
 					// Читаем данные по порядку
-					for (Int32 i = 0; i < count; i++)
+					for (var i = 0; i < count; i++)
 					{
 						vectors[i].X = reader.ReadDouble();
 						vectors[i].Y = reader.ReadDouble();
 					}
 
-					return (vectors);
+					return vectors;
 				}
 			}
 
@@ -300,12 +300,12 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Color ReadWinColor(this BinaryReader reader)
 			{
-				Byte R = reader.ReadByte();
-				Byte G = reader.ReadByte();
-				Byte B = reader.ReadByte();
-				Byte A = reader.ReadByte();
-				Color color = Color.FromArgb(A, R, G, B);
-				return (color);
+				var R = reader.ReadByte();
+				var G = reader.ReadByte();
+				var B = reader.ReadByte();
+				var A = reader.ReadByte();
+				var color = Color.FromArgb(A, R, G, B);
+				return color;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -318,20 +318,20 @@ namespace Lotus
 			public static Color[] ReadWinColors(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
-				Int32 count = reader.ReadInt32();
+				var count = reader.ReadInt32();
 
 				// Проверка нулевых данных
 				if (count == XBinaryStreamExtension.ZERO_DATA)
 				{
-					return (null);
+					return null;
 				}
 				else
 				{
 					// Создаем массив
-					Color[] сolors = new Color[count];
+					var сolors = new Color[count];
 
 					// Читаем данные по порядку
-					for (Int32 i = 0; i < count; i++)
+					for (var i = 0; i < count; i++)
 					{
 						сolors[i].R = reader.ReadByte();
 						сolors[i].G = reader.ReadByte();
@@ -339,7 +339,7 @@ namespace Lotus
 						сolors[i].A = reader.ReadByte();
 					}
 
-					return (сolors);
+					return сolors;
 				}
 			}
 
@@ -367,11 +367,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Rect ReadWinRect(this BinaryReader reader)
 			{
-				Rect rect = new Rect(reader.ReadDouble(),
+				var rect = new Rect(reader.ReadDouble(),
 									 reader.ReadDouble(),
 									 reader.ReadDouble(),
 									 reader.ReadDouble());
-				return (rect);
+				return rect;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -384,20 +384,20 @@ namespace Lotus
 			public static Rect[] ReadWinRects(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
-				Int32 count = reader.ReadInt32();
+				var count = reader.ReadInt32();
 
 				// Проверка нулевых данных
 				if (count == XBinaryStreamExtension.ZERO_DATA)
 				{
-					return (null);
+					return null;
 				}
 				else
 				{
 					// Создаем массив
-					Rect[] rects = new Rect[count];
+					var rects = new Rect[count];
 
 					// Читаем данные по порядку
-					for (Int32 i = 0; i < count; i++)
+					for (var i = 0; i < count; i++)
 					{
 						rects[i].X = reader.ReadDouble();
 						rects[i].Y = reader.ReadDouble();
@@ -405,7 +405,7 @@ namespace Lotus
 						rects[i].Height = reader.ReadDouble();
 					}
 
-					return (rects);
+					return rects;
 				}
 			}
 			#endregion
@@ -461,9 +461,9 @@ namespace Lotus
 				String value;
 				if ((value = xml_reader.GetAttribute(name)) != null)
 				{
-					return (XWindowsColorExtension.DeserializeFromString(value));
+					return XWindowsColorExtension.DeserializeFromString(value);
 				}
-				return (default_value);
+				return default_value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -479,9 +479,9 @@ namespace Lotus
 				String value;
 				if ((value = xml_reader.GetAttribute(name)) != null)
 				{
-					return (XWindowsVectorExtension.DeserializeFromString(value));
+					return XWindowsVectorExtension.DeserializeFromString(value);
 				}
-				return (new Vector(0, 0));
+				return new Vector(0, 0);
 			}
 			#endregion
 

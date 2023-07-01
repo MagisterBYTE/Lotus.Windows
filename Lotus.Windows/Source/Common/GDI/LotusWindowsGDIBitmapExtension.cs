@@ -48,7 +48,7 @@ namespace Lotus
 
 				XNative.DeleteObject(h_bitmap);
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ namespace Lotus
 
 				XNative.DeleteObject(h_bitmap);
 
-				return (result);
+				return result;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

@@ -42,13 +42,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Point[] ConvertToDrawingPoints(this IList<Vector2> values)
 			{
-				Point[] list = new Point[values.Count];
-				for (Int32 i = 0; i < values.Count; i++)
+				var list = new Point[values.Count];
+				for (var i = 0; i < values.Count; i++)
 				{
 					list[i] = new Point((Int32)values[i].X, (Int32)values[i].Y);
 				}
 
-				return (list);
+				return list;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -60,13 +60,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static PointF[] ConvertToDrawingPointsF(this IList<Vector2> values)
 			{
-				PointF[] list = new PointF[values.Count];
-				for (Int32 i = 0; i < values.Count; i++)
+				var list = new PointF[values.Count];
+				for (var i = 0; i < values.Count; i++)
 				{
 					list[i] = new PointF(values[i].X, values[i].Y);
 				}
 
-				return (list);
+				return list;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

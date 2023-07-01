@@ -38,22 +38,22 @@ namespace Lotus
 			/// Конвертация вещественного типа в строковый тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Double val = (Double)value;
+				var val = (Double)value;
 
 				if (parameter != null)
 				{
-					return (val.ToString(parameter.ToString()));
+					return val.ToString(parameter.ToString());
 				}
 				else
 				{
-					return (val.ToString("G"));
+					return val.ToString("G");
 				}
 			}
 
@@ -62,23 +62,23 @@ namespace Lotus
 			/// Конвертация строкового типа в вещественный тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				String str = (String)value;
+				var str = (String)value;
 
 				if (String.IsNullOrWhiteSpace(str))
 				{
-					return (0);
+					return 0;
 				}
 				else
 				{
 					str = str.Trim();
-					return (XNumbers.ParseDouble(str));
+					return XNumbers.ParseDouble(str);
 				}
 			}
 			#endregion
@@ -97,22 +97,22 @@ namespace Lotus
 			/// Изменение вещественного значения через параметр
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Double val = (Double)value;
+				var val = (Double)value;
 
 				if (parameter != null)
 				{
-					return (val - XNumbers.ParseDouble(parameter.ToString()));
+					return val - XNumbers.ParseDouble(parameter.ToString());
 				}
 				else
 				{
-					return (val);
+					return val;
 				}
 			}
 
@@ -121,22 +121,22 @@ namespace Lotus
 			/// Изменение вещественного значения через параметр
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Double val = (Double)value;
+				var val = (Double)value;
 
 				if (parameter != null)
 				{
-					return (val + XNumbers.ParseDouble(parameter.ToString()));
+					return val + XNumbers.ParseDouble(parameter.ToString());
 				}
 				else
 				{
-					return (val);
+					return val;
 				}
 			}
 		}

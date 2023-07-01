@@ -61,7 +61,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Vector ToDeviceUnits(Vector millimeter)
 			{
-				return (new Vector(millimeter.X * MMToUnit, millimeter.Y * MMToUnit));
+				return new Vector(millimeter.X * MMToUnit, millimeter.Y * MMToUnit);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Point ToDeviceUnits(ref Point millimeter)
 			{
-				return (new Point((Int32)(millimeter.X * MMToUnit), (Int32)(millimeter.Y * MMToUnit)));
+				return new Point((Int32)(millimeter.X * MMToUnit), (Int32)(millimeter.Y * MMToUnit));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Size ToDeviceUnits(ref Size millimeter)
 			{
-				return (new Size(millimeter.Width * MMToUnit, millimeter.Height * MMToUnit));
+				return new Size(millimeter.Width * MMToUnit, millimeter.Height * MMToUnit);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -97,8 +97,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Rect ToDeviceUnits(ref Rect millimeter)
 			{
-				return (new Rect(millimeter.X * MMToUnit, millimeter.Y * MMToUnit,
-					millimeter.Width * MMToUnit, millimeter.Height * MMToUnit));
+				return new Rect(millimeter.X * MMToUnit, millimeter.Y * MMToUnit,
+					millimeter.Width * MMToUnit, millimeter.Height * MMToUnit);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -110,8 +110,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Thickness ToDeviceUnits(Thickness millimeter)
 			{
-				return (new Thickness(millimeter.Left * MMToUnit, millimeter.Top * MMToUnit,
-					millimeter.Right * MMToUnit, millimeter.Bottom * MMToUnit));
+				return new Thickness(millimeter.Left * MMToUnit, millimeter.Top * MMToUnit,
+					millimeter.Right * MMToUnit, millimeter.Bottom * MMToUnit);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -123,8 +123,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Thickness ToDeviceUnits(ref Thickness millimeter)
 			{
-				return (new Thickness(millimeter.Left * MMToUnit, millimeter.Top * MMToUnit,
-					millimeter.Right * MMToUnit, millimeter.Bottom * MMToUnit));
+				return new Thickness(millimeter.Left * MMToUnit, millimeter.Top * MMToUnit,
+					millimeter.Right * MMToUnit, millimeter.Bottom * MMToUnit);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Size ToMilliliters(ref Size device_unit)
 			{
-				return (new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM));
+				return new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Size ToMilliliters(Size device_unit)
 			{
-				return (new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM));
+				return new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Size ToMillilitersRound(Size device_unit)
 			{
-				return (new Size(Math.Round(device_unit.Width * UnitToMM, 0), Math.Round(device_unit.Height * UnitToMM, 0)));
+				return new Size(Math.Round(device_unit.Width * UnitToMM, 0), Math.Round(device_unit.Height * UnitToMM, 0));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -172,8 +172,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Rect ToMilliliters(ref Rect device_unit)
 			{
-				return (new Rect(device_unit.X * UnitToMM, device_unit.Y * UnitToMM,
-					device_unit.Width * UnitToMM, device_unit.Height * UnitToMM));
+				return new Rect(device_unit.X * UnitToMM, device_unit.Y * UnitToMM,
+					device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -185,10 +185,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Thickness ToMilliliters(ref Thickness device_unit)
 			{
-				return (new Thickness(device_unit.Left * UnitToMM,
+				return new Thickness(device_unit.Left * UnitToMM,
 									device_unit.Top * UnitToMM,
 									device_unit.Right * UnitToMM,
-									device_unit.Bottom * UnitToMM));
+									device_unit.Bottom * UnitToMM);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -200,10 +200,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Thickness ToMillilitersRound(ref Thickness device_unit)
 			{
-				return (new Thickness(Math.Round(device_unit.Left * UnitToMM, 0),
+				return new Thickness(Math.Round(device_unit.Left * UnitToMM, 0),
 									Math.Round(device_unit.Top * UnitToMM, 0),
 									Math.Round(device_unit.Right * UnitToMM, 0),
-									Math.Round(device_unit.Bottom * UnitToMM, 0)));
+									Math.Round(device_unit.Bottom * UnitToMM, 0));
 			}
 			#endregion
 
@@ -221,8 +221,8 @@ namespace Lotus
 				Geometry geometry = new StreamGeometry();
 				using (StreamGeometryContext sgc = ((StreamGeometry)geometry).Open())
 				{
-					Int32 count = points.Length / 2;
-					for (Int32 i = 0; i < count; i++)
+					var count = points.Length / 2;
+					for (var i = 0; i < count; i++)
 					{
 						sgc.BeginFigure(points[i], true, false);
 						sgc.LineTo(points[i + 1], true, false);
@@ -235,7 +235,7 @@ namespace Lotus
 					geometry.Freeze();
 				}
 
-				return (geometry);
+				return geometry;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -262,7 +262,7 @@ namespace Lotus
 					geometry.Freeze();
 				}
 
-				return (geometry);
+				return geometry;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -278,15 +278,15 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Geometry CreateGeometryArrow(Point start, Point end, Double head_width, Double head_height, Boolean freeze)
 			{
-				Double theta = Math.Atan2(start.Y - end.Y, start.X - end.X);
-				Double sint = Math.Sin(theta);
-				Double cost = Math.Cos(theta);
+				var theta = Math.Atan2(start.Y - end.Y, start.X - end.X);
+				var sint = Math.Sin(theta);
+				var cost = Math.Cos(theta);
 
-				Point pt3 = new Point(
+				var pt3 = new Point(
 					end.X + (head_width * cost - head_height * sint),
 					end.Y + (head_width * sint + head_height * cost));
 
-				Point pt4 = new Point(
+				var pt4 = new Point(
 					end.X + (head_width * cost + head_height * sint),
 					end.Y - (head_height * cost - head_width * sint));
 
@@ -306,7 +306,7 @@ namespace Lotus
 					geometry.Freeze();
 				}
 
-				return (geometry);
+				return geometry;
 			}
 			#endregion
 		}

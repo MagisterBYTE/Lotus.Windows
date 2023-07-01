@@ -115,7 +115,7 @@ namespace Lotus
 				if (sender is CheckBox check_box)
 				{
 					// Если есть то удаляем
-					Int32 index = QueryItem.FiltredItems.IndexOf(check_box.Content);
+					var index = QueryItem.FiltredItems.IndexOf(check_box.Content);
 					if (index > -1)
 					{
 						QueryItem.FiltredItems.RemoveAt(index);

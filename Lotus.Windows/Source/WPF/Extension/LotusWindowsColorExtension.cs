@@ -41,7 +41,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String SerializeToString(this Color color)
 			{
-				return (String.Format("{0},{1},{2},{3}", color.R, color.G, color.B, color.A));
+				return String.Format("{0},{1},{2},{3}", color.R, color.G, color.B, color.A);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -53,13 +53,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Color DeserializeFromString(String data)
 			{
-				Color color = new Color();
-				String[] color_data = data.Split(',');
-				color.R = (Byte.Parse(color_data[0]));
-				color.G = (Byte.Parse(color_data[1]));
-				color.B = (Byte.Parse(color_data[2]));
-				color.A = (Byte.Parse(color_data[3]));
-				return (color);
+				var color = new Color();
+				var color_data = data.Split(',');
+				color.R = Byte.Parse(color_data[0]);
+				color.G = Byte.Parse(color_data[1]);
+				color.B = Byte.Parse(color_data[2]);
+				color.A = Byte.Parse(color_data[3]);
+				return color;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

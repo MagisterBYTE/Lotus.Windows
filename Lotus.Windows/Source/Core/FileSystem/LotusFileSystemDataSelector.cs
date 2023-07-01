@@ -75,16 +75,16 @@ namespace Lotus
 				{
 					if (view_item_hierarchy.DataContext is CFileSystemDirectory)
 					{
-						return (Directory);
+						return Directory;
 					}
 
 					if (view_item_hierarchy.DataContext is CFileSystemFile)
 					{
-						return (File);
+						return File;
 					}
 				}
 
-				return (Unknow);
+				return Unknow;
 			}
 			#endregion
 		}

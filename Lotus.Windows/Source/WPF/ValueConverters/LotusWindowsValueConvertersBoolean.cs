@@ -55,21 +55,21 @@ namespace Lotus
 			/// Конвертация логического значения в тип Image
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Image</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean val = (Boolean)value;
+				var val = (Boolean)value;
 				if (val)
 				{
-					return (BitmapYes);
+					return BitmapYes;
 				}
 				else
 				{
-					return (BitmapNo);
+					return BitmapNo;
 				}
 			}
 
@@ -78,14 +78,14 @@ namespace Lotus
 			/// Конвертация типа Image в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логический тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 			#endregion
 		}
@@ -104,15 +104,15 @@ namespace Lotus
 			/// Конвертация логического значения в обратное значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Обратное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean val = (Boolean)value;
-				return (!val);
+				var val = (Boolean)value;
+				return !val;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -120,15 +120,15 @@ namespace Lotus
 			/// Конвертация логического значения в обратное значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>братное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean val = (Boolean)value;
-				return (!val);
+				var val = (Boolean)value;
+				return !val;
 			}
 			#endregion
 		}
@@ -147,12 +147,12 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value is bool?)
 				{
@@ -172,12 +172,12 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value is ToggleState)
 				{
@@ -208,21 +208,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean status = (Boolean)(value);
+				var status = (Boolean)value;
 				if (status)
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 				else
 				{
-					return (Visibility.Hidden);
+					return Visibility.Hidden;
 				}
 			}
 
@@ -231,21 +231,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return (true);
+					return true;
 				}
 				else
 				{
-					return (false);
+					return false;
 				}
 			}
 			#endregion
@@ -265,21 +265,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean status = (Boolean)(value);
+				var status = (Boolean)value;
 				if (!status)
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 				else
 				{
-					return (Visibility.Hidden);
+					return Visibility.Hidden;
 				}
 			}
 
@@ -288,21 +288,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return (false);
+					return false;
 				}
 				else
 				{
-					return (true);
+					return true;
 				}
 			}
 			#endregion
@@ -322,21 +322,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean? status = (Boolean?)(value);
+				var status = (Boolean?)value;
 				if (status.HasValue && status.Value)
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 				else
 				{
-					return (Visibility.Hidden);
+					return Visibility.Hidden;
 				}
 			}
 
@@ -345,21 +345,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return (new Boolean?(true));
+					return new Boolean?(true);
 				}
 				else
 				{
-					return (new Boolean?(false));
+					return new Boolean?(false);
 				}
 			}
 			#endregion
@@ -379,21 +379,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return (new Boolean?(true));
+					return new Boolean?(true);
 				}
 				else
 				{
-					return (new Boolean?(false));
+					return new Boolean?(false);
 				}
 			}
 
@@ -402,21 +402,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean? status = (Boolean?)(value);
+				var status = (Boolean?)value;
 				if (status.HasValue && status.Value)
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 				else
 				{
-					return (Visibility.Hidden);
+					return Visibility.Hidden;
 				}
 			}
 			#endregion
@@ -436,21 +436,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean status = (Boolean)(value);
+				var status = (Boolean)value;
 				if (status)
 				{
-					return (Visibility.Collapsed);
+					return Visibility.Collapsed;
 				}
 				else
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 			}
 
@@ -459,21 +459,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Collapsed)
 				{
-					return (true);
+					return true;
 				}
 				else
 				{
-					return (false);
+					return false;
 				}
 			}
 			#endregion
@@ -493,21 +493,21 @@ namespace Lotus
 			/// Конвертация логического значения в состояние выбора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Boolean status = (Boolean)(value);
+				var status = (Boolean)value;
 				if (status == false)
 				{
-					return (Visibility.Collapsed);
+					return Visibility.Collapsed;
 				}
 				else
 				{
-					return (Visibility.Visible);
+					return Visibility.Visible;
 				}
 			}
 
@@ -516,21 +516,21 @@ namespace Lotus
 			/// Конвертация состояние выбора в логическое значение
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Visibility status = (Visibility)(value);
+				var status = (Visibility)value;
 				if (status == Visibility.Collapsed)
 				{
-					return (false);
+					return false;
 				}
 				else
 				{
-					return (true);
+					return true;
 				}
 			}
 			#endregion

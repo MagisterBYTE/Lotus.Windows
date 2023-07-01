@@ -36,16 +36,16 @@ namespace Lotus
 			/// Конвертация типа Rect в строковый тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Rect val = (Rect)value;
-				return ("X = " + val.X.ToString("F2") + "; Y = " + val.Y.ToString("F2") + "; Width = " +
-					val.Width.ToString("F2") + "; Height = " + val.Height.ToString("F2") + ";");
+				var val = (Rect)value;
+				return "X = " + val.X.ToString("F2") + "; Y = " + val.Y.ToString("F2") + "; Width = " +
+					val.Width.ToString("F2") + "; Height = " + val.Height.ToString("F2") + ";";
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -53,14 +53,14 @@ namespace Lotus
 			/// Конвертация строкового типа в тип Rect
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>тип Rect</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

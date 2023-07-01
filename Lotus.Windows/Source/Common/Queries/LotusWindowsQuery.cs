@@ -89,7 +89,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetOperatorOfString(this TComparisonOperator comparison_operator)
 			{
-				String result = "";
+				var result = "";
 				switch (comparison_operator)
 				{
 					case TComparisonOperator.Equality:
@@ -151,7 +151,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mItems);
+					return mItems;
 				}
 			}
 
@@ -163,7 +163,7 @@ namespace Lotus
 				get
 				{
 					ComputeSQLQuery();
-					return (mSQLQuery);
+					return mSQLQuery;
 				}
 			}
 			#endregion
@@ -191,7 +191,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Boolean OnNotifyUpdating(System.Object source, String data_name)
 			{
-				return (true);
+				return true;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -215,9 +215,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void ComputeSQLQuery()
 			{
-				String sql_query = "";
+				var sql_query = "";
 
-				for (Int32 i = 0; i < mItems.Count; i++)
+				for (var i = 0; i < mItems.Count; i++)
 				{
 					if (mItems[i].ComputeSQLQuery(ref sql_query))
 					{
@@ -259,7 +259,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mPropertyName);
+					return mPropertyName;
 				}
 				set
 				{
@@ -274,7 +274,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mQueryOwned);
+					return mQueryOwned;
 				}
 				set
 				{
@@ -289,7 +289,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (ToString());
+					return ToString();
 				}
 			}
 
@@ -298,7 +298,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean NotCalculation
 			{
-				get { return (mNotCalculation); }
+				get { return mNotCalculation; }
 				set
 				{
 					mNotCalculation = value;
@@ -329,7 +329,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public virtual Boolean ComputeSQLQuery(ref String sql_query)
 			{
-				return (false);
+				return false;
 			}
 			#endregion
 		}

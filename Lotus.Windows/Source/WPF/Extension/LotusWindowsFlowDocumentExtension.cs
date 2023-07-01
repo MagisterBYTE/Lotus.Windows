@@ -38,7 +38,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static void SetTextForRunName(this FlowDocument @this, String run_name, String text)
 			{
-				Run run = @this.FindName(run_name) as Run;
+				var run = @this.FindName(run_name) as Run;
 				if (run != null)
 				{
 					run.Text = text;

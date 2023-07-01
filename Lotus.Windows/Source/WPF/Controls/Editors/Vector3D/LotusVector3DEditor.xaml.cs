@@ -44,28 +44,28 @@ namespace Lotus
 			/// Конвертация объекта вектор в объект типа <see cref="Vector3D"/>
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект <see cref="Vector3D"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value is Vector3D)
 				{
-					return (value);
+					return value;
 				}
 
 				if (value is System.Windows.Media.Media3D.Vector3D)
 				{
-					System.Windows.Media.Media3D.Vector3D v = (System.Windows.Media.Media3D.Vector3D)value;
-					return (new Vector3D(v.X, v.Y, v.Z));
+					var v = (System.Windows.Media.Media3D.Vector3D)value;
+					return new Vector3D(v.X, v.Y, v.Z);
 				}
 
 				if (value is System.Windows.Media.Media3D.Point3D)
 				{
-					System.Windows.Media.Media3D.Point3D v = (System.Windows.Media.Media3D.Point3D)value;
-					return (new Vector3D(v.X, v.Y, v.Z));
+					var v = (System.Windows.Media.Media3D.Point3D)value;
+					return new Vector3D(v.X, v.Y, v.Z);
 				}
 
 #if USE_ASSIMP
@@ -83,7 +83,7 @@ namespace Lotus
 					return (new Vector3D(v.X, v.Y, v.Z));
 				}
 #endif
-				return (Vector3D.Zero);
+				return Vector3D.Zero;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -91,31 +91,31 @@ namespace Lotus
 			/// Конвертация объект типа <see cref="Vector3D"/> в объект вектора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр(реальный тип для преобразования)</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект вектора </returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Type real_type = (Type)parameter;
-				if (real_type == null) real_type = target_type;
+				var real_type = (Type)parameter;
+				if (real_type == null) real_type = targetType;
 
 				if (real_type == typeof(Vector3D))
 				{
-					return (value);
+					return value;
 				}
 
 				if (real_type == typeof(System.Windows.Media.Media3D.Vector3D))
 				{
-					Vector3D v = (Vector3D)value;
-					return (new System.Windows.Media.Media3D.Vector3D(v.X, v.Y, v.Z));
+					var v = (Vector3D)value;
+					return new System.Windows.Media.Media3D.Vector3D(v.X, v.Y, v.Z);
 				}
 
 				if (real_type == typeof(System.Windows.Media.Media3D.Point3D))
 				{
-					Vector3D v = (Vector3D)value;
-					return (new System.Windows.Media.Media3D.Point3D(v.X, v.Y, v.Z));
+					var v = (Vector3D)value;
+					return new System.Windows.Media.Media3D.Point3D(v.X, v.Y, v.Z);
 				}
 
 #if USE_ASSIMP
@@ -133,7 +133,7 @@ namespace Lotus
 					return (new SharpDX.Vector3((Single)v.X, (Single)v.Y, (Single)v.Z));
 				}
 #endif
-				return (value);
+				return value;
 			}
 			#endregion
 		}
@@ -168,8 +168,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void OnValuePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusVector3DEditor editor_vector = (LotusVector3DEditor)obj;
-				Vector3D? value = ((Vector3D)(args.NewValue));
+				var editor_vector = (LotusVector3DEditor)obj;
+				Vector3D? value = (Vector3D)args.NewValue;
 				if (value.HasValue)
 				{
 					editor_vector.IsEnabled = false;
@@ -214,26 +214,26 @@ namespace Lotus
 			/// <summary>
 			/// Элемент редактор свойства типа Vector3D
 			/// </summary>
-			/// <param name="property_item">Параметры свойства</param>
+			/// <param name="propertyItem">Параметры свойства</param>
 			/// <returns>Редактор</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public FrameworkElement ResolveEditor(PropertyItem property_item)
+			public FrameworkElement ResolveEditor(PropertyItem propertyItem)
 			{
 				var binding = new Binding(nameof(Value));
-				binding.Source = property_item;
+				binding.Source = propertyItem;
 				binding.ValidatesOnExceptions = true;
 				binding.ValidatesOnDataErrors = true;
-				binding.Mode = property_item.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
+				binding.Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
 				binding.Converter = VectorConverter;
-				binding.ConverterParameter = property_item.PropertyType;
+				binding.ConverterParameter = propertyItem.PropertyType;
 				
 				// Привязываемся к свойству
 				BindingOperations.SetBinding(this, ValueProperty, binding);
 
 				// Сохраняем объект
-				mPropertyItem = property_item;
+				mPropertyItem = propertyItem;
 
-				return (this);
+				return this;
 			}
 			#endregion
 
@@ -385,12 +385,12 @@ namespace Lotus
 			{
 				if(mPropertyItem != null)
 				{
-					for (Int32 i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
+					for (var i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
 					{
 						Attribute attr = mPropertyItem.PropertyDescriptor.Attributes[i];
 						if (attr is LotusDefaultValueAttribute)
 						{
-							LotusDefaultValueAttribute def_value = attr as LotusDefaultValueAttribute;
+							var def_value = attr as LotusDefaultValueAttribute;
 
 							//// Сначала смотрим свойства
 							//Object v = mPropertyItem.Instance.GetObjectPropertyValue(def_value.NamePropertyDefaultValue);

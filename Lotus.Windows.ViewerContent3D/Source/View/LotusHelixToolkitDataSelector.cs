@@ -86,25 +86,25 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
 			{
-				GroupNode node = item as GroupNode;
+				var node = item as GroupNode;
 				if (node != null)
 				{
-					return (Node);
+					return Node;
 				}
 
-				MeshNode model = item as MeshNode;
+				var model = item as MeshNode;
 				if (model != null)
 				{
-					return (Model);
+					return Model;
 				}
 
-				SceneNode scene = item as SceneNode;
+				var scene = item as SceneNode;
 				if (scene != null)
 				{
-					return (Scene);
+					return Scene;
 				}
 
-				return (Unknow);
+				return Unknow;
 			}
 			#endregion
 		}

@@ -39,7 +39,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String SerializeToString(this Point point)
 			{
-				return (String.Format("{0};{1}", point.X, point.Y));
+				return String.Format("{0};{1}", point.X, point.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -51,11 +51,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Point DeserializeFromString(String data)
 			{
-				Point point = new Point();
-				String[] vector_data = data.Split(';');
-				point.X = (XNumbers.ParseDouble(vector_data[0]));
-				point.Y = (XNumbers.ParseDouble(vector_data[1]));
-				return (point);
+				var point = new Point();
+				var vector_data = data.Split(';');
+				point.X = XNumbers.ParseDouble(vector_data[0]);
+				point.Y = XNumbers.ParseDouble(vector_data[1]);
+				return point;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -71,10 +71,10 @@ namespace Lotus
 			{
 				if ((Math.Abs(point.X - other.X) < epsilon) && (Math.Abs(point.Y - other.Y) < epsilon))
 				{
-					return (true);
+					return true;
 				}
 
-				return (false);
+				return false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -89,10 +89,10 @@ namespace Lotus
 			{
 				if ((Math.Abs(point.X - other.X) < 0.001) && (Math.Abs(point.Y - other.Y) < 0.001))
 				{
-					return (true);
+					return true;
 				}
 
-				return (false);
+				return false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Maths.Vector2D ToVector2D(this Point point)
 			{
-				return (new Maths.Vector2D(point.X, point.Y));
+				return new Maths.Vector2D(point.X, point.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Maths.Vector2Df ToVector2Df(this Point point)
 			{
-				return (new Maths.Vector2Df((Single)point.X, (Single)point.Y));
+				return new Maths.Vector2Df((Single)point.X, (Single)point.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -128,10 +128,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Win32Point ToWin32Point(this Point point)
 			{
-				Win32Point window_point = new Win32Point();
+				var window_point = new Win32Point();
 				window_point.X = (Int32)point.X;
 				window_point.Y = (Int32)point.Y;
-				return (window_point);
+				return window_point;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

@@ -70,7 +70,7 @@ namespace Lotus
 			/// </summary>
 			public new Uri Source
 			{
-				get { return (mSourceUri); }
+				get { return mSourceUri; }
 				set
 				{
 					mSourceUri = value;

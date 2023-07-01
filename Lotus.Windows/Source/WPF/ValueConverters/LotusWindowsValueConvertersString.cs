@@ -47,12 +47,12 @@ namespace Lotus
 			/// Конвертер строки(как пути) в источник изображения
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (String.IsNullOrWhiteSpace(ImageDirectory))
 				{
@@ -69,7 +69,7 @@ namespace Lotus
 				}
 				else
 				{
-					String image_path = System.IO.Path.Combine(ImageDirectory, (String)value);
+					var image_path = System.IO.Path.Combine(ImageDirectory, (String)value);
 					return new BitmapImage(new Uri(image_path));
 				}
 			}
@@ -79,14 +79,14 @@ namespace Lotus
 			/// Конвертация типа BitmapSource в путь
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Путь</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 			#endregion
 		}

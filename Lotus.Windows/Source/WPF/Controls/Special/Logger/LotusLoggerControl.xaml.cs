@@ -74,14 +74,14 @@ namespace Lotus
 			/// Конвертация объекта TLogType в соответствующую графическую пиктограмму
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Графическая пиктограмма</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				TLogType val = (TLogType)value;
+				var val = (TLogType)value;
 				BitmapSource bitmap = null;
 				switch (val)
 				{
@@ -114,7 +114,7 @@ namespace Lotus
 						break;
 				}
 
-				return (bitmap);
+				return bitmap;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -122,14 +122,14 @@ namespace Lotus
 			/// Конвертация графической пиктограммы в тип TLogType
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект TLogType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 			#endregion
 		}
@@ -174,28 +174,28 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
 			{
-				TLogMessage message = (TLogMessage)item;
+				var message = (TLogMessage)item;
 
 				if (String.IsNullOrEmpty(message.Module))
 				{
 					if (String.IsNullOrEmpty(message.MemberName))
 					{
-						return (Simple);
+						return Simple;
 					}
 					else
 					{
-						return (Trace);
+						return Trace;
 					}
 				}
 				else
 				{
 					if (String.IsNullOrEmpty(message.MemberName))
 					{
-						return (SimpleModule);
+						return SimpleModule;
 					}
 					else
 					{
-						return (TraceModule);
+						return TraceModule;
 					}
 				}
 			}
@@ -219,7 +219,7 @@ namespace Lotus
 			/// </summary>
 			public ListArray<TLogMessage> Messages
 			{
-				get { return (mMessages); }
+				get { return mMessages; }
 			}
 			#endregion
 
@@ -268,13 +268,13 @@ namespace Lotus
 			/// <summary>
 			/// Добавление сообщения
 			/// </summary>
-			/// <param name="module">Имя модуля</param>
+			/// <param name="moduleName">Имя модуля</param>
 			/// <param name="text">Имя сообщения</param>
 			/// <param name="type">Тип сообщения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void LogModule(String module, String text, TLogType type)
+			public void LogModule(String moduleName, String text, TLogType type)
 			{
-				mMessages.Add(new TLogMessage(module, text, type));
+				mMessages.Add(new TLogMessage(moduleName, text, type));
 				outputData.ScrollIntoView(mMessages[mMessages.Count - 1]);
 			}
 			#endregion

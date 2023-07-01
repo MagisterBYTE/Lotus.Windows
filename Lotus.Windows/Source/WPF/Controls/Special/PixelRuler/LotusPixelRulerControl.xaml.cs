@@ -200,7 +200,7 @@ namespace Lotus
 				{
 					if (AutoSize)
 					{
-						return (ActualWidth);
+						return ActualWidth;
 					}
 					else
 					{
@@ -319,7 +319,7 @@ namespace Lotus
 			/// </summary>
 			public Double UnitOffset
 			{
-				get { return (mTransformOffset.X); }
+				get { return mTransformOffset.X; }
 				set
 				{
 					mTransformOffset.X = value;
@@ -345,7 +345,7 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleX
 			{
-				get { return (mTransformScale.ScaleX); }
+				get { return mTransformScale.ScaleX; }
 				set
 				{
 					mTransformScale.ScaleX = value;
@@ -358,7 +358,7 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleY
 			{
-				get { return (mTransformScale.ScaleY); }
+				get { return mTransformScale.ScaleY; }
 				set
 				{
 					mTransformScale.ScaleY = value;
@@ -371,7 +371,7 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleCenterX
 			{
-				get { return (mTransformScale.CenterX); }
+				get { return mTransformScale.CenterX; }
 				set
 				{
 					mTransformScale.CenterX = value;
@@ -384,7 +384,7 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleCenterY
 			{
-				get { return (mTransformScale.CenterY); }
+				get { return mTransformScale.CenterY; }
 				set
 				{
 					mTransformScale.CenterY = value;
@@ -471,15 +471,15 @@ namespace Lotus
 			{
 				switch (DimensionType)
 				{
-					case TRulerDimensionType.DeviceUnit: return (value);
-					case TRulerDimensionType.Milliliter: return (value * 3.77952);
-					case TRulerDimensionType.Centimeter: return (value * 37.795);
-					case TRulerDimensionType.User: return ((value * 3.77952) / DimensionUser);
+					case TRulerDimensionType.DeviceUnit: return value;
+					case TRulerDimensionType.Milliliter: return value * 3.77952;
+					case TRulerDimensionType.Centimeter: return value * 37.795;
+					case TRulerDimensionType.User: return value * 3.77952 / DimensionUser;
 					default:
 						break;
 				}
 
-				return (value);
+				return value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -493,15 +493,15 @@ namespace Lotus
 			{
 				switch (DimensionType)
 				{
-					case TRulerDimensionType.DeviceUnit: return (device_unit);
-					case TRulerDimensionType.Milliliter: return (device_unit * 0.26458);
-					case TRulerDimensionType.Centimeter: return (device_unit * 0.02645);
-					case TRulerDimensionType.User: return (device_unit * 0.26458 * DimensionUser);
+					case TRulerDimensionType.DeviceUnit: return device_unit;
+					case TRulerDimensionType.Milliliter: return device_unit * 0.26458;
+					case TRulerDimensionType.Centimeter: return device_unit * 0.02645;
+					case TRulerDimensionType.User: return device_unit * 0.26458 * DimensionUser;
 					default:
 						break;
 				}
 
-				return (device_unit);
+				return device_unit;
 			}
 			#endregion
 
@@ -510,43 +510,43 @@ namespace Lotus
 			/// <summary>
 			/// Рисование элемента
 			/// </summary>
-			/// <param name="drawing_context">Контекст команд рисования</param>
+			/// <param name="drawingContext">Контекст команд рисования</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnRender(DrawingContext drawing_context)
+			protected override void OnRender(DrawingContext drawingContext)
 			{
-				base.OnRender(drawing_context);
+				base.OnRender(drawingContext);
 
-				Rect bounds = new Rect(0, 0, ActualWidth, ActualHeight);
-				drawing_context.DrawRectangle(null, mBorderPen, bounds);
-				RectangleGeometry rect_clip = new RectangleGeometry(bounds);
+				var bounds = new Rect(0, 0, ActualWidth, ActualHeight);
+				drawingContext.DrawRectangle(null, mBorderPen, bounds);
+				var rect_clip = new RectangleGeometry(bounds);
 
 				// 0) Начальное смещение
-				Double x = UnitFixedOffset * (1.0 / Zoom) + UnitStartOffset;
+				var x = UnitFixedOffset * (1.0 / Zoom) + UnitStartOffset;
 
 				// 1) Количество отрисовок
-				Double small_step = ToDeviceUnits(SmallStep);
-				Double step = ToDeviceUnits(Step);
-				Int32 count = (Int32)(UnitLength /small_step + 0.5);
+				var small_step = ToDeviceUnits(SmallStep);
+				var step = ToDeviceUnits(Step);
+				var count = (Int32)(UnitLength /small_step + 0.5);
 
 				// 3) Размер шрифта и пера
 				mThinPen.Thickness = 1.0 / Zoom * 1;
 				mBorderPen.Thickness = 1.0 / Zoom * 1;
-				Double size_text = 1.0 / Zoom * 12;
-				Double segment_height = 1.0 / Zoom * mSegmentHeight;
+				var size_text = 1.0 / Zoom * 12;
+				var segment_height = 1.0 / Zoom * mSegmentHeight;
 
 				// 4) Рисуем
-				drawing_context.PushClip(rect_clip);
-				drawing_context.PushTransform(mTransformGroup);
+				drawingContext.PushClip(rect_clip);
+				drawingContext.PushTransform(mTransformGroup);
 				
 				Double current_length = 0;
 				Double current_value = 0;
-				for (Int32 i = 0; i < count; i++)
+				for (var i = 0; i < count; i++)
 				{
 					current_length = small_step * i;
 					current_value = SmallStep * i;
 
 					// 5) Если делится без остатка на основной шаг то рисуем его
-					Boolean is_main = (((Int32)(current_value) % (Int32)(Step)) == 0);
+					var is_main = ((Int32)current_value % (Int32)Step) == 0;
 
 					Double start_height;
 					Double end_height;
@@ -555,25 +555,25 @@ namespace Lotus
 						start_height = 0;
 
 						// Определение шага
-						end_height = ((is_main) ? segment_height : segment_height / 2);
+						end_height = is_main ? segment_height : segment_height / 2;
 					}
 					else
 					{
 						start_height = Height;
 
 						// Определение шага
-						end_height = ((is_main) ? segment_height : segment_height * 1.5);
+						end_height = is_main ? segment_height : segment_height * 1.5;
 					}
 
-					Point p1 = new Point(x + current_length, start_height);
-					Point p2 = new Point(x + current_length, end_height);
+					var p1 = new Point(x + current_length, start_height);
+					var p2 = new Point(x + current_length, end_height);
 
-					drawing_context.DrawLine(mThinPen, p1, p2);
+					drawingContext.DrawLine(mThinPen, p1, p2);
 
 					// 6) Рисуем текст
 					if(is_main || (Zoom > 5 && is_main == false))
 					{
-						FormattedText number = new FormattedText((i * SmallStep + Offset).ToString("F0"),
+						var number = new FormattedText((i * SmallStep + Offset).ToString("F0"),
 							CultureInfo.CurrentCulture, 
 							FlowDirection.LeftToRight,
 							mTypefaceNumber, size_text, 
@@ -585,16 +585,16 @@ namespace Lotus
 
 						if (MarksLocation == TRulerMarksLocation.Up)
 						{
-							drawing_context.DrawText(number, new Point(x + current_length, (Height * 1.0 / Zoom) - number.Height));
+							drawingContext.DrawText(number, new Point(x + current_length, (Height * 1.0 / Zoom) - number.Height));
 						}
 						else
 						{
-							drawing_context.DrawText(number, new Point(x + current_length, (Height * 1.0 / Zoom) - segment_height - number.Height));
+							drawingContext.DrawText(number, new Point(x + current_length, (Height * 1.0 / Zoom) - segment_height - number.Height));
 						}
 					}
 				}
-				drawing_context.Pop();
-				drawing_context.Pop();
+				drawingContext.Pop();
+				drawingContext.Pop();
 			}
 			#endregion
 		}

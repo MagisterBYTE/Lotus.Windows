@@ -49,8 +49,8 @@ namespace Lotus
 			public static BitmapSource LoadBitmapFromResource(String resource_name)
 			{
 				//Object image = Properties.XResources.Instance.GetObject(resource_name);
-				Object image = Properties.Resources.ResourceManager.GetObject(resource_name);
-				System.Drawing.Bitmap source = (System.Drawing.Bitmap)image;
+				var image = Properties.Resources.ResourceManager.GetObject(resource_name);
+				var source = (System.Drawing.Bitmap)image;
 
 				if (source != null)
 				{
@@ -61,10 +61,10 @@ namespace Lotus
 
 					XNative.DeleteObject(h_bitmap);
 
-					return (result);
+					return result;
 				}
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -77,8 +77,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static BitmapSource LoadBitmapFromResource(System.Resources.ResourceManager resource_manager, String resource_name)
 			{
-				Object image = resource_manager.GetObject(resource_name);
-				System.Drawing.Bitmap source = (System.Drawing.Bitmap)image;
+				var image = resource_manager.GetObject(resource_name);
+				var source = (System.Drawing.Bitmap)image;
 
 				if (source != null)
 				{
@@ -88,10 +88,10 @@ namespace Lotus
 
 					XNative.DeleteObject(h_bitmap);
 
-					return (result);
+					return result;
 				}
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -103,16 +103,16 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static BitmapSource LoadBitmapFromFile(String file_name)
 			{
-				FileStream file_stream = new FileStream(file_name, FileMode.Open, FileAccess.Read);
+				var file_stream = new FileStream(file_name, FileMode.Open, FileAccess.Read);
 
-				BitmapImage bitmap = new BitmapImage(new Uri(file_name));
+				var bitmap = new BitmapImage(new Uri(file_name));
 				bitmap.BeginInit();
 				bitmap.StreamSource = file_stream;
 				bitmap.EndInit();
 
 				file_stream.Close();
 
-				return (bitmap);
+				return bitmap;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -129,7 +129,7 @@ namespace Lotus
 
 				XNative.DeleteObject(h_bitmap);
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ namespace Lotus
 
 				XNative.DeleteObject(h_bitmap);
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -161,13 +161,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static BitmapSource GetIconFromFileTypeFromShell(String file_name, UInt32 flags)
 			{
-				String ext = Path.GetExtension(file_name);
+				var ext = Path.GetExtension(file_name);
 				if(String.IsNullOrEmpty(ext) == false)
 				{
 					BitmapSource bitmap_source;
 					if (IconFilesExtension.TryGetValue(ext, out bitmap_source))
 					{
-						return (bitmap_source);
+						return bitmap_source;
 					}
 				}
 
@@ -175,7 +175,7 @@ namespace Lotus
 					(UInt32)Marshal.SizeOf(XNative.ShellFileInfoDefault), flags);
 
 				//The icon is returned in the hIcon member of the shinfo struct
-				System.Drawing.Icon icon = System.Drawing.Icon.FromHandle(XNative.ShellFileInfoDefault.IconHandle);
+				var icon = System.Drawing.Icon.FromHandle(XNative.ShellFileInfoDefault.IconHandle);
 
 				var h_bitmap = icon.ToBitmap().GetHbitmap();
 				var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(h_bitmap, IntPtr.Zero,
@@ -188,7 +188,7 @@ namespace Lotus
 					IconFilesExtension.Add(ext, result);
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -209,11 +209,11 @@ namespace Lotus
 								BitmapSizeOptions.FromEmptyOptions());
 					sysicon.Dispose();
 
-					return (bmp_src);
+					return bmp_src;
 				}
 				else
 				{
-					return (GetIconFromFileTypeFromShell(file_name, (UInt32)(TShellAttribute.Icon | TShellAttribute.SmallIcon)));
+					return GetIconFromFileTypeFromShell(file_name, (UInt32)(TShellAttribute.Icon | TShellAttribute.SmallIcon));
 				}
 			}
 		}

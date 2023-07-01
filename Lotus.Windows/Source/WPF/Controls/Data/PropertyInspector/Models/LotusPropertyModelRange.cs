@@ -44,7 +44,7 @@ namespace Lotus
 			/// </summary>
 			public TNumeric MinValue
 			{
-				get { return (mMinValue); }
+				get { return mMinValue; }
 			}
 
 			/// <summary>
@@ -52,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public TNumeric MaxValue
 			{
-				get { return (mMaxValue); }
+				get { return mMaxValue; }
 			}
 			#endregion
 

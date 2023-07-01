@@ -37,15 +37,15 @@ namespace Lotus
 			/// Конвертация типа Point в строковый тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Point val = (Point)value;
-				return ("X = " + val.X.ToString("F2") + "; Y = " + val.Y.ToString("F2") + ";");
+				var val = (Point)value;
+				return "X = " + val.X.ToString("F2") + "; Y = " + val.Y.ToString("F2") + ";";
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -53,14 +53,14 @@ namespace Lotus
 			/// Конвертация строкового типа в тип Point
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>тип Point</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 			#endregion
 		}

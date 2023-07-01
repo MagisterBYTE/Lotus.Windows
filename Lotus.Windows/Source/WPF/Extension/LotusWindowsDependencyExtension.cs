@@ -51,7 +51,7 @@ namespace Lotus
 				}
 				while (source_obj != null);
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -72,10 +72,10 @@ namespace Lotus
 				if (parent_object == null) return null;
 
 				//check if the parent matches the type we're looking for
-				TElement parent = parent_object as TElement;
+				var parent = parent_object as TElement;
 				if (parent != null)
 				{
-					return (parent);
+					return parent;
 				}
 				else
 				{
@@ -94,7 +94,7 @@ namespace Lotus
 			public static TElement FindVisualChild<TElement>(this DependencyObject source_obj)
 				where TElement : DependencyObject
 			{
-				for (Int32 i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
+				for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
 				{
 					DependencyObject сhild = VisualTreeHelper.GetChild(source_obj, i);
 
@@ -113,7 +113,7 @@ namespace Lotus
 					}
 				}
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -129,11 +129,11 @@ namespace Lotus
 			{
 				if (source_obj != null)
 				{
-					foreach (System.Object child in LogicalTreeHelper.GetChildren(source_obj))
+					foreach (var child in LogicalTreeHelper.GetChildren(source_obj))
 					{
 						if (child != null && child is TElement)
 						{
-							return ((TElement)child);
+							return (TElement)child;
 						}
 						else
 						{
@@ -147,7 +147,7 @@ namespace Lotus
 					}
 				}
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -161,8 +161,8 @@ namespace Lotus
 			public static void FillVisualChildList<TElement>(this DependencyObject source_obj, in List<TElement> elements) 
 				where TElement : Visual
 			{
-				int count = VisualTreeHelper.GetChildrenCount(source_obj);
-				for (int i = 0; i < count; i++)
+				var count = VisualTreeHelper.GetChildrenCount(source_obj);
+				for (var i = 0; i < count; i++)
 				{
 					DependencyObject child = VisualTreeHelper.GetChild(source_obj, i);
 					if (child is TElement)
@@ -188,17 +188,17 @@ namespace Lotus
 			{
 				if (source_obj != null)
 				{
-					for (Int32 i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
+					for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
 					{
 						DependencyObject child = VisualTreeHelper.GetChild(source_obj, i);
 						if (child != null && child is TType)
 						{
-							yield return ((TType)child);
+							yield return (TType)child;
 						}
 
 						foreach (TType child_of_child in EnumerateVisualChildren<TType>(child))
 						{
-							yield return (child_of_child);
+							yield return child_of_child;
 						}
 					}
 				}
@@ -220,12 +220,12 @@ namespace Lotus
 					{
 						if (child != null && child is TType)
 						{
-							yield return ((TType)child);
+							yield return (TType)child;
 						}
 
 						foreach (TType child_of_child in EnumerateLogicalChildren<TType>(child as DependencyObject))
 						{
-							yield return (child_of_child);
+							yield return child_of_child;
 						}
 					}
 				}

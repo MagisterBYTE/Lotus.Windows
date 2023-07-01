@@ -67,7 +67,7 @@ namespace Lotus
 		private LayoutDocument CreatePaneDocument(CFileSystemFile file, System.Object content)
 		{
 			// Создаем документ
-			LayoutDocument layout_document = new LayoutDocument();
+			var layout_document = new LayoutDocument();
 			layout_document.CanFloat = true;
 			layout_document.Title = file.Info.Name;
 			layout_document.ToolTip = file.Info.FullName;
@@ -81,7 +81,7 @@ namespace Lotus
 			// Активируем
 			layout_document.IsSelected = true;
 
-			return (layout_document);
+			return layout_document;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -428,7 +428,7 @@ namespace Lotus
 		//-------------------------------------------------------------------------------------------------------------
 		private void OnButtonFileSystemSourceOpen_Click(Object sender, RoutedEventArgs args)
 		{
-			System.Windows.Forms.FolderBrowserDialog folder_browser = new System.Windows.Forms.FolderBrowserDialog();
+			var folder_browser = new System.Windows.Forms.FolderBrowserDialog();
 			if(folder_browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				if (comboFileSystemSource.Items.IndexOf(folder_browser.SelectedPath) == -1)
@@ -466,16 +466,16 @@ namespace Lotus
 			{
 				Task.Factory.StartNew(() =>
 				{
-					Dispatcher.BeginInvoke((Action)(delegate
+					Dispatcher.BeginInvoke((Action)delegate
 					{
-						String full_path = comboFileSystemSource.SelectedItem.ToString();
-						CFileSystemDirectory directory = new CFileSystemDirectory(full_path);
+						var full_path = comboFileSystemSource.SelectedItem.ToString();
+						var directory = new CFileSystemDirectory(full_path);
 						directory.GetFileSystemItemsTwoLevel();
 
 						Thread.Sleep(1000);
 						//busyIndicator.BusyContent = "Получение директорий";
 
-						CCollectionViewFSWindows view_file_system = new CCollectionViewFSWindows();
+						var view_file_system = new CCollectionViewFSWindows();
 						view_file_system.IsNotify = true;
 						view_file_system.Source = directory;
 
@@ -489,7 +489,7 @@ namespace Lotus
 						Thread.Sleep(1000);
 						//busyIndicator.BusyContent = "Отображение в компаненте";
 
-					}), System.Windows.Threading.DispatcherPriority.Normal);
+					}, System.Windows.Threading.DispatcherPriority.Normal);
 
 				}).ContinueWith((task) =>
 				{
@@ -517,7 +517,7 @@ namespace Lotus
 				if (LotusViewerImage.IsSupportFormatFile(file.Info.Extension.ToLower()))
 				{
 					// Редактор изображений
-					LotusViewerImage viewerImage = new LotusViewerImage();
+					var viewerImage = new LotusViewerImage();
 
 					// Присоединяем к ленте и активируем
 					ribbonTabImageEditor.ImageViewEditor = viewerImage;
@@ -536,7 +536,7 @@ namespace Lotus
 				if (LotusViewerContent3D.IsSupportFormatFile(file.Info.Extension.ToLower()))
 				{
 					// Редактор 3D контента
-					LotusViewerContent3D viewerContent3D = new LotusViewerContent3D();
+					var viewerContent3D = new LotusViewerContent3D();
 
 					// Присоединяем к ленте и активируем
 					ribbonTabContent3DEditor.Content3DViewEditor = viewerContent3D;
@@ -546,11 +546,11 @@ namespace Lotus
 					CreatePaneDocument(file, viewerContent3D);
 
 					// Загружаем файл контента
-					CParameters parameters = new CParameters();
+					var parameters = new CParameters();
 					parameters.AddObject("tree_view_model_structure", treeViewModel, false);
 					viewerContent3D.OpenFile(file.FullName, parameters);
 
-					DataTemplateSelector templateSelector = Resources["HelixToolkitDataSelectorKey"] as DataTemplateSelector;
+					var templateSelector = Resources["HelixToolkitDataSelectorKey"] as DataTemplateSelector;
 					treeViewModel.ItemTemplateSelector = templateSelector;
 					//treeViewModel.ItemsSource = viewerContent3D.Scene;
 				}
@@ -561,7 +561,7 @@ namespace Lotus
 				if (LotusViewerText.IsSupportFormatFile(file.Info.Extension.ToLower()))
 				{
 					// Текстовый редактор
-					LotusViewerText viewerText = new LotusViewerText();
+					var viewerText = new LotusViewerText();
 
 					// Присоединяем к ленте и активируем
 					ribbonTabTextEditor.TextViewEditor = viewerText;

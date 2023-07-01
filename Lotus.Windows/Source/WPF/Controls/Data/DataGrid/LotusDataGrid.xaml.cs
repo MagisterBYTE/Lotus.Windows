@@ -63,7 +63,7 @@ namespace Lotus
 			/// <summary>
 			/// Предикат фильтрации по умолчанию
 			/// </summary>
-			private static Predicate<System.Object> FilterPredicateDefault = delegate { return (true); };
+			private static Predicate<System.Object> FilterPredicateDefault = delegate { return true; };
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -74,8 +74,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void OnShowFilterColumnChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusDataGrid data_grid = (LotusDataGrid)sender;
-				Boolean new_value = (Boolean)args.NewValue;
+				var data_grid = (LotusDataGrid)sender;
+				var new_value = (Boolean)args.NewValue;
 				if (new_value)
 				{
 					data_grid.ShowFilterColunm();

@@ -42,7 +42,7 @@ namespace Lotus
 				{
 					if (mIconSource == null)
 					{
-						String full_name = DataContext.FullName;
+						var full_name = DataContext.FullName;
 						if (full_name.IsExists())
 						{
 							mIconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromShell(full_name,
@@ -51,7 +51,7 @@ namespace Lotus
 						}
 					}
 
-					return (mIconSource);
+					return mIconSource;
 				}
 				set
 				{

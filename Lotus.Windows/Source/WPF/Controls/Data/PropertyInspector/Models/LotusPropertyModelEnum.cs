@@ -44,7 +44,7 @@ namespace Lotus
 			/// </summary>
 			public ArrayList EnumValues
 			{
-				get { return (mEnumValues); }
+				get { return mEnumValues; }
 			}
 
 			/// <summary>
@@ -52,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public List<String> EnumNames
 			{
-				get { return (mEnumNames); }
+				get { return mEnumNames; }
 			}
 			#endregion
 

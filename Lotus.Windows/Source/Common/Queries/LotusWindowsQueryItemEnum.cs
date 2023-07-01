@@ -50,7 +50,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mSourceItems);
+					return mSourceItems;
 				}
 				set
 				{
@@ -66,7 +66,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mFiltredItems);
+					return mFiltredItems;
 				}
 				set
 				{
@@ -111,7 +111,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override String ToString()
 			{
-				return (JoinFiltredItems());
+				return JoinFiltredItems();
 			}
 			#endregion
 
@@ -129,8 +129,8 @@ namespace Lotus
 				{
 					if (mFiltredItems.Count > 0)
 					{
-						StringBuilder included = new StringBuilder(mFiltredItems.Count * 10);
-						; for (Int32 i = 0; i < mFiltredItems.Count; i++)
+						var included = new StringBuilder(mFiltredItems.Count * 10);
+						; for (var i = 0; i < mFiltredItems.Count; i++)
 						{
 							if (i != 0)
 							{
@@ -141,11 +141,11 @@ namespace Lotus
 						}
 
 						sql_query += " " + mPropertyName + " IN (" + included.ToString() + ")";
-						return (true);
+						return true;
 					}
 				}
 
-				return (false);
+				return false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -158,8 +158,8 @@ namespace Lotus
 			{
 				if (mFiltredItems.Count > 0)
 				{
-					StringBuilder included = new StringBuilder(mFiltredItems.Count * 10);
-					for (Int32 i = 0; i < mFiltredItems.Count; i++)
+					var included = new StringBuilder(mFiltredItems.Count * 10);
+					for (var i = 0; i < mFiltredItems.Count; i++)
 					{
 						if (i != 0)
 						{
@@ -169,10 +169,10 @@ namespace Lotus
 						included.Append(mFiltredItems[i].ToString());
 					}
 
-					return (included.ToString());
+					return included.ToString();
 				}
 
-				return (String.Empty);
+				return String.Empty;
 			}
 			#endregion
 

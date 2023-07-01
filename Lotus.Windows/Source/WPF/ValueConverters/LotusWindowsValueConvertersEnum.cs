@@ -38,28 +38,28 @@ namespace Lotus
 			/// Конвертация типа Enum в целочисленный тип
 			/// </summary>
 			/// <param name="value">Значение тип Enum</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Целочисленный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{
-					return (0);
+					return 0;
 				}
 
 				Array values = Enum.GetValues(value.GetType());
-				for (Int32 i = 0; i < values.Length; i++)
+				for (var i = 0; i < values.Length; i++)
 				{
 					if (values.GetValue(i).ToString() == value.ToString())
 					{
-						return (i);
+						return i;
 					}
 				}
 
-				return (0);
+				return 0;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -67,21 +67,21 @@ namespace Lotus
 			/// Конвертация целочисленного типа в тип Enum
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Enum</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Array values = Enum.GetValues(target_type);
-				Int32 index_value = 0;
+				Array values = Enum.GetValues(targetType);
+				var index_value = 0;
 				if (value != null)
 				{
-					index_value = (Int32)(value);
+					index_value = (Int32)value;
 				}
 
-				return (values.GetValue(index_value));
+				return values.GetValue(index_value);
 			}
 		}
 
@@ -100,19 +100,19 @@ namespace Lotus
 			/// Конвертация типа Enum в строковый тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{
-					return ("");
+					return "";
 				}
 				Type type_enum = value.GetType();
-				return (XEnum.GetDescriptionOrName(type_enum, (Enum)value));
+				return XEnum.GetDescriptionOrName(type_enum, (Enum)value);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -120,18 +120,18 @@ namespace Lotus
 			/// Конвертация строкового типа в тип Enum
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Enum</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{
-					return (null);
+					return null;
 				}
-				return (XEnum.ConvertFromDescriptionOrName(target_type, value.ToString()));
+				return XEnum.ConvertFromDescriptionOrName(targetType, value.ToString());
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

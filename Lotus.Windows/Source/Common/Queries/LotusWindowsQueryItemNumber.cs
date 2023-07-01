@@ -53,7 +53,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mComparisonOperator);
+					return mComparisonOperator;
 				}
 				set
 				{
@@ -74,7 +74,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mComparisonValueLeft);
+					return mComparisonValueLeft;
 				}
 				set
 				{
@@ -95,7 +95,7 @@ namespace Lotus
 			{
 				get
 				{
-					return (mComparisonValueRight);
+					return mComparisonValueRight;
 				}
 				set
 				{
@@ -157,9 +157,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override String ToString()
 			{
-				String name = "";
+				var name = "";
 				ComputeSQLQuery(ref name);
-				return (name);
+				return name;
 			}
 			#endregion
 
@@ -192,7 +192,7 @@ namespace Lotus
 					//}
 				}
 
-				return (false);
+				return false;
 			}
 			#endregion
 
@@ -208,7 +208,7 @@ namespace Lotus
 			{
 				if (combo_box != null)
 				{
-					System.Windows.Data.Binding binding = new System.Windows.Data.Binding();
+					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
 					binding.Path = new System.Windows.PropertyPath(nameof(ComparisonOperator));
 					binding.Converter = EnumToStringConverter.Instance;

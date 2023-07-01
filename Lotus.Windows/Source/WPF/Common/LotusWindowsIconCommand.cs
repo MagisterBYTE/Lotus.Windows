@@ -47,7 +47,7 @@ namespace Lotus
 			/// </summary>
 			public BitmapSource MiddleIcon
 			{
-				get { return (mMiddleIcon); }
+				get { return mMiddleIcon; }
 				set
 				{
 					mMiddleIcon = value;
@@ -60,7 +60,7 @@ namespace Lotus
 			/// </summary>
 			public BitmapSource LargeIcon
 			{
-				get { return (mLargeIcon); }
+				get { return mLargeIcon; }
 				set
 				{
 					mLargeIcon = value;

@@ -60,14 +60,14 @@ namespace Lotus
 			{
 				if(Command != null)
 				{
-					RoutedIconUICommand command_ui = Command as RoutedIconUICommand;
+					var command_ui = Command as RoutedIconUICommand;
 					if(command_ui != null)
 					{
-						Binding header_binding = new Binding(nameof(RoutedIconUICommand.Text));
+						var header_binding = new Binding(nameof(RoutedIconUICommand.Text));
 						header_binding.Source = command_ui;
-						Binding middle_icon_binding = new Binding(nameof(RoutedIconUICommand.MiddleIcon));
+						var middle_icon_binding = new Binding(nameof(RoutedIconUICommand.MiddleIcon));
 						middle_icon_binding.Source = command_ui;
-						Binding large_icon_binding = new Binding(nameof(RoutedIconUICommand.LargeIcon));
+						var large_icon_binding = new Binding(nameof(RoutedIconUICommand.LargeIcon));
 						large_icon_binding.Source = command_ui;
 						BindingOperations.SetBinding(this, Fluent.Button.HeaderProperty, header_binding);
 						BindingOperations.SetBinding(this, Fluent.Button.IconProperty, middle_icon_binding);

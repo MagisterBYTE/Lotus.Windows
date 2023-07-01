@@ -132,12 +132,12 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override CUIContextMenuItem Duplicate(CParameters parameters = null)
 			{
-				CUIContextMenuItemWindows item = new CUIContextMenuItemWindows();
+				var item = new CUIContextMenuItemWindows();
 				item.ViewItem = ViewItem;
 				item.OnAction = OnAction;
 				item.OnAfterAction = OnAfterAction;
 				item.CreateMenuItem(MenuItem);
-				return (item);
+				return item;
 			}
 			#endregion
 
@@ -308,11 +308,11 @@ namespace Lotus
 			/// Добавление элемента меню
 			/// </summary>
 			/// <param name="name">Имя элемента меню</param>
-			/// <param name="on_action">Обработчик событие основного действия</param>
+			/// <param name="onAction">Обработчик событие основного действия</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void AddItem(String name, Action<ILotusViewItem> on_action)
+			public override void AddItem(String name, Action<ILotusViewItem> onAction)
 			{
-				Items.Add(new CUIContextMenuItemWindows(name, on_action));
+				Items.Add(new CUIContextMenuItemWindows(name, onAction));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -320,12 +320,12 @@ namespace Lotus
 			/// Добавление элемента меню
 			/// </summary>
 			/// <param name="name">Имя элемента меню</param>
-			/// <param name="on_action">Обработчик событие основного действия</param>
-			/// <param name="on_after_action">Дополнительный обработчик события после основного действия</param>
+			/// <param name="onAction">Обработчик событие основного действия</param>
+			/// <param name="onAfterAction">Дополнительный обработчик события после основного действия</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void AddItem(String name, Action<ILotusViewItem> on_action, Action<ILotusViewItem> on_after_action)
+			public override void AddItem(String name, Action<ILotusViewItem> onAction, Action<ILotusViewItem> onAfterAction)
 			{
-				Items.Add(new CUIContextMenuItemWindows(null, name, on_action, on_after_action));
+				Items.Add(new CUIContextMenuItemWindows(null, name, onAction, onAfterAction));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -354,9 +354,9 @@ namespace Lotus
 				// Устанавливаем/обновляем модель
 				if (IsCreatedItems == false)
 				{
-					for (Int32 i = 0; i < Items.Count; i++)
+					for (var i = 0; i < Items.Count; i++)
 					{
-						CUIContextMenuItemWindows item = Items[i] as CUIContextMenuItemWindows;
+						var item = Items[i] as CUIContextMenuItemWindows;
 						if (item != null)
 						{
 							// Если у экземпляра меню есть уже родитель то удалям
@@ -376,7 +376,7 @@ namespace Lotus
 				else
 				{
 					// Устанавливаем/обновляем модель
-					for (Int32 i = 0; i < Items.Count; i++)
+					for (var i = 0; i < Items.Count; i++)
 					{
 						Items[i].ViewItem = ViewItem;
 					}

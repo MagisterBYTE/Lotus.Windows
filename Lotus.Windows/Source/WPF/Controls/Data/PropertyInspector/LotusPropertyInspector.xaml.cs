@@ -94,7 +94,7 @@ namespace Lotus
 			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
 			{
 				DataTemplate template = Invalid;
-				CPropertyModelBase model = item as CPropertyModelBase;
+				var model = item as CPropertyModelBase;
 				if (model != null)
 				{
 					switch (model.PropertyType)
@@ -143,19 +143,19 @@ namespace Lotus
 							break;
 						case TPropertyType.Object:
 							{
-								CPropertyModelObject model_object = model as CPropertyModelObject;
+								var model_object = model as CPropertyModelObject;
 
-								DataTemplate data_template = new DataTemplate();
+								var data_template = new DataTemplate();
 								data_template.DataType = typeof(CPropertyModelObject);
 
-								FrameworkElementFactory element = new FrameworkElementFactory(model_object.EditorType);
+								var element = new FrameworkElementFactory(model_object.EditorType);
 
 								System.ComponentModel.PropertyDescriptorCollection pdc = System.ComponentModel.TypeDescriptor.GetProperties(model_object.EditorType);
 								var property_description_value = pdc["Value"];
 
 								var dependency_property = DependencyPropertyDescriptor.FromProperty(property_description_value);
 
-								Binding binding = new Binding("Value");
+								var binding = new Binding("Value");
 								binding.Mode = BindingMode.TwoWay;
 								binding.Source = model_object;
 								element.SetBinding(dependency_property.DependencyProperty, binding);
@@ -176,7 +176,7 @@ namespace Lotus
 				}
 
 
-				return (template);
+				return template;
 			}
 			#endregion
 		}
@@ -216,7 +216,7 @@ namespace Lotus
 			/// </summary>
 			public Object SelectedObject
 			{
-				get { return (mSelectedObject); }
+				get { return mSelectedObject; }
 				set
 				{
 					if(mSelectedObject != value)
@@ -233,7 +233,7 @@ namespace Lotus
 			/// </summary>
 			public String TypeName
 			{
-				get { return (mTypeName); }
+				get { return mTypeName; }
 				set
 				{
 					if (mTypeName != value)
@@ -250,7 +250,7 @@ namespace Lotus
 			/// </summary>
 			public String ObjectName
 			{
-				get { return (mObjectName); }
+				get { return mObjectName; }
 				set
 				{
 					if (mObjectName != value)
@@ -268,7 +268,7 @@ namespace Lotus
 			[Browsable(false)]
 			public Boolean IsGrouping
 			{
-				get { return (mIsGrouping); }
+				get { return mIsGrouping; }
 				set
 				{
 					if (mIsGrouping != value)
@@ -295,7 +295,7 @@ namespace Lotus
 			[Browsable(false)]
 			public Boolean IsFiltration
 			{
-				get { return (mIsFiltration); }
+				get { return mIsFiltration; }
 				set
 				{
 					if (mIsFiltration != value)
@@ -322,7 +322,7 @@ namespace Lotus
 			[Browsable(false)]
 			public String FilterString
 			{
-				get { return (mFilterString); }
+				get { return mFilterString; }
 				set
 				{
 					mFilterString = value;
@@ -339,7 +339,7 @@ namespace Lotus
 			/// </summary>
 			public ListArray<CPropertyModelBase> Properties
 			{
-				get { return (mProperties); }
+				get { return mProperties; }
 			}
 
 			/// <summary>
@@ -347,7 +347,7 @@ namespace Lotus
 			/// </summary>
 			public ListCollectionView PropertiesView
 			{
-				get { return (mPropertiesView); }
+				get { return mPropertiesView; }
 			}
 			#endregion
 
@@ -378,7 +378,7 @@ namespace Lotus
 					mProperties.Clear();
 
 					// Если есть общая поддержка инспектора свойств
-					ILotusSupportViewInspector support_inspector = mSelectedObject as ILotusSupportViewInspector;
+					var support_inspector = mSelectedObject as ILotusSupportViewInspector;
 					if (support_inspector != null)
 					{
 						TypeName = support_inspector.InspectorTypeName;
@@ -386,14 +386,14 @@ namespace Lotus
 					}
 
 					// Если есть расширенная поддержка инспектора свойств для получение описания свойств
-					ILotusSupportEditInspector support_inspector_ex = mSelectedObject as ILotusSupportEditInspector;
+					var support_inspector_ex = mSelectedObject as ILotusSupportEditInspector;
 					if (support_inspector_ex != null)
 					{
 						// Получаем список описания свойств
 						mPropertiesDesc = support_inspector_ex.GetPropertiesDesc();
 
 						// Сформируем правильный порядок
-						for (Int32 i = 0; i < mPropertiesDesc.Length; i++)
+						for (var i = 0; i < mPropertiesDesc.Length; i++)
 						{
 							if(mPropertiesDesc[i].PropertyOrder == -1)
 							{
@@ -412,7 +412,7 @@ namespace Lotus
 					mProperties.SortAscending();
 
 					// Устанавливаем экземпляр объекта
-					for (Int32 i = 0; i < mProperties.Count; i++)
+					for (var i = 0; i < mProperties.Count; i++)
 					{
 						mProperties[i].Instance = mSelectedObject;
 					}
@@ -449,7 +449,7 @@ namespace Lotus
 			{
 				// Получаем список свойств
 				PropertyInfo[] props = mSelectedObject.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).OrderBy(x => x.MetadataToken).ToArray();
-				for (Int32 i = 0; i < props.Length; i++)
+				for (var i = 0; i < props.Length; i++)
 				{
 					PropertyInfo property_info = props[i];
 					Type type = property_info.PropertyType;
@@ -601,11 +601,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected List<CPropertyDesc> GetPropertyDesc(PropertyInfo property_info)
 			{
-				List<CPropertyDesc> result = new List<CPropertyDesc>();
+				var result = new List<CPropertyDesc>();
 
-				if (mPropertiesDesc == null) return (null);
+				if (mPropertiesDesc == null) return null;
 
-				for (Int32 i = 0; i < mPropertiesDesc.Length; i++)
+				for (var i = 0; i < mPropertiesDesc.Length; i++)
 				{
 					if(mPropertiesDesc[i].PropertyName == property_info.Name)
 					{
@@ -613,7 +613,7 @@ namespace Lotus
 					}
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -624,17 +624,17 @@ namespace Lotus
 			protected void UpdateCategoryOrders()
 			{
 				// Собираем группы
-				List<String> groups = new List<String>();
-				for (Int32 i = 0; i < mProperties.Count; i++)
+				var groups = new List<String>();
+				for (var i = 0; i < mProperties.Count; i++)
 				{
 					groups.AddIfNotContains(mProperties[i].Category);
 				}
 
-				for (Int32 i = 0; i < groups.Count; i++)
+				for (var i = 0; i < groups.Count; i++)
 				{
-					String group = groups[i];
-					Int32 order = -1;
-					for (Int32 j = 0; j < mProperties.Count; j++)
+					var group = groups[i];
+					var order = -1;
+					for (var j = 0; j < mProperties.Count; j++)
 					{
 						if(mProperties[j].Category == group)
 						{
@@ -648,7 +648,7 @@ namespace Lotus
 
 					if(order != -1)
 					{
-						for (Int32 j = 0; j < mProperties.Count; j++)
+						for (var j = 0; j < mProperties.Count; j++)
 						{
 							if (mProperties[j].Category == group)
 							{
@@ -672,12 +672,12 @@ namespace Lotus
 			{
 				if (String.IsNullOrEmpty(FilterString))
 				{
-					return (true);
+					return true;
 				}
 				else
 				{
-					CPropertyModelBase property_model = item as CPropertyModelBase;
-					return (property_model.DisplayName.Contains(FilterString, StringComparison.OrdinalIgnoreCase));
+					var property_model = item as CPropertyModelBase;
+					return property_model.DisplayName.Contains(FilterString, StringComparison.OrdinalIgnoreCase);
 				}
 			}
 
@@ -757,7 +757,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void CheckIsValueFromList()
 			{
-				for (Int32 i = 0; i < mProperties.Count; i++)
+				for (var i = 0; i < mProperties.Count; i++)
 				{
 					CPropertyModelBase property_model = mProperties[i];
 
@@ -777,8 +777,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonStringContextMenu_Click(Object sender, RoutedEventArgs args)
 			{
-				FrameworkElement element = args.Source as FrameworkElement;
-				CPropertyModelBase property_model = element.DataContext as CPropertyModelBase;
+				var element = args.Source as FrameworkElement;
+				var property_model = element.DataContext as CPropertyModelBase;
 				ContextMenu context_menu = element.ContextMenu;
 				if (context_menu != null)
 				{
@@ -812,8 +812,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemSetValueFromListForString_Click(Object sender, RoutedEventArgs args)
 			{
-				MenuItem menu_item = args.OriginalSource as MenuItem;
-				CPropertyModelBase property_model = menu_item.Tag as CPropertyModelBase;
+				var menu_item = args.OriginalSource as MenuItem;
+				var property_model = menu_item.Tag as CPropertyModelBase;
 				if (property_model != null)
 				{
 					property_model.SetValue(menu_item.Header.ToString());
@@ -856,7 +856,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDataProperties_SelectionChanged(Object sender, SelectionChangedEventArgs args)
 			{
-				CPropertyModelBase property_model = mPropertiesView.CurrentItem as CPropertyModelBase;
+				var property_model = mPropertiesView.CurrentItem as CPropertyModelBase;
 				if (property_model != null)
 				{
 					textDescription.Text = property_model.Description;
@@ -872,7 +872,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTextBoxString_LostFocus(Object sender, RoutedEventArgs args)
 			{
-				CPropertyModelBase property_model = mPropertiesView.CurrentItem as CPropertyModelBase;
+				var property_model = mPropertiesView.CurrentItem as CPropertyModelBase;
 				if (property_model != null)
 				{
 					property_model.CheckIsValueFromList();
@@ -890,7 +890,7 @@ namespace Lotus
 			{
 				if(sender is Button button)
 				{
-					String method_name = button.Tag.ToString();
+					var method_name = button.Tag.ToString();
 					XReflection.InvokeMethod(mSelectedObject, method_name);
 				}
 			}

@@ -84,7 +84,7 @@ namespace Lotus
 			/// </summary>
 			public TNotificationType NoticeType
 			{
-				get { return (mNoticeType); }
+				get { return mNoticeType; }
 				set
 				{
 					if (mNoticeType != value)
@@ -100,7 +100,7 @@ namespace Lotus
 			/// </summary>
 			public String Message
 			{
-				get { return (mMessage); }
+				get { return mMessage; }
 				set
 				{
 					if (mMessage != value)
@@ -116,7 +116,7 @@ namespace Lotus
 			/// </summary>
 			public Int32 ID
 			{
-				get { return (mID); }
+				get { return mID; }
 				set
 				{
 					if (mID != value)
@@ -132,7 +132,7 @@ namespace Lotus
 			/// </summary>
 			public String Title
 			{
-				get { return (mTitle); }
+				get { return mTitle; }
 				set
 				{
 					if (mTitle != value)
@@ -185,33 +185,33 @@ namespace Lotus
 			/// Конвертер типа NotificationType в соответствующую графическую пиктограмму.
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Графическая пиктограмма</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				TNotificationType val = (TNotificationType)value;
+				var val = (TNotificationType)value;
 				switch (val)
 				{
 					case TNotificationType.Info:
 						{
-							return (Info);
+							return Info;
 						}
 					case TNotificationType.Warning:
 						{
-							return (Warning);
+							return Warning;
 						}
 					case TNotificationType.Error:
 						{
-							return (Error);
+							return Error;
 						}
 					default:
 						break;
 				}
 
-				return (null);
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -219,14 +219,14 @@ namespace Lotus
 			/// Конвертация графической пиктограммы в тип NotificationType.
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип NotificationType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 			#endregion
 		}
@@ -301,7 +301,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void AddNotification(TNotificationType notice_type, String message)
 			{
-				CNotification notification = new CNotification();
+				var notification = new CNotification();
 				notification.NoticeType = notice_type;
 				notification.Message = message;
 				notification.ID = mCount++;

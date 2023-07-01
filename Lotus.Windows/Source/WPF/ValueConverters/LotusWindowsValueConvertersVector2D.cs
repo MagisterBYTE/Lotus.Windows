@@ -37,34 +37,34 @@ namespace Lotus
 			/// Конвертация объекта вектор в объект типа <see cref="Vector2D"/>
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект <see cref="Vector2D"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				if (value is Vector2D)
 				{
-					return (value);
+					return value;
 				}
 
 				if (value is Vector2Df)
 				{
-					Vector2Df v = (Vector2Df)value;
-					return (new Vector2D(v.X, v.Y));
+					var v = (Vector2Df)value;
+					return new Vector2D(v.X, v.Y);
 				}
 
 				if (value is System.Windows.Vector)
 				{
-					System.Windows.Vector v = (System.Windows.Vector)value;
-					return (new Vector2D(v.X, v.Y));
+					var v = (System.Windows.Vector)value;
+					return new Vector2D(v.X, v.Y);
 				}
 
 				if (value is System.Windows.Point)
 				{
-					System.Windows.Point v = (System.Windows.Point)value;
-					return (new Vector2D(v.X, v.Y));
+					var v = (System.Windows.Point)value;
+					return new Vector2D(v.X, v.Y);
 				}
 
 #if USE_ASSIMP
@@ -83,7 +83,7 @@ namespace Lotus
 				}
 #endif
 
-				return (Vector2D.Zero);
+				return Vector2D.Zero;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -91,37 +91,37 @@ namespace Lotus
 			/// Конвертация объекта типа <see cref="Vector2D"/> в объект вектора
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр(реальный тип для преобразования)</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект вектора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Type real_type = (Type)parameter;
-				if (real_type == null) real_type = target_type;
+				var real_type = (Type)parameter;
+				if (real_type == null) real_type = targetType;
 
 				if (real_type == typeof(Vector2D))
 				{
-					return (value);
+					return value;
 				}
 
 				if (real_type == typeof(Vector2Df))
 				{
-					Vector2D v = (Vector2D)value;
-					return (new Vector2Df((Single)v.X, (Single)v.Y));
+					var v = (Vector2D)value;
+					return new Vector2Df((Single)v.X, (Single)v.Y);
 				}
 
 				if (real_type == typeof(System.Windows.Vector))
 				{
-					Vector2D v = (Vector2D)value;
-					return (new System.Windows.Vector(v.X, v.Y));
+					var v = (Vector2D)value;
+					return new System.Windows.Vector(v.X, v.Y);
 				}
 
 				if (real_type == typeof(System.Windows.Point))
 				{
-					Vector2D v = (Vector2D)value;
-					return (new System.Windows.Point(v.X, v.Y));
+					var v = (Vector2D)value;
+					return new System.Windows.Point(v.X, v.Y);
 				}
 
 #if USE_ASSIMP
@@ -139,7 +139,7 @@ namespace Lotus
 					return (new SharpDX.Vector2((Single)v.X, (Single)v.Y));
 				}
 #endif
-				return (value);
+				return value;
 			}
 			#endregion
 		}

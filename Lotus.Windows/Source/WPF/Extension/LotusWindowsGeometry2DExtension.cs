@@ -39,10 +39,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static void SetPosition(this Geometry geometry, Double x, Double y)
 			{
-				TransformGroup transform_group = geometry.Transform as TransformGroup;
+				var transform_group = geometry.Transform as TransformGroup;
 				if (transform_group != null)
 				{
-					TranslateTransform translate_in_group = transform_group.Children[0] as TranslateTransform;
+					var translate_in_group = transform_group.Children[0] as TranslateTransform;
 					if (translate_in_group != null)
 					{
 						translate_in_group.X = x;
@@ -51,7 +51,7 @@ namespace Lotus
 					}
 				}
 
-				TranslateTransform translate = geometry.Transform as TranslateTransform;
+				var translate = geometry.Transform as TranslateTransform;
 				if (translate != null)
 				{
 					translate.X = x;
@@ -69,10 +69,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static void SetPosition(this Geometry geometry, Point point)
 			{
-				TransformGroup transform_group = geometry.Transform as TransformGroup;
+				var transform_group = geometry.Transform as TransformGroup;
 				if (transform_group != null)
 				{
-					TranslateTransform translate_in_group = transform_group.Children[0] as TranslateTransform;
+					var translate_in_group = transform_group.Children[0] as TranslateTransform;
 					if (translate_in_group != null)
 					{
 						translate_in_group.X = point.X;
@@ -81,7 +81,7 @@ namespace Lotus
 					}
 				}
 
-				TranslateTransform translate = geometry.Transform as TranslateTransform;
+				var translate = geometry.Transform as TranslateTransform;
 				if (translate != null)
 				{
 					translate.X = point.X;
@@ -99,10 +99,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static void SetAngle(this Geometry geometry, Double angle)
 			{
-				TransformGroup transform_group = geometry.Transform as TransformGroup;
+				var transform_group = geometry.Transform as TransformGroup;
 				if (transform_group != null)
 				{
-					RotateTransform rotation_in_group = transform_group.Children[1] as RotateTransform;
+					var rotation_in_group = transform_group.Children[1] as RotateTransform;
 					if (rotation_in_group != null)
 					{
 						Rect bounds_rect = Rect.Empty;
@@ -113,7 +113,7 @@ namespace Lotus
 					}
 				}
 
-				RotateTransform rotation = geometry.Transform as RotateTransform;
+				var rotation = geometry.Transform as RotateTransform;
 				if (rotation != null)
 				{
 					rotation.Angle = angle;

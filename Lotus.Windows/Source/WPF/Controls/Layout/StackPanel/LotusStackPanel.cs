@@ -123,7 +123,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void StackPlacement_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				LotusStackPanel stack_panel = (LotusStackPanel)obj;
+				var stack_panel = (LotusStackPanel)obj;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -222,10 +222,10 @@ namespace Lotus
 			/// Метод, который по заданному available_size определяет желаемые размеры и выставляет их в this.DesiredSize.
 			/// В описании к методу написано, что результирующий DesiredSize может быть > availableSize, но для наследников FrameworkElement это не так.
 			/// </remarks>
-			/// <param name="constraint">Имеющиеся размеры</param>
+			/// <param name="availableSize">Имеющиеся размеры</param>
 			/// <returns>Размер элемента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			protected override Size MeasureOverride(Size constraint)
+			protected override Size MeasureOverride(Size availableSize)
 			{
 				UIElementCollection children = InternalChildren;
 
@@ -237,7 +237,7 @@ namespace Lotus
 				var isHorizontal = Orientation == Orientation.Horizontal;
 				var totalMarginToAdd = CalculateTotalMarginToAdd(children, MarginBetweenChildren);
 
-				for (int i = 0; i < children.Count; i++)
+				for (var i = 0; i < children.Count; i++)
 				{
 					UIElement child = children[i];
 
@@ -247,8 +247,8 @@ namespace Lotus
 					if (GetFill(child) != TStackPanelFill.Auto) { continue; }
 
 					// Child constraint is the remaining size; this is total size minus size consumed by previous children.
-					var childConstraint = new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
-												   Math.Max(0.0, constraint.Height - accumulatedHeight));
+					var childConstraint = new Size(Math.Max(0.0, availableSize.Width - accumulatedWidth),
+												   Math.Max(0.0, availableSize.Height - accumulatedHeight));
 
 					// Measure child.
 					child.Measure(childConstraint);
@@ -283,14 +283,14 @@ namespace Lotus
 							 && x.Visibility != Visibility.Collapsed);
 
 				var availableSpaceRemaining = isHorizontal
-					? Math.Max(0, constraint.Width - accumulatedWidth)
-					: Math.Max(0, constraint.Height - accumulatedHeight);
+					? Math.Max(0, availableSize.Width - accumulatedWidth)
+					: Math.Max(0, availableSize.Height - accumulatedHeight);
 
 				var eachFillTypeSize = totalCountOfFillTypes > 0
 					? availableSpaceRemaining / totalCountOfFillTypes
 					: 0;
 
-				for (int i = 0; i < children.Count; i++)
+				for (var i = 0; i < children.Count; i++)
 				{
 					UIElement child = children[i];
 
@@ -302,8 +302,8 @@ namespace Lotus
 					// Child constraint is the remaining size; this is total size minus size consumed by previous children.
 					var childConstraint = isHorizontal
 						? new Size(eachFillTypeSize,
-								   Math.Max(0.0, constraint.Height - accumulatedHeight))
-						: new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
+								   Math.Max(0.0, availableSize.Height - accumulatedHeight))
+						: new Size(Math.Max(0.0, availableSize.Width - accumulatedWidth),
 								   eachFillTypeSize);
 
 					// Measure child.
@@ -334,13 +334,13 @@ namespace Lotus
 			/// <summary>
 			/// Окончательно определить размеры
 			/// </summary>
-			/// <param name="arrangeSize">Требуемые размеры</param>
+			/// <param name="finalSize">Требуемые размеры</param>
 			/// <returns>Размер элемента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			protected override Size ArrangeOverride(Size arrangeSize)
+			protected override Size ArrangeOverride(Size finalSize)
 			{
 				UIElementCollection children = InternalChildren;
-				int totalChildrenCount = children.Count;
+				var totalChildrenCount = children.Count;
 
 				Double accumulatedLeft = 0;
 				Double accumulatedTop = 0;
@@ -350,8 +350,8 @@ namespace Lotus
 
 				var totalMarginToAdd = CalculateTotalMarginToAdd(children, marginBetweenChildren);
 
-				Double allAutoSizedSum = 0.0;
-				int countOfFillTypes = 0;
+				var allAutoSizedSum = 0.0;
+				var countOfFillTypes = 0;
 				foreach (var child in children.OfType<UIElement>())
 				{
 					var fillType = GetFill(child);
@@ -368,11 +368,11 @@ namespace Lotus
 				}
 
 				var remainingForFillTypes = isHorizontal
-					? Math.Max(0, arrangeSize.Width - allAutoSizedSum - totalMarginToAdd)
-					: Math.Max(0, arrangeSize.Height - allAutoSizedSum - totalMarginToAdd);
+					? Math.Max(0, finalSize.Width - allAutoSizedSum - totalMarginToAdd)
+					: Math.Max(0, finalSize.Height - allAutoSizedSum - totalMarginToAdd);
 				var fillTypeSize = remainingForFillTypes / countOfFillTypes;
 
-				for (int i = 0; i < totalChildrenCount; ++i)
+				for (var i = 0; i < totalChildrenCount; ++i)
 				{
 					UIElement child = children[i];
 					if (child == null) { continue; }
@@ -382,21 +382,21 @@ namespace Lotus
 					var isLastChild = i == totalChildrenCount - 1;
 					var marginToAdd = isLastChild || isCollapsed ? 0 : marginBetweenChildren;
 
-					Rect rcChild = new Rect(
+					var rcChild = new Rect(
 						accumulatedLeft,
 						accumulatedTop,
-						Math.Max(0.0, arrangeSize.Width - accumulatedLeft),
-						Math.Max(0.0, arrangeSize.Height - accumulatedTop));
+						Math.Max(0.0, finalSize.Width - accumulatedLeft),
+						Math.Max(0.0, finalSize.Height - accumulatedTop));
 
 					if (isHorizontal)
 					{
 						rcChild.Width = fillType == TStackPanelFill.Auto || isCollapsed ? childDesiredSize.Width : fillTypeSize;
-						rcChild.Height = arrangeSize.Height;
+						rcChild.Height = finalSize.Height;
 						accumulatedLeft += rcChild.Width + marginToAdd;
 					}
 					else
 					{
-						rcChild.Width = arrangeSize.Width;
+						rcChild.Width = finalSize.Width;
 						rcChild.Height = fillType == TStackPanelFill.Auto || isCollapsed ? childDesiredSize.Height : fillTypeSize;
 						accumulatedTop += rcChild.Height + marginToAdd;
 					}
@@ -404,7 +404,7 @@ namespace Lotus
 					child.Arrange(rcChild);
 				}
 
-				return arrangeSize;
+				return finalSize;
 			}
 			#endregion
 

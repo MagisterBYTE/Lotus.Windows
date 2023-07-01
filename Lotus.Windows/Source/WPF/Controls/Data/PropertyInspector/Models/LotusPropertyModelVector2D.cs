@@ -42,7 +42,7 @@ namespace Lotus
 			/// </summary>
 			public override Vector2D Value
 			{
-				get { return (mValue); }
+				get { return mValue; }
 				set
 				{
 					// Произошло изменение свойства со стороны инспектора свойств
@@ -104,22 +104,22 @@ namespace Lotus
 			{
 				if(mInfo.PropertyType == typeof(Vector2Df))
 				{
-					return (new Vector2Df((Single)mValue.X, (Single)mValue.Y));
+					return new Vector2Df((Single)mValue.X, (Single)mValue.Y);
 				}
 				if (mInfo.PropertyType == typeof(Vector2Di))
 				{
-					return (new Vector2Di((Int32)mValue.X, (Int32)mValue.Y));
+					return new Vector2Di((Int32)mValue.X, (Int32)mValue.Y);
 				}
 				if (mInfo.PropertyType == typeof(Point))
 				{
-					return (new Point(mValue.X, mValue.Y));
+					return new Point(mValue.X, mValue.Y);
 				}
 				if (mInfo.PropertyType == typeof(Vector))
 				{
-					return (new Vector(mValue.X, mValue.Y));
+					return new Vector(mValue.X, mValue.Y);
 				}
 
-				return (mValue);
+				return mValue;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -132,26 +132,26 @@ namespace Lotus
 			{
 				if (mInfo.PropertyType == typeof(Vector2Df))
 				{
-					Vector2Df vector = (Vector2Df)mInfo.GetValue(mInstance);
-					return (new Vector2D(vector.X, vector.Y));
+					var vector = (Vector2Df)mInfo.GetValue(mInstance);
+					return new Vector2D(vector.X, vector.Y);
 				}
 				if (mInfo.PropertyType == typeof(Vector2Di))
 				{
-					Vector2Di vector = (Vector2Di)mInfo.GetValue(mInstance);
-					return (new Vector2D(vector.X, vector.Y));
+					var vector = (Vector2Di)mInfo.GetValue(mInstance);
+					return new Vector2D(vector.X, vector.Y);
 				}
 				if (mInfo.PropertyType == typeof(Point))
 				{
-					Point vector = (Point)mInfo.GetValue(mInstance);
-					return (new Vector2D(vector.X, vector.Y));
+					var vector = (Point)mInfo.GetValue(mInstance);
+					return new Vector2D(vector.X, vector.Y);
 				}
 				if (mInfo.PropertyType == typeof(Vector))
 				{
-					Vector vector = (Vector)mInfo.GetValue(mInstance);
-					return (new Vector2D(vector.X, vector.Y));
+					var vector = (Vector)mInfo.GetValue(mInstance);
+					return new Vector2D(vector.X, vector.Y);
 				}
 
-				return ((Vector2D)mInfo.GetValue(mInstance));
+				return (Vector2D)mInfo.GetValue(mInstance);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ namespace Lotus
 
 				if (IsListValues)
 				{
-					IEnumerable enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
+					var enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
 						mListValuesMemberType, mInstance) as IEnumerable;
 					foreach (var item in enumerable)
 					{

@@ -91,22 +91,22 @@ namespace Lotus
 			/// <returns></returns>
 			public IEnumerable<NewFolding> CreateNewFoldings(ITextSource document)
 			{
-				List<NewFolding> newFoldings = new List<NewFolding>();
+				var newFoldings = new List<NewFolding>();
 
-				Stack<Int32> startOffsets = new Stack<Int32>();
-				Int32 lastNewLineOffset = 0;
-				Char openingBrace = this.OpeningBrace;
-				Char closingBrace = this.ClosingBrace;
-				for (Int32 i = 0; i < document.TextLength; i++)
+				var startOffsets = new Stack<Int32>();
+				var lastNewLineOffset = 0;
+				var openingBrace = this.OpeningBrace;
+				var closingBrace = this.ClosingBrace;
+				for (var i = 0; i < document.TextLength; i++)
 				{
-					Char c = document.GetCharAt(i);
+					var c = document.GetCharAt(i);
 					if (c == openingBrace)
 					{
 						startOffsets.Push(i);
 					}
 					else if (c == closingBrace && startOffsets.Count > 0)
 					{
-						Int32 startOffset = startOffsets.Pop();
+						var startOffset = startOffsets.Pop();
 						// don't fold if opening and closing brace are on the same line
 						if (startOffset < lastNewLineOffset)
 						{
@@ -159,7 +159,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Boolean IsSupportFormatFile(String extension)
 			{
-				return (SupportFormatFile.Contains(extension));
+				return SupportFormatFile.ContainsElement(extension);
 			}
 			#endregion
 
@@ -197,7 +197,7 @@ namespace Lotus
 			/// </summary>
 			public ICSharpCode.AvalonEdit.TextEditor AvalonTextEditor
 			{
-				get { return (avalonTextEditor); }
+				get { return avalonTextEditor; }
 			}
 			#endregion
 
@@ -272,7 +272,7 @@ namespace Lotus
 				}
 				else
 				{
-					String file_name = XFileDialog.Save("Сохранить документ", null);
+					var file_name = XFileDialog.Save("Сохранить документ", null);
 					if (XFilePath.CheckCorrectFileName(file_name))
 					{
 						AvalonTextEditor.Save(file_name);
@@ -295,9 +295,9 @@ namespace Lotus
 				{
 					if (String.IsNullOrEmpty(FileName) == false)
 					{
-						String dir = Path.GetDirectoryName(FileName);
-						String file = Path.GetFileNameWithoutExtension(FileName);
-						String ext = Path.GetExtension(FileName).Remove(0, 1);
+						var dir = Path.GetDirectoryName(FileName);
+						var file = Path.GetFileNameWithoutExtension(FileName);
+						var ext = Path.GetExtension(FileName).Remove(0, 1);
 
 						 file_name = XFileDialog.Save("Сохранить документ как", dir, file, ext);
 						if (XFilePath.CheckCorrectFileName(file_name))
@@ -465,17 +465,17 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnAvalonTextEditor_PreviewMouseWheel(Object sender, MouseWheelEventArgs args)
 			{
-				Boolean ctrl = Keyboard.Modifiers == ModifierKeys.Control;
+				var ctrl = Keyboard.Modifiers == ModifierKeys.Control;
 				if (ctrl)
 				{
-					Boolean increase = args.Delta > 0;
-					Double currentSize = avalonTextEditor.FontSize;
+					var increase = args.Delta > 0;
+					var currentSize = avalonTextEditor.FontSize;
 
 					if (increase)
 					{
 						if (currentSize < FONT_MAX_SIZE)
 						{
-							Double newSize = Math.Min(FONT_MAX_SIZE, currentSize + 1);
+							var newSize = Math.Min(FONT_MAX_SIZE, currentSize + 1);
 							avalonTextEditor.FontSize = newSize;
 						}
 					}
@@ -483,7 +483,7 @@ namespace Lotus
 					{
 						if (currentSize > FONT_MIN_SIZE)
 						{
-							Double newSize = Math.Max(FONT_MIN_SIZE, currentSize - 1);
+							var newSize = Math.Max(FONT_MIN_SIZE, currentSize - 1);
 							avalonTextEditor.FontSize = newSize;
 						}
 					}

@@ -112,7 +112,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Value_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
+				var numeric_editor = (LotusNumericEditor)sender;
 
 				numeric_editor.SetPresentValue();
 
@@ -128,11 +128,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void MaxMinValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
+				var numeric_editor = (LotusNumericEditor)sender;
 
 				if(args.Property == MinValueProperty)
 				{
-					Double min_value = (Double)args.NewValue;
+					var min_value = (Double)args.NewValue;
 					if (numeric_editor.Value < min_value)
 					{
 						numeric_editor.Value = min_value;
@@ -142,7 +142,7 @@ namespace Lotus
 				}
 				else
 				{
-					Double max_value = (Double)args.NewValue;
+					var max_value = (Double)args.NewValue;
 					if (numeric_editor.Value > max_value)
 					{
 						numeric_editor.Value = max_value;
@@ -161,8 +161,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
-				Double new_value = (Double)args.NewValue;
+				var numeric_editor = (LotusNumericEditor)sender;
+				var new_value = (Double)args.NewValue;
 
 				numeric_editor.Value = new_value;
 				numeric_editor.SetPresentValue();
@@ -178,7 +178,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Format_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
+				var numeric_editor = (LotusNumericEditor)sender;
 				numeric_editor.SetPresentValue();
 			}
 
@@ -191,7 +191,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
+				var numeric_editor = (LotusNumericEditor)sender;
 				numeric_editor.SetPresentValue();
 			}
 
@@ -204,8 +204,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusNumericEditor numeric_editor = (LotusNumericEditor)sender;
-				Boolean new_read_only = (Boolean)args.NewValue;
+				var numeric_editor = (LotusNumericEditor)sender;
+				var new_read_only = (Boolean)args.NewValue;
 				if (new_read_only)
 				{
 					numeric_editor.miClear.IsEnabled = false;

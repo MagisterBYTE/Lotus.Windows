@@ -52,12 +52,12 @@ namespace Lotus
 				PropertyInfo[] arr_colors = color_type.GetProperties(BindingFlags.Public | BindingFlags.Static);
 				PropertyInfo[] arr_brushes = brush_type.GetProperties(BindingFlags.Public | BindingFlags.Static);
 
-				for (Int32 i = 0; i < arr_colors.Length; i++)
+				for (var i = 0; i < arr_colors.Length; i++)
 				{
 					mKnownColors.Add(new KeyValuePair<String, Color>(arr_colors[i].Name, (Color)arr_colors[i].GetValue(null, null)));
 				}
 
-				for (Int32 i = 0; i < arr_brushes.Length; i++)
+				for (var i = 0; i < arr_brushes.Length; i++)
 				{
 					mKnownBrushes.Add(new KeyValuePair<String, SolidColorBrush>(arr_brushes[i].Name, (SolidColorBrush)arr_brushes[i].GetValue(null, null)));
 				}
@@ -72,17 +72,17 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetKnownColorName(Color color)
 			{
-				String result = String.Empty;
+				var result = String.Empty;
 
-				for (Int32 i = 0; i < mKnownColors.Count; i++)
+				for (var i = 0; i < mKnownColors.Count; i++)
 				{
 					if (Color.AreClose(mKnownColors[i].Value, color))
 					{
-						return (mKnownColors[i].Key);
+						return mKnownColors[i].Key;
 					}
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -94,17 +94,17 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String GetKnownBrushName(SolidColorBrush brush)
 			{
-				String result = String.Empty;
+				var result = String.Empty;
 
-				for (Int32 i = 0; i < mKnownColors.Count; i++)
+				for (var i = 0; i < mKnownColors.Count; i++)
 				{
 					if (Color.AreClose(mKnownBrushes[i].Value.Color, brush.Color))
 					{
-						return (mKnownColors[i].Key);
+						return mKnownColors[i].Key;
 					}
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -120,16 +120,16 @@ namespace Lotus
 
 				if (mKnownColors != null)
 				{
-					for (Int32 i = 0; i < mKnownColors.Count; i++)
+					for (var i = 0; i < mKnownColors.Count; i++)
 					{
 						if (mKnownColors[i].Key == color_name)
 						{
-							return (mKnownColors[i].Value);
+							return mKnownColors[i].Value;
 						}
 					}
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -146,16 +146,16 @@ namespace Lotus
 				if (mKnownBrushes != null)
 				{
 
-					for (Int32 i = 0; i < mKnownBrushes.Count; i++)
+					for (var i = 0; i < mKnownBrushes.Count; i++)
 					{
 						if (mKnownBrushes[i].Key == brush_name)
 						{
-							return (mKnownBrushes[i].Value);
+							return mKnownBrushes[i].Value;
 						}
 					}
 				}
 
-				return (result);
+				return result;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -169,19 +169,19 @@ namespace Lotus
 			{
 				if (mKnownBrushes != null)
 				{
-					for (Int32 i = 0; i < mKnownBrushes.Count; i++)
+					for (var i = 0; i < mKnownBrushes.Count; i++)
 					{
 						if (Color.AreClose(mKnownBrushes[i].Value.Color, color))
 						{
-							return (mKnownBrushes[i].Value);
+							return mKnownBrushes[i].Value;
 						}
 					}
 
-					return (new SolidColorBrush(color));
+					return new SolidColorBrush(color);
 				}
 				else
 				{
-					return (Brushes.White);
+					return Brushes.White;
 				}
 			}
 			#endregion

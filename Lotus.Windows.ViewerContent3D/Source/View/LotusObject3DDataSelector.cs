@@ -94,55 +94,55 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
 			{
-				CScene3D scene = item as CScene3D;
+				var scene = item as CScene3D;
 				if (scene != null)
 				{
-					return (Scene);
+					return Scene;
 				}
 
-				CNode3D node = item as CNode3D;
+				var node = item as CNode3D;
 				if (node != null)
 				{
-					return (Node);
+					return Node;
 				}
 
-				CModel3D model = item as CModel3D;
+				var model = item as CModel3D;
 				if (model != null)
 				{
-					return (Model);
+					return Model;
 				}
 
-				CMesh3Df mesh = item as CMesh3Df;
+				var mesh = item as CMesh3Df;
 				if (mesh != null)
 				{
-					return (Mesh);
+					return Mesh;
 				}
 
-				CMeshSet mesh_set = item as CMeshSet;
+				var mesh_set = item as CMeshSet;
 				if (mesh_set != null)
 				{
-					return (MeshSet);
+					return MeshSet;
 				}
 
-				CMaterial material = item as CMaterial;
+				var material = item as CMaterial;
 				if (material != null)
 				{
-					return (Material);
+					return Material;
 				}
 
-				CTextureSlot texture_slot = item as CTextureSlot;
+				var texture_slot = item as CTextureSlot;
 				if (texture_slot != null)
 				{
-					return (TextureSlot);
+					return TextureSlot;
 				}
 
-				CMaterialSet material_set = item as CMaterialSet;
+				var material_set = item as CMaterialSet;
 				if (material_set != null)
 				{
-					return (MaterialSet);
+					return MaterialSet;
 				}
 
-				return (Scene);
+				return Scene;
 			}
 			#endregion
 		}

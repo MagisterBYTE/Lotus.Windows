@@ -36,15 +36,15 @@ namespace Lotus
 			/// Конвертация типа Size в строковый тип
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				Size val = (Size)value;
-				return ("Ширина = " + val.Width.ToString("F0") + "; Высота = " + val.Height.ToString("F0") + ";");
+				var val = (Size)value;
+				return "Ширина = " + val.Width.ToString("F0") + "; Высота = " + val.Height.ToString("F0") + ";";
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -52,14 +52,14 @@ namespace Lotus
 			/// Конвертация строкового типа в тип Size
 			/// </summary>
 			/// <param name="value">Значение</param>
-			/// <param name="target_type">Целевой тип</param>
+			/// <param name="targetType">Целевой тип</param>
 			/// <param name="parameter">Дополнительный параметр</param>
 			/// <param name="culture">Культура</param>
 			/// <returns>тип Size</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type target_type, Object parameter, CultureInfo culture)
+			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return (null);
+				return null;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

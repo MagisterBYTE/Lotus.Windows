@@ -108,7 +108,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Value_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
+				var spin_editor = (LotusMeasurementEditor)sender;
 				
 				spin_editor.SetPresentValue();
 
@@ -124,11 +124,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void MaxMinValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
+				var spin_editor = (LotusMeasurementEditor)sender;
 
 				if (args.Property == MinValueProperty)
 				{
-					Double min_value = (Double)args.NewValue;
+					var min_value = (Double)args.NewValue;
 					if (spin_editor.Value.Value < min_value)
 					{
 						spin_editor.Value = spin_editor.Value.Clone(min_value);
@@ -138,7 +138,7 @@ namespace Lotus
 				}
 				else
 				{
-					Double max_value = (Double)args.NewValue;
+					var max_value = (Double)args.NewValue;
 					if (spin_editor.Value.Value > max_value)
 					{
 						spin_editor.Value = spin_editor.Value.Clone(max_value);
@@ -157,8 +157,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
-				Double new_value = (Double)args.NewValue;
+				var spin_editor = (LotusMeasurementEditor)sender;
+				var new_value = (Double)args.NewValue;
 
 				spin_editor.Value = spin_editor.Value.Clone(new_value);
 				spin_editor.SetPresentValue();
@@ -174,7 +174,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void Format_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
+				var spin_editor = (LotusMeasurementEditor)sender;
 				spin_editor.SetPresentValue();
 			}
 
@@ -187,7 +187,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
+				var spin_editor = (LotusMeasurementEditor)sender;
 				spin_editor.SetPresentValue();
 			}
 
@@ -200,8 +200,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				LotusMeasurementEditor spin_editor = (LotusMeasurementEditor)sender;
-				Boolean new_read_only = (Boolean)args.NewValue;
+				var spin_editor = (LotusMeasurementEditor)sender;
+				var new_read_only = (Boolean)args.NewValue;
 				if (new_read_only)
 				{
 					spin_editor.miClear.IsEnabled = false;
@@ -437,7 +437,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonUp_Click(Object sender, RoutedEventArgs args)
 			{
-				Double result = Value.Value + Step;
+				var result = Value.Value + Step;
 				if (result > MaxValue)
 				{
 					Value = Value.Clone(MaxValue);
@@ -457,7 +457,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonDown_Click(Object sender, RoutedEventArgs args)
 			{
-				Double result = Value.Value - Step;
+				var result = Value.Value - Step;
 				if (result < MinValue)
 				{
 					Value = Value.Clone(MinValue);
@@ -600,7 +600,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemSetUnit_Click(Object sender, RoutedEventArgs args)
 			{
-				Enum unit_type = (Enum)((MenuItem)sender).Tag;
+				var unit_type = (Enum)((MenuItem)sender).Tag;
 				Value = new TMeasurementValue(Value.Value, unit_type);
 			}
 			#endregion

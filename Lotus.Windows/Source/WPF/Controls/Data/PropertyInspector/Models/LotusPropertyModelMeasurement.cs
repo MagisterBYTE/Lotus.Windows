@@ -55,7 +55,7 @@ namespace Lotus
 			/// </summary>
 			public Double MinValue
 			{
-				get { return (mMinValue); }
+				get { return mMinValue; }
 			}
 
 			/// <summary>
@@ -63,7 +63,7 @@ namespace Lotus
 			/// </summary>
 			public Double MaxValue
 			{
-				get { return (mMaxValue); }
+				get { return mMaxValue; }
 			}
 			#endregion
 
