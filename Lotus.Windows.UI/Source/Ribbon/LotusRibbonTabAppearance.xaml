@@ -25,7 +25,7 @@
                 Text="Акцент темы: " />
             <fluent:ComboBox
                 x:Name="ribbonDropAccentTheme"
-                InputWidth="90"
+                Width="90"
                 IsEditable="False"
                 SelectionChanged="OnViewStyleRibbon_Checked"
                 Text="{Binding SelectedItem,
@@ -51,7 +51,7 @@
                 Text="Цветовая гамма: " />
             <fluent:ComboBox
                 x:Name="ribbonDropAppTheme"
-                InputWidth="90"
+                Width="90"
                 IsEditable="False"
                 SelectionChanged="OnViewStyleRibbon_Checked"
                 Text="{Binding SelectedItem,

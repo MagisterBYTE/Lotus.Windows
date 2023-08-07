@@ -507,7 +507,7 @@ namespace Lotus
 							mAnimationUpdater = value;
 							mAnimationUpdater.Reset();
 							mAnimationUpdater.RepeatMode = AnimationRepeatMode.Loop;
-							mAnimationUpdater.Speed = mSpeedAnimation;
+							//mAnimationUpdater.Speed = mSpeedAnimation;
 						}
 						else
 						{
@@ -538,7 +538,7 @@ namespace Lotus
 						NotifyPropertyChanged(PropertyArgsSpeedAnimation);
 						if (mAnimationUpdater != null)
 						{
-							mAnimationUpdater.Speed = value;
+							//mAnimationUpdater.Speed = value;
 						}
 					}
 				}
