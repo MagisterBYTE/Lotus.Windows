@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -110,5 +111,61 @@ namespace Lotus.App.GeneralUtility
 
 			textCoordDest.Text = xmlDoc.OuterXml;
 		}
-	}
+
+		private void buttonConvertCSharp_Click(object sender, RoutedEventArgs e)
+		{
+			List<string> outputs = new List<string>();
+			string[] sourceCSharp = textCSharp.Text.Split(XChar.SeparatorNewLine, StringSplitOptions.RemoveEmptyEntries);
+
+
+			for (int i = 0; i < sourceCSharp.Length; i++)
+			{
+				var currentStr = sourceCSharp[i];
+				if(currentStr.Contains("/// <summary>"))
+				{
+					var convert = "/**";
+					outputs.Add(convert);
+				}
+				else if (currentStr.Contains("/// </summary>"))
+				{
+					var convert = " */";
+					outputs.Add(convert);
+				}
+				else if (currentStr.Contains("/// "))
+				{
+					var convert = currentStr.Replace("/// ", "* ").TrimStart().Insert(0, " ");
+					outputs.Add(convert);
+				}
+				else
+				{
+					var convert = currentStr;
+					outputs.Add(convert);
+				}
+			}
+
+			textTypeScript.Text = outputs.Aggregate((a, b) => a + "\n" + b);
+		}
+
+		private void buttonConvertFiles_Click(object sender, RoutedEventArgs e)
+		{
+
+			var pathSource = @"D:\CODE\LotusPlatform\Lotus.DeNova\Lotus.DeNova.WebClient\public\images\Avatar";
+			var filesInfo = Directory.EnumerateFiles(pathSource).ToArray().OrderBy(x => x);
+			var index = 0;
+			foreach (var file in filesInfo) 
+			{
+				var path = file.RemoveTo(@"\images");
+				var name = path.RemoveToWith("Fatcow_user_").RemoveLastOccurrence("_32.png");
+				var category = "Avatar";
+				textConvertFiles.AppendText("\t{");
+				textConvertFiles.AppendText("\t\n");
+				textConvertFiles.AppendText($"\tid: {index},\n");
+				textConvertFiles.AppendText($"\tname: '{name}',\n");
+				textConvertFiles.AppendText($"\tcategory: '{category}',\n");
+				textConvertFiles.AppendText($"\tsource: '{path}'\n");
+				textConvertFiles.AppendText("\t},\n");
+				index++;
+			}
+        }
+    }
 }

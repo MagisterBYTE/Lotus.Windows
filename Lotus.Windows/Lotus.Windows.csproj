@@ -2,16 +2,18 @@
  <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug;Release;Publish</Configurations>
+    <DefineConstants>TRACE;USE_WINDOWS</DefineConstants>
     <OutputPath>..\Output\$(Configuration)\</OutputPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>MagistrBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <Copyright>MagistrBYTE aka DanielDem</Copyright>
-    <AssemblyVersion>1.9.1.0</AssemblyVersion>
-    <FileVersion>1.9.1.0</FileVersion>
-    <Version>1.9.1</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
     <Title>Lotus.Windows</Title>
     <PackageTags></PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -21,14 +23,6 @@
     <PackageIconUrl />
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <NoWarn>1587,1591</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;USE_WINDOWS</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;USE_WINDOWS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -248,14 +242,20 @@
   <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Lotus.Basis\Lotus.Core\Lotus.Core.csproj" />
-    <ProjectReference Include="..\..\Lotus.Basis\Lotus.Math\Lotus.Math.csproj" />
-    <ProjectReference Include="..\..\Lotus.Basis\Lotus.UnitMeasurement\Lotus.UnitMeasurement.csproj" />
-  </ItemGroup>
+   <ItemGroup Condition="'$(Configuration)' == 'Publish'">
+     <PackageReference Include="Lotus.Core" Version="2.0.0" />
+     <PackageReference Include="Lotus.Math" Version="2.0.0" />
+     <PackageReference Include="Lotus.UnitMeasurement" Version="2.0.0" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(Configuration)' != 'Publish'">
+     <ProjectReference Include="..\..\Lotus.Basis\Lotus.Core\Lotus.Core.csproj" />
+     <ProjectReference Include="..\..\Lotus.Basis\Lotus.Math\Lotus.Math.csproj" />
+     <ProjectReference Include="..\..\Lotus.Basis\Lotus.UnitMeasurement\Lotus.UnitMeasurement.csproj" />
+   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Brushes\brush_chess_large.png" />

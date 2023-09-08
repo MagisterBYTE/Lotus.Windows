@@ -5,10 +5,15 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <OutputPath>..\Output\$(Configuration)\</OutputPath>
+    <RootNamespace>Lotus.EntityDesigner</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Fluent.Ribbon" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lotus.Windows.UI\Lotus.Windows.UI.csproj" />
     <ProjectReference Include="..\Lotus.Windows\Lotus.Windows.csproj" />
   </ItemGroup>
 
