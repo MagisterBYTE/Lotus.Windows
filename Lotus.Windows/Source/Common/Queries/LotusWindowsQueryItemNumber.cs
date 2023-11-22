@@ -40,9 +40,9 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected TComparisonOperator mComparisonOperator;
-			protected Double mComparisonValueLeft;
-			protected Double mComparisonValueRight;
+			protected internal TComparisonOperator _comparisonOperator;
+			protected internal Double _comparisonValueLeft;
+			protected internal Double _comparisonValueRight;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -53,13 +53,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonOperator;
+					return _comparisonOperator;
 				}
 				set
 				{
-					if (mComparisonOperator != value)
+					if (_comparisonOperator != value)
 					{
-						mComparisonOperator = value;
+						_comparisonOperator = value;
 						NotifyPropertyChanged(PropertyArgsComparisonOperator);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonOperator));
@@ -74,13 +74,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonValueLeft;
+					return _comparisonValueLeft;
 				}
 				set
 				{
-					if (Math.Abs(mComparisonValueLeft - value) > 0.000001)
+					if (Math.Abs(_comparisonValueLeft - value) > 0.000001)
 					{
-						mComparisonValueLeft = value;
+						_comparisonValueLeft = value;
 						NotifyPropertyChanged(PropertyArgsComparisonValueLeft);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
@@ -95,16 +95,16 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonValueRight;
+					return _comparisonValueRight;
 				}
 				set
 				{
-					if (Math.Abs(mComparisonValueRight - value) > 0.000001)
+					if (Math.Abs(_comparisonValueRight - value) > 0.000001)
 					{
-						mComparisonValueRight = value;
+						_comparisonValueRight = value;
 						NotifyPropertyChanged(PropertyArgsComparisonValueRight);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
-						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(mComparisonValueRight));
+						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(_comparisonValueRight));
 					}
 				}
 			}
@@ -129,8 +129,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemNumber(TComparisonOperator comparison_operator, Double comparison_value)
 			{
-				mComparisonOperator = comparison_operator;
-				mComparisonValueLeft = comparison_value;
+				_comparisonOperator = comparison_operator;
+				_comparisonValueLeft = comparison_value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -142,9 +142,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemNumber(Double comparison_value_left, Double comparison_value_right)
 			{
-				mComparisonOperator = TComparisonOperator.Equality;
-				mComparisonValueLeft = comparison_value_left;
-				mComparisonValueRight = comparison_value_right;
+				_comparisonOperator = TComparisonOperator.Equality;
+				_comparisonValueLeft = comparison_value_left;
+				_comparisonValueRight = comparison_value_right;
 			}
 			#endregion
 
@@ -173,21 +173,21 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override Boolean ComputeSQLQuery(ref String sql_query)
 			{
-				if(mNotCalculation == false && Double.IsInfinity(mComparisonValueLeft) == false &&
-					Double.IsNaN(mComparisonValueLeft) == false)
+				if(_notCalculation == false && Double.IsInfinity(_comparisonValueLeft) == false &&
+					Double.IsNaN(_comparisonValueLeft) == false)
 				{
-					//if(mComparisonOperator == TComparisonQueryOperator.Between)
+					//if(_comparisonOperator == TComparisonQueryOperator.Between)
 					//{
-					//	if(mComparisonValueRight > mComparisonValueLeft)
+					//	if(_comparisonValueRight > _comparisonValueLeft)
 					//	{
-					//		sql_query += " " + mPropertyName + " BETWEEN " + mComparisonValueLeft.ToString()
-					//			+ " AND " + mComparisonValueRight.ToString();
+					//		sql_query += " " + _propertyName + " BETWEEN " + _comparisonValueLeft.ToString()
+					//			+ " AND " + _comparisonValueRight.ToString();
 					//		return (true);
 					//	}
 					//}
 					//else
 					//{
-					//	sql_query += " " + mPropertyName + mComparisonOperator.GetOperatorOfString() + mComparisonValueLeft.ToString();
+					//	sql_query += " " + _propertyName + _comparisonOperator.GetOperatorOfString() + _comparisonValueLeft.ToString();
 					//	return (true);
 					//}
 				}

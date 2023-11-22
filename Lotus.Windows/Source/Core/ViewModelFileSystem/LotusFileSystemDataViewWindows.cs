@@ -5,7 +5,7 @@
 // Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
 //---------------------------------------------------------------------------------------------------------------------
 /** \file LotusFileSystemDataViewWindows.cs
-*		Специализация элементов отображения для работы с объектам файловой системы для Windows.
+*		Специализация ViewModel для работы с объектам файловой системы для Windows.
 */
 //---------------------------------------------------------------------------------------------------------------------
 // Версия: 1.0.0.0
@@ -23,13 +23,13 @@ namespace Lotus
 		*@{*/
 		//-------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Класс реализующий элемент отображения для элемента файловой системы для Windows
+		/// Класс реализующий ViewModel для элемента файловой системы для Windows
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public class CViewItemFSWindows : ViewItemHierarchy<ILotusFileSystemEntity>
+		public class ViewModelFSFileWin : ViewModelFileSystemFile
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal ImageSource mIconSource;
+			protected internal ImageSource _iconSource;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -40,22 +40,22 @@ namespace Lotus
 			{
 				get
 				{
-					if (mIconSource == null)
+					if (_iconSource == null)
 					{
-						var full_name = DataContext.FullName;
+						var full_name = Model.FullName;
 						if (full_name.IsExists())
 						{
-							mIconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromShell(full_name,
+							_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromShell(full_name,
 								(UInt32)(Windows.TShellAttribute.Icon | Windows.TShellAttribute.SmallIcon));
-							mIconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromExtract(full_name);
+							_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromExtract(full_name);
 						}
 					}
 
-					return mIconSource;
+					return _iconSource;
 				}
 				set
 				{
-					mIconSource = value;
+					_iconSource = value;
 				}
 			}
 			#endregion
@@ -63,53 +63,14 @@ namespace Lotus
 			#region ======================================= КОНСТРУКТОРЫ ==============================================
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
-			/// Конструктор по умолчанию инициализирует объект класса предустановленными значениями
-			/// </summary>
-			//---------------------------------------------------------------------------------------------------------
-			public CViewItemFSWindows()
-				: this(String.Empty)
-			{
-
-			}
-
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
 			/// Конструктор инициализирует объект класса указанными параметрами
 			/// </summary>
-			/// <param name="name">Имя модели</param>
-			//---------------------------------------------------------------------------------------------------------
-			public CViewItemFSWindows(String name)
-				: base(name)
-			{
-				SetContextMenu();
-				mIsNotify = true;
-			}
-
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конструктор инициализирует объект класса указанными параметрами
-			/// </summary>
-			/// <param name="data_context">Данные</param>
-			//---------------------------------------------------------------------------------------------------------
-			public CViewItemFSWindows(ILotusFileSystemEntity data_context)
-				: base(data_context)
-			{
-				SetContextMenu();
-				mIsNotify = true;
-			}
-
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конструктор инициализирует объект класса указанными параметрами
-			/// </summary>
-			/// <param name="data_context">Данные</param>
+			/// <param name="model">Модель</param>
 			/// <param name="parent_item">Родительский узел</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CViewItemFSWindows(ILotusFileSystemEntity data_context, ILotusViewItemHierarchy parent_item)
-				: base(data_context, parent_item)
+			public ViewModelFSFileWin(ILotusFileSystemEntity model, ILotusViewModelHierarchy parent_item)
+				: base(model, parent_item)
 			{
-				SetContextMenu();
-				mIsNotify = true;
 			}
 			#endregion
 
@@ -119,33 +80,33 @@ namespace Lotus
 			/// Установка контекстного меню
 			/// </summary>
 			//---------------------------------------------------------------------------------------------------------
-			public virtual void SetContextMenu()
+			public override void SetContextMenu()
 			{
-				mUIContextMenu = new CUIContextMenuWindows();
-				mUIContextMenu.ViewItem = this;
-				mUIContextMenu.AddItem("Показать в проводнике", (ILotusViewItem view_item) =>
+				_contextMenuUI = new CUIContextMenuWindows();
+				_contextMenuUI.ViewModel = this;
+				_contextMenuUI.AddItem("Показать в проводнике", (ILotusViewModel view_model) =>
 				{
 					Windows.XNative.ShellExecute(IntPtr.Zero,
 						"explore",
-						DataContext.FullName,
+						Model.FullName,
 						"",
 						"",
 						Windows.TShowCommands.SW_NORMAL);
 				});
-				mUIContextMenu.AddItem(CUIContextMenuWindows.Remove.Duplicate());
+				_contextMenuUI.AddItem(CUIContextMenuWindows.Remove.Duplicate());
 			}
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Открытие контекстного меню
 			/// </summary>
-			/// <param name="context_menu">Контекстное меню</param>
+			/// <param name="contextMenu">Контекстное меню</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void OpenContextMenu(System.Object context_menu)
+			public override void OpenContextMenu(System.Object contextMenu)
 			{
-				if (context_menu is System.Windows.Controls.ContextMenu window_context_menu)
+				if (contextMenu is System.Windows.Controls.ContextMenu window_context_menu)
 				{
-					((CUIContextMenuWindows)mUIContextMenu).SetCommandsDefault(window_context_menu);
+					((CUIContextMenuWindows)_contextMenuUI).SetCommandsDefault(window_context_menu);
 				}
 			}
 
@@ -154,10 +115,10 @@ namespace Lotus
 			/// Построение дочерней иерархии согласно источнику данных
 			/// </summary>
 			//---------------------------------------------------------------------------------------------------------
-			public override void BuildFromDataContext()
+			public override void BuildFromModel()
 			{
 				Clear();
-				CCollectionViewFSWindows.BuildFromParent(this, mOwner);
+				CollectionViewModelFSWin.BuildFromParent(this, _owner);
 			}
 			#endregion
 		}
@@ -167,7 +128,7 @@ namespace Lotus
 		/// Коллекция для отображения элементов файловой системы для Windows
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public class CCollectionViewFSWindows : CollectionViewHierarchy<CViewItemFSWindows, ILotusFileSystemEntity>
+		public class CollectionViewModelFSWin : CollectionViewModelHierarchy<ViewModelFSFileWin, ILotusFileSystemEntity>
 		{
 			#region ======================================= КОНСТРУКТОРЫ ==============================================
 			//---------------------------------------------------------------------------------------------------------
@@ -175,7 +136,7 @@ namespace Lotus
 			/// Конструктор по умолчанию инициализирует объект класса предустановленными значениями
 			/// </summary>
 			//---------------------------------------------------------------------------------------------------------
-			public CCollectionViewFSWindows()
+			public CollectionViewModelFSWin()
 				: base(String.Empty)
 			{
 
@@ -187,7 +148,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="name">Имя коллекции</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CCollectionViewFSWindows(String name)
+			public CollectionViewModelFSWin(String name)
 				: base(name)
 			{
 			}
@@ -199,9 +160,34 @@ namespace Lotus
 			/// <param name="name">Имя коллекции</param>
 			/// <param name="source">Источник данных</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CCollectionViewFSWindows(String name, ILotusFileSystemEntity source)
+			public CollectionViewModelFSWin(String name, ILotusFileSystemEntity source)
 				: base(name, source)
 			{
+			}
+			#endregion
+
+			#region ======================================= МЕТОДЫ ILotusCollectionViewModelHierarchy =================
+			//---------------------------------------------------------------------------------------------------------
+			/// <summary>
+			/// Создание конкретной ViewModel для указанной модели
+			/// </summary>
+			/// <param name="model">Модель</param>
+			/// <param name="parent">Родительский элемент ViewModel</param>
+			/// <returns>ViewModel</returns>
+			//---------------------------------------------------------------------------------------------------------
+			public override ILotusViewModelHierarchy CreateViewModelHierarchy(System.Object model, ILotusViewModelHierarchy parent)
+			{
+				if (model is CFileSystemFile file)
+				{
+					return new ViewModelFSFileWin(file, parent);
+				}
+
+				if (model is CFileSystemDirectory directory)
+				{
+					return new ViewModelFSFileWin(directory, parent);
+				}
+
+				return null;
 			}
 			#endregion
 		}

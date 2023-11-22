@@ -207,7 +207,7 @@ namespace Lotus
 		/// Панель для ведения лога и вывода вспомогательной информации
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public partial class LotusLoggerControl : UserControl, ILoggerView, INotifyPropertyChanged
+		public partial class LotusLoggerControl : UserControl, ILotusLoggerView, INotifyPropertyChanged
 		{
 			#region ======================================= ДАННЫЕ ====================================================
 			private ListArray<TLogMessage> mMessages;

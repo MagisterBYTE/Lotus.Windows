@@ -1,11 +1,11 @@
 ﻿//=====================================================================================================================
 // Проект: Модуль платформы Windows
 // Раздел: Имплементация модуля базового ядра
-// Подраздел: Подсистема файловой системы
+// Подраздел: Подсистема ViewModel для файловой системы
 // Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
 //---------------------------------------------------------------------------------------------------------------------
 /** \file LotusFileSystemDataSelector.cs
-*		Селекторы для выбора модели отображения данных.
+*		Селекторы для выбора ViewModel.
 */
 //---------------------------------------------------------------------------------------------------------------------
 // Версия: 1.0.0.0
@@ -71,14 +71,14 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
 			{
-				if(item is CViewItemFSWindows view_item_hierarchy)
+				if(item is ViewModelFSFileWin view_model)
 				{
-					if (view_item_hierarchy.DataContext is CFileSystemDirectory)
+					if (view_model.Model is CFileSystemDirectory)
 					{
 						return Directory;
 					}
 
-					if (view_item_hierarchy.DataContext is CFileSystemFile)
+					if (view_model.Model is CFileSystemFile)
 					{
 						return File;
 					}

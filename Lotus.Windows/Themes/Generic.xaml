@@ -22,6 +22,6 @@
         <!--  Шаблоны элементов управления  -->
         <!--<ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/WPF/Controls/Special/TreeFileExplorer/LotusElementFileSystemDataTemplate.xaml" />-->
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/WPF/Controls/Layout/ContentViewer/LotusContentViewerTemplate.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/Core/FileSystem/LotusFileSystemDataTemplate.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Source/Core/ViewModelFileSystem/LotusFileSystemDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

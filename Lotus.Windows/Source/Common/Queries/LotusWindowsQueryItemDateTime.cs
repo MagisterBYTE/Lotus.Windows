@@ -40,9 +40,9 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected TComparisonOperator mComparisonOperator;
-			protected DateTime mComparisonValueLeft;
-			protected DateTime mComparisonValueRight;
+			protected internal TComparisonOperator _comparisonOperator;
+			protected internal DateTime _comparisonValueLeft;
+			protected internal DateTime _comparisonValueRight;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -53,13 +53,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonOperator;
+					return _comparisonOperator;
 				}
 				set
 				{
-					if (mComparisonOperator != value)
+					if (_comparisonOperator != value)
 					{
-						mComparisonOperator = value;
+						_comparisonOperator = value;
 						NotifyPropertyChanged(PropertyArgsComparisonOperator);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonOperator));
@@ -74,13 +74,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonValueLeft;
+					return _comparisonValueLeft;
 				}
 				set
 				{
 					if (ComparisonValueLeft != value)
 					{
-						mComparisonValueLeft = value;
+						_comparisonValueLeft = value;
 						NotifyPropertyChanged(PropertyArgsComparisonValueLeft);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
@@ -95,16 +95,16 @@ namespace Lotus
 			{
 				get
 				{
-					return mComparisonValueRight;
+					return _comparisonValueRight;
 				}
 				set
 				{
-					if (mComparisonValueRight != value)
+					if (_comparisonValueRight != value)
 					{
-						mComparisonValueRight = value;
+						_comparisonValueRight = value;
 						NotifyPropertyChanged(PropertyArgsComparisonValueRight);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
-						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(mComparisonValueRight));
+						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(_comparisonValueRight));
 					}
 				}
 			}
@@ -118,8 +118,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemDateTime()
 			{
-				mComparisonValueLeft = DateTime.Now;
-				mComparisonValueRight = DateTime.Now;
+				_comparisonValueLeft = DateTime.Now;
+				_comparisonValueRight = DateTime.Now;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -131,8 +131,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemDateTime(TComparisonOperator comparison_operator, DateTime comparison_value)
 			{
-				mComparisonOperator = comparison_operator;
-				mComparisonValueLeft = comparison_value;
+				_comparisonOperator = comparison_operator;
+				_comparisonValueLeft = comparison_value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -144,9 +144,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemDateTime(DateTime comparison_value_left, DateTime comparison_value_right)
 			{
-				mComparisonOperator = TComparisonOperator.Equality;
-				mComparisonValueLeft = comparison_value_left;
-				mComparisonValueRight = comparison_value_right;
+				_comparisonOperator = TComparisonOperator.Equality;
+				_comparisonValueLeft = comparison_value_left;
+				_comparisonValueRight = comparison_value_right;
 			}
 			#endregion
 
@@ -175,20 +175,20 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override Boolean ComputeSQLQuery(ref String sql_query)
 			{
-				if (mNotCalculation == false)
+				if (_notCalculation == false)
 				{
-					if (mComparisonOperator == TComparisonOperator.Equality)
+					if (_comparisonOperator == TComparisonOperator.Equality)
 					{
-						if (mComparisonValueRight > mComparisonValueLeft)
+						if (_comparisonValueRight > _comparisonValueLeft)
 						{
-							sql_query += " " + mPropertyName + " BETWEEN " + mComparisonValueLeft.ToString()
-								+ " AND " + mComparisonValueRight.ToString();
+							sql_query += " " + _propertyName + " BETWEEN " + _comparisonValueLeft.ToString()
+								+ " AND " + _comparisonValueRight.ToString();
 							return true;
 						}
 					}
 					else
 					{
-						sql_query += " " + mPropertyName + mComparisonOperator.GetOperatorOfString() + mComparisonValueLeft.ToString();
+						sql_query += " " + _propertyName + _comparisonOperator.GetOperatorOfString() + _comparisonValueLeft.ToString();
 						return true;
 					}
 				}

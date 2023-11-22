@@ -13,8 +13,8 @@
     <!--  Шаблон для диска  -->
     <HierarchicalDataTemplate
         x:Key="FileSystemDiskKey"
-        DataType="{x:Type local:CViewItemFSWindows}"
-        ItemsSource="{Binding Path=IViewItems}">
+        DataType="{x:Type local:ViewModelFSFileWin}"
+        ItemsSource="{Binding Path=IViewModels}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
@@ -30,8 +30,8 @@
     <!--  Шаблон для директории  -->
     <HierarchicalDataTemplate
         x:Key="FileSystemDirectoryKey"
-        DataType="{x:Type local:CViewItemFSWindows}"
-        ItemsSource="{Binding Path=IViewItems}">
+        DataType="{x:Type local:ViewModelFSFileWin}"
+        ItemsSource="{Binding Path=IViewModels}">
         <StackPanel Orientation="Horizontal">
             <CheckBox
                 Margin="2"
@@ -58,7 +58,7 @@
     <!--  Шаблон для файла  -->
     <HierarchicalDataTemplate
         x:Key="FileSystemFileKey"
-        DataType="{x:Type local:CViewItemFSWindows}">
+        DataType="{x:Type local:ViewModelFSFileWin}">
         <StackPanel Orientation="Horizontal">
             <CheckBox
                 Margin="2"
@@ -75,14 +75,14 @@
             <TextBlock
                 Margin="4,0"
                 VerticalAlignment="Center"
-                Text="{Binding Path=DataContext.Name}"
+                Text="{Binding Path=Model.Name}"
                 Visibility="{Binding IsEditMode,
                                      Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
             <TextBox
                 Margin="4,0"
                 VerticalAlignment="Center"
                 AcceptsReturn="False"
-                Text="{Binding Path=DataContext.Name,
+                Text="{Binding Path=Model.Name,
                                UpdateSourceTrigger=LostFocus}"
                 Visibility="{Binding IsEditMode,
                                      Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />

@@ -38,8 +38,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected List<System.Object> mSourceItems;
-			protected List<System.Object> mFiltredItems;
+			protected internal List<System.Object> _sourceItems;
+			protected internal List<System.Object> _filtredItems;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -50,11 +50,11 @@ namespace Lotus
 			{
 				get
 				{
-					return mSourceItems;
+					return _sourceItems;
 				}
 				set
 				{
-					mSourceItems = value;
+					_sourceItems = value;
 					NotifyPropertyChanged(PropertyArgsSourceItems);
 				}
 			}
@@ -66,11 +66,11 @@ namespace Lotus
 			{
 				get
 				{
-					return mFiltredItems;
+					return _filtredItems;
 				}
 				set
 				{
-					mFiltredItems = value;
+					_filtredItems = value;
 					NotifyPropertyChanged(PropertyArgsFiltredItems);
 				}
 			}
@@ -84,8 +84,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemEnum()
 			{
-				mFiltredItems = new List<System.Object>();
-				mSourceItems = new List<System.Object>();
+				_filtredItems = new List<System.Object>();
+				_sourceItems = new List<System.Object>();
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -96,9 +96,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemEnum(Type enum_type)
 			{
-				mFiltredItems = new List<System.Object>();
-				mSourceItems = new List<System.Object>();
-				mSourceItems.AddRange(XEnum.GetDescriptions(enum_type));
+				_filtredItems = new List<System.Object>();
+				_sourceItems = new List<System.Object>();
+				_sourceItems.AddRange(XEnum.GetDescriptions(enum_type));
 			}
 			#endregion
 
@@ -125,22 +125,22 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override Boolean ComputeSQLQuery(ref String sql_query)
 			{
-				if (mNotCalculation == false)
+				if (_notCalculation == false)
 				{
-					if (mFiltredItems.Count > 0)
+					if (_filtredItems.Count > 0)
 					{
-						var included = new StringBuilder(mFiltredItems.Count * 10);
-						; for (var i = 0; i < mFiltredItems.Count; i++)
+						var included = new StringBuilder(_filtredItems.Count * 10);
+						; for (var i = 0; i < _filtredItems.Count; i++)
 						{
 							if (i != 0)
 							{
 								included.Append(", ");
 							}
 
-							included.Append("'" + mFiltredItems[i].ToString() + "'");
+							included.Append("'" + _filtredItems[i].ToString() + "'");
 						}
 
-						sql_query += " " + mPropertyName + " IN (" + included.ToString() + ")";
+						sql_query += " " + _propertyName + " IN (" + included.ToString() + ")";
 						return true;
 					}
 				}
@@ -156,17 +156,17 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public String JoinFiltredItems()
 			{
-				if (mFiltredItems.Count > 0)
+				if (_filtredItems.Count > 0)
 				{
-					var included = new StringBuilder(mFiltredItems.Count * 10);
-					for (var i = 0; i < mFiltredItems.Count; i++)
+					var included = new StringBuilder(_filtredItems.Count * 10);
+					for (var i = 0; i < _filtredItems.Count; i++)
 					{
 						if (i != 0)
 						{
 							included.Append(", ");
 						}
 
-						included.Append(mFiltredItems[i].ToString());
+						included.Append(_filtredItems[i].ToString());
 					}
 
 					return included.ToString();

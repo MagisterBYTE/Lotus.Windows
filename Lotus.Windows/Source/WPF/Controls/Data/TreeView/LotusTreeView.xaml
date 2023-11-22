@@ -41,7 +41,7 @@
 				<StackPanel Orientation="Horizontal"
 							Margin="4,3,8,3">
 					<TextBlock FontSize="14" FontWeight="Bold" VerticalAlignment="Center"
-							   Text="{Binding ElementName=treeExplorer, Path=DraggedModel.Name}"
+							   Text="{Binding ElementName=treeExplorer, Path=DraggedItem}"
 							   Margin="8,0,0,0" />
 				</StackPanel>
 			</Border>

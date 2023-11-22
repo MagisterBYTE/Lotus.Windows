@@ -37,8 +37,8 @@ namespace Lotus
 			#endregion
 
 			#region =========================================== ДАННЫЕ ================================================
-			private BitmapSource mMiddleIcon;
-			private BitmapSource mLargeIcon;
+			private BitmapSource _middleIcon;
+			private BitmapSource _largeIcon;
 			#endregion
 
 			#region =========================================== СВОЙСТВА ==============================================
@@ -47,10 +47,10 @@ namespace Lotus
 			/// </summary>
 			public BitmapSource MiddleIcon
 			{
-				get { return mMiddleIcon; }
+				get { return _middleIcon; }
 				set
 				{
-					mMiddleIcon = value;
+					_middleIcon = value;
 					NotifyPropertyChanged(PropertyArgsMiddleIcon);
 				}
 			}
@@ -60,10 +60,10 @@ namespace Lotus
 			/// </summary>
 			public BitmapSource LargeIcon
 			{
-				get { return mLargeIcon; }
+				get { return _largeIcon; }
 				set
 				{
-					mLargeIcon = value;
+					_largeIcon = value;
 					NotifyPropertyChanged(PropertyArgsLargeIcon);
 				}
 			}
@@ -89,7 +89,7 @@ namespace Lotus
 			public RoutedIconUICommand(String text, BitmapSource middle_icon)
 			{
 				Text = text;
-				mMiddleIcon = middle_icon;
+				_middleIcon = middle_icon;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -103,8 +103,8 @@ namespace Lotus
 			public RoutedIconUICommand(String text, BitmapSource middle_icon, BitmapSource large_icon)
 			{
 				Text = text;
-				mMiddleIcon = middle_icon;
-				mLargeIcon = large_icon;
+				_middleIcon = middle_icon;
+				_largeIcon = large_icon;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ namespace Lotus
 			public RoutedIconUICommand(String text, String name, BitmapSource middle_icon)
 				: base(text, name, typeof(Window))
 			{
-				mMiddleIcon = middle_icon;
+				_middleIcon = middle_icon;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -133,8 +133,8 @@ namespace Lotus
 			public RoutedIconUICommand(String text, String name, BitmapSource middle_icon, BitmapSource large_icon)
 				: base(text, name, typeof(Window))
 			{
-				mMiddleIcon = middle_icon;
-				mLargeIcon = large_icon;
+				_middleIcon = middle_icon;
+				_largeIcon = large_icon;
 			}
 
 			//---------------------------------------------------------------------------------------------------------

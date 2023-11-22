@@ -39,8 +39,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected TStringSearchOption mSearchOption;
-			protected String mSearchValue;
+			protected internal TStringSearchOption _searchOption;
+			protected internal String _searchValue;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -51,13 +51,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mSearchOption;
+					return _searchOption;
 				}
 				set
 				{
-					if (mSearchOption != value)
+					if (_searchOption != value)
 					{
-						mSearchOption = value;
+						_searchOption = value;
 						NotifyPropertyChanged(PropertyArgsSearchOption);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchOption));
@@ -72,13 +72,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mSearchValue;
+					return _searchValue;
 				}
 				set
 				{
-					if (mSearchValue != value)
+					if (_searchValue != value)
 					{
-						mSearchValue = value;
+						_searchValue = value;
 						NotifyPropertyChanged(PropertyArgsSearchValue);
 						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchValue));
@@ -106,8 +106,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemString(TStringSearchOption search_option, String search_value)
 			{
-				mSearchOption = search_option;
-				mSearchValue = search_value;
+				_searchOption = search_option;
+				_searchValue = search_value;
 			}
 			#endregion
 
@@ -136,23 +136,23 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override Boolean ComputeSQLQuery(ref String sql_query)
 			{
-				if ((mNotCalculation == false) && (String.IsNullOrEmpty(mSearchValue) == false))
+				if ((_notCalculation == false) && (String.IsNullOrEmpty(_searchValue) == false))
 				{
-					switch (mSearchOption)
+					switch (_searchOption)
 					{
 						case TStringSearchOption.Start:
 							{
-								sql_query += " " + mPropertyName + " LIKE '" + mSearchValue + "%'";
+								sql_query += " " + _propertyName + " LIKE '" + _searchValue + "%'";
 							}
 							break;
 						case TStringSearchOption.End:
 							{
-								sql_query += " " + mPropertyName + " LIKE '%" + mSearchValue + "'";
+								sql_query += " " + _propertyName + " LIKE '%" + _searchValue + "'";
 							}
 							break;
 						case TStringSearchOption.Contains:
 							{
-								sql_query += " " + mPropertyName + " LIKE '%" + mSearchValue + "%'";
+								sql_query += " " + _propertyName + " LIKE '%" + _searchValue + "%'";
 							}
 							break;
 						case TStringSearchOption.Equal:

@@ -139,8 +139,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal ListArray<CQueryItem> mItems;
-			protected internal String mSQLQuery;
+			protected internal ListArray<CQueryItem> _items;
+			protected internal String _sqlQuery;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -151,7 +151,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mItems;
+					return _items;
 				}
 			}
 
@@ -163,7 +163,7 @@ namespace Lotus
 				get
 				{
 					ComputeSQLQuery();
-					return mSQLQuery;
+					return _sqlQuery;
 				}
 			}
 			#endregion
@@ -176,7 +176,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQuery()
 			{
-				mItems = new ListArray<CQueryItem>();
+				_items = new ListArray<CQueryItem>();
 			}
 			#endregion
 
@@ -217,18 +217,18 @@ namespace Lotus
 			{
 				var sql_query = "";
 
-				for (var i = 0; i < mItems.Count; i++)
+				for (var i = 0; i < _items.Count; i++)
 				{
-					if (mItems[i].ComputeSQLQuery(ref sql_query))
+					if (_items[i].ComputeSQLQuery(ref sql_query))
 					{
-						if (i < mItems.Count - 1)
+						if (i < _items.Count - 1)
 						{
 							sql_query += " AND";
 						}
 					}
 				}
 
-				mSQLQuery = sql_query;
+				_sqlQuery = sql_query;
 			}
 			#endregion
 		}
@@ -246,9 +246,9 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal String mPropertyName;
-			protected internal CQuery mQueryOwned;
-			protected internal Boolean mNotCalculation;
+			protected internal String _propertyName;
+			protected internal CQuery _queryOwned;
+			protected internal Boolean _notCalculation;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -259,11 +259,11 @@ namespace Lotus
 			{
 				get
 				{
-					return mPropertyName;
+					return _propertyName;
 				}
 				set
 				{
-					mPropertyName = value;
+					_propertyName = value;
 				}
 			}
 
@@ -274,11 +274,11 @@ namespace Lotus
 			{
 				get
 				{
-					return mQueryOwned;
+					return _queryOwned;
 				}
 				set
 				{
-					mQueryOwned = value;
+					_queryOwned = value;
 				}
 			}
 
@@ -298,10 +298,10 @@ namespace Lotus
 			/// </summary>
 			public Boolean NotCalculation
 			{
-				get { return mNotCalculation; }
+				get { return _notCalculation; }
 				set
 				{
-					mNotCalculation = value;
+					_notCalculation = value;
 					NotifyPropertyChanged(PropertyArgsNotCalculation);
 					if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(NotCalculation));
 				}

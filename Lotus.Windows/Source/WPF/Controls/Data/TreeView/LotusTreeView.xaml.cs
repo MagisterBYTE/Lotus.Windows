@@ -71,7 +71,7 @@ namespace Lotus
 			protected Popup mPopupHand;
 
 			// События
-			protected Action<ILotusViewItemHierarchy> mOnPresentedItem;
+			protected Action<ILotusViewModelHierarchy> mOnPresentedItem;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -94,9 +94,9 @@ namespace Lotus
 			/// <summary>
 			/// Коллекция для иерархического отображения
 			/// </summary>
-			public ILotusCollectionViewHierarchy CollectionViewHierarchy
+			public ILotusCollectionViewModelHierarchy CollectionViewModelHierarchy
 			{
-				get { return ItemsSource as ILotusCollectionViewHierarchy; }
+				get { return ItemsSource as ILotusCollectionViewModelHierarchy; }
 			}
 
 			//
@@ -176,7 +176,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие представления элемента отображения
 			/// </summary>
-			public Action<ILotusViewItemHierarchy> OnPresentedItem
+			public Action<ILotusViewModelHierarchy> OnPresentedItem
 			{
 				get { return mOnPresentedItem; }
 				set { mOnPresentedItem = value; }
@@ -223,17 +223,17 @@ namespace Lotus
 			private void OnTreeView_SelectedItemChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
 			{
 				// Проверка на иерархическую модель
-				if (args.NewValue is ILotusViewItemHierarchy new_item)
+				if (args.NewValue is ILotusViewModelHierarchy new_item)
 				{
-					if (CollectionViewHierarchy != null)
+					if (CollectionViewModelHierarchy != null)
 					{
-						CollectionViewHierarchy.ISelectedViewItem = new_item;
+						CollectionViewModelHierarchy.ISelectedViewModel = new_item;
 					}
 					new_item.IsSelected = true;
 				}
 
 				// Выключаем выбор для предыдущего элемента
-				if (args.OldValue is ILotusViewItemHierarchy old_item)
+				if (args.OldValue is ILotusViewModelHierarchy old_item)
 				{
 					old_item.IsSelected = false;
 				}
@@ -241,9 +241,9 @@ namespace Lotus
 
 				if (IsNotifySelectedInspector && XWindowManager.PropertyInspector != null)
 				{
-					if (args.NewValue is ILotusViewItemHierarchy new_item_data && new_item_data.DataContext != null)
+					if (args.NewValue is ILotusViewModelHierarchy new_item_data && new_item_data.Model != null)
 					{
-						XWindowManager.PropertyInspector.SelectedObject = new_item_data.DataContext;
+						XWindowManager.PropertyInspector.SelectedObject = new_item_data.Model;
 					}
 				}
 			}
@@ -307,7 +307,7 @@ namespace Lotus
 					// Получаем данные
 					DraggedItem = drag_tree_view_item;
 
-					var drag_data = new DataObject(nameof(ILotusViewItemHierarchy), drag_tree_view_item.DataContext);
+					var drag_data = new DataObject(nameof(ILotusViewModelHierarchy), drag_tree_view_item.DataContext);
 
 					if (Keyboard.IsKeyDown(Key.LeftCtrl))
 					{
@@ -332,7 +332,7 @@ namespace Lotus
 			private void OnTreeView_DragEnter(Object sender, DragEventArgs args)
 			{
 				// Если перетаскиваемая объект не содержит модель или тому над которым происходит перетаскивание 
-				if (!args.Data.GetDataPresent(nameof(ILotusViewItemHierarchy)) || sender == args.Source)
+				if (!args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)) || sender == args.Source)
 				{
 					args.Effects = DragDropEffects.None;
 				}
@@ -347,16 +347,16 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTreeView_DragOver(Object sender, DragEventArgs args)
 			{
-				if (args.Data.GetDataPresent(nameof(ILotusViewItemHierarchy)))
+				if (args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)))
 				{
-					var view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
+					var view_model = args.Data.GetData(nameof(ILotusViewModelHierarchy)) as ILotusViewModelHierarchy;
 
 					// Над этим элементом находится перетаскиваемый объект
 					TreeViewItem over_item = ((DependencyObject)args.OriginalSource).FindVisualParent<TreeViewItem>();
 					if (over_item != null)
 					{
-						var over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
-						if (over_view_model != null && over_view_model.IsSupportViewItem(view_model))
+						var over_view_model = over_item.DataContext as ILotusViewModelHierarchy;
+						if (over_view_model != null && over_view_model.IsSupportViewModel(view_model))
 						{
 
 						}
@@ -408,28 +408,28 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTreeView_Drop(Object sender, DragEventArgs args)
 			{
-				if (args.Data.GetDataPresent(nameof(ILotusViewItemHierarchy)))
+				if (args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)))
 				{
-					var view_model = args.Data.GetData(nameof(ILotusViewItemHierarchy)) as ILotusViewItemHierarchy;
+					var view_model = args.Data.GetData(nameof(ILotusViewModelHierarchy)) as ILotusViewModelHierarchy;
 
 					// Над этим элементом находится перетаскиваемый объект
 					TreeViewItem over_item = ((DependencyObject)args.OriginalSource).FindVisualParent<TreeViewItem>();
 					if (over_item != null)
 					{
-						var over_view_model = over_item.DataContext as ILotusViewItemHierarchy;
-						if (over_view_model != null && over_view_model.IsSupportViewItem(view_model))
+						var over_view_model = over_item.DataContext as ILotusViewModelHierarchy;
+						if (over_view_model != null && over_view_model.IsSupportViewModel(view_model))
 						{
 							// Удаляем с предыдущего элемента
-							view_model.IParent.IViewItems.Remove(view_model);
+							view_model.IParent.IViewModels.Remove(view_model);
 
 							// Добавляем в текущий
 							view_model.IParent = over_view_model;
-							over_view_model.IViewItems.Add(view_model);
+							over_view_model.IViewModels.Add(view_model);
 
 							// Уведомляем данные
-							if(over_view_model.DataContext is ILotusOwnerObject owner_object)
+							if(over_view_model.Model is ILotusOwnerObject owner_object)
 							{
-								owner_object.AttachOwnedObject(view_model.DataContext as ILotusOwnedObject, true);
+								owner_object.AttachOwnedObject(view_model.Model as ILotusOwnedObject, true);
 							}
 						}
 					}
@@ -474,7 +474,7 @@ namespace Lotus
 					// В иных случая это означает что событие обрабатывается иным элементом
 					if (item_sender == item_source)
 					{
-						var support_contex_menu = item_source.DataContext as ILotusViewItemHierarchy;
+						var support_contex_menu = item_source.DataContext as ILotusViewModelHierarchy;
 						if (support_contex_menu != null)
 						{
 							ContextMenu context_menu = item_source.ContextMenu;
@@ -515,7 +515,7 @@ namespace Lotus
 
 				if (item == null || item.DataContext == null) return;
 
-				if (item.DataContext is ILotusViewItemHierarchy view_item_presented)
+				if (item.DataContext is ILotusViewModelHierarchy view_item_presented)
 				{
 					// Событие обработано
 					args.Handled = true;
@@ -523,19 +523,19 @@ namespace Lotus
 					var handled = false;
 					if (IsPresentPolicyDefault)
 					{
-						if (mPresentOnlyType == null || view_item_presented.DataContext.GetType().IsAssignableFrom(mPresentOnlyType))
+						if (mPresentOnlyType == null || view_item_presented.Model.GetType().IsAssignableFrom(mPresentOnlyType))
 						{
-							if (CollectionViewHierarchy != null)
+							if (CollectionViewModelHierarchy != null)
 							{
 								// Если уже был выбран какой либо элемент
-								if (CollectionViewHierarchy.IPresentedViewItem != null)
+								if (CollectionViewModelHierarchy.IPresentedViewModel != null)
 								{
 									// И не совпадает
-									if (CollectionViewHierarchy.IPresentedViewItem != view_item_presented)
+									if (CollectionViewModelHierarchy.IPresentedViewModel != view_item_presented)
 									{
-										CollectionViewHierarchy.IPresentedViewItem.IsPresented = false;
-										CollectionViewHierarchy.IPresentedViewItem = view_item_presented;
-										CollectionViewHierarchy.IPresentedViewItem.IsPresented = true;
+										CollectionViewModelHierarchy.IPresentedViewModel.IsPresented = false;
+										CollectionViewModelHierarchy.IPresentedViewModel = view_item_presented;
+										CollectionViewModelHierarchy.IPresentedViewModel.IsPresented = true;
 
 										if (mOnPresentedItem != null)
 										{
@@ -545,14 +545,14 @@ namespace Lotus
 									else
 									{
 										// Если совпадают то нет
-										CollectionViewHierarchy.IPresentedViewItem.IsPresented = false;
-										CollectionViewHierarchy.IPresentedViewItem = null;
+										CollectionViewModelHierarchy.IPresentedViewModel.IsPresented = false;
+										CollectionViewModelHierarchy.IPresentedViewModel = null;
 									}
 								}
 								else
 								{
-									CollectionViewHierarchy.IPresentedViewItem = view_item_presented;
-									CollectionViewHierarchy.IPresentedViewItem.IsPresented = true;
+									CollectionViewModelHierarchy.IPresentedViewModel = view_item_presented;
+									CollectionViewModelHierarchy.IPresentedViewModel.IsPresented = true;
 
 									if (mOnPresentedItem != null)
 									{
@@ -566,9 +566,9 @@ namespace Lotus
 					}
 					if (SendViewPresented && handled == false)
 					{
-						if (view_item_presented.DataContext is ILotusViewPresented view_presented)
+						if (view_item_presented.Model is ILotusModelPresented view_presented)
 						{
-							view_presented.SetViewPresented(view_item_presented, true);
+							view_presented.SetModelPresented(view_item_presented, true);
 						}
 					}
 				}
@@ -592,7 +592,7 @@ namespace Lotus
 						// В случае необходимости меню открываем вручную
 						args.Handled = true;
 
-						if (item.DataContext is ILotusViewItemHierarchy view_item_hierarchy)
+						if (item.DataContext is ILotusViewModelHierarchy view_item_hierarchy)
 						{
 							view_item_hierarchy.IsEditMode = !view_item_hierarchy.IsEditMode;
 						}

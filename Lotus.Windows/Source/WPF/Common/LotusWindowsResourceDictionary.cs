@@ -61,7 +61,7 @@ namespace Lotus
 			/// <summary>
 			/// Локальные данные исходного URI
 			/// </summary>
-			private Uri mSourceUri;
+			private Uri _sourceUri;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -70,10 +70,10 @@ namespace Lotus
 			/// </summary>
 			public new Uri Source
 			{
-				get { return mSourceUri; }
+				get { return _sourceUri; }
 				set
 				{
-					mSourceUri = value;
+					_sourceUri = value;
 
 					// Always load the dictionary by default in designer mode.
 					if (!mSharedDictionaries.ContainsKey(value) || mIsInDesignerMode)

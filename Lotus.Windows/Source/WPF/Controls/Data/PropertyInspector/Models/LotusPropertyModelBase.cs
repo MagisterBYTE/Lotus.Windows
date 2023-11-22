@@ -101,14 +101,14 @@ namespace Lotus
 
 			// Параметры описания
 			protected internal String mDisplayName;
-			protected internal String mDescription;
-			protected internal Int32 mPropertyOrder = -1;
+			protected internal String _description;
+			protected internal Int32 _propertyOrder = -1;
 			protected internal String mCategory;
 			protected internal Int32 mCategoryOrder = -1;
 
 			// Параметры управления
 			protected internal Boolean mIsReadOnly;
-			protected internal Object mDefaultValue;
+			protected internal Object _defaultValue;
 			protected internal String mFormatValue;
 
 			// Список значений величины
@@ -223,10 +223,10 @@ namespace Lotus
 			/// </summary>
 			public String Description
 			{
-				get { return mDescription; }
+				get { return _description; }
 				set
 				{
-					mDescription = value;
+					_description = value;
 				}
 			}
 
@@ -235,10 +235,10 @@ namespace Lotus
 			/// </summary>
 			public Int32 PropertyOrder
 			{
-				get { return mPropertyOrder; }
+				get { return _propertyOrder; }
 				set
 				{
-					mPropertyOrder = value;
+					_propertyOrder = value;
 				}
 			}
 
@@ -286,10 +286,10 @@ namespace Lotus
 			/// </summary>
 			public Object DefaultValue
 			{
-				get { return mDefaultValue; }
+				get { return _defaultValue; }
 				set
 				{
-					mDefaultValue = value;
+					_defaultValue = value;
 				}
 			}
 
@@ -298,7 +298,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsDefaultValue
 			{
-				get { return mDefaultValue != null; }
+				get { return _defaultValue != null; }
 			}
 
 			/// <summary>
@@ -479,7 +479,7 @@ namespace Lotus
 						var category = mCategory.CompareTo(other.Category);
 						if (category == 0)
 						{
-							return mPropertyOrder.CompareTo(other.PropertyOrder);
+							return _propertyOrder.CompareTo(other.PropertyOrder);
 						}
 						else
 						{
@@ -556,21 +556,21 @@ namespace Lotus
 					}
 
 					DescriptionAttribute description = mInfo.GetAttribute<DescriptionAttribute>();
-					if (description != null && String.IsNullOrEmpty(mDescription))
+					if (description != null && String.IsNullOrEmpty(_description))
 					{
-						mDescription = description.Description;
+						_description = description.Description;
 					}
 
 					LotusPropertyOrderAttribute property_order = mInfo.GetAttribute<LotusPropertyOrderAttribute>();
 					if (property_order != null)
 					{
-						mPropertyOrder = property_order.Order;
+						_propertyOrder = property_order.Order;
 					}
 
 					LotusAutoOrderAttribute auto_order = mInfo.GetAttribute<LotusAutoOrderAttribute>();
 					if (auto_order != null)
 					{
-						mPropertyOrder = auto_order.Order;
+						_propertyOrder = auto_order.Order;
 					}
 
 					CategoryAttribute category = mInfo.GetAttribute<CategoryAttribute>();
@@ -598,7 +598,7 @@ namespace Lotus
 					DefaultValueAttribute default_value = mInfo.GetAttribute<DefaultValueAttribute>();
 					if (default_value != null)
 					{
-						mDefaultValue = default_value.Value;
+						_defaultValue = default_value.Value;
 					}
 
 					LotusListValuesAttribute list_values = mInfo.GetAttribute<LotusListValuesAttribute>();
@@ -646,12 +646,12 @@ namespace Lotus
 
 							if (String.IsNullOrEmpty(desc.Description) == false)
 							{
-								mDescription = desc.Description;
+								_description = desc.Description;
 							}
 
 							if (desc.PropertyOrder != -1)
 							{
-								mPropertyOrder = desc.PropertyOrder;
+								_propertyOrder = desc.PropertyOrder;
 							}
 
 							if (String.IsNullOrEmpty(desc.Category) == false)
@@ -671,7 +671,7 @@ namespace Lotus
 
 							if (desc.DefaultValue != null)
 							{
-								mDefaultValue = desc.DefaultValue;
+								_defaultValue = desc.DefaultValue;
 							}
 
 							if (desc.ListValues != null)
