@@ -33,6 +33,10 @@
     <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
+     <Optimize>True</Optimize>
+   </PropertyGroup>
+
    <ItemGroup>
      <None Remove="Resources\Brushes\brush_chess_large.png" />
      <None Remove="Resources\Brushes\brush_chess_small.png" />
@@ -233,11 +237,6 @@
      <Page Remove="Themes\Infragistics\Office2010Blue\Office2010Blue.MSControls.Toolkit.Implicit.xaml" />
      <Page Remove="Themes\Infragistics\Office2013\Office2013.MSControls.Toolkit.Implicit.xaml" />
    </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Source\Common\Extension\" />
-    <Folder Include="Source\WPF\Controls\ViewerContentFile\View\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.106" />
