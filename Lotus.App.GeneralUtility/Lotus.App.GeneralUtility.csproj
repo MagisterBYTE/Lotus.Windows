@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Lotus.Basis\Lotus.Core\Lotus.Core.csproj" />
+    <ProjectReference Include="..\Lotus.Windows\Lotus.Windows.csproj" />
   </ItemGroup>
 
 </Project>

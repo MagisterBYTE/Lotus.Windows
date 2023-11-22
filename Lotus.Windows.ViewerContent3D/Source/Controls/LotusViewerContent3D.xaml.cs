@@ -123,45 +123,45 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			// Параметры визуализации
-			internal Boolean mShowWireframe = false;
-			internal Boolean mRenderFlat = false;
-			internal Boolean mRenderEnvironmentMap = true;
-			internal TextureModel mEnvironmentMap;
+			protected internal Boolean _showWireframe = false;
+			protected internal Boolean _renderFlat = false;
+			protected internal Boolean _renderEnvironmentMap = true;
+			protected internal TextureModel _environmentMap;
 
 			// Камера
-			internal String mCameraModel;
-			internal Helix.Camera mCamera;
-			internal Helix.OrthographicCamera mDefaultOrthographicCamera;
-			internal Helix.PerspectiveCamera mDefaultPerspectiveCamera;
+			protected internal String _cameraModel;
+			protected internal Helix.Camera _camera;
+			protected internal Helix.OrthographicCamera _defaultOrthographicCamera;
+			protected internal Helix.PerspectiveCamera _defaultPerspectiveCamera;
 
 			// Рендер техника
-			internal IEffectsManager mEffectsManager;
+			protected internal IEffectsManager _effectsManager;
 
 			// Базовые модели
-			internal CScene3D mScene;
-			internal SceneNode mSceneRoot;
-			internal Helix.SceneNodeGroupModel3D mGroupModel;
-			internal Helix.GeometryModel3D mSelectedModel;
+			protected internal CScene3D _scene;
+			protected internal SceneNode _sceneRoot;
+			protected internal Helix.SceneNodeGroupModel3D _groupModel;
+			protected internal Helix.GeometryModel3D _selectedModel;
 
 			// Анимация
-			internal Boolean mEnableAnimation = false;
-			internal IList<Animation> mSceneAnimations;
-			internal ObservableCollection<IAnimationUpdater> mAnimations;
-			internal IAnimationUpdater mSelectedAnimation = null;
-			internal IAnimationUpdater mAnimationUpdater;
-			internal Single mSpeedAnimation = 1.0f;
+			protected internal Boolean _enableAnimation = false;
+			protected internal IList<Animation> _sceneAnimations;
+			protected internal ObservableCollection<IAnimationUpdater> _animationsUpdater;
+			protected internal IAnimationUpdater _selectedAnimationUpdater = null;
+			protected internal IAnimationUpdater _animationUpdater;
+			protected internal Single _speedAnimation = 1.0f;
 
 			// Параметры скелета
-			internal List<BoneSkinMeshNode> mBoneSkinNodes = new List<BoneSkinMeshNode>();
-			internal List<BoneSkinMeshNode> mSkeletonNodes = new List<BoneSkinMeshNode>();
-			internal CompositionTargetEx mCompositeHelper = new CompositionTargetEx();
+			protected internal List<BoneSkinMeshNode> _boneSkinNodes = new List<BoneSkinMeshNode>();
+			protected internal List<BoneSkinMeshNode> _skeletonNodes = new List<BoneSkinMeshNode>();
+			protected internal CompositionTargetEx _compositeHelper = new CompositionTargetEx();
 
-			private Boolean mIsLoading = false;
+			protected internal Boolean _isLoading = false;
 
 			// Опорная сетка
-			protected LineGeometry3D mGridGeometry;
-			protected Color mGridColor;
-			protected Transform3D mGridTransform;
+			protected internal LineGeometry3D _gridGeometry;
+			protected internal Color _gridColor;
+			protected internal Transform3D _gridTransform;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -199,13 +199,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mShowWireframe;
+					return _showWireframe;
 				}
 				set
 				{
-					if (mShowWireframe != value)
+					if (_showWireframe != value)
 					{
-						mShowWireframe = value;
+						_showWireframe = value;
 						NotifyPropertyChanged(PropertyArgsShowWireframe);
 
 						foreach (var node in GroupModel.GroupNode.Items.PreorderDFT((node) =>
@@ -229,13 +229,13 @@ namespace Lotus
 			{
 				get
 				{
-					return mRenderFlat;
+					return _renderFlat;
 				}
 				set
 				{
-					if (mRenderFlat != value)
+					if (_renderFlat != value)
 					{
-						mRenderFlat = value;
+						_renderFlat = value;
 						NotifyPropertyChanged(PropertyArgsRenderFlat);
 
 						foreach (var node in GroupModel.GroupNode.Items.PreorderDFT((node) =>
@@ -266,17 +266,17 @@ namespace Lotus
 			{
 				get
 				{
-					return mRenderEnvironmentMap;
+					return _renderEnvironmentMap;
 				}
 				set
 				{
-					if (mRenderEnvironmentMap != value)
+					if (_renderEnvironmentMap != value)
 					{
-						mRenderEnvironmentMap = value;
+						_renderEnvironmentMap = value;
 						NotifyPropertyChanged(PropertyArgsRenderEnvironmentMap);
-						if (mSceneRoot != null)
+						if (_sceneRoot != null)
 						{
-							foreach (var node in mSceneRoot.Traverse())
+							foreach (var node in _sceneRoot.Traverse())
 							{
 								if (node is MaterialGeometryNode m && m.Material is PBRMaterialCore material)
 								{
@@ -295,7 +295,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mEnvironmentMap;
+					return _environmentMap;
 				}
 			}
 
@@ -307,12 +307,12 @@ namespace Lotus
 			/// </summary>
 			public String CameraModel
 			{
-				get { return mCameraModel; }
+				get { return _cameraModel; }
 				set
 				{
-					if (mCameraModel != value)
+					if (_cameraModel != value)
 					{
-						mCameraModel = value;
+						_cameraModel = value;
 						NotifyPropertyChanged(PropertyArgsCameraModel);
 						RaiseCameraModelChanged();
 					}
@@ -326,12 +326,12 @@ namespace Lotus
 			{
 				get
 				{
-					return mCamera;
+					return _camera;
 				}
 
 				protected set
 				{
-					mCamera = value;
+					_camera = value;
 					NotifyPropertyChanged(PropertyArgsCamera);
 					CameraModel = value is Helix.PerspectiveCamera
 										   ? PerspectiveCameraName
@@ -357,12 +357,12 @@ namespace Lotus
 			/// </summary>
 			public IEffectsManager EffectsManager
 			{
-				get { return mEffectsManager; }
+				get { return _effectsManager; }
 				protected set
 				{
-					if (mEffectsManager != value)
+					if (_effectsManager != value)
 					{
-						mEffectsManager = value;
+						_effectsManager = value;
 						NotifyPropertyChanged(PropertyArgsEffectsManager);
 					}
 				}
@@ -376,12 +376,12 @@ namespace Lotus
 			/// </summary>
 			public CScene3D Scene
 			{
-				get { return mScene; }
+				get { return _scene; }
 				set
 				{
-					if (mScene != value)
+					if (_scene != value)
 					{
-						mScene = value;
+						_scene = value;
 						NotifyPropertyChanged(PropertyArgsScene);
 					}
 				}
@@ -392,12 +392,12 @@ namespace Lotus
 			/// </summary>
 			public SceneNode SceneRoot
 			{
-				get { return mSceneRoot; }
+				get { return _sceneRoot; }
 				set
 				{
-					if (mSceneRoot != value)
+					if (_sceneRoot != value)
 					{
-						mSceneRoot = value;
+						_sceneRoot = value;
 						NotifyPropertyChanged(PropertyArgsSceneRoot);
 					}
 				}
@@ -408,12 +408,12 @@ namespace Lotus
 			/// </summary>
 			public Helix.SceneNodeGroupModel3D GroupModel
 			{
-				get { return mGroupModel; }
+				get { return _groupModel; }
 				set
 				{
-					if (mGroupModel != value)
+					if (_groupModel != value)
 					{
-						mGroupModel = value;
+						_groupModel = value;
 						NotifyPropertyChanged(PropertyArgsGroupModel);
 					}
 				}
@@ -424,12 +424,12 @@ namespace Lotus
 			/// </summary>
 			public Helix.GeometryModel3D SelectedModel
 			{
-				get { return mSelectedModel; }
+				get { return _selectedModel; }
 				set
 				{
-					if (mSelectedModel != value)
+					if (_selectedModel != value)
 					{
-						mSelectedModel = value;
+						_selectedModel = value;
 						NotifyPropertyChanged(PropertyArgsSelectedModel);
 					}
 				}
@@ -443,12 +443,12 @@ namespace Lotus
 			/// </summary>
 			public Boolean EnableAnimation
 			{
-				get { return mEnableAnimation; }
+				get { return _enableAnimation; }
 				set
 				{
-					if (mEnableAnimation != value)
+					if (_enableAnimation != value)
 					{
-						mEnableAnimation = value;
+						_enableAnimation = value;
 						NotifyPropertyChanged(PropertyArgsEnableAnimation);
 						if (value)
 						{
@@ -467,10 +467,10 @@ namespace Lotus
 			/// </summary>
 			public IList<Animation> SceneAnimations
 			{
-				get { return mSceneAnimations; }
+				get { return _sceneAnimations; }
 				set
 				{
-					mSceneAnimations = value;
+					_sceneAnimations = value;
 				}
 			}
 
@@ -479,10 +479,10 @@ namespace Lotus
 			/// </summary>
 			public ObservableCollection<IAnimationUpdater> Animations
 			{
-				get { return mAnimations; }
+				get { return _animationsUpdater; }
 				set
 				{
-					mAnimations = value;
+					_animationsUpdater = value;
 				}
 			}
 
@@ -493,27 +493,27 @@ namespace Lotus
 			{
 				get
 				{
-					return mSelectedAnimation;
+					return _selectedAnimationUpdater;
 				}
 				set
 				{
-					if (mSelectedAnimation != value)
+					if (_selectedAnimationUpdater != value)
 					{
-						mSelectedAnimation = value;
+						_selectedAnimationUpdater = value;
 						NotifyPropertyChanged(PropertyArgsSelectedAnimation);
 						StopAnimation();
 						if (value != null)
 						{
-							mAnimationUpdater = value;
-							mAnimationUpdater.Reset();
-							mAnimationUpdater.RepeatMode = AnimationRepeatMode.Loop;
+							_animationUpdater = value;
+							_animationUpdater.Reset();
+							_animationUpdater.RepeatMode = AnimationRepeatMode.Loop;
 							//mAnimationUpdater.Speed = mSpeedAnimation;
 						}
 						else
 						{
-							mAnimationUpdater = null;
+							_animationUpdater = null;
 						}
-						if (mEnableAnimation)
+						if (_enableAnimation)
 						{
 							StartAnimation();
 						}
@@ -528,7 +528,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mSpeedAnimation;
+					return _speedAnimation;
 				}
 				set
 				{
@@ -536,7 +536,7 @@ namespace Lotus
 					{
 						SpeedAnimation = value;
 						NotifyPropertyChanged(PropertyArgsSpeedAnimation);
-						if (mAnimationUpdater != null)
+						if (_animationUpdater != null)
 						{
 							//mAnimationUpdater.Speed = value;
 						}
@@ -552,12 +552,12 @@ namespace Lotus
 			/// </summary>
 			public LineGeometry3D GridGeometry
 			{
-				get { return mGridGeometry; }
+				get { return _gridGeometry; }
 				set
 				{
-					if (mGridGeometry != value)
+					if (_gridGeometry != value)
 					{
-						mGridGeometry = value;
+						_gridGeometry = value;
 						NotifyPropertyChanged(PropertyArgsGridGeometry);
 					}
 				}
@@ -568,12 +568,12 @@ namespace Lotus
 			/// </summary>
 			public Color GridColor
 			{
-				get { return mGridColor; }
+				get { return _gridColor; }
 				set
 				{
-					if (mGridColor != value)
+					if (_gridColor != value)
 					{
-						mGridColor = value;
+						_gridColor = value;
 						NotifyPropertyChanged(PropertyArgsGridColor);
 					}
 				}
@@ -584,12 +584,12 @@ namespace Lotus
 			/// </summary>
 			public Transform3D GridTransform
 			{
-				get { return mGridTransform; }
+				get { return _gridTransform; }
 				set
 				{
-					if (mGridTransform != value)
+					if (_gridTransform != value)
 					{
-						mGridTransform = value;
+						_gridTransform = value;
 						NotifyPropertyChanged(PropertyArgsGridTransform);
 					}
 				}
@@ -624,15 +624,15 @@ namespace Lotus
 				//	{
 				//		return;
 				//	}
-				//	if (mSelectedModel != null)
+				//	if (_selectedModel != null)
 				//	{
-				//		mSelectedModel.PostEffects = null;
-				//		mSelectedModel = null;
+				//		_selectedModel.PostEffects = null;
+				//		_selectedModel = null;
 				//	}
-				//	mSelectedModel = arg.HitTestResult.ModelHit as Helix.GeometryModel3D;
-				//	if (mSelectedModel != null && mSelectedModel.Name != "gridBase")
+				//	_selectedModel = arg.HitTestResult.ModelHit as Helix.GeometryModel3D;
+				//	if (_selectedModel != null && _selectedModel.Name != "gridBase")
 				//	{
-				//		mSelectedModel.PostEffects = String.IsNullOrEmpty(mSelectedModel.PostEffects) ? $"highlight[color:#FFFF00]" : null;
+				//		_selectedModel.PostEffects = String.IsNullOrEmpty(_selectedModel.PostEffects) ? $"highlight[color:#FFFF00]" : null;
 				//	}
 				//}));
 			}
@@ -849,7 +849,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void InitCamera()
 			{
-				mDefaultOrthographicCamera = new Helix.OrthographicCamera
+				_defaultOrthographicCamera = new Helix.OrthographicCamera
 				{
 					Position = new Point3D(0, 0, 5),
 					LookDirection = new Vector3D(-0, -0, -5),
@@ -858,7 +858,7 @@ namespace Lotus
 					FarPlaneDistance = 5000
 				};
 
-				mDefaultPerspectiveCamera = new Helix.PerspectiveCamera
+				_defaultPerspectiveCamera = new Helix.PerspectiveCamera
 				{
 					Position = new Point3D(0, 0, 5),
 					LookDirection = new Vector3D(-0, -0, -5),
@@ -877,15 +877,15 @@ namespace Lotus
 				// on camera changed callback
 				CameraModelChanged += (sender, args) =>
 				{
-					if (mCameraModel == OrthographicCameraName)
+					if (_cameraModel == OrthographicCameraName)
 					{
 						if (!(Camera is Helix.OrthographicCamera))
-							Camera = mDefaultOrthographicCamera;
+							Camera = _defaultOrthographicCamera;
 					}
-					else if (mCameraModel == PerspectiveCameraName)
+					else if (_cameraModel == PerspectiveCameraName)
 					{
 						if (!(Camera is Helix.PerspectiveCamera))
-							Camera = mDefaultPerspectiveCamera;
+							Camera = _defaultPerspectiveCamera;
 					}
 					else
 					{
@@ -895,7 +895,7 @@ namespace Lotus
 
 				// default camera model
 				CameraModel = PerspectiveCameraName;
-				Camera = mDefaultPerspectiveCamera;
+				Camera = _defaultPerspectiveCamera;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -915,7 +915,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void InitGroupModel()
 			{
-				mGroupModel = new Helix.SceneNodeGroupModel3D();
+				_groupModel = new Helix.SceneNodeGroupModel3D();
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -925,7 +925,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void InitAnimation()
 			{
-				mAnimations = new ObservableCollection<IAnimationUpdater>();
+				_animationsUpdater = new ObservableCollection<IAnimationUpdater>();
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -953,14 +953,14 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void Load(String file_name, Assimp.PostProcessSteps post_process_steps, TreeView tree_view_model_structure)
 			{
-				if (mIsLoading)
+				if (_isLoading)
 				{
 					return;
 				}
 
 				StopAnimation();
 
-				mIsLoading = true;
+				_isLoading = true;
 
 				// Загружаем в отдельной задачи
 				Task.Run(() =>
@@ -975,13 +975,13 @@ namespace Lotus
 					return loader.Load(file_name);
 				}).ContinueWith((result) =>
 				{
-					mIsLoading = false;
+					_isLoading = false;
 					if (result.IsCompleted)
 					{
 						HelixToolkitScene helix_toolkit_scene = result.Result;
 						if (helix_toolkit_scene == null) return;
-						mSceneRoot = helix_toolkit_scene.Root;
-						mSceneAnimations = helix_toolkit_scene.Animations;
+						_sceneRoot = helix_toolkit_scene.Root;
+						_sceneAnimations = helix_toolkit_scene.Animations;
 						Animations.Clear();
 						GroupModel.Clear();
 						if (helix_toolkit_scene != null)
@@ -1021,7 +1021,7 @@ namespace Lotus
 
 						if(tree_view_model_structure != null)
 						{
-							tree_view_model_structure.ItemsSource = mSceneRoot.Items;
+							tree_view_model_structure.ItemsSource = _sceneRoot.Items;
 						}
 
 					}
@@ -1039,7 +1039,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void StartAnimation()
 			{
-				mCompositeHelper.Rendering += CompositeHelper_Rendering;
+				_compositeHelper.Rendering += CompositeHelper_Rendering;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1049,7 +1049,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void StopAnimation()
 			{
-				mCompositeHelper.Rendering -= CompositeHelper_Rendering;
+				_compositeHelper.Rendering -= CompositeHelper_Rendering;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -1061,9 +1061,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void CompositeHelper_Rendering(Object sender, RenderingEventArgs args)
 			{
-				if (mAnimationUpdater != null)
+				if (_animationUpdater != null)
 				{
-					mAnimationUpdater.Update(Stopwatch.GetTimestamp(), Stopwatch.Frequency);
+					_animationUpdater.Update(Stopwatch.GetTimestamp(), Stopwatch.Frequency);
 				}
 			}
 			#endregion

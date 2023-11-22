@@ -32,6 +32,10 @@
     <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Publish|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\..\Lotus.Basis\Lotus.Object3D\Source\Base\LotusObject3DBase.cs" Link="Source\Object3D\Base\LotusObject3DBase.cs" />
     <Compile Include="..\..\Lotus.Basis\Lotus.Object3D\Source\Base\LotusObject3DEntity.cs" Link="Source\Object3D\Base\LotusObject3DEntity.cs" />
@@ -59,7 +63,7 @@
 
   <ItemGroup>
     <PackageReference Include="AssimpNet" Version="5.0.0-beta1" />
-    <PackageReference Include="Fluent.Ribbon" Version="10.0.3" />
+    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
     <PackageReference Include="HelixToolkit" Version="2.24.0" />
     <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.24.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.24.0" />

@@ -472,21 +472,21 @@ namespace Lotus
 						var directory = new CFileSystemDirectory(full_path);
 						directory.GetFileSystemItemsTwoLevel();
 
-						Thread.Sleep(1000);
+						//Thread.Sleep(1000);
 						//busyIndicator.BusyContent = "Получение директорий";
 
-						var view_file_system = new CCollectionViewFSWindows();
+						var view_file_system = new CollectionViewModelFSWin();
 						view_file_system.IsNotify = true;
 						view_file_system.Source = directory;
 
-						Thread.Sleep(1000);
+						//Thread.Sleep(1000);
 						//busyIndicator.BusyContent = "Создание визуальной модели";
 
 
 						treeExploreFileSystem.ItemTemplateSelector = CFileSystemEntityDataSelector.Instance;
 						treeExploreFileSystem.ItemsSource = view_file_system;
 
-						Thread.Sleep(1000);
+						//Thread.Sleep(1000);
 						//busyIndicator.BusyContent = "Отображение в компаненте";
 
 					}, System.Windows.Threading.DispatcherPriority.Normal);
@@ -507,9 +507,9 @@ namespace Lotus
 		/// </summary>
 		/// <param name="item">Элемент отображения</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnTreeExploreFileSystem_PresentedItem(ILotusViewItemHierarchy item)
+		private void OnTreeExploreFileSystem_PresentedItem(ILotusViewModelHierarchy item)
 		{
-			if(item.DataContext is CFileSystemFile file)
+			if(item.Model is CFileSystemFile file)
 			{
 				//
 				// Изображения

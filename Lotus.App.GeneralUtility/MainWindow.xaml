@@ -125,6 +125,17 @@
                 </Button>
             </Grid>
         </TabItem>
+        <TabItem Header="Анализ карты">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="563*"/>
+                    <ColumnDefinition Width="831*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="20" Grid.Column="0">
+                    <Button x:Name="analysMap" Click="analysMap_Click" >Анализировать данные</Button>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 
 </Window>

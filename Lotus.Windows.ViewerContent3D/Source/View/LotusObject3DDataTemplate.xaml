@@ -16,7 +16,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_load_16.png" />
-            <TextBlock Margin="4" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -31,31 +33,41 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_root_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
     <!--  Шаблон для модели  -->
-    <HierarchicalDataTemplate x:Key="ModelKey" DataType="{x:Type c3d:CModel3D}">
+    <HierarchicalDataTemplate
+        x:Key="ModelKey"
+        DataType="{x:Type c3d:CModel3D}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_boundbox_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
     <!--  Шаблон для меша  -->
-    <HierarchicalDataTemplate x:Key="MeshKey" DataType="{x:Type c3d:CMesh3Df}">
+    <HierarchicalDataTemplate
+        x:Key="MeshKey"
+        DataType="{x:Type c3d:CMesh3Df}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_mesh_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -70,7 +82,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_mesh_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -85,7 +99,9 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_material_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
@@ -100,19 +116,25 @@
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/Lotus.Windows;component/Resources/Icons/3D/mod3d_material_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=Name}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=Name}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 
     <!--  Шаблон для материала  -->
-    <HierarchicalDataTemplate x:Key="TextureSlotKey" DataType="{x:Type c3d:CTextureSlot}">
+    <HierarchicalDataTemplate
+        x:Key="TextureSlotKey"
+        DataType="{x:Type c3d:CTextureSlot}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
                 Height="16"
                 Margin="2"
                 Source="pack://application:,,,/LotusWindows;component/Resources/Icons/3D/mod3d_texture_16.png" />
-            <TextBlock Margin="4,0" Text="{Binding Path=FileName}" />
+            <TextBlock
+                Margin="4,0"
+                Text="{Binding Path=FileName}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 

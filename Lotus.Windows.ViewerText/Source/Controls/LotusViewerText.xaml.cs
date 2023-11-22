@@ -174,8 +174,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal FoldingManager mFoldingManager;
-			protected internal System.Object mFoldingStrategy;
+			protected internal FoldingManager _foldingManager;
+			protected internal System.Object _foldingStrategy;
 
 			// Reasonable max and min font size values
 			private const Double FONT_MAX_SIZE = 60d;
@@ -372,13 +372,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void UpdateFoldings()
 			{
-				if (mFoldingStrategy is BraceFoldingStrategy)
+				if (_foldingStrategy is BraceFoldingStrategy)
 				{
-					((BraceFoldingStrategy)mFoldingStrategy).UpdateFoldings(mFoldingManager, AvalonTextEditor.Document);
+					((BraceFoldingStrategy)_foldingStrategy).UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
 				}
-				if (mFoldingStrategy is XmlFoldingStrategy)
+				if (_foldingStrategy is XmlFoldingStrategy)
 				{
-					((XmlFoldingStrategy)mFoldingStrategy).UpdateFoldings(mFoldingManager, AvalonTextEditor.Document);
+					((XmlFoldingStrategy)_foldingStrategy).UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
 				}
 			}
 
@@ -392,14 +392,14 @@ namespace Lotus
 			{
 				if (AvalonTextEditor.SyntaxHighlighting == null)
 				{
-					mFoldingStrategy = null;
+					_foldingStrategy = null;
 				}
 				else
 				{
 					switch (AvalonTextEditor.SyntaxHighlighting.Name)
 					{
 						case "XML":
-							mFoldingStrategy = new XmlFoldingStrategy();
+							_foldingStrategy = new XmlFoldingStrategy();
 							AvalonTextEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
 							break;
 						case "C#":
@@ -407,26 +407,26 @@ namespace Lotus
 						case "PHP":
 						case "Java":
 							AvalonTextEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.CSharp.CSharpIndentationStrategy(AvalonTextEditor.Options);
-							mFoldingStrategy = new BraceFoldingStrategy();
+							_foldingStrategy = new BraceFoldingStrategy();
 							break;
 						default:
 							AvalonTextEditor.TextArea.IndentationStrategy = new ICSharpCode.AvalonEdit.Indentation.DefaultIndentationStrategy();
-							mFoldingStrategy = null;
+							_foldingStrategy = null;
 							break;
 					}
 				}
-				if (mFoldingStrategy != null)
+				if (_foldingStrategy != null)
 				{
-					if (mFoldingManager == null)
-						mFoldingManager = FoldingManager.Install(AvalonTextEditor.TextArea);
+					if (_foldingManager == null)
+						_foldingManager = FoldingManager.Install(AvalonTextEditor.TextArea);
 					UpdateFoldings();
 				}
 				else
 				{
-					if (mFoldingManager != null)
+					if (_foldingManager != null)
 					{
-						FoldingManager.Uninstall(mFoldingManager);
-						mFoldingManager = null;
+						FoldingManager.Uninstall(_foldingManager);
+						_foldingManager = null;
 					}
 				}
 			}

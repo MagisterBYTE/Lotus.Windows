@@ -173,27 +173,27 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal String mFileName;
-			protected internal Int32 mImageWidth;
-			protected internal Int32 mImageHeight;
-			protected internal Int32 mImageResolutionX;
-			protected internal Int32 mImageResolutionY;
-			protected internal FREE_IMAGE_FORMAT mFreeImageFormat;
-			protected internal FREE_IMAGE_TYPE mFreeImageType;
-			protected internal FREE_IMAGE_COLOR_TYPE mFreeImageColorType;
-			protected internal Int32 mColorDepth;
-			protected internal PixelFormat mPixelFormat;
-			protected internal Boolean mIsTransparentImage;
-			protected internal UInt32 mImageRedMask;
-			protected internal UInt32 mImageGreenMask;
-			protected internal UInt32 mImageBlueMask;
+			protected internal String _fileName;
+			protected internal Int32 _imageWidth;
+			protected internal Int32 _imageHeight;
+			protected internal Int32 _imageResolutionX;
+			protected internal Int32 _imageResolutionY;
+			protected internal FREE_IMAGE_FORMAT _freeImageFormat;
+			protected internal FREE_IMAGE_TYPE _freeImageType;
+			protected internal FREE_IMAGE_COLOR_TYPE _freeImageColorType;
+			protected internal Int32 _colorDepth;
+			protected internal PixelFormat _pixelFormat;
+			protected internal Boolean _isTransparentImage;
+			protected internal UInt32 _imageRedMask;
+			protected internal UInt32 _imageGreenMask;
+			protected internal UInt32 _imageBlueMask;
 
-			protected internal FIBITMAP mFreeImageBitmap;
-			protected internal Image mImagePresented;
-			protected internal BitmapSource mBitmapOriginal;
-			protected internal BitmapSource mBitmapAlpha;
-			protected internal BitmapSource mBitmapNoTransparent;
-			protected internal String mCurrentMessage;
+			protected internal FIBITMAP _freeImageBitmap;
+			protected internal Image _imagePresented;
+			protected internal BitmapSource _bitmapOriginal;
+			protected internal BitmapSource _bitmapAlpha;
+			protected internal BitmapSource _bitmapNoTransparent;
+			protected internal String _currentMessage;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -216,7 +216,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mImageWidth;
+					return _imageWidth;
 				}
 			}
 
@@ -227,7 +227,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mImageHeight;
+					return _imageHeight;
 				}
 			}
 
@@ -238,7 +238,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mImageResolutionX;
+					return _imageResolutionX;
 				}
 			}
 
@@ -249,7 +249,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mImageResolutionY;
+					return _imageResolutionY;
 				}
 			}
 
@@ -260,7 +260,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mFreeImageFormat;
+					return _freeImageFormat;
 				}
 			}
 
@@ -271,7 +271,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mFreeImageType;
+					return _freeImageType;
 				}
 			}
 
@@ -282,7 +282,7 @@ namespace Lotus
 			{
 				get
 				{
-					return mFreeImageColorType;
+					return _freeImageColorType;
 				}
 			}
 
@@ -291,7 +291,7 @@ namespace Lotus
 			/// </summary>
 			public Int32 ImageColorDepth
 			{
-				get { return mColorDepth; }
+				get { return _colorDepth; }
 			}
 
 			/// <summary>
@@ -299,7 +299,7 @@ namespace Lotus
 			/// </summary>
 			public PixelFormat ImagePixelFormat
 			{
-				get { return mPixelFormat; }
+				get { return _pixelFormat; }
 			}
 
 			/// <summary>
@@ -307,7 +307,7 @@ namespace Lotus
 			/// </summary>
 			public Boolean IsTransparentImage
 			{
-				get { return mIsTransparentImage; }
+				get { return _isTransparentImage; }
 			}
 
 			/// <summary>
@@ -315,7 +315,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageRedMask
 			{
-				get { return mImageRedMask; }
+				get { return _imageRedMask; }
 			}
 
 			/// <summary>
@@ -323,7 +323,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageGreenMask
 			{
-				get { return mImageGreenMask; }
+				get { return _imageGreenMask; }
 			}
 
 			/// <summary>
@@ -331,7 +331,7 @@ namespace Lotus
 			/// </summary>
 			public UInt32 ImageBlueMask
 			{
-				get { return mImageBlueMask; }
+				get { return _imageBlueMask; }
 			}
 			#endregion
 
@@ -472,9 +472,9 @@ namespace Lotus
 			public void CloseFile()
 			{
 				imagePresent.Source = null;
-				mBitmapOriginal = null;
-				mBitmapAlpha = null;
-				mBitmapNoTransparent = null;
+				_bitmapOriginal = null;
+				_bitmapAlpha = null;
+				_bitmapNoTransparent = null;
 				FileName = "";
 			}
 			#endregion
@@ -488,24 +488,24 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void Load(String file_name)
 			{
-				if (!mFreeImageBitmap.IsNull)
+				if (!_freeImageBitmap.IsNull)
 				{
-					mFreeImageBitmap.SetNull();
+					_freeImageBitmap.SetNull();
 				}
 
 				// Try loading the file
-				mFreeImageFormat = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
-				mFreeImageBitmap = FreeImage.LoadEx(file_name, ref mFreeImageFormat);
+				_freeImageFormat = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
+				_freeImageBitmap = FreeImage.LoadEx(file_name, ref _freeImageFormat);
 
 				try
 				{
 					// Error handling
-					if (mFreeImageBitmap.IsNull)
+					if (_freeImageBitmap.IsNull)
 					{
 						// Chech whether FreeImage generated an error messe
-						if (mCurrentMessage != null)
+						if (_currentMessage != null)
 						{
-							XLogger.LogErrorFormatModule(nameof(LotusViewerImage), "File could not be loaded!\nError:{0}", mCurrentMessage);
+							XLogger.LogErrorFormatModule(nameof(LotusViewerImage), "File could not be loaded!\nError:{0}", _currentMessage);
 						}
 						else
 						{
@@ -515,65 +515,65 @@ namespace Lotus
 					}
 
 
-					mFileName = file_name;
+					_fileName = file_name;
 
 					//
 					// РАЗМЕР ИЗОБРАЖЕНИЯ
 					//
-					mImageWidth = (Int32)FreeImage.GetWidth(mFreeImageBitmap);
-					mImageHeight = (Int32)FreeImage.GetHeight(mFreeImageBitmap);
-					mImageResolutionX = (Int32)FreeImage.GetResolutionX(mFreeImageBitmap);
-					mImageResolutionY = (Int32)FreeImage.GetResolutionY(mFreeImageBitmap);
+					_imageWidth = (Int32)FreeImage.GetWidth(_freeImageBitmap);
+					_imageHeight = (Int32)FreeImage.GetHeight(_freeImageBitmap);
+					_imageResolutionX = (Int32)FreeImage.GetResolutionX(_freeImageBitmap);
+					_imageResolutionY = (Int32)FreeImage.GetResolutionY(_freeImageBitmap);
 
 					//
 					// ПАРАМЕТРЫ ИЗОБРАЖЕНИЯ
 					//
-					mFreeImageType = FreeImage.GetImageType(mFreeImageBitmap);
-					mFreeImageColorType = FreeImage.GetColorType(mFreeImageBitmap);
+					_freeImageType = FreeImage.GetImageType(_freeImageBitmap);
+					_freeImageColorType = FreeImage.GetColorType(_freeImageBitmap);
 
 					//
 					// ПАРАМЕТРЫ ЦВЕТА
 					//
-					mColorDepth = (Int32)FreeImage.GetBPP(mFreeImageBitmap);
-					mPixelFormat = FreeImage.GetPixelFormat(mFreeImageBitmap);
-					mIsTransparentImage = FreeImage.IsTransparent(mFreeImageBitmap);
+					_colorDepth = (Int32)FreeImage.GetBPP(_freeImageBitmap);
+					_pixelFormat = FreeImage.GetPixelFormat(_freeImageBitmap);
+					_isTransparentImage = FreeImage.IsTransparent(_freeImageBitmap);
 
 					//
 					// ПАРАМЕТРЫ МАСКИ
 					//
-					mImageRedMask = FreeImage.GetRedMask(mFreeImageBitmap);
-					mImageGreenMask = FreeImage.GetGreenMask(mFreeImageBitmap);
-					mImageBlueMask = FreeImage.GetBlueMask(mFreeImageBitmap);
+					_imageRedMask = FreeImage.GetRedMask(_freeImageBitmap);
+					_imageGreenMask = FreeImage.GetGreenMask(_freeImageBitmap);
+					_imageBlueMask = FreeImage.GetBlueMask(_freeImageBitmap);
 
 					// Получаем презентатор
-					if (mImagePresented == null) mImagePresented = contentViewer.Content as Image;
+					if (_imagePresented == null) _imagePresented = contentViewer.Content as Image;
 
 					// Основной режим
-					mBitmapOriginal = FreeImage.GetBitmap(mFreeImageBitmap).ToBitmapSource();
+					_bitmapOriginal = FreeImage.GetBitmap(_freeImageBitmap).ToBitmapSource();
 
 					// Если есть прозрачность
-					if (FreeImage.IsTransparent(mFreeImageBitmap) && FreeImage.GetBPP(mFreeImageBitmap) > 24)
+					if (FreeImage.IsTransparent(_freeImageBitmap) && FreeImage.GetBPP(_freeImageBitmap) > 24)
 					{
 						// Получаем альфа-канал
-						FIBITMAP bitmap_alpha = FreeImage.GetChannel(mFreeImageBitmap, FREE_IMAGE_COLOR_CHANNEL.FICC_ALPHA);
+						FIBITMAP bitmap_alpha = FreeImage.GetChannel(_freeImageBitmap, FREE_IMAGE_COLOR_CHANNEL.FICC_ALPHA);
 						if (!bitmap_alpha.IsNull)
 						{
-							mBitmapAlpha = FreeImage.GetBitmap(bitmap_alpha).ToBitmapSource();
+							_bitmapAlpha = FreeImage.GetBitmap(bitmap_alpha).ToBitmapSource();
 							FreeImage.UnloadEx(ref bitmap_alpha);
 						}
 
 						// Преобразуем
-						FIBITMAP bitmap_no_transparent = FreeImage.ConvertTo24Bits(mFreeImageBitmap);
+						FIBITMAP bitmap_no_transparent = FreeImage.ConvertTo24Bits(_freeImageBitmap);
 						if (!bitmap_no_transparent.IsNull)
 						{
-							mBitmapNoTransparent = FreeImage.GetBitmap(bitmap_no_transparent).ToBitmapSource();
+							_bitmapNoTransparent = FreeImage.GetBitmap(bitmap_no_transparent).ToBitmapSource();
 							FreeImage.UnloadEx(ref bitmap_no_transparent);
 						}
 					}
 
-					mImagePresented.Source = mBitmapOriginal;
-					mImagePresented.Width = mImageWidth;
-					mImagePresented.Height = mImageHeight;
+					_imagePresented.Source = _bitmapOriginal;
+					_imagePresented.Width = _imageWidth;
+					_imagePresented.Height = _imageHeight;
 				}
 				catch(Exception exc)
 				{
@@ -581,7 +581,7 @@ namespace Lotus
 				}
 
 				// Always unload bitmap
-				FreeImage.UnloadEx(ref mFreeImageBitmap);
+				FreeImage.UnloadEx(ref _freeImageBitmap);
 
 				NotifyPropertyChanged(PropertyArgsImageWidth);
 				NotifyPropertyChanged(PropertyArgsImageHeight);
@@ -605,9 +605,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void SetViewOriginal()
 			{
-				if (mBitmapOriginal != null)
+				if (_bitmapOriginal != null)
 				{
-					mImagePresented.Source = mBitmapOriginal;
+					_imagePresented.Source = _bitmapOriginal;
 				}
 			}
 
@@ -618,9 +618,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void SetViewAlpha()
 			{
-				if (mBitmapAlpha != null)
+				if (_bitmapAlpha != null)
 				{
-					mImagePresented.Source = mBitmapAlpha;
+					_imagePresented.Source = _bitmapAlpha;
 				}
 			}
 
@@ -631,9 +631,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void SetViewNoTransparent()
 			{
-				if (mBitmapNoTransparent != null)
+				if (_bitmapNoTransparent != null)
 				{
-					mImagePresented.Source = mBitmapNoTransparent;
+					_imagePresented.Source = _bitmapNoTransparent;
 				}
 			}
 			#endregion
@@ -650,15 +650,15 @@ namespace Lotus
 			{
 				Double min_width = 1;
 
-				if (mImagePresented.Width > contentViewer.ViewportWidth - 20)
+				if (_imagePresented.Width > contentViewer.ViewportWidth - 20)
 				{
-					min_width = (contentViewer.ViewportWidth - 20) / mImagePresented.Width;
+					min_width = (contentViewer.ViewportWidth - 20) / _imagePresented.Width;
 				}
 
 				Double min_height = 1;
-				if (mImagePresented.Height > contentViewer.ViewportHeight - 20)
+				if (_imagePresented.Height > contentViewer.ViewportHeight - 20)
 				{
-					min_height = (contentViewer.ViewportHeight - 20) / mImagePresented.Height;
+					min_height = (contentViewer.ViewportHeight - 20) / _imagePresented.Height;
 				}
 
 				contentViewer.ContentScale = Math.Min(min_width, min_height);
@@ -673,13 +673,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnFreeImageMessage(FREE_IMAGE_FORMAT format_image, String message)
 			{
-				if (this.mCurrentMessage == null)
+				if (this._currentMessage == null)
 				{
-					this.mCurrentMessage = message;
+					this._currentMessage = message;
 				}
 				else
 				{
-					this.mCurrentMessage += "\n" + message;
+					this._currentMessage += "\n" + message;
 				}
 			}
 			#endregion

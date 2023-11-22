@@ -12,9 +12,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 using Lotus.Core;
+using Lotus.Windows;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Drawing;
 
 namespace Lotus.App.GeneralUtility
 {
@@ -167,5 +170,83 @@ namespace Lotus.App.GeneralUtility
 				index++;
 			}
         }
+
+		private void analysMap_Click(object sender, RoutedEventArgs e)
+		{
+
+			var folderTiles = "D:\\TelesNew";
+			var filesTiles = Directory.GetFiles(folderTiles, "*.bmp")
+				.OrderBy(x => x)
+				.ToArray();
+
+			var width = 25 * 32;
+			var height = 25 * 32;
+
+			var stride = width * PixelFormats.Bgr32.BitsPerPixel;
+			var pixelData = new byte[stride * height];
+
+			StringBuilder sb = new StringBuilder();
+			StringWriter sw = new StringWriter(sb);
+
+			JsonWriter writer = new JsonTextWriter(sw);
+			writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+			writer.WriteStartObject();
+			writer.WritePropertyName("items");
+			writer.WriteStartArray();
+
+			var index = 0;
+			var fullBitmap = new Bitmap(25 * 32, 25 * 32, System.Drawing.Imaging.PixelFormat.Format32bppRgb);
+			for (int iy = 0; iy < 25; iy++)
+			{
+				for (int ix = 0; ix < 25; ix++)
+				{
+					var fileName = filesTiles[index];
+					var bitmap = new Bitmap(fileName);
+
+					var pixels = bitmap.GetPixels();
+					fullBitmap.PutPixels(pixels, ix * 32, iy * 32, 32);
+
+					writer.WriteStartObject();
+
+					writer.WritePropertyName("index");
+					writer.WriteValue(index);
+
+					writer.WritePropertyName("fileName");
+					writer.WriteValue(Path.GetFileName(fileName));
+
+					writer.WritePropertyName("type");
+					writer.WriteValue(Path.GetFileNameWithoutExtension(fileName).SubstringTo("_", false));
+
+					writer.WritePropertyName("variant");
+					writer.WriteValue(GetVariant(fileName));
+
+					writer.WriteEndObject();
+
+					index++;
+				}
+			}
+
+			writer.WriteEndArray();
+			writer.WriteEndObject();
+
+			var filename = Path.Combine(folderTiles, "HMM3_Tile.bmp");
+			fullBitmap.Save(filename);
+			//using (FileStream streamFile = new FileStream(filename, FileMode.Create))
+			//{
+			//	PngBitmapEncoder encoder = new PngBitmapEncoder();
+			//	encoder.Frames.Add(BitmapFrame.Create(writeableBitmap));
+			//	encoder.Save(streamFile);
+			//}
+
+			writer.Close();
+			var filenameJson = Path.Combine(folderTiles, "HMM3_Tile.json");
+			File.WriteAllText(filenameJson, sb.ToString());
+		}
+
+		public int GetVariant(string filename)
+		{
+			var result = filename.ExtractString("[","]");
+			return XNumbers.ParseInt(result);
+		}
     }
 }
