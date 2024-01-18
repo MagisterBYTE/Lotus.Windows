@@ -109,7 +109,7 @@ namespace Lotus
 			{
 				if (this.IsLoaded)
 				{
-					var style = ((Fluent.RadioButton)sender).Header.ToString();
+					var style = ((Fluent.RadioButton)sender)!.Header!.ToString();
 					var control = "";
 					var toolkit = "";
 					switch (style)
@@ -138,13 +138,12 @@ namespace Lotus
 						var resource_controls = new ResourceDictionary();
 						resource_controls.Source = new Uri(control, UriKind.Absolute);
 						Application.Current.Resources.MergedDictionaries.Add(resource_controls);
-
-						if (String.IsNullOrEmpty(toolkit) == false)
-						{
-							var resource_toolkit = new ResourceDictionary();
-							resource_toolkit.Source = new Uri(toolkit, UriKind.Absolute);
-							this.Resources.MergedDictionaries.Add(resource_toolkit);
-						}
+					}
+					if (!String.IsNullOrEmpty(toolkit))
+					{
+						var resource_toolkit = new ResourceDictionary();
+						resource_toolkit.Source = new Uri(toolkit, UriKind.Absolute);
+						this.Resources.MergedDictionaries.Add(resource_toolkit);
 					}
 				}
 			}
@@ -158,7 +157,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnViewStyleTable_Checked(Object sender, RoutedEventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------

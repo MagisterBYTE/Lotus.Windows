@@ -83,6 +83,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRibbonTabImageEditor_Loaded(Object sender, RoutedEventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -109,7 +110,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonOpenNotepad_Click(Object sender, RoutedEventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -153,17 +154,17 @@ namespace Lotus
 			{
 				if (ImageViewEditor != null)
 				{
-					if (radioChannelOriginal.IsChecked.Value)
+					if (radioChannelOriginal.IsChecked.GetValueOrDefault())
 					{
 						ImageViewEditor.SetViewOriginal();
 					}
 
-					if (radioChannelAlpha.IsChecked.Value)
+					if (radioChannelAlpha.IsChecked.GetValueOrDefault())
 					{
 						ImageViewEditor.SetViewAlpha();
 					}
 
-					if (radioChannelNoTransparent.IsChecked.Value)
+					if (radioChannelNoTransparent.IsChecked.GetValueOrDefault())
 					{
 						ImageViewEditor.SetViewNoTransparent();
 					}

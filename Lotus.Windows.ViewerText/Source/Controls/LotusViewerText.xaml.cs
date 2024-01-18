@@ -174,8 +174,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal FoldingManager _foldingManager;
-			protected internal System.Object _foldingStrategy;
+			protected internal FoldingManager? _foldingManager;
+			protected internal System.Object? _foldingStrategy;
 
 			// Reasonable max and min font size values
 			private const Double FONT_MAX_SIZE = 60d;
@@ -221,9 +221,9 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String file_name, CParameters parameters_create)
+			public void NewFile(String? file_name, CParameters? parameters_create)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -233,13 +233,13 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String file_name, CParameters parameters_open)
+			public void OpenFile(String? file_name, CParameters? parameters_open)
 			{
 				// Если файл пустой то используем диалог
 				if(String.IsNullOrEmpty(file_name))
 				{
-					file_name = XFileDialog.Open("Открыть документ", null);
-					if (file_name.IsExists())
+					file_name = XFileDialog.Open("Открыть документ", String.Empty);
+					if (file_name != null && file_name.IsExists())
 					{
 						// Загружаем файл
 						AvalonTextEditor.Load(file_name);
@@ -272,8 +272,8 @@ namespace Lotus
 				}
 				else
 				{
-					var file_name = XFileDialog.Save("Сохранить документ", null);
-					if (XFilePath.CheckCorrectFileName(file_name))
+					var file_name = XFileDialog.Save("Сохранить документ", String.Empty);
+					if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 					{
 						AvalonTextEditor.Save(file_name);
 						FileName = file_name;
@@ -289,7 +289,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String file_name, CParameters parameters_save)
+			public void SaveAsFile(String? file_name, CParameters? parameters_save)
 			{
 				if (String.IsNullOrEmpty(file_name))
 				{
@@ -299,8 +299,8 @@ namespace Lotus
 						var file = Path.GetFileNameWithoutExtension(FileName);
 						var ext = Path.GetExtension(FileName).Remove(0, 1);
 
-						 file_name = XFileDialog.Save("Сохранить документ как", dir, file, ext);
-						if (XFilePath.CheckCorrectFileName(file_name))
+						 file_name = XFileDialog.Save("Сохранить документ как", dir ?? String.Empty, file, ext);
+						if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 						{
 							AvalonTextEditor.Save(file_name);
 							FileName = file_name;
@@ -309,8 +309,8 @@ namespace Lotus
 					}
 					else
 					{
-						file_name = XFileDialog.Save("Сохранить документ как", null);
-						if (XFilePath.CheckCorrectFileName(file_name))
+						file_name = XFileDialog.Save("Сохранить документ как", String.Empty);
+						if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 						{
 							AvalonTextEditor.Save(file_name);
 							FileName = file_name;
@@ -335,9 +335,9 @@ namespace Lotus
 			/// </summary>
 			/// <param name="parameters_print">Параметры печати файла</param>
 			//-------------------------------------------------------------------------------------------------------------
-			public void PrintFile(CParameters parameters_print)
+			public void PrintFile(CParameters? parameters_print)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -347,9 +347,9 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String file_name, CParameters parameters_export)
+			public void ExportFile(String? file_name, CParameters? parameters_export)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -372,13 +372,15 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void UpdateFoldings()
 			{
-				if (_foldingStrategy is BraceFoldingStrategy)
+				if (_foldingManager == null) return;
+
+				if (_foldingStrategy is BraceFoldingStrategy braceFoldingStrategy)
 				{
-					((BraceFoldingStrategy)_foldingStrategy).UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
+					braceFoldingStrategy.UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
 				}
-				if (_foldingStrategy is XmlFoldingStrategy)
+				if (_foldingStrategy is XmlFoldingStrategy xmlFoldingStrategy)
 				{
-					((XmlFoldingStrategy)_foldingStrategy).UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
+					xmlFoldingStrategy.UpdateFoldings(_foldingManager, AvalonTextEditor.Document);
 				}
 			}
 
@@ -418,7 +420,9 @@ namespace Lotus
 				if (_foldingStrategy != null)
 				{
 					if (_foldingManager == null)
+					{
 						_foldingManager = FoldingManager.Install(AvalonTextEditor.TextArea);
+					}
 					UpdateFoldings();
 				}
 				else
@@ -497,7 +501,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

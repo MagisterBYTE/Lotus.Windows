@@ -321,6 +321,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerViewLoad()
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -332,7 +333,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerViewLoad(Object sender, RoutedEventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -344,6 +345,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerViewSave(Object sender, RoutedEventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -355,6 +357,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerViewRestore(Object sender, RoutedEventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -366,7 +369,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerTabActive(Object sender, RoutedEventArgs args)
 			{
-				var text = (sender as Fluent.Button).Tag.ToString();
+				var text = (sender as Fluent.Button)!.Tag.ToString();
 				var layout = DockManager.FindName(text) as LayoutAnchorable;
 				if (layout != null)
 				{
@@ -409,6 +412,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerCloseAllTabs(Object sender, EventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -420,6 +424,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerCloseOtherTabs(Object sender, EventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -431,7 +436,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnDockingManagerDocumentClosing(Object sender, EventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 			#endregion
 
@@ -439,7 +444,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

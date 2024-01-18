@@ -71,27 +71,27 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
-			protected static PropertyChangedEventArgs PropertyArgsShowWireframe = new PropertyChangedEventArgs(nameof(ShowWireframe));
-			protected static PropertyChangedEventArgs PropertyArgsRenderFlat = new PropertyChangedEventArgs(nameof(RenderFlat));
-			protected static PropertyChangedEventArgs PropertyArgsRenderEnvironmentMap = new PropertyChangedEventArgs(nameof(PropertyArgsRenderEnvironmentMap));
+			protected static readonly PropertyChangedEventArgs PropertyArgsShowWireframe = new PropertyChangedEventArgs(nameof(ShowWireframe));
+			protected static readonly PropertyChangedEventArgs PropertyArgsRenderFlat = new PropertyChangedEventArgs(nameof(RenderFlat));
+			protected static readonly PropertyChangedEventArgs PropertyArgsRenderEnvironmentMap = new PropertyChangedEventArgs(nameof(PropertyArgsRenderEnvironmentMap));
 
-			protected static PropertyChangedEventArgs PropertyArgsCamera = new PropertyChangedEventArgs(nameof(Camera));
-			protected static PropertyChangedEventArgs PropertyArgsCameraModel = new PropertyChangedEventArgs(nameof(CameraModel));
+			protected static readonly PropertyChangedEventArgs PropertyArgsCamera = new PropertyChangedEventArgs(nameof(Camera));
+			protected static readonly PropertyChangedEventArgs PropertyArgsCameraModel = new PropertyChangedEventArgs(nameof(CameraModel));
 			
-			protected static PropertyChangedEventArgs PropertyArgsEffectsManager = new PropertyChangedEventArgs(nameof(EffectsManager));
+			protected static readonly PropertyChangedEventArgs PropertyArgsEffectsManager = new PropertyChangedEventArgs(nameof(EffectsManager));
 
-			protected static PropertyChangedEventArgs PropertyArgsScene = new PropertyChangedEventArgs(nameof(Scene));
-			protected static PropertyChangedEventArgs PropertyArgsSceneRoot = new PropertyChangedEventArgs(nameof(SceneRoot));
-			protected static PropertyChangedEventArgs PropertyArgsGroupModel = new PropertyChangedEventArgs(nameof(GroupModel));
-			protected static PropertyChangedEventArgs PropertyArgsSelectedModel = new PropertyChangedEventArgs(nameof(SelectedModel));
+			protected static readonly PropertyChangedEventArgs PropertyArgsScene = new PropertyChangedEventArgs(nameof(Scene));
+			protected static readonly PropertyChangedEventArgs PropertyArgsSceneRoot = new PropertyChangedEventArgs(nameof(SceneRoot));
+			protected static readonly PropertyChangedEventArgs PropertyArgsGroupModel = new PropertyChangedEventArgs(nameof(GroupModel));
+			protected static readonly PropertyChangedEventArgs PropertyArgsSelectedModel = new PropertyChangedEventArgs(nameof(SelectedModel));
 
-			protected static PropertyChangedEventArgs PropertyArgsEnableAnimation = new PropertyChangedEventArgs(nameof(EnableAnimation));
-			protected static PropertyChangedEventArgs PropertyArgsSelectedAnimation = new PropertyChangedEventArgs(nameof(SelectedAnimation));
-			protected static PropertyChangedEventArgs PropertyArgsSpeedAnimation = new PropertyChangedEventArgs(nameof(SpeedAnimation));
+			protected static readonly PropertyChangedEventArgs PropertyArgsEnableAnimation = new PropertyChangedEventArgs(nameof(EnableAnimation));
+			protected static readonly PropertyChangedEventArgs PropertyArgsSelectedAnimation = new PropertyChangedEventArgs(nameof(SelectedAnimation));
+			protected static readonly PropertyChangedEventArgs PropertyArgsSpeedAnimation = new PropertyChangedEventArgs(nameof(SpeedAnimation));
 
-			protected static PropertyChangedEventArgs PropertyArgsGridGeometry = new PropertyChangedEventArgs(nameof(GridGeometry));
-			protected static PropertyChangedEventArgs PropertyArgsGridColor = new PropertyChangedEventArgs(nameof(GridColor));
-			protected static PropertyChangedEventArgs PropertyArgsGridTransform = new PropertyChangedEventArgs(nameof(GridTransform));
+			protected static readonly PropertyChangedEventArgs PropertyArgsGridGeometry = new PropertyChangedEventArgs(nameof(GridGeometry));
+			protected static readonly	PropertyChangedEventArgs PropertyArgsGridColor = new PropertyChangedEventArgs(nameof(GridColor));
+			protected static readonly PropertyChangedEventArgs PropertyArgsGridTransform = new PropertyChangedEventArgs(nameof(GridTransform));
 
 			private static String OpenFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Importer.SupportedFormatsString}";
 			private static String ExportFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Exporter.SupportedFormatsString}";
@@ -129,7 +129,7 @@ namespace Lotus
 			protected internal TextureModel _environmentMap;
 
 			// Камера
-			protected internal String _cameraModel;
+			protected internal String? _cameraModel;
 			protected internal Helix.Camera _camera;
 			protected internal Helix.OrthographicCamera _defaultOrthographicCamera;
 			protected internal Helix.PerspectiveCamera _defaultPerspectiveCamera;
@@ -147,8 +147,8 @@ namespace Lotus
 			protected internal Boolean _enableAnimation = false;
 			protected internal IList<Animation> _sceneAnimations;
 			protected internal ObservableCollection<IAnimationUpdater> _animationsUpdater;
-			protected internal IAnimationUpdater _selectedAnimationUpdater = null;
-			protected internal IAnimationUpdater _animationUpdater;
+			protected internal IAnimationUpdater? _selectedAnimationUpdater = null;
+			protected internal IAnimationUpdater? _animationUpdater;
 			protected internal Single _speedAnimation = 1.0f;
 
 			// Параметры скелета
@@ -305,7 +305,7 @@ namespace Lotus
 			/// <summary>
 			/// Текущая модель камеры
 			/// </summary>
-			public String CameraModel
+			public String? CameraModel
 			{
 				get { return _cameraModel; }
 				set
@@ -333,9 +333,18 @@ namespace Lotus
 				{
 					_camera = value;
 					NotifyPropertyChanged(PropertyArgsCamera);
-					CameraModel = value is Helix.PerspectiveCamera
+					if (value is Helix.OrthographicCamera)
+					{
+						CameraModel = value is Helix.PerspectiveCamera
 										   ? PerspectiveCameraName
-										   : value is Helix.OrthographicCamera ? OrthographicCameraName : null;
+										   : (string?)OrthographicCameraName;
+					}
+					else
+					{
+						CameraModel = value is Helix.PerspectiveCamera
+										   ? PerspectiveCameraName
+										   : null;
+					}
 				}
 			}
 
@@ -489,7 +498,7 @@ namespace Lotus
 			/// <summary>
 			/// Текущая выбранная анимация
 			/// </summary>
-			public IAnimationUpdater SelectedAnimation
+			public IAnimationUpdater? SelectedAnimation
 			{
 				get
 				{
@@ -532,14 +541,10 @@ namespace Lotus
 				}
 				set
 				{
-					if (SpeedAnimation != value)
+					if (_speedAnimation != value)
 					{
-						SpeedAnimation = value;
+						_speedAnimation = value;
 						NotifyPropertyChanged(PropertyArgsSpeedAnimation);
-						if (_animationUpdater != null)
-						{
-							//mAnimationUpdater.Speed = value;
-						}
 					}
 				}
 			}
@@ -615,26 +620,6 @@ namespace Lotus
 				InitAnimation();
 
 				InitGrid();
-
-				//threeViewer.AddHandler(Helix.Element3D.MouseDown3DEvent, new RoutedEventHandler((sender, args) =>
-				//{
-				//	var arg = args as Helix.MouseDown3DEventArgs;
-
-				//	if (arg.HitTestResult == null)
-				//	{
-				//		return;
-				//	}
-				//	if (_selectedModel != null)
-				//	{
-				//		_selectedModel.PostEffects = null;
-				//		_selectedModel = null;
-				//	}
-				//	_selectedModel = arg.HitTestResult.ModelHit as Helix.GeometryModel3D;
-				//	if (_selectedModel != null && _selectedModel.Name != "gridBase")
-				//	{
-				//		_selectedModel.PostEffects = String.IsNullOrEmpty(_selectedModel.PostEffects) ? $"highlight[color:#FFFF00]" : null;
-				//	}
-				//}));
 			}
 			#endregion
 
@@ -642,18 +627,8 @@ namespace Lotus
 			/// <summary>
 			/// To detect redundant calls
 			/// </summary>
-			private Boolean mDisposedValue = false;
+			private Boolean disposedValue = false;
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-			/// </summary>
-			//---------------------------------------------------------------------------------------------------------
-			~LotusViewerContent3D()
-			{
-				// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-				Dispose(false);
-			}
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -662,10 +637,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void Dispose()
 			{
-				// Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-				Dispose(true);
-				// TODO: uncomment the following line if the finalizer is overridden above.
-				// GC.SuppressFinalize(this);
+				// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+				Dispose(disposing: true);
+				System.GC.SuppressFinalize(this);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -674,24 +648,20 @@ namespace Lotus
 			/// </summary>
 			/// <param name="disposing">Статус освобождения</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void Dispose(Boolean disposing)
+			protected virtual void Dispose(bool disposing)
 			{
-				if (!mDisposedValue)
+				if (!disposedValue)
 				{
 					if (disposing)
 					{
-						// TODO: dispose managed state (managed objects).
+						if (EffectsManager != null)
+						{
+							var effectManager = EffectsManager as IDisposable;
+							Disposer.RemoveAndDispose(ref effectManager);
+						}
 					}
 
-					// TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-					// TODO: set large fields to null.
-					if (EffectsManager != null)
-					{
-						var effectManager = EffectsManager as IDisposable;
-						Disposer.RemoveAndDispose(ref effectManager);
-					}
-					mDisposedValue = true;
-					GC.SuppressFinalize(this);
+					disposedValue = true;
 				}
 			}
 			#endregion
@@ -716,9 +686,9 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String file_name, CParameters parameters_create)
+			public void NewFile(String file_name, CParameters? parameters_create)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -728,16 +698,16 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String file_name, CParameters parameters_open)
+			public void OpenFile(String? file_name, CParameters? parameters_open)
 			{
 				Assimp.PostProcessSteps post_process_steps = Assimp.PostProcessSteps.None;
-				TreeView tree_view_model_structure = null;
+				TreeView? tree_view_model_structure = null;
 
 				// Если файл пустой то используем диалог
 				if (String.IsNullOrEmpty(file_name))
 				{
 					file_name = XFileDialog.Open("Открыть файл", "", OpenFileFilter);
-					if (file_name.IsExists())
+					if (file_name != null && file_name.IsExists())
 					{
 						if(parameters_open != null)
 						{
@@ -746,7 +716,7 @@ namespace Lotus
 						}
 
 						// Загружаем файл
-						Load(file_name, post_process_steps, tree_view_model_structure);
+						Load(file_name, post_process_steps, tree_view_model_structure!);
 
 						FileName = file_name;
 						XLogger.LogInfoModule(nameof(LotusViewerContent3D), $"Открыт файл с именем: [{FileName}]");
@@ -761,7 +731,7 @@ namespace Lotus
 					}
 
 					// Загружаем файл
-					Load(file_name, post_process_steps, tree_view_model_structure);
+					Load(file_name, post_process_steps, tree_view_model_structure!);
 
 					FileName = file_name;
 					XLogger.LogInfoModule(nameof(LotusViewerContent3D), $"Открыт файл с именем: [{FileName}]");
@@ -775,7 +745,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void SaveFile()
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -785,7 +755,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String file_name, CParameters parameters_save)
+			public void SaveAsFile(String file_name, CParameters? parameters_save)
 			{
 				if (String.IsNullOrEmpty(file_name))
 				{
@@ -813,9 +783,9 @@ namespace Lotus
 			/// </summary>
 			/// <param name="parameters_print">Параметры печати файла</param>
 			//-------------------------------------------------------------------------------------------------------------
-			public void PrintFile(CParameters parameters_print)
+			public void PrintFile(CParameters? parameters_print)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -825,9 +795,9 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String file_name, CParameters parameters_export)
+			public void ExportFile(String file_name, CParameters? parameters_export)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -837,7 +807,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void CloseFile()
 			{
-
+				// Method intentionally left empty.
 			}
 			#endregion
 
@@ -984,42 +954,39 @@ namespace Lotus
 						_sceneAnimations = helix_toolkit_scene.Animations;
 						Animations.Clear();
 						GroupModel.Clear();
-						if (helix_toolkit_scene != null)
+						if (helix_toolkit_scene.Root != null)
 						{
-							if (helix_toolkit_scene.Root != null)
+							foreach (var node in helix_toolkit_scene.Root.Traverse())
 							{
-								foreach (var node in helix_toolkit_scene.Root.Traverse())
+								if (node is MaterialGeometryNode m)
 								{
-									if (node is MaterialGeometryNode m)
+									if (m.Material is PBRMaterialCore pbr)
 									{
-										if (m.Material is PBRMaterialCore pbr)
-										{
-											pbr.RenderEnvironmentMap = RenderEnvironmentMap;
-										}
-										else if (m.Material is PhongMaterialCore phong)
-										{
-											phong.RenderEnvironmentMap = RenderEnvironmentMap;
-										}
+										pbr.RenderEnvironmentMap = RenderEnvironmentMap;
+									}
+									else if (m.Material is PhongMaterialCore phong)
+									{
+										phong.RenderEnvironmentMap = RenderEnvironmentMap;
 									}
 								}
 							}
-
-							GroupModel.AddNode(helix_toolkit_scene.Root);
-							if (helix_toolkit_scene.HasAnimation)
-							{
-								var dict = helix_toolkit_scene.Animations.CreateAnimationUpdaters();
-								foreach (var animation in dict.Values)
-								{
-									Animations.Add(animation);
-								}
-							}
-							foreach (var node in helix_toolkit_scene.Root.Traverse())
-							{
-								//node.Tag = new AttachedNodeViewModel(node);
-							}
 						}
 
-						if(tree_view_model_structure != null)
+						GroupModel.AddNode(helix_toolkit_scene.Root);
+						if (helix_toolkit_scene.HasAnimation)
+						{
+							var dict = helix_toolkit_scene.Animations.CreateAnimationUpdaters();
+							foreach (var animation in dict.Values)
+							{
+								Animations.Add(animation);
+							}
+						}
+						foreach (var node in helix_toolkit_scene.Root.Traverse())
+						{
+							//node.Tag = new AttachedNodeViewModel(node);
+						}
+
+						if (tree_view_model_structure != null)
 						{
 							tree_view_model_structure.ItemsSource = _sceneRoot.Items;
 						}
@@ -1059,7 +1026,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void CompositeHelper_Rendering(Object sender, RenderingEventArgs args)
+			private void CompositeHelper_Rendering(Object? sender, RenderingEventArgs args)
 			{
 				if (_animationUpdater != null)
 				{
@@ -1072,7 +1039,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

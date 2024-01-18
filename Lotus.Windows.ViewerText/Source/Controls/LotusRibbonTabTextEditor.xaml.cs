@@ -127,7 +127,7 @@ namespace Lotus
 				if (TextViewEditor != null && XFilePath.CheckCorrectFileName(TextViewEditor.FileName))
 				{
 					var file_name_param = XChar.DoubleQuotes + TextViewEditor.FileName + XChar.DoubleQuotes;
-					XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, null, TShowCommands.SW_NORMAL);
+					XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, String.Empty, TShowCommands.SW_NORMAL);
 				}
 			}
 
@@ -172,7 +172,7 @@ namespace Lotus
 			{
 				if (TextViewEditor != null)
 				{
-					TextViewEditor.ChangedEncoding(comboBoxEncodings.SelectedItem as Encoding);
+					TextViewEditor.ChangedEncoding((comboBoxEncodings.SelectedItem as Encoding)!);
 				}
 			}
 
@@ -216,7 +216,7 @@ namespace Lotus
 			private void OnComboBoxSyntaxHighlighting_SelectionChanged(Object sender, SelectionChangedEventArgs args)
 			{
 				if (TextViewEditor == null) return;
-				TextViewEditor.ChangedSyntaxHighlighting(comboBoxSyntaxHighlighting.SelectedItem as String);
+				TextViewEditor.ChangedSyntaxHighlighting(comboBoxSyntaxHighlighting.SelectedItem.ToString()!);
 			}
 			#endregion
 		}

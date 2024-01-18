@@ -61,19 +61,19 @@ namespace Lotus
 			//
 			// Константы для информирования об изменении свойств
 			//
-			protected static PropertyChangedEventArgs PropertyArgsImageWidth = new PropertyChangedEventArgs(nameof(ImageWidth));
-			protected static PropertyChangedEventArgs PropertyArgsImageHeight = new PropertyChangedEventArgs(nameof(ImageHeight));
-			protected static PropertyChangedEventArgs PropertyArgsImageResolutionX = new PropertyChangedEventArgs(nameof(ImageResolutionX));
-			protected static PropertyChangedEventArgs PropertyArgsImageResolutionY = new PropertyChangedEventArgs(nameof(ImageResolutionY));
-			protected static PropertyChangedEventArgs PropertyArgsImageFormat = new PropertyChangedEventArgs(nameof(ImageFormat));
-			protected static PropertyChangedEventArgs PropertyArgsImageImageType = new PropertyChangedEventArgs(nameof(ImageType));
-			protected static PropertyChangedEventArgs PropertyArgsImageColorType = new PropertyChangedEventArgs(nameof(ImageColorType));
-			protected static PropertyChangedEventArgs PropertyArgsImageColorDepth = new PropertyChangedEventArgs(nameof(ImageColorDepth));
-			protected static PropertyChangedEventArgs PropertyArgsImagePixelFormat = new PropertyChangedEventArgs(nameof(ImagePixelFormat));
-			protected static PropertyChangedEventArgs PropertyArgsIsTransparentImage = new PropertyChangedEventArgs(nameof(IsTransparentImage));
-			protected static PropertyChangedEventArgs PropertyArgsImageRedMask = new PropertyChangedEventArgs(nameof(ImageRedMask));
-			protected static PropertyChangedEventArgs PropertyArgsImageGreenMask = new PropertyChangedEventArgs(nameof(ImageGreenMask));
-			protected static PropertyChangedEventArgs PropertyArgsImageBlueMask = new PropertyChangedEventArgs(nameof(ImageBlueMask));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageWidth = new PropertyChangedEventArgs(nameof(ImageWidth));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageHeight = new PropertyChangedEventArgs(nameof(ImageHeight));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionX = new PropertyChangedEventArgs(nameof(ImageResolutionX));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionY = new PropertyChangedEventArgs(nameof(ImageResolutionY));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageFormat = new PropertyChangedEventArgs(nameof(ImageFormat));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageImageType = new PropertyChangedEventArgs(nameof(ImageType));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageColorType = new PropertyChangedEventArgs(nameof(ImageColorType));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageColorDepth = new PropertyChangedEventArgs(nameof(ImageColorDepth));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImagePixelFormat = new PropertyChangedEventArgs(nameof(ImagePixelFormat));
+			protected static readonly PropertyChangedEventArgs PropertyArgsIsTransparentImage = new PropertyChangedEventArgs(nameof(IsTransparentImage));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageRedMask = new PropertyChangedEventArgs(nameof(ImageRedMask));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageGreenMask = new PropertyChangedEventArgs(nameof(ImageGreenMask));
+			protected static readonly PropertyChangedEventArgs PropertyArgsImageBlueMask = new PropertyChangedEventArgs(nameof(ImageBlueMask));
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ МЕТОДЫ ========================================
@@ -96,7 +96,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <returns>Объект BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static BitmapSource LoadFromFile(String file_name)
+			public static BitmapSource? LoadFromFile(String file_name)
 			{
 				// Format is stored in 'format' on successfull load.
 				FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
@@ -133,7 +133,7 @@ namespace Lotus
 			/// <param name="height">Требуемая высота изображения</param>
 			/// <returns>Объект BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static BitmapSource LoadFromFile(String file_name, Int32 width, Int32 height)
+			public static BitmapSource? LoadFromFile(String file_name, Int32 width, Int32 height)
 			{
 				// Format is stored in 'format' on successfull load.
 				FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
@@ -190,9 +190,9 @@ namespace Lotus
 
 			protected internal FIBITMAP _freeImageBitmap;
 			protected internal Image _imagePresented;
-			protected internal BitmapSource _bitmapOriginal;
-			protected internal BitmapSource _bitmapAlpha;
-			protected internal BitmapSource _bitmapNoTransparent;
+			protected internal BitmapSource? _bitmapOriginal;
+			protected internal BitmapSource? _bitmapAlpha;
+			protected internal BitmapSource? _bitmapNoTransparent;
 			protected internal String _currentMessage;
 			#endregion
 
@@ -366,9 +366,9 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String file_name, CParameters parameters_create)
+			public void NewFile(String file_name, CParameters? parameters_create)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -378,13 +378,13 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String file_name, CParameters parameters_open)
+			public void OpenFile(String? file_name, CParameters? parameters_open)
 			{
 				// Если файл пустой то используем диалог
 				if (String.IsNullOrEmpty(file_name))
 				{
 					file_name = XFileDialog.Open("Открыть изображение", "");
-					if (file_name.IsExists())
+					if (file_name != null && file_name.IsExists())
 					{
 						// Загружаем файл
 						Load(file_name);
@@ -409,7 +409,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void SaveFile()
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -419,7 +419,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String file_name, CParameters parameters_save)
+			public void SaveAsFile(String? file_name, CParameters? parameters_save)
 			{
 				if (String.IsNullOrEmpty(file_name))
 				{
@@ -447,9 +447,9 @@ namespace Lotus
 			/// </summary>
 			/// <param name="parameters_print">Параметры печати файла</param>
 			//-------------------------------------------------------------------------------------------------------------
-			public void PrintFile(CParameters parameters_print)
+			public void PrintFile(CParameters? parameters_print)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -459,9 +459,9 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String file_name, CParameters parameters_export)
+			public void ExportFile(String? file_name, CParameters? parameters_export)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -546,7 +546,7 @@ namespace Lotus
 					_imageBlueMask = FreeImage.GetBlueMask(_freeImageBitmap);
 
 					// Получаем презентатор
-					if (_imagePresented == null) _imagePresented = contentViewer.Content as Image;
+					if (_imagePresented == null) _imagePresented = (contentViewer.Content as Image)!;
 
 					// Основной режим
 					_bitmapOriginal = FreeImage.GetBitmap(_freeImageBitmap).ToBitmapSource();
@@ -688,7 +688,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

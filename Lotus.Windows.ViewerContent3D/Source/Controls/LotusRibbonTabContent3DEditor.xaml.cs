@@ -90,6 +90,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRibbonTabContent3DEditor_Loaded(Object sender, RoutedEventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -103,7 +104,7 @@ namespace Lotus
 			{
 				if (Content3DViewEditor != null)
 				{
-					Content3DViewEditor.OpenFile(null, null);
+					Content3DViewEditor.OpenFile(null!, null);
 				}
 			}
 
@@ -116,7 +117,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonOpenNotepad_Click(Object sender, RoutedEventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -145,7 +146,7 @@ namespace Lotus
 			{
 				if (Content3DViewEditor != null)
 				{
-					Content3DViewEditor.SaveAsFile(null, null);
+					Content3DViewEditor.SaveAsFile(null!, null);
 				}
 			}
 
