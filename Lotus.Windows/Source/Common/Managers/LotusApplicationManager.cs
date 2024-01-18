@@ -92,7 +92,7 @@ namespace Lotus
 				{
 					if(String.IsNullOrEmpty(_projectName))
 					{
-						_projectName = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+						_projectName = (System.Reflection.Assembly.GetEntryAssembly()!.GetName().Name)!;
 					}
 					return _projectName; 
 				}

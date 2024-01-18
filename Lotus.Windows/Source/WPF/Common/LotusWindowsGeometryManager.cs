@@ -134,7 +134,7 @@ namespace Lotus
 			/// <param name="device_unit">Размер в аппаратно-независимых единицах</param>
 			/// <returns>Размер в миллиметрах</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Size ToMilliliters(ref Size device_unit)
+			public static Size ToMilliliters(in Size device_unit)
 			{
 				return new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
 			}
@@ -170,7 +170,7 @@ namespace Lotus
 			/// <param name="device_unit">Прямоугольник в аппаратно-независимых единицах</param>
 			/// <returns>Прямоугольник в миллиметрах</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Rect ToMilliliters(ref Rect device_unit)
+			public static Rect ToMilliliters(in Rect device_unit)
 			{
 				return new Rect(device_unit.X * UnitToMM, device_unit.Y * UnitToMM,
 					device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
@@ -183,7 +183,7 @@ namespace Lotus
 			/// <param name="device_unit">Рамка в аппаратно-независимых единицах</param>
 			/// <returns>Рамка в миллиметрах</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Thickness ToMilliliters(ref Thickness device_unit)
+			public static Thickness ToMilliliters(in Thickness device_unit)
 			{
 				return new Thickness(device_unit.Left * UnitToMM,
 									device_unit.Top * UnitToMM,

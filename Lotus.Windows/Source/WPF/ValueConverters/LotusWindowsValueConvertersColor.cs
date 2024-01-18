@@ -74,7 +74,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return null;
+				return null!;
 			}
 			#endregion
 		}

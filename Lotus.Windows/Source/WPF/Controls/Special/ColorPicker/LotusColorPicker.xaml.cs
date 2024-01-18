@@ -77,7 +77,6 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void OnColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				var old_color = (Color)args.OldValue;
 				var new_сolor = (Color)args.NewValue;
 				var color_picker = (LotusColorPicker)sender;
 				color_picker.Red = new_сolor.R;
@@ -105,10 +104,6 @@ namespace Lotus
 
 				color_picker.Color = color;
 			}
-			#endregion
-
-			#region ======================================= ДАННЫЕ ====================================================
-
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================

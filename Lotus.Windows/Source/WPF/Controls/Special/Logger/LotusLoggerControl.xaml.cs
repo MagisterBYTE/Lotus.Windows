@@ -82,7 +82,7 @@ namespace Lotus
 			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				var val = (TLogType)value;
-				BitmapSource bitmap = null;
+				BitmapSource? bitmap;
 				switch (val)
 				{
 					case TLogType.Info:
@@ -111,6 +111,7 @@ namespace Lotus
 						}
 						break;
 					default:
+						bitmap = Info;
 						break;
 				}
 
@@ -129,7 +130,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return null;
+				return null!;
 			}
 			#endregion
 		}
@@ -210,7 +211,7 @@ namespace Lotus
 		public partial class LotusLoggerControl : UserControl, ILotusLoggerView, INotifyPropertyChanged
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			private ListArray<TLogMessage> mMessages;
+			private ListArray<TLogMessage> _messages;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -219,7 +220,7 @@ namespace Lotus
 			/// </summary>
 			public ListArray<TLogMessage> Messages
 			{
-				get { return mMessages; }
+				get { return _messages; }
 			}
 			#endregion
 
@@ -232,9 +233,9 @@ namespace Lotus
 			public LotusLoggerControl()
 			{
 				InitializeComponent();
-				mMessages = new ListArray<TLogMessage>();
-				mMessages.IsNotify = true;
-				outputData.ItemsSource = mMessages;
+				_messages = new ListArray<TLogMessage>();
+				_messages.IsNotify = true;
+				outputData.ItemsSource = _messages;
 			}
 			#endregion
 
@@ -248,8 +249,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void Log(String text, TLogType type)
 			{
-				mMessages.Add(new TLogMessage(text, type));
-				outputData.ScrollIntoView(mMessages[mMessages.Count - 1]);
+				_messages.Add(new TLogMessage(text, type));
+				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -260,8 +261,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void Log(TLogMessage message)
 			{
-				mMessages.Add(message);
-				outputData.ScrollIntoView(mMessages[mMessages.Count - 1]);
+				_messages.Add(message);
+				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -274,8 +275,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public void LogModule(String moduleName, String text, TLogType type)
 			{
-				mMessages.Add(new TLogMessage(moduleName, text, type));
-				outputData.ScrollIntoView(mMessages[mMessages.Count - 1]);
+				_messages.Add(new TLogMessage(moduleName, text, type));
+				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
 			}
 			#endregion
 
@@ -289,7 +290,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnButtonMessageClear_Click(Object sender, RoutedEventArgs args)
 			{
-				mMessages.Clear();
+				_messages.Clear();
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -309,7 +310,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

@@ -13,22 +13,11 @@
 // Последнее изменение от 30.04.2023
 //=====================================================================================================================
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
-//---------------------------------------------------------------------------------------------------------------------
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
 using Lotus.UnitMeasurement;
-using Lotus.Windows;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -45,8 +34,8 @@ namespace Lotus
 		public class PropertyModelMeasurementValue : PropertyModel<TMeasurementValue>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			internal Double mMinValue;
-			internal Double mMaxValue;
+			protected internal Double _minValue;
+			protected internal Double _maxValue;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -55,7 +44,7 @@ namespace Lotus
 			/// </summary>
 			public Double MinValue
 			{
-				get { return mMinValue; }
+				get { return _minValue; }
 			}
 
 			/// <summary>
@@ -63,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public Double MaxValue
 			{
-				get { return mMaxValue; }
+				get { return _maxValue; }
 			}
 			#endregion
 
@@ -112,26 +101,26 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void GetInfoFromAttributesRange()
 			{
-				if (mInfo != null)
+				if (_info != null)
 				{
-					LotusMinValueAttribute min_value = mInfo.GetAttribute<LotusMinValueAttribute>();
+					LotusMinValueAttribute? min_value = _info.GetAttribute<LotusMinValueAttribute>();
 					if (min_value != null)
 					{
-						mMinValue = (Double)(Object)min_value.MinValue;
+						_minValue = Convert.ToDouble(min_value.MinValue);
 					}
 					else
 					{
-						mMinValue = Double.MinValue;
+						_minValue = Double.MinValue;
 					}
 
-					LotusMaxValueAttribute max_value = mInfo.GetAttribute<LotusMaxValueAttribute>();
+					LotusMaxValueAttribute? max_value = _info.GetAttribute<LotusMaxValueAttribute>();
 					if (max_value != null)
 					{
-						mMaxValue = (Double)(Object)max_value.MaxValue;
+						_maxValue = Convert.ToDouble(max_value.MaxValue);
 					}
 					else
 					{
-						mMaxValue = Double.MaxValue;
+						_maxValue = Double.MaxValue;
 					}
 				}
 			}

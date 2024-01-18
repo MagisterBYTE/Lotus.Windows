@@ -130,7 +130,7 @@ namespace Lotus
 					if (_filtredItems.Count > 0)
 					{
 						var included = new StringBuilder(_filtredItems.Count * 10);
-						; for (var i = 0; i < _filtredItems.Count; i++)
+						for (var i = 0; i < _filtredItems.Count; i++)
 						{
 							if (i != 0)
 							{

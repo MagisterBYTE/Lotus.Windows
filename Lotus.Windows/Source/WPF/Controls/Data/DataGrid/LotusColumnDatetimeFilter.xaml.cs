@@ -81,16 +81,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnComboOperator_SelectionChanged(Object sender, SelectionChangedEventArgs args)
 			{
-				//if(QueryItem.ComparisonOperator == TComparisonQueryOperator.Between)
-				//{
-				//	textOperator.Visibility = Visibility.Visible;
-				//	textValueRight.Visibility = Visibility.Visible;
-				//}
-				//else
-				//{
-				//	textOperator.Visibility = Visibility.Collapsed;
-				//	textValueRight.Visibility = Visibility.Collapsed;
-				//}
+				// Method intentionally left empty.
 			}
 			#endregion
 		}

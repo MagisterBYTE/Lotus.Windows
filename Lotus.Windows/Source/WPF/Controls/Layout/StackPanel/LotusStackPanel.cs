@@ -123,7 +123,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void StackPlacement_PropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
 			{
-				var stack_panel = (LotusStackPanel)obj;
+				// var stack_panel = (LotusStackPanel)obj;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -412,7 +412,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

@@ -16,8 +16,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -49,7 +47,6 @@ namespace Lotus
 			/// <summary>
 			/// Элемент запроса для перечисляемых данных
 			/// </summary>
-			[Browsable(false)]
 			public CQueryItemEnum QueryItem
 			{
 				get { return (CQueryItemEnum)GetValue(QueryItemProperty); }
@@ -80,6 +77,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnUserControl_Loaded(Object sender, RoutedEventArgs args)
 			{
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -91,7 +89,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnCheckBox_Checked(Object sender, RoutedEventArgs args)
 			{
-				if(sender is CheckBox check_box)
+				if (sender is CheckBox check_box)
 				{
 					// Если нет то добавляем
 					if (QueryItem.FiltredItems.Contains(check_box.Content) == false)

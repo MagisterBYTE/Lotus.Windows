@@ -45,7 +45,7 @@ namespace Lotus
 			/// <param name="to_value">Целевое значение</param>
 			/// <param name="animation_duration">Продолжительность в секундах</param>
 			//---------------------------------------------------------------------------------------------------------
-			public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, Double to_value, 
+			public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, Double to_value,
 				Double animation_duration)
 			{
 				StartAnimation(animatable_element, dependency_property, to_value, animation_duration, null);
@@ -62,8 +62,8 @@ namespace Lotus
 			/// <param name="animation_duration">Продолжительность в секундах</param>
 			/// <param name="completed_handler">Обработчик события окончания анимации</param>
 			//---------------------------------------------------------------------------------------------------------
-			public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, Double to_value, 
-				Double animation_duration, EventHandler completed_handler)
+			public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, Double to_value,
+				Double animation_duration, EventHandler? completed_handler)
 			{
 				var fromValue = (Double)animatable_element.GetValue(dependency_property);
 
@@ -72,7 +72,7 @@ namespace Lotus
 				animation.To = to_value;
 				animation.Duration = TimeSpan.FromSeconds(animation_duration);
 
-				animation.Completed += delegate(Object sender, EventArgs args)
+				animation.Completed += delegate (System.Object? sender, EventArgs args)
 				{
 					//
 					// When the animation has completed bake final value of the animation
@@ -81,10 +81,7 @@ namespace Lotus
 					animatable_element.SetValue(dependency_property, animatable_element.GetValue(dependency_property));
 					CancelAnimation(animatable_element, dependency_property);
 
-					if (completed_handler != null)
-					{
-						completed_handler(sender, args);
-					}
+					completed_handler?.Invoke(sender, args);
 				};
 
 				animation.Freeze();

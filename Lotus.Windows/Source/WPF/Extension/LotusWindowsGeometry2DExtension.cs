@@ -56,7 +56,6 @@ namespace Lotus
 				{
 					translate.X = x;
 					translate.Y = y;
-					return;
 				}
 			}
 
@@ -86,7 +85,6 @@ namespace Lotus
 				{
 					translate.X = point.X;
 					translate.Y = point.Y;
-					return;
 				}
 			}
 
@@ -117,7 +115,6 @@ namespace Lotus
 				if (rotation != null)
 				{
 					rotation.Angle = angle;
-					return;
 				}
 			}
 		}

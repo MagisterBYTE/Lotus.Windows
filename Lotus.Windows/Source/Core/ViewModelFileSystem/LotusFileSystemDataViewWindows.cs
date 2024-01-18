@@ -47,11 +47,15 @@ namespace Lotus
 						{
 							_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromShell(full_name,
 								(UInt32)(Windows.TShellAttribute.Icon | Windows.TShellAttribute.SmallIcon));
-							_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromExtract(full_name);
+
+							if (_iconSource == null)
+							{
+								_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromExtract(full_name);
+							}
 						}
 					}
 
-					return _iconSource;
+					return _iconSource!;
 				}
 				set
 				{
@@ -68,7 +72,7 @@ namespace Lotus
 			/// <param name="model">Модель</param>
 			/// <param name="parent_item">Родительский узел</param>
 			//---------------------------------------------------------------------------------------------------------
-			public ViewModelFSFileWin(ILotusFileSystemEntity model, ILotusViewModelHierarchy parent_item)
+			public ViewModelFSFileWin(ILotusFileSystemEntity model, ILotusViewModelHierarchy? parent_item)
 				: base(model, parent_item)
 			{
 			}
@@ -82,8 +86,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override void SetContextMenu()
 			{
-				_contextMenuUI = new CUIContextMenuWindows();
-				_contextMenuUI.ViewModel = this;
+				_contextMenuUI = new CUIContextMenuWindows
+				{
+					ViewModel = this
+				};
 				_contextMenuUI.AddItem("Показать в проводнике", (ILotusViewModel view_model) =>
 				{
 					Windows.XNative.ShellExecute(IntPtr.Zero,
@@ -118,7 +124,7 @@ namespace Lotus
 			public override void BuildFromModel()
 			{
 				Clear();
-				CollectionViewModelFSWin.BuildFromParent(this, _owner);
+				CollectionViewModelFSWin.BuildFromParent(this, _owner!);
 			}
 			#endregion
 		}
@@ -175,7 +181,7 @@ namespace Lotus
 			/// <param name="parent">Родительский элемент ViewModel</param>
 			/// <returns>ViewModel</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override ILotusViewModelHierarchy CreateViewModelHierarchy(System.Object model, ILotusViewModelHierarchy parent)
+			public override ILotusViewModelHierarchy CreateViewModelHierarchy(System.Object model, ILotusViewModelHierarchy? parent)
 			{
 				if (model is CFileSystemFile file)
 				{
@@ -187,8 +193,8 @@ namespace Lotus
 					return new ViewModelFSFileWin(directory, parent);
 				}
 
-				return null;
-			}
+                throw new NotImplementedException("Model must be type <CFileSystemFile> or <CFileSystemDirectory>");
+            }
 			#endregion
 		}
 		//-------------------------------------------------------------------------------------------------------------

@@ -111,14 +111,14 @@ namespace Lotus
 			/// </summary>
 			public static readonly DependencyProperty ZoomProperty =
 				DependencyProperty.Register(nameof(Zoom), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)1.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Малый шаг маркеров основных единиц
 			/// </summary>
 			public static readonly DependencyProperty SmallStepProperty =
 				DependencyProperty.Register(nameof(SmallStep), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)5.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(5.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Основной шаг маркеров основных единиц
@@ -132,7 +132,7 @@ namespace Lotus
 			/// </summary>
 			public static readonly DependencyProperty OffsetProperty =
 				DependencyProperty.Register(nameof(Offset), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 
 			/// <summary>
@@ -140,21 +140,21 @@ namespace Lotus
 			/// </summary>
 			public static readonly DependencyProperty UnitFixedOffsetProperty =
 				DependencyProperty.Register(nameof(UnitFixedOffset), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Начальное смещение для отрисовки основных единиц
 			/// </summary>
 			public static readonly DependencyProperty UnitStartOffsetProperty =
 				DependencyProperty.Register(nameof(UnitStartOffset), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Полная длина отрисовки
 			/// </summary>
 			public static readonly DependencyProperty UnitLengthProperty =
 				DependencyProperty.Register(nameof(UnitLength), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Расположение маркеров
@@ -180,13 +180,13 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			// Основные параметры
-			private Typeface mTypefaceNumber;
-			private Double mSegmentHeight;
-			private Pen mThinPen = new Pen(Brushes.Black, 1.0);
-			private Pen mBorderPen = new Pen(Brushes.Gray, 1.0);
-			private ScaleTransform mTransformScale;
-			private TranslateTransform mTransformOffset;
-			private TransformGroup mTransformGroup;
+			protected internal Typeface _typefaceNumber;
+			protected internal Double _segmentHeight;
+			protected internal Pen _thinPen = new Pen(Brushes.Black, 1.0);
+			protected internal Pen _borderPen = new Pen(Brushes.Gray, 1.0);
+			protected internal ScaleTransform _transformScale;
+			protected internal TranslateTransform _transformOffset;
+			protected internal TransformGroup _transformGroup;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -319,10 +319,10 @@ namespace Lotus
 			/// </summary>
 			public Double UnitOffset
 			{
-				get { return mTransformOffset.X; }
+				get { return _transformOffset.X; }
 				set
 				{
-					mTransformOffset.X = value;
+					_transformOffset.X = value;
 					InvalidateVisual();
 				}
 			}
@@ -345,10 +345,10 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleX
 			{
-				get { return mTransformScale.ScaleX; }
+				get { return _transformScale.ScaleX; }
 				set
 				{
-					mTransformScale.ScaleX = value;
+					_transformScale.ScaleX = value;
 					InvalidateVisual();
 				}
 			}
@@ -358,10 +358,10 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleY
 			{
-				get { return mTransformScale.ScaleY; }
+				get { return _transformScale.ScaleY; }
 				set
 				{
-					mTransformScale.ScaleY = value;
+					_transformScale.ScaleY = value;
 					InvalidateVisual();
 				}
 			}
@@ -371,10 +371,10 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleCenterX
 			{
-				get { return mTransformScale.CenterX; }
+				get { return _transformScale.CenterX; }
 				set
 				{
-					mTransformScale.CenterX = value;
+					_transformScale.CenterX = value;
 					InvalidateVisual();
 				}
 			}
@@ -384,10 +384,10 @@ namespace Lotus
 			/// </summary>
 			public Double UnitScaleCenterY
 			{
-				get { return mTransformScale.CenterY; }
+				get { return _transformScale.CenterY; }
 				set
 				{
-					mTransformScale.CenterY = value;
+					_transformScale.CenterY = value;
 					InvalidateVisual();
 				}
 			}
@@ -447,15 +447,15 @@ namespace Lotus
 			public LotusPixelRulerControl()
 			{
 				InitializeComponent();
-				mTypefaceNumber = new Typeface("Arial");
-				mSegmentHeight = Height - 10;
+				_typefaceNumber = new Typeface("Arial");
+				_segmentHeight = Height - 10;
 				UnitStartOffset = 5;
 				SnapsToDevicePixels = true;
-				mTransformGroup = new TransformGroup();
-				mTransformOffset = new TranslateTransform(0, 0);
-				mTransformScale = new ScaleTransform();
-				mTransformGroup.Children.Add(mTransformScale);
-				mTransformGroup.Children.Add(mTransformOffset);
+				_transformGroup = new TransformGroup();
+				_transformOffset = new TranslateTransform(0, 0);
+				_transformScale = new ScaleTransform();
+				_transformGroup.Children.Add(_transformScale);
+				_transformGroup.Children.Add(_transformOffset);
 			}
 			#endregion
 
@@ -517,7 +517,7 @@ namespace Lotus
 				base.OnRender(drawingContext);
 
 				var bounds = new Rect(0, 0, ActualWidth, ActualHeight);
-				drawingContext.DrawRectangle(null, mBorderPen, bounds);
+				drawingContext.DrawRectangle(null, _borderPen, bounds);
 				var rect_clip = new RectangleGeometry(bounds);
 
 				// 0) Начальное смещение
@@ -525,21 +525,21 @@ namespace Lotus
 
 				// 1) Количество отрисовок
 				var small_step = ToDeviceUnits(SmallStep);
-				var step = ToDeviceUnits(Step);
+				_ = ToDeviceUnits(Step);
 				var count = (Int32)(UnitLength /small_step + 0.5);
 
 				// 3) Размер шрифта и пера
-				mThinPen.Thickness = 1.0 / Zoom * 1;
-				mBorderPen.Thickness = 1.0 / Zoom * 1;
+				_thinPen.Thickness = 1.0 / Zoom * 1;
+				_borderPen.Thickness = 1.0 / Zoom * 1;
 				var size_text = 1.0 / Zoom * 12;
-				var segment_height = 1.0 / Zoom * mSegmentHeight;
+				var segment_height = 1.0 / Zoom * _segmentHeight;
 
 				// 4) Рисуем
 				drawingContext.PushClip(rect_clip);
-				drawingContext.PushTransform(mTransformGroup);
-				
-				Double current_length = 0;
-				Double current_value = 0;
+				drawingContext.PushTransform(_transformGroup);
+
+				Double current_length;
+				Double current_value;
 				for (var i = 0; i < count; i++)
 				{
 					current_length = small_step * i;
@@ -568,7 +568,7 @@ namespace Lotus
 					var p1 = new Point(x + current_length, start_height);
 					var p2 = new Point(x + current_length, end_height);
 
-					drawingContext.DrawLine(mThinPen, p1, p2);
+					drawingContext.DrawLine(_thinPen, p1, p2);
 
 					// 6) Рисуем текст
 					if(is_main || (Zoom > 5 && is_main == false))
@@ -576,7 +576,7 @@ namespace Lotus
 						var number = new FormattedText((i * SmallStep + Offset).ToString("F0"),
 							CultureInfo.CurrentCulture, 
 							FlowDirection.LeftToRight,
-							mTypefaceNumber, size_text, 
+							_typefaceNumber, size_text, 
 							Brushes.DimGray,
 							VisualTreeHelper.GetDpi(this).PixelsPerDip);
 

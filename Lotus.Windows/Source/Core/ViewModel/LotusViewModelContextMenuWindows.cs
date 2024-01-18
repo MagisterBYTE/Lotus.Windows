@@ -100,8 +100,8 @@ namespace Lotus
 			/// <param name="on_action">Обработчик событие основного действия</param>
 			/// <param name="on_after_action">Дополнительный обработчик события после основного действия</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CUIContextMenuItemWindows(ILotusViewModel view_model, String name, Action<ILotusViewModel> on_action,
-				Action<ILotusViewModel> on_after_action)
+			public CUIContextMenuItemWindows(ILotusViewModel? view_model, String name, Action<ILotusViewModel>? on_action,
+				Action<ILotusViewModel>? on_after_action)
 				: base(view_model, name, on_action, on_after_action)
 			{
 				CreateMenuItem(name, null);
@@ -130,7 +130,7 @@ namespace Lotus
 			/// <param name="parameters">Параметры дублирования объекта</param>
 			/// <returns>Дубликат объекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override CUIContextMenuItem Duplicate(CParameters parameters = null)
+			public override CUIContextMenuItem Duplicate(CParameters? parameters = null)
 			{
 				var item = new CUIContextMenuItemWindows();
 				item.ViewModel = ViewModel;
@@ -149,7 +149,7 @@ namespace Lotus
 			/// <param name="name">Имя элемента меню</param>
 			/// <param name="icon">Графическая иконка</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void CreateMenuItem(String name, System.Drawing.Bitmap icon)
+			public void CreateMenuItem(String name, System.Drawing.Bitmap? icon)
 			{
 				if (MenuItem == null)
 				{
@@ -203,11 +203,11 @@ namespace Lotus
 			{
 				if (OnAction != null)
 				{
-					OnAction(ViewModel);
+					OnAction(ViewModel!);
 				}
 				if (OnAfterAction != null)
 				{
-					OnAfterAction(ViewModel);
+					OnAfterAction(ViewModel!);
 				}
 			}
 			#endregion
@@ -296,7 +296,7 @@ namespace Lotus
 			/// <param name="view_model">Элемент ViewModel</param>
 			/// <param name="items">Набор элементов меню</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CUIContextMenuWindows(ILotusViewModel view_model, params CUIContextMenuItem[] items)
+			public CUIContextMenuWindows(ILotusViewModel? view_model, params CUIContextMenuItem[]? items)
 				: base(view_model, items)
 			{
 			}

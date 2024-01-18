@@ -33,121 +33,26 @@ namespace Lotus
 		*@{*/
 		//-------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Универсальный конвертор типа Vector3D между различными типами представлений 
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		public class Vector3DToVector3DConverter : IValueConverter
-		{
-			#region ======================================= МЕТОДЫ ====================================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертация объекта вектор в объект типа <see cref="Vector3D"/>
-			/// </summary>
-			/// <param name="value">Значение</param>
-			/// <param name="targetType">Целевой тип</param>
-			/// <param name="parameter">Дополнительный параметр</param>
-			/// <param name="culture">Культура</param>
-			/// <returns>Объект <see cref="Vector3D"/></returns>
-			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
-			{
-				if (value is Vector3D)
-				{
-					return value;
-				}
-
-				if (value is System.Windows.Media.Media3D.Vector3D)
-				{
-					var v = (System.Windows.Media.Media3D.Vector3D)value;
-					return new Vector3D(v.X, v.Y, v.Z);
-				}
-
-				if (value is System.Windows.Media.Media3D.Point3D)
-				{
-					var v = (System.Windows.Media.Media3D.Point3D)value;
-					return new Vector3D(v.X, v.Y, v.Z);
-				}
-
-#if USE_ASSIMP
-				if (value is Assimp.Vector3D)
-				{
-					Assimp.Vector3D v = (Assimp.Vector3D)value;
-					return (new Vector3D(v.X, v.Y, v.Z));
-				}
-#endif
-
-#if USE_SHARPDX
-				if (value is SharpDX.Vector3)
-				{
-					SharpDX.Vector3 v = (SharpDX.Vector3)value;
-					return (new Vector3D(v.X, v.Y, v.Z));
-				}
-#endif
-				return Vector3D.Zero;
-			}
-
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертация объект типа <see cref="Vector3D"/> в объект вектора
-			/// </summary>
-			/// <param name="value">Значение</param>
-			/// <param name="targetType">Целевой тип</param>
-			/// <param name="parameter">Дополнительный параметр(реальный тип для преобразования)</param>
-			/// <param name="culture">Культура</param>
-			/// <returns>Объект вектора </returns>
-			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
-			{
-				var real_type = (Type)parameter;
-				if (real_type == null) real_type = targetType;
-
-				if (real_type == typeof(Vector3D))
-				{
-					return value;
-				}
-
-				if (real_type == typeof(System.Windows.Media.Media3D.Vector3D))
-				{
-					var v = (Vector3D)value;
-					return new System.Windows.Media.Media3D.Vector3D(v.X, v.Y, v.Z);
-				}
-
-				if (real_type == typeof(System.Windows.Media.Media3D.Point3D))
-				{
-					var v = (Vector3D)value;
-					return new System.Windows.Media.Media3D.Point3D(v.X, v.Y, v.Z);
-				}
-
-#if USE_ASSIMP
-				if (real_type == typeof(Assimp.Vector3D))
-				{
-					Vector3D v = (Vector3D)value;
-					return (new Assimp.Vector3D((Single)v.X, (Single)v.Y, (Single)v.Z));
-				}
-#endif
-
-#if USE_SHARPDX
-				if (real_type == typeof(SharpDX.Vector3))
-				{
-					Vector3D v = (Vector3D)value;
-					return (new SharpDX.Vector3((Single)v.X, (Single)v.Y, (Single)v.Z));
-				}
-#endif
-				return value;
-			}
-			#endregion
-		}
-
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
 		/// Элемент-редактор для редактирования свойства типа трехмерного вектора
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
 		public partial class LotusVector3DEditor : UserControl, ITypeEditor
 		{
 			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
-			public static Vector3D VectorCache;
-			public static Vector3DToVector3DConverter VectorConverter = new Vector3DToVector3DConverter();
+			/// <summary>
+			/// Универсальный конвертор типа Vector3D между различными типами представлений
+			/// </summary>
+			public static readonly Vector3DToVector3DConverter VectorConverter = new Vector3DToVector3DConverter();
+
+			/// <summary>
+			/// Текущие скопированное значение
+			/// </summary>
+			public static Vector3D CopyValue
+			{
+				get { return _copyValue; }
+			}
+
+			private static Vector3D _copyValue = new();
 			#endregion
 
 			#region ======================================= ОПРЕДЕЛЕНИЕ СВОЙСТВ ЗАВИСИМОСТИ ===========================
@@ -182,8 +87,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			private PropertyItem mPropertyItem;
-			private String mFormatRadix;
+			protected internal PropertyItem _propertyItem;
+			protected internal String _formatRadix;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -231,7 +136,7 @@ namespace Lotus
 				BindingOperations.SetBinding(this, ValueProperty, binding);
 
 				// Сохраняем объект
-				mPropertyItem = propertyItem;
+				_propertyItem = propertyItem;
 
 				return this;
 			}
@@ -293,9 +198,9 @@ namespace Lotus
 			private void OnButtonMenu_Click(Object sender, RoutedEventArgs args)
 			{
 				ButtonMenu.ContextMenu.IsOpen = true;
-				if (VectorCache != Vector3D.Zero)
+				if (_copyValue != Vector3D.Zero)
 				{
-					miPaste.Header = "Вставить (" + VectorCache.ToString("F1") + ")";
+					miPaste.Header = "Вставить (" + _copyValue.ToString("F1") + ")";
 				}
 			}
 
@@ -308,10 +213,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixZero_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F0";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
-				spinnerZ.FormatString = mFormatRadix;
+				_formatRadix = "F0";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
+				spinnerZ.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -323,10 +228,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixOne_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F1";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
-				spinnerZ.FormatString = mFormatRadix;
+				_formatRadix = "F1";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
+				spinnerZ.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -338,10 +243,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixTwo_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F2";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
-				spinnerZ.FormatString = mFormatRadix;
+				_formatRadix = "F2";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
+				spinnerZ.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -353,10 +258,11 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemCopyVector_Click(Object sender, RoutedEventArgs args)
 			{
-				VectorCache = new Vector3D(spinnerX.Value.Value, spinnerY.Value.Value, spinnerZ.Value.Value);
-				if (VectorCache != Vector3D.Zero)
+				_copyValue = new Vector3D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault(),
+					spinnerZ.Value.GetValueOrDefault());
+				if (_copyValue != Vector3D.Zero)
 				{
-					miPaste.Header = "Вставить (" + VectorCache.ToStringValue(mFormatRadix) + ")";
+					miPaste.Header = "Вставить (" + _copyValue.ToStringValue(_formatRadix) + ")";
 				}
 			}
 
@@ -369,9 +275,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemPasteVector_Click(Object sender, RoutedEventArgs args)
 			{
-				spinnerX.Value = VectorCache.X;
-				spinnerY.Value = VectorCache.Y;
-				spinnerZ.Value = VectorCache.Y;
+				spinnerX.Value = _copyValue.X;
+				spinnerY.Value = _copyValue.Y;
+				spinnerZ.Value = _copyValue.Y;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -383,29 +289,22 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemSetDefaultVector_Click(Object sender, RoutedEventArgs args)
 			{
-				if(mPropertyItem != null)
+				if(_propertyItem != null)
 				{
-					for (var i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
+					for (var i = 0; i < _propertyItem.PropertyDescriptor.Attributes.Count; i++)
 					{
-						Attribute attr = mPropertyItem.PropertyDescriptor.Attributes[i];
-						if (attr is LotusDefaultValueAttribute)
+						Attribute attr = _propertyItem.PropertyDescriptor.Attributes[i];
+						if (attr is LotusDefaultValueAttribute def_value)
 						{
-							var def_value = attr as LotusDefaultValueAttribute;
+							var value = def_value.DefaultValue;
 
-							//// Сначала смотрим свойства
-							//Object v = mPropertyItem.Instance.GetObjectPropertyValue(def_value.NamePropertyDefaultValue);
-							//if(v == null)
-							//{
-							//	// Смотрим поля
-							//	v = mPropertyItem.Instance.GetObjectFieldValue(def_value.NamePropertyDefaultValue);
-							//}
-
-							//// Если все правильно
-							//if(v != null && v.GetType() == mPropertyItem.PropertyType)
-							//{
-							//	// Конвертируем
-							//	Value = (Vector3D)VectorConverter.Convert(v, mPropertyItem.PropertyType, mPropertyItem.PropertyType, null);
-							//}
+							// Если все правильно
+							if (value != null && value.GetType() == _propertyItem.PropertyType)
+							{
+								// Конвертируем
+								Value = (Vector3D)VectorConverter.Convert(value, _propertyItem.PropertyType, 
+									_propertyItem.PropertyType, CultureInfo.CurrentUICulture);
+							}
 						}
 					}
 				}

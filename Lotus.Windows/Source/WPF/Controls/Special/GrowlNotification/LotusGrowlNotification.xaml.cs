@@ -72,10 +72,10 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			private TNotificationType mNoticeType;
-			private String mMessage;
-			private Int32 mID;
-			private String mTitle;
+			protected internal TNotificationType _noticeType;
+			protected internal String _message;
+			protected internal Int32 _id;
+			protected internal String _title;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -84,12 +84,12 @@ namespace Lotus
 			/// </summary>
 			public TNotificationType NoticeType
 			{
-				get { return mNoticeType; }
+				get { return _noticeType; }
 				set
 				{
-					if (mNoticeType != value)
+					if (_noticeType != value)
 					{
-						mNoticeType = value;
+						_noticeType = value;
 						NotifyPropertyChanged(PropertyArgsNoticeType);
 					}
 				}
@@ -100,12 +100,12 @@ namespace Lotus
 			/// </summary>
 			public String Message
 			{
-				get { return mMessage; }
+				get { return _message; }
 				set
 				{
-					if (mMessage != value)
+					if (_message != value)
 					{
-						mMessage = value;
+						_message = value;
 						NotifyPropertyChanged(PropertyArgsMessage);
 					}
 				}
@@ -116,12 +116,12 @@ namespace Lotus
 			/// </summary>
 			public Int32 ID
 			{
-				get { return mID; }
+				get { return _id; }
 				set
 				{
-					if (mID != value)
+					if (_id != value)
 					{
-						mID = value;
+						_id = value;
 						NotifyPropertyChanged(PropertyArgsID);
 					}
 				}
@@ -132,12 +132,12 @@ namespace Lotus
 			/// </summary>
 			public String Title
 			{
-				get { return mTitle; }
+				get { return _title; }
 				set
 				{
-					if (mTitle != value)
+					if (_title != value)
 					{
-						mTitle = value;
+						_title = value;
 						NotifyPropertyChanged(PropertyArgsTitle);
 					}
 				}
@@ -166,17 +166,17 @@ namespace Lotus
 			/// <summary>
 			/// Пиктограмма сообщения
 			/// </summary>
-			public BitmapSource Info { get; set; }
+			public BitmapSource Info { get; set; } = default!;
 
 			/// <summary>
 			/// Пиктограмма предупреждения
 			/// </summary>
-			public BitmapSource Warning { get; set; }
+			public BitmapSource Warning { get; set; } = default!;
 
 			/// <summary>
 			/// Пиктограмма ошибки
 			/// </summary>
-			public BitmapSource Error { get; set; }
+			public BitmapSource Error { get; set; } = default!;
 			#endregion
 
 			#region ======================================= МЕТОДЫ ====================================================
@@ -208,10 +208,8 @@ namespace Lotus
 							return Error;
 						}
 					default:
-						break;
+						return Info;
 				}
-
-				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -224,7 +222,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип NotificationType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public Object? ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				return null;
 			}
@@ -384,8 +382,8 @@ namespace Lotus
 				{
 					return;
 				}
-				var element = sender as Grid;
-				RemoveNotification(mCurrentNotifications.First(n => n.ID == Int32.Parse(element.Tag.ToString())));
+				var element = (sender as Grid)!;
+				RemoveNotification(mCurrentNotifications.First(n => n.ID == Int32.Parse(element.Tag.ToString()!)));
 			}
 			#endregion
 		}

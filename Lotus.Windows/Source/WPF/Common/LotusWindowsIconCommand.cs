@@ -37,15 +37,15 @@ namespace Lotus
 			#endregion
 
 			#region =========================================== ДАННЫЕ ================================================
-			private BitmapSource _middleIcon;
-			private BitmapSource _largeIcon;
+			private BitmapSource? _middleIcon;
+			private BitmapSource? _largeIcon;
 			#endregion
 
 			#region =========================================== СВОЙСТВА ==============================================
 			/// <summary>
 			/// Источник изображения средней иконки
 			/// </summary>
-			public BitmapSource MiddleIcon
+			public BitmapSource? MiddleIcon
 			{
 				get { return _middleIcon; }
 				set
@@ -58,7 +58,7 @@ namespace Lotus
 			/// <summary>
 			/// Источник изображения большой иконки
 			/// </summary>
-			public BitmapSource LargeIcon
+			public BitmapSource? LargeIcon
 			{
 				get { return _largeIcon; }
 				set
@@ -157,7 +157,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

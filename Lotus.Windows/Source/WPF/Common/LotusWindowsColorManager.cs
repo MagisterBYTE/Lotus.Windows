@@ -31,8 +31,15 @@ namespace Lotus
 		public static class XWindowsColorManager
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			internal static List<KeyValuePair<String, Color>> mKnownColors;
-			internal static List<KeyValuePair<String, SolidColorBrush>> mKnownBrushes;
+			/// <summary>
+			/// Словарь цветов по имени цвета
+			/// </summary>
+			public static readonly List<KeyValuePair<String, Color>> KnownColors = [];
+
+			/// <summary>
+			/// Словарь сплошных кистей по имени цвета
+			/// </summary>
+			public static readonly List<KeyValuePair<String, SolidColorBrush>> KnownBrushes = [];
 			#endregion
 
 			#region ======================================= МЕТОДЫ ====================================================
@@ -43,9 +50,6 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static void Init()
 			{
-				mKnownColors = new List<KeyValuePair<String, Color>>();
-				mKnownBrushes = new List<KeyValuePair<String, SolidColorBrush>>();
-
 				Type color_type = typeof(Colors);
 				Type brush_type = typeof(Brushes);
 
@@ -54,12 +58,13 @@ namespace Lotus
 
 				for (var i = 0; i < arr_colors.Length; i++)
 				{
-					mKnownColors.Add(new KeyValuePair<String, Color>(arr_colors[i].Name, (Color)arr_colors[i].GetValue(null, null)));
+					KnownColors.Add(new KeyValuePair<String, Color>(arr_colors[i].Name, (Color)arr_colors[i].GetValue(null, null)!));
 				}
 
 				for (var i = 0; i < arr_brushes.Length; i++)
 				{
-					mKnownBrushes.Add(new KeyValuePair<String, SolidColorBrush>(arr_brushes[i].Name, (SolidColorBrush)arr_brushes[i].GetValue(null, null)));
+					KnownBrushes.Add(new KeyValuePair<String, SolidColorBrush>(arr_brushes[i].Name,
+						(SolidColorBrush)arr_brushes[i].GetValue(null, null)!));
 				}
 			}
 
@@ -74,11 +79,11 @@ namespace Lotus
 			{
 				var result = String.Empty;
 
-				for (var i = 0; i < mKnownColors.Count; i++)
+				for (var i = 0; i < KnownColors.Count; i++)
 				{
-					if (Color.AreClose(mKnownColors[i].Value, color))
+					if (Color.AreClose(KnownColors[i].Value, color))
 					{
-						return mKnownColors[i].Key;
+						return KnownColors[i].Key;
 					}
 				}
 
@@ -96,11 +101,11 @@ namespace Lotus
 			{
 				var result = String.Empty;
 
-				for (var i = 0; i < mKnownColors.Count; i++)
+				for (var i = 0; i < KnownColors.Count; i++)
 				{
-					if (Color.AreClose(mKnownBrushes[i].Value.Color, brush.Color))
+					if (Color.AreClose(KnownBrushes[i].Value.Color, brush.Color))
 					{
-						return mKnownColors[i].Key;
+						return KnownColors[i].Key;
 					}
 				}
 
@@ -118,13 +123,13 @@ namespace Lotus
 			{
 				Color result = Colors.White;
 
-				if (mKnownColors != null)
+				if (KnownColors != null)
 				{
-					for (var i = 0; i < mKnownColors.Count; i++)
+					for (var i = 0; i < KnownColors.Count; i++)
 					{
-						if (mKnownColors[i].Key == color_name)
+						if (KnownColors[i].Key == color_name)
 						{
-							return mKnownColors[i].Value;
+							return KnownColors[i].Value;
 						}
 					}
 				}
@@ -143,14 +148,14 @@ namespace Lotus
 			{
 				SolidColorBrush result = Brushes.White;
 
-				if (mKnownBrushes != null)
+				if (KnownBrushes != null)
 				{
 
-					for (var i = 0; i < mKnownBrushes.Count; i++)
+					for (var i = 0; i < KnownBrushes.Count; i++)
 					{
-						if (mKnownBrushes[i].Key == brush_name)
+						if (KnownBrushes[i].Key == brush_name)
 						{
-							return mKnownBrushes[i].Value;
+							return KnownBrushes[i].Value;
 						}
 					}
 				}
@@ -167,13 +172,13 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static SolidColorBrush GetBrushByColor(Color color)
 			{
-				if (mKnownBrushes != null)
+				if (KnownBrushes != null)
 				{
-					for (var i = 0; i < mKnownBrushes.Count; i++)
+					for (var i = 0; i < KnownBrushes.Count; i++)
 					{
-						if (Color.AreClose(mKnownBrushes[i].Value.Color, color))
+						if (Color.AreClose(KnownBrushes[i].Value.Color, color))
 						{
-							return mKnownBrushes[i].Value;
+							return KnownBrushes[i].Value;
 						}
 					}
 

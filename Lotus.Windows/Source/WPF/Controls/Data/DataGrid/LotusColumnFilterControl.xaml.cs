@@ -14,13 +14,8 @@
 //=====================================================================================================================
 using System;
 using System.ComponentModel;
-using System.Collections;
-using System.Data;
-using System.Windows;
-using System.Windows.Input;
 using System.Windows.Controls;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
+using System.Windows.Input;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -58,7 +53,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnComboBoxDistinctProperties_DropDownOpened(Object sender, EventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -70,7 +65,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTextFilter_KeyUp(Object sender, KeyEventArgs args)
 			{
-
+				// Method intentionally left empty.
 			}
 			#endregion
 
@@ -78,7 +73,7 @@ namespace Lotus
 			/// <summary>
 			/// Событие срабатывает ПОСЛЕ изменения свойства
 			/// </summary>
-			public event PropertyChangedEventHandler PropertyChanged;
+			public event PropertyChangedEventHandler? PropertyChanged;
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -109,6 +104,9 @@ namespace Lotus
 			}
 			#endregion
 		}
+		//-------------------------------------------------------------------------------------------------------------
+		/**@}*/
+		//-------------------------------------------------------------------------------------------------------------
 	}
 }
 //=====================================================================================================================

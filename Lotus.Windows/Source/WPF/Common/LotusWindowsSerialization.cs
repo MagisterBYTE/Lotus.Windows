@@ -250,7 +250,7 @@ namespace Lotus
 			/// <param name="reader">Бинарный поток открытый для чтения</param>
 			/// <returns>Массив двухмерных векторов</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Vector[] ReadWinVectors2D(this BinaryReader reader)
+			public static Vector[]? ReadWinVectors2D(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
 				var count = reader.ReadInt32();
@@ -315,7 +315,7 @@ namespace Lotus
 			/// <param name="reader">Бинарный поток открытый для чтения</param>
 			/// <returns>Массив цветовых значений</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Color[] ReadWinColors(this BinaryReader reader)
+			public static Color[]? ReadWinColors(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
 				var count = reader.ReadInt32();
@@ -381,7 +381,7 @@ namespace Lotus
 			/// <param name="reader">Бинарный поток открытый для чтения</param>
 			/// <returns>Массив прямоугольников</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Rect[] ReadWinRects(this BinaryReader reader)
+			public static Rect[]? ReadWinRects(this BinaryReader reader)
 			{
 				// Чтение количество элементов массива
 				var count = reader.ReadInt32();
@@ -458,7 +458,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Color ReadWinColorFromAttribute(this XmlReader xml_reader, String name, Color default_value)
 			{
-				String value;
+				String? value;
 				if ((value = xml_reader.GetAttribute(name)) != null)
 				{
 					return XWindowsColorExtension.DeserializeFromString(value);
@@ -476,7 +476,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Vector ReadWinVectorFromAttribute(this XmlReader xml_reader, String name)
 			{
-				String value;
+				String? value;
 				if ((value = xml_reader.GetAttribute(name)) != null)
 				{
 					return XWindowsVectorExtension.DeserializeFromString(value);

@@ -36,11 +36,11 @@ namespace Lotus
 		public class PropertyModel<TValue> : CPropertyModelBase, IComparable<PropertyModel<TValue>>
 		{
 			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
-			protected static PropertyChangedEventArgs PropertyArgsValue = new PropertyChangedEventArgs(nameof(Value));
+			protected static readonly PropertyChangedEventArgs PropertyArgsValue = new PropertyChangedEventArgs(nameof(Value));
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal TValue mValue;
+			protected internal TValue _value;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -49,15 +49,15 @@ namespace Lotus
 			/// </summary>
 			public virtual TValue Value
 			{
-				get { return mValue; }
+				get { return _value; }
 				set
 				{
 					// Произошло изменение свойства со стороны инспектора свойств
-					mValue = value;
-					if (mInfo != null && mInfo.CanWrite)
+					_value = value;
+					if (_info != null && _info.CanWrite)
 					{
 						// Обновляем значение свойства у объекта
-						mInfo.SetValue(mInstance, mValue, null);
+						_info.SetValue(_instance, _value, null);
 					}
 				}
 			}
@@ -120,7 +120,7 @@ namespace Lotus
 			/// <param name="other">Сравниваемый объект</param>
 			/// <returns>Статус сравнения объектов</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Int32 CompareTo(PropertyModel<TValue> other)
+			public Int32 CompareTo(PropertyModel<TValue>? other)
 			{
 				return base.CompareTo(other);
 			}
@@ -150,13 +150,13 @@ namespace Lotus
 			public override void SetValue(System.Object value)
 			{
 				// Устанавливаем значение свойства объекта
-				if (mInfo != null)
+				if (_info != null)
 				{
-					mInfo.SetValue(mInstance, value, null);
+					_info.SetValue(_instance, value, null);
 				}
 
 				// Уведомляем инспектор свойств
-				mValue = (TValue)value;
+				_value = (TValue)value;
 				NotifyPropertyChanged(PropertyArgsValue);
 			}
 
@@ -170,12 +170,12 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected override void SetInstance()
 			{
-				if (mInfo != null)
+				if (_info != null)
 				{
 					try
 					{
 						// Получаем актуальное значение с объекта
-						mValue = (TValue)mInfo.GetValue(mInstance);
+						_value = (TValue)_info.GetValue(_instance)!;
 					}
 					catch(InvalidCastException invalid_cast)
 					{
@@ -194,19 +194,24 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override void CheckIsValueFromList()
 			{
-				mIsValueFromList = false;
+				_isValueFromList = false;
 
 				if (IsListValues)
 				{
-					var enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
-						mListValuesMemberType, mInstance) as IEnumerable;
-					foreach (var item in enumerable)
+					var enumerable = CPropertyDesc.GetValue(_listValues, _listValuesMemberName,
+						_listValuesMemberType, _instance) as IEnumerable;
+					if (enumerable != null)
 					{
-						if(item.Equals(Value))
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
+						foreach (var item in enumerable)
 						{
-							mIsValueFromList = true;
-							break;
+							if (item.Equals(Value))
+							{
+								_isValueFromList = true;
+								break;
+							}
 						}
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 					}
 				}
 
@@ -223,14 +228,14 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnPropertyChangedFromInstance(Object sender, PropertyChangedEventArgs args)
+			protected override void OnPropertyChangedFromInstance(System.Object? sender, PropertyChangedEventArgs args)
 			{
-				if (mInfo != null && mInfo.Name == args.PropertyName)
+				if (_info != null && _info.Name == args.PropertyName)
 				{
 					// Получаем актуальное значение с объекта
 					try
 					{
-						mValue = (TValue)mInfo.GetValue(mInstance);
+						_value = (TValue)_info.GetValue(_instance)!;
 					}
 					catch(InvalidCastException invalid_cast)
 					{

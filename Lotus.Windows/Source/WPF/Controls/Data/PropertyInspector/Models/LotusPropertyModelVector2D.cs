@@ -42,17 +42,17 @@ namespace Lotus
 			/// </summary>
 			public override Vector2D Value
 			{
-				get { return mValue; }
+				get { return _value; }
 				set
 				{
 					// Произошло изменение свойства со стороны инспектора свойств
-					mValue = value;
-					if (mInfo != null && mInfo.CanWrite)
+					_value = value;
+					if (_info != null && _info.CanWrite)
 					{
 
 
 						// Обновляем значение свойства у объекта
-						mInfo.SetValue(mInstance, ConvertToRealType(), null);
+						_info.SetValue(_instance, ConvertToRealType(), null);
 					}
 				}
 			}
@@ -66,7 +66,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CPropertyModelVector2D()
 			{
-				mPropertyType = TPropertyType.Enum;
+				_propertyType = TPropertyType.Vector2D;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -102,24 +102,24 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public System.Object ConvertToRealType()
 			{
-				if(mInfo.PropertyType == typeof(Vector2Df))
+				if(_info.PropertyType == typeof(Vector2Df))
 				{
-					return new Vector2Df((Single)mValue.X, (Single)mValue.Y);
+					return new Vector2Df((Single)_value.X, (Single)_value.Y);
 				}
-				if (mInfo.PropertyType == typeof(Vector2Di))
+				if (_info.PropertyType == typeof(Vector2Di))
 				{
-					return new Vector2Di((Int32)mValue.X, (Int32)mValue.Y);
+					return new Vector2Di((Int32)_value.X, (Int32)_value.Y);
 				}
-				if (mInfo.PropertyType == typeof(Point))
+				if (_info.PropertyType == typeof(Point))
 				{
-					return new Point(mValue.X, mValue.Y);
+					return new Point(_value.X, _value.Y);
 				}
-				if (mInfo.PropertyType == typeof(Vector))
+				if (_info.PropertyType == typeof(Vector))
 				{
-					return new Vector(mValue.X, mValue.Y);
+					return new Vector(_value.X, _value.Y);
 				}
 
-				return mValue;
+				return _value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -130,28 +130,28 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Vector2D ConvertFromRealType()
 			{
-				if (mInfo.PropertyType == typeof(Vector2Df))
+				if (_info.PropertyType == typeof(Vector2Df))
 				{
-					var vector = (Vector2Df)mInfo.GetValue(mInstance);
+					var vector = (Vector2Df)_info.GetValue(_instance)!;
 					return new Vector2D(vector.X, vector.Y);
 				}
-				if (mInfo.PropertyType == typeof(Vector2Di))
+				if (_info.PropertyType == typeof(Vector2Di))
 				{
-					var vector = (Vector2Di)mInfo.GetValue(mInstance);
+					var vector = (Vector2Di)_info.GetValue(_instance)!;
 					return new Vector2D(vector.X, vector.Y);
 				}
-				if (mInfo.PropertyType == typeof(Point))
+				if (_info.PropertyType == typeof(Point))
 				{
-					var vector = (Point)mInfo.GetValue(mInstance);
+					var vector = (Point)_info.GetValue(_instance)!;
 					return new Vector2D(vector.X, vector.Y);
 				}
-				if (mInfo.PropertyType == typeof(Vector))
+				if (_info.PropertyType == typeof(Vector))
 				{
-					var vector = (Vector)mInfo.GetValue(mInstance);
+					var vector = (Vector)_info.GetValue(_instance)!;
 					return new Vector2D(vector.X, vector.Y);
 				}
 
-				return (Vector2D)mInfo.GetValue(mInstance);
+				return (Vector2D)_info.GetValue(_instance)!;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -166,13 +166,13 @@ namespace Lotus
 			public override void SetValue(System.Object value)
 			{
 				// Устанавливаем значение свойства объекта
-				if (mInfo != null)
+				if (_info != null)
 				{
-					mInfo.SetValue(mInstance, value, null);
+					_info.SetValue(_instance, value, null);
 				}
 
 				// Уведомляем инспектор свойств
-				mValue = (Vector2D)value;
+				_value = (Vector2D)value;
 				NotifyPropertyChanged(PropertyArgsValue);
 			}
 
@@ -186,10 +186,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected override void SetInstance()
 			{
-				if (mInfo != null)
+				if (_info != null)
 				{
 					// Получаем актуальное значение с объекта
-					mValue = ConvertFromRealType();
+					_value = ConvertFromRealType();
 
 					// Информируем
 					NotifyPropertyChanged(PropertyArgsValue);
@@ -203,19 +203,24 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public override void CheckIsValueFromList()
 			{
-				mIsValueFromList = false;
+				_isValueFromList = false;
 
 				if (IsListValues)
 				{
-					var enumerable = CPropertyDesc.GetValue(mListValues, mListValuesMemberName,
-						mListValuesMemberType, mInstance) as IEnumerable;
-					foreach (var item in enumerable)
+					var enumerable = CPropertyDesc.GetValue(_listValues, _listValuesMemberName,
+						_listValuesMemberType, _instance) as IEnumerable;
+					if (enumerable != null)
 					{
-						if(item.Equals(Value))
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
+						foreach (var item in enumerable)
 						{
-							mIsValueFromList = true;
-							break;
+							if (item.Equals(Value))
+							{
+								_isValueFromList = true;
+								break;
+							}
 						}
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 					}
 				}
 
@@ -232,12 +237,12 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnPropertyChangedFromInstance(Object sender, PropertyChangedEventArgs args)
+			protected override void OnPropertyChangedFromInstance(System.Object? sender, PropertyChangedEventArgs args)
 			{
-				if (mInfo != null && mInfo.Name == args.PropertyName)
+				if (_info != null && _info.Name == args.PropertyName)
 				{
 					// Получаем актуальное значение с объекта
-					mValue = ConvertFromRealType();
+					_value = ConvertFromRealType();
 
 					// Информируем
 					NotifyPropertyChanged(PropertyArgsValue);

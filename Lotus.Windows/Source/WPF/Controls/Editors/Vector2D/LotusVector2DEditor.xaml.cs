@@ -22,6 +22,7 @@ using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
 using Lotus.Maths;
+using System.Globalization;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -38,8 +39,20 @@ namespace Lotus
 		public partial class LotusVector2DEditor : UserControl, ITypeEditor
 		{
 			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
-			public static Vector2D VectorCache;
-			public static Vector2DToVector2DConverter VectorConverter = new Vector2DToVector2DConverter();
+			/// <summary>
+			/// Универсальный конвертор типа Vector2D между различными типами представлений
+			/// </summary>
+			public static readonly Vector2DToVector2DConverter VectorConverter = new Vector2DToVector2DConverter();
+
+			/// <summary>
+			/// Текущие скопированное значение
+			/// </summary>
+			public static Vector2D CopyValue
+			{
+				get { return _copyValue; }
+			}
+
+			private static Vector2D _copyValue = new();
 			#endregion
 
 			#region ======================================= ОПРЕДЕЛЕНИЕ СВОЙСТВ ЗАВИСИМОСТИ ===========================
@@ -147,28 +160,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private static void MaxMinValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
-				//LotusVector2DEditor vector_editor = (LotusVector2DEditor)sender;
-
-				//if (args.Property == MinValueProperty)
-				//{
-				//	Vector2D min_value = (Vector2D)args.NewValue;
-				//	if (vector_editor.Value < min_value)
-				//	{
-				//		vector_editor.Value = min_value;
-				//		vector_editor.SetPresentValue();
-				//		vector_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-				//	}
-				//}
-				//else
-				//{
-				//	Vector2D max_value = (Vector2D)args.NewValue;
-				//	if (vector_editor.Value > max_value)
-				//	{
-				//		vector_editor.Value = max_value;
-				//		vector_editor.SetPresentValue();
-				//		vector_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-				//	}
-				//}
+				// Method intentionally left empty.
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -208,6 +200,8 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
+			[System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "<Pending>")]
+
 			private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
 				var vector_editor = (LotusVector2DEditor)sender;
@@ -235,8 +229,8 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			private PropertyItem mPropertyItem;
-			private String mFormatRadix;
+			protected internal PropertyItem _propertyItem;
+			protected internal String _formatRadix;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -356,7 +350,7 @@ namespace Lotus
 				BindingOperations.SetBinding(this, ValueProperty, binding);
 
 				// Сохраняем объект
-				mPropertyItem = propertyItem;
+				_propertyItem = propertyItem;
 
 				return this;
 			}
@@ -421,9 +415,9 @@ namespace Lotus
 			private void OnButtonMenu_Click(Object sender, RoutedEventArgs args)
 			{
 				ButtonMenu.ContextMenu.IsOpen = true;
-				if (VectorCache != Vector2D.Zero)
+				if (_copyValue != Vector2D.Zero)
 				{
-					miPaste.Header = "Вставить (" + VectorCache.ToString("F1") + ")";
+					miPaste.Header = "Вставить (" + _copyValue.ToString("F1") + ")";
 				}
 			}
 
@@ -436,9 +430,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixZero_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F0";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
+				_formatRadix = "F0";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -450,9 +444,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixOne_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F1";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
+				_formatRadix = "F1";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -464,9 +458,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnRadixTwo_Checked(Object sender, RoutedEventArgs args)
 			{
-				mFormatRadix = "F2";
-				spinnerX.FormatString = mFormatRadix;
-				spinnerY.FormatString = mFormatRadix;
+				_formatRadix = "F2";
+				spinnerX.FormatString = _formatRadix;
+				spinnerY.FormatString = _formatRadix;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -478,10 +472,10 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemCopyVector_Click(Object sender, RoutedEventArgs args)
 			{
-				VectorCache = new Vector2D(spinnerX.Value.Value, spinnerY.Value.Value);
-				if (VectorCache != Vector2D.Zero)
+				_copyValue = new Vector2D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault());
+				if (_copyValue != Vector2D.Zero)
 				{
-					miPaste.Header = "Вставить (" + VectorCache.ToStringValue(mFormatRadix) + ")";
+					miPaste.Header = "Вставить (" + _copyValue.ToStringValue(_formatRadix) + ")";
 				}
 			}
 
@@ -494,8 +488,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemPasteVector_Click(Object sender, RoutedEventArgs args)
 			{
-				spinnerX.Value = VectorCache.X;
-				spinnerY.Value = VectorCache.Y;
+				spinnerX.Value = _copyValue.X;
+				spinnerY.Value = _copyValue.Y;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -507,29 +501,22 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemSetDefaultVector_Click(Object sender, RoutedEventArgs args)
 			{
-				if (mPropertyItem != null)
+				if (_propertyItem != null)
 				{
-					for (var i = 0; i < mPropertyItem.PropertyDescriptor.Attributes.Count; i++)
+					for (var i = 0; i < _propertyItem.PropertyDescriptor.Attributes.Count; i++)
 					{
-						Attribute attr = mPropertyItem.PropertyDescriptor.Attributes[i];
-						if (attr is LotusDefaultValueAttribute)
+						Attribute attr = _propertyItem.PropertyDescriptor.Attributes[i];
+						if (attr is LotusDefaultValueAttribute def_value)
 						{
-							var def_value = attr as LotusDefaultValueAttribute;
+							var value = def_value.DefaultValue;
 
-						//	// Сначала смотрим свойства
-						//	Object v = mPropertyItem.Instance.GetObjectPropertyValue(def_value.NamePropertyDefaultValue);
-						//	if (v == null)
-						//	{
-						//		// Смотрим поля
-						//		v = mPropertyItem.Instance.GetObjectFieldValue(def_value.NamePropertyDefaultValue);
-						//	}
-
-						//	// Если все правильно
-						//	if (v != null && v.GetType() == mPropertyItem.PropertyType)
-						//	{
-						//		// Конвертируем
-						//		Value = (Vector2D)VectorConverter.Convert(v, mPropertyItem.PropertyType, mPropertyItem.PropertyType, null);
-						//	}
+							// Если все правильно
+							if (value != null && value.GetType() == _propertyItem.PropertyType)
+							{
+								// Конвертируем
+								Value = (Vector2D)VectorConverter.Convert(value, _propertyItem.PropertyType, 
+									_propertyItem.PropertyType, CultureInfo.CurrentUICulture);
+							}
 						}
 					}
 				}

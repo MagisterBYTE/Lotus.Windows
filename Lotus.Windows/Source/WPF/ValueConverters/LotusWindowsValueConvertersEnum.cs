@@ -53,7 +53,7 @@ namespace Lotus
 				Array values = Enum.GetValues(value.GetType());
 				for (var i = 0; i < values.Length; i++)
 				{
-					if (values.GetValue(i).ToString() == value.ToString())
+					if (values.GetValue(i)!.ToString() == value.ToString())
 					{
 						return i;
 					}
@@ -81,7 +81,7 @@ namespace Lotus
 					index_value = (Int32)value;
 				}
 
-				return values.GetValue(index_value);
+				return values.GetValue(index_value)!;
 			}
 		}
 
@@ -129,9 +129,9 @@ namespace Lotus
 			{
 				if (value == null)
 				{
-					return null;
+					return null!;
 				}
-				return XEnum.ConvertFromDescriptionOrName(targetType, value.ToString());
+				return XEnum.ConvertFromDescriptionOrName(targetType, value.ToString()!);
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

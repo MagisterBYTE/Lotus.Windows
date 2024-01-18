@@ -34,6 +34,18 @@ namespace Lotus
 		//-------------------------------------------------------------------------------------------------------------
 		public partial class LotusMeasurementEditor : UserControl
 		{
+			#region ======================================= СТАТИСКИЕ ДАННЫЕ ==========================================
+			/// <summary>
+			/// Текущие скопированное значение
+			/// </summary>
+			public static TMeasurementValue CopyValue
+			{
+				get { return _copyValue; }
+			}
+
+			private static TMeasurementValue _copyValue = new TMeasurementValue();
+			#endregion
+
 			#region ======================================= ОПРЕДЕЛЕНИЕ СВОЙСТВ ЗАВИСИМОСТИ ===========================
 			/// <summary>
 			/// Значение
@@ -185,6 +197,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
+			[System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "<Pending>")]
 			private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
 				var spin_editor = (LotusMeasurementEditor)sender;
@@ -212,8 +225,7 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected Boolean mIsDirectText;
-			protected static TMeasurementValue mCopyValue;
+			protected internal Boolean _isDirectText;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -319,7 +331,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void SetPresentValue()
 			{
-				mIsDirectText = true;
+				_isDirectText = true;
 				if (String.IsNullOrEmpty(FormatValue))
 				{
 					if (TextField.IsFocused == false)
@@ -337,7 +349,7 @@ namespace Lotus
 
 				buttonMenu.Content = Value.GetAbbreviationUnit();
 
-				mIsDirectText = false;
+				_isDirectText = false;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -347,9 +359,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void ResetText()
 			{
-				mIsDirectText = true;
+				_isDirectText = true;
 				TextField.Text = 0 < MinValue ? MinValue.ToString() : "0";
-				mIsDirectText = false;
+				_isDirectText = false;
 				TextField.SelectAll();
 			}
 			#endregion
@@ -364,8 +376,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTextField_PreviewTextInput(Object sender, TextCompositionEventArgs args)
 			{
-				//Double result = 0;
-				//args.Handled = !XNumbers.ParseDoubleFormat(args.Text, out result);
+				// Double result = 0
+				// args.Handled = !XNumbers.ParseDoubleFormat(args.Text, out result)
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -377,10 +389,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnTextField_TextChanged(Object sender, TextChangedEventArgs args)
 			{
-				if (mIsDirectText == false)
+				if (_isDirectText == false)
 				{
-					Double result = 0;
-					if (XNumbers.ParseDoubleFormat(TextField.Text, out result))
+					if (XNumbers.TryParseDoubleFormat(TextField.Text, out var result))
 					{
 						Value = new TMeasurementValue(result, Value.QuantityType, Value.UnitType);
 						if (Value.Value < MinValue) Value = Value.Clone(MinValue);
@@ -403,15 +414,14 @@ namespace Lotus
 			private void OnTextField_LostFocus(Object sender, RoutedEventArgs args)
 			{
 				// 1) Пробуем преобразовать текст в число
-				Double result = 0;
-				if (XNumbers.ParseDoubleFormat(TextField.Text, out result))
+				if (XNumbers.TryParseDoubleFormat(TextField.Text, out var result))
 				{
 					Value = new TMeasurementValue(result, Value.QuantityType, Value.UnitType);
 					if (Value.Value < MinValue) Value = Value.Clone(MinValue);
 					if (Value.Value > MaxValue) Value = Value.Clone(MaxValue);
 
 					// 2) Форматируем поле
-					mIsDirectText = true;
+					_isDirectText = true;
 					if (String.IsNullOrEmpty(FormatValue))
 					{
 						TextField.Text = String.Format(FormatValueDefault, Value);
@@ -420,7 +430,7 @@ namespace Lotus
 					{
 						TextField.Text = String.Format(FormatValue, Value);
 					}
-					mIsDirectText = false;
+					_isDirectText = false;
 				}
 				else
 				{
@@ -549,7 +559,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemCopyValue_Click(Object sender, RoutedEventArgs args)
 			{
-				mCopyValue = Value;
+				_copyValue = Value;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -561,7 +571,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnMenuItemPasteValue_Click(Object sender, RoutedEventArgs args)
 			{
-				Value = mCopyValue;
+				Value = _copyValue;
 			}
 
 			//---------------------------------------------------------------------------------------------------------

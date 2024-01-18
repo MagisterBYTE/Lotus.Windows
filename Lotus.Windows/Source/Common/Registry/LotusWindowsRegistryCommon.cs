@@ -42,9 +42,9 @@ namespace Lotus
 			{
 				var mime_type = "application/unknown";
 				var ext = System.IO.Path.GetExtension(file_name).ToLower();
-				Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+				Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot!.OpenSubKey(ext)!;
 				if (regKey != null && regKey.GetValue("Content Type") != null)
-					mime_type = regKey.GetValue("Content Type").ToString();
+					mime_type = regKey.GetValue("Content Type")!.ToString()!;
 				return mime_type;
 			}
 		}

@@ -16,8 +16,6 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -49,7 +47,6 @@ namespace Lotus
 			/// <summary>
 			/// Элемент запроса для числовых данных
 			/// </summary>
-			[Browsable(false)]
 			public CQueryItemNumber QueryItem
 			{
 				get { return (CQueryItemNumber)GetValue(QueryItemProperty); }
@@ -81,16 +78,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			private void OnComboOperator_SelectionChanged(Object sender, SelectionChangedEventArgs args)
 			{
-				//if(QueryItem.ComparisonOperator == TComparisonOperator.Between)
-				//{
-				//	textOperator.Visibility = Visibility.Visible;
-				//	textValueRight.Visibility = Visibility.Visible;
-				//}
-				//else
-				//{
-				//	textOperator.Visibility = Visibility.Collapsed;
-				//	textValueRight.Visibility = Visibility.Collapsed;
-				//}
+				// Method intentionally left empty.
 			}
 			#endregion
 		}

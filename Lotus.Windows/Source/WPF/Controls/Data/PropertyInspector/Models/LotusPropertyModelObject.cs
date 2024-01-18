@@ -13,12 +13,8 @@
 // Последнее изменение от 30.04.2023
 //=====================================================================================================================
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Reflection;
 using System.Collections.Generic;
-//---------------------------------------------------------------------------------------------------------------------
-using System.Windows.Controls;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
 //=====================================================================================================================
@@ -37,7 +33,7 @@ namespace Lotus
 		public class CPropertyModelObject : PropertyModel<System.Object>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal Type mEditorType;
+			protected internal Type _editorType;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -46,7 +42,7 @@ namespace Lotus
 			/// </summary>
 			public Type EditorType
 			{
-				get { return mEditorType; }
+				get { return _editorType; }
 			}
 			#endregion
 
@@ -58,7 +54,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CPropertyModelObject()
 			{
-				mPropertyType = TPropertyType.Object;
+				_propertyType = TPropertyType.Object;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -84,7 +80,7 @@ namespace Lotus
 			public CPropertyModelObject(PropertyInfo property_info, List<CPropertyDesc> property_desc, Type editor_type)
 				: base(property_info, property_desc, TPropertyType.Object)
 			{
-				mEditorType = editor_type;
+				_editorType = editor_type;
 			}
 			#endregion
 		}

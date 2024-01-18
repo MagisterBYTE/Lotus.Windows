@@ -85,7 +85,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				return null;
+				return null!;
 			}
 			#endregion
 		}
@@ -128,7 +128,7 @@ namespace Lotus
 			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
 				var val = (Boolean)value;
-				return !val;
+				return val;
 			}
 			#endregion
 		}
@@ -179,9 +179,9 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
 			{
-				if (value is ToggleState)
+				if (value is ToggleState toggleStat)
 				{
-					switch ((ToggleState)value)
+					switch (toggleStat)
 					{
 						case ToggleState.On:
 							return true;
@@ -189,7 +189,7 @@ namespace Lotus
 							return false;
 					}
 				}
-				return null;
+				return ToggleState.On;
 			}
 			#endregion
 		}

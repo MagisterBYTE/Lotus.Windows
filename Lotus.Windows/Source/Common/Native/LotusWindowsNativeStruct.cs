@@ -128,8 +128,8 @@ namespace Lotus
 		/// Параметры открытия приложения
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public enum TShowCommands : Int32
-		{
+		public enum TShowCommands : UInt32
+        {
 			SW_HIDE = 0,
 			SW_SHOWNORMAL = 1,
 			SW_NORMAL = 1,

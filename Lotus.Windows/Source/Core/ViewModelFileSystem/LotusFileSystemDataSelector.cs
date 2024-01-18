@@ -35,7 +35,7 @@ namespace Lotus
 			/// <summary>
 			/// Глобальный экземпляр селектора
 			/// </summary>
-			public static readonly CFileSystemEntityDataSelector Instance = Application.Current.Resources["FileSystemEntityDataSelectorKey"] as CFileSystemEntityDataSelector;
+			public static readonly CFileSystemEntityDataSelector Instance = (Application.Current.Resources["FileSystemEntityDataSelectorKey"] as CFileSystemEntityDataSelector)!;
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================

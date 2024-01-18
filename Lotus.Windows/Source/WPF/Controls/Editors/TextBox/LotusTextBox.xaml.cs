@@ -34,9 +34,9 @@ namespace Lotus
 			/// <summary>
 			/// Заполнитель текста в случае отсутствие текста
 			/// </summary>
-			public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(nameof(PlaceholderText), 
+			public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(nameof(PlaceholderText),
 				typeof(String),
-				typeof(LotusTextBox), 
+				typeof(LotusTextBox),
 				new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsArrange));
 
 			/// <summary>

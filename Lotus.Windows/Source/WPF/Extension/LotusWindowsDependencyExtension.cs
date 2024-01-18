@@ -38,7 +38,7 @@ namespace Lotus
 			/// <param name="source_obj">Объект - источник поиска</param>
 			/// <returns>Найденный элемент</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static TElement FindVisualParent<TElement>(this DependencyObject source_obj) 
+			public static TElement? FindVisualParent<TElement>(this DependencyObject source_obj) 
 				where TElement : DependencyObject
 			{
 				do
@@ -62,7 +62,7 @@ namespace Lotus
 			/// <param name="source_obj">Объект - источник поиска</param>
 			/// <returns>Найденный элемент</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static TElement FindLogicalParent<TElement>(this DependencyObject source_obj)
+			public static TElement? FindLogicalParent<TElement>(this DependencyObject source_obj)
 				where TElement : DependencyObject
 			{
 				//get parent item
@@ -91,20 +91,20 @@ namespace Lotus
 			/// <param name="source_obj">Объект - источник поиска</param>
 			/// <returns>Найденный элемент</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static TElement FindVisualChild<TElement>(this DependencyObject source_obj)
+			public static TElement? FindVisualChild<TElement>(this DependencyObject source_obj)
 				where TElement : DependencyObject
 			{
 				for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
 				{
 					DependencyObject сhild = VisualTreeHelper.GetChild(source_obj, i);
 
-					if (сhild != null && сhild is TElement)
+					if (сhild is TElement element)
 					{
-						return (TElement)сhild;
+						return element;
 					}
 					else
 					{
-						TElement сhild_of_child = FindVisualChild<TElement>(сhild);
+						TElement? сhild_of_child = FindVisualChild<TElement>(сhild);
 
 						if (сhild_of_child != null)
 						{
@@ -124,20 +124,20 @@ namespace Lotus
 			/// <param name="source_obj">Объект - источник поиска</param>
 			/// <returns>Найденный элемент</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static TElement FindLogicalChild<TElement>(this DependencyObject source_obj)
+			public static TElement? FindLogicalChild<TElement>(this DependencyObject source_obj)
 				where TElement : DependencyObject
 			{
 				if (source_obj != null)
 				{
 					foreach (var child in LogicalTreeHelper.GetChildren(source_obj))
 					{
-						if (child != null && child is TElement)
+						if (child is TElement element)
 						{
-							return (TElement)child;
+							return element;
 						}
 						else
 						{
-							TElement сhild_of_child = FindLogicalChild<TElement>(child as DependencyObject);
+							TElement? сhild_of_child = FindLogicalChild<TElement>((child as DependencyObject)!);
 
 							if (сhild_of_child != null)
 							{
@@ -165,9 +165,9 @@ namespace Lotus
 				for (var i = 0; i < count; i++)
 				{
 					DependencyObject child = VisualTreeHelper.GetChild(source_obj, i);
-					if (child is TElement)
+					if (child is TElement element)
 					{
-						elements.Add(child as TElement);
+						elements.Add(element);
 					}
 					else if (child != null)
 					{
@@ -191,7 +191,7 @@ namespace Lotus
 					for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
 					{
 						DependencyObject child = VisualTreeHelper.GetChild(source_obj, i);
-						if (child != null && child is TType)
+						if (child is TType)
 						{
 							yield return (TType)child;
 						}
@@ -218,12 +218,12 @@ namespace Lotus
 				{
 					foreach (var child in LogicalTreeHelper.GetChildren(source_obj))
 					{
-						if (child != null && child is TType)
+						if (child is TType)
 						{
 							yield return (TType)child;
 						}
 
-						foreach (TType child_of_child in EnumerateLogicalChildren<TType>(child as DependencyObject))
+						foreach (TType child_of_child in EnumerateLogicalChildren<TType>((child as DependencyObject)!))
 						{
 							yield return child_of_child;
 						}

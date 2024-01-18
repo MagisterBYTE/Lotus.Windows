@@ -49,7 +49,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void NewFile(String file_name, CParameters parameters_create);
+			void NewFile(String file_name, CParameters? parameters_create);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -58,7 +58,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void OpenFile(String file_name, CParameters parameters_open);
+			void OpenFile(String file_name, CParameters? parameters_open);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -74,7 +74,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void SaveAsFile(String file_name, CParameters parameters_save);
+			void SaveAsFile(String file_name, CParameters? parameters_save);
 
 			//-------------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -82,7 +82,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="parameters_print">Параметры печати файла</param>
 			//-------------------------------------------------------------------------------------------------------------
-			void PrintFile(CParameters parameters_print);
+			void PrintFile(CParameters? parameters_print);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -91,7 +91,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void ExportFile(String file_name, CParameters parameters_export);
+			void ExportFile(String file_name, CParameters? parameters_export);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

@@ -17,9 +17,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -51,8 +48,8 @@ namespace Lotus
 		/// Статический класс реализующий методы расширения для типа <see cref="BitmapSource"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public static class XWindowsBitmapExtension
-		{
+		public static class XWindowsBitmapSourceExtension
+        {
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// 
@@ -118,14 +115,33 @@ namespace Lotus
 				return pixels;
 			}
 
-			public static void PutPixels(this WriteableBitmap bitmap, PixelColor[,] pixels, int x, int y)
+            //---------------------------------------------------------------------------------------------------------
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="bitmap"></param>
+            /// <param name="pixels"></param>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+			//---------------------------------------------------------------------------------------------------------
+            public static void PutPixels(this WriteableBitmap bitmap, PixelColor[,] pixels, int x, int y)
 			{
 				int width = pixels.GetLength(0);
 				int height = pixels.GetLength(1);
 				bitmap.WritePixels(new Int32Rect(0, 0, width, height), pixels, width * 4, x, y);
 			}
 
-			public static void PutPixels(this Bitmap bitmap, System.Drawing.Color[]pixels, int x, int y, int width)
+            //---------------------------------------------------------------------------------------------------------
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="bitmap"></param>
+            /// <param name="pixels"></param>
+            /// <param name="x"></param>
+            /// <param name="y"></param>
+            /// <param name="width"></param>
+			//---------------------------------------------------------------------------------------------------------
+            public static void PutPixels(this Bitmap bitmap, System.Drawing.Color[]pixels, int x, int y, int width)
 			{
 				int height = pixels.GetLength(0) / width;
 

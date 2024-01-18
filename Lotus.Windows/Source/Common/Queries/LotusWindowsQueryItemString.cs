@@ -182,7 +182,7 @@ namespace Lotus
 				{
 					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
-					binding.Path = new System.Windows.PropertyPath(nameof(SearchValue));
+					binding.Path = new System.Windows.PropertyPath(path: nameof(SearchValue));
 
 					System.Windows.Data.BindingOperations.SetBinding(text_box,
 						System.Windows.Controls.TextBox.TextProperty, binding);
@@ -201,7 +201,7 @@ namespace Lotus
 				{
 					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
-					binding.Path = new System.Windows.PropertyPath(nameof(SearchOption));
+					binding.Path = new System.Windows.PropertyPath(path: nameof(SearchOption));
 					binding.Converter = EnumToStringConverter.Instance;
 
 					combo_box.ItemsSource = XEnum.GetDescriptions(typeof(TStringSearchOption));

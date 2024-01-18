@@ -34,8 +34,8 @@ namespace Lotus
 		public class PropertyModelRange<TNumeric> : PropertyModel<TNumeric>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			internal TNumeric mMinValue;
-			internal TNumeric mMaxValue;
+			protected internal TNumeric _minValue;
+			protected internal TNumeric _maxValue;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -44,7 +44,7 @@ namespace Lotus
 			/// </summary>
 			public TNumeric MinValue
 			{
-				get { return mMinValue; }
+				get { return _minValue; }
 			}
 
 			/// <summary>
@@ -52,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public TNumeric MaxValue
 			{
-				get { return mMaxValue; }
+				get { return _maxValue; }
 			}
 			#endregion
 
@@ -100,33 +100,33 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			protected void GetInfoFromAttributesRange()
 			{
-				if (mInfo != null)
+				if (_info != null)
 				{
-					LotusMinValueAttribute min_value = mInfo.GetAttribute<LotusMinValueAttribute>();
+					LotusMinValueAttribute? min_value = _info.GetAttribute<LotusMinValueAttribute>();
 					if (min_value != null)
 					{
-						mMinValue = (TNumeric)(Object)min_value.MinValue;
+						_minValue = (TNumeric)min_value.MinValue;
 					}
 					else
 					{
-						FieldInfo field_info = typeof(TNumeric).GetField(nameof(MinValue), BindingFlags.Static | BindingFlags.Public);
+						FieldInfo? field_info = typeof(TNumeric).GetField(nameof(MinValue), BindingFlags.Static | BindingFlags.Public);
 						if (field_info != null)
 						{
-							mMinValue = (TNumeric)(Object)field_info.GetValue(null);
+							_minValue = (TNumeric)field_info.GetValue(null)!;
 						}
 					}
 
-					LotusMaxValueAttribute max_value = mInfo.GetAttribute<LotusMaxValueAttribute>();
+					LotusMaxValueAttribute? max_value = _info.GetAttribute<LotusMaxValueAttribute>();
 					if (max_value != null)
 					{
-						mMaxValue = (TNumeric)(Object)max_value.MaxValue;
+						_maxValue = (TNumeric)max_value.MaxValue;
 					}
 					else
 					{
-						FieldInfo field_info = typeof(TNumeric).GetField(nameof(MaxValue), BindingFlags.Static | BindingFlags.Public);
+						FieldInfo? field_info = typeof(TNumeric).GetField(nameof(MaxValue), BindingFlags.Static | BindingFlags.Public);
 						if(field_info != null)
 						{
-							mMaxValue = (TNumeric)(Object)field_info.GetValue(null);
+							_maxValue = (TNumeric)field_info.GetValue(null)!;
 						}
 					}
 				}

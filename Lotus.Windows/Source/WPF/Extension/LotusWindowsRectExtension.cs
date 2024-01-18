@@ -39,7 +39,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static String SerializeToString(this Rect rect)
 			{
-				return String.Format("{0};{1}", rect.X, rect.Y, rect.Width, rect.Height);
+				return String.Format("{0};{1};{2};{3}", rect.X, rect.Y, rect.Width, rect.Height);
 			}
 
 			//---------------------------------------------------------------------------------------------------------

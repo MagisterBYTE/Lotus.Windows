@@ -108,7 +108,7 @@ namespace Lotus
 
 				if (parameter != null)
 				{
-					return val - XNumbers.ParseDouble(parameter.ToString());
+					return val - XNumbers.ParseDouble(parameter.ToString()!);
 				}
 				else
 				{
@@ -132,7 +132,7 @@ namespace Lotus
 
 				if (parameter != null)
 				{
-					return val + XNumbers.ParseDouble(parameter.ToString());
+					return val + XNumbers.ParseDouble(parameter.ToString()!);
 				}
 				else
 				{

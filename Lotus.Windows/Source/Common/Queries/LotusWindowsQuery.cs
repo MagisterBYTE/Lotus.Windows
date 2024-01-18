@@ -223,7 +223,9 @@ namespace Lotus
 					{
 						if (i < _items.Count - 1)
 						{
+#pragma warning disable S1643 // Strings should not be concatenated using '+' in a loop
 							sql_query += " AND";
+#pragma warning restore S1643 // Strings should not be concatenated using '+' in a loop
 						}
 					}
 				}
@@ -289,7 +291,7 @@ namespace Lotus
 			{
 				get
 				{
-					return ToString();
+					return ToString()!;
 				}
 			}
 

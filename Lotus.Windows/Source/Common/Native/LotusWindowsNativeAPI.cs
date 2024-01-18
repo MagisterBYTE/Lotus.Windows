@@ -34,7 +34,9 @@ namespace Lotus
 		public static class XNative
 		{
 			#region ======================================= ДАННЫЕ ====================================================
+#pragma warning disable S2223 // Non-constant static fields should not be visible
 			public static ShellFileInfo ShellFileInfoDefault;
+#pragma warning restore S2223 // Non-constant static fields should not be visible
 			#endregion
 
 			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================

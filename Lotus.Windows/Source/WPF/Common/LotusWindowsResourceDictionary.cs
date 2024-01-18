@@ -39,12 +39,12 @@ namespace Lotus
 			/// <summary>
 			/// Внутренний кэш загруженных словарей
 			/// </summary>
-			private static Dictionary<Uri, ResourceDictionary> mSharedDictionaries = new Dictionary<Uri, ResourceDictionary>();
+			private static Dictionary<Uri, ResourceDictionary> _sharedDictionaries = [];
 
 			/// <summary>
 			/// Значение, указывающее, является ли приложение в режиме разработки
 			/// </summary>
-			private static Boolean mIsInDesignerMode;
+			private static Boolean _isInDesignerMode;
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ СВОЙСТВА ======================================
@@ -53,7 +53,7 @@ namespace Lotus
 			/// </summary>
 			public static Dictionary<Uri, ResourceDictionary> SharedDictionaries
 			{
-				get { return mSharedDictionaries; }
+				get { return _sharedDictionaries; }
 			}
 			#endregion
 
@@ -61,7 +61,7 @@ namespace Lotus
 			/// <summary>
 			/// Локальные данные исходного URI
 			/// </summary>
-			private Uri _sourceUri;
+			private Uri _sourceUri = default!;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -76,22 +76,22 @@ namespace Lotus
 					_sourceUri = value;
 
 					// Always load the dictionary by default in designer mode.
-					if (!mSharedDictionaries.ContainsKey(value) || mIsInDesignerMode)
+					if (!_sharedDictionaries.ContainsKey(value) || _isInDesignerMode)
 					{
 						// If the dictionary is not yet loaded, load it by setting
 						// the source of the base class
 						base.Source = value;
 
 						// add it to the cache if we're not in designer mode
-						if (!mIsInDesignerMode)
+						if (!_isInDesignerMode)
 						{
-							mSharedDictionaries.Add(value, this);
+							_sharedDictionaries.Add(value, this);
 						}
 					}
 					else
 					{
 						// If the dictionary is already loaded, get it from the cache
-						MergedDictionaries.Add(mSharedDictionaries[value]);
+						MergedDictionaries.Add(_sharedDictionaries[value]);
 					}
 				}
 			}
@@ -103,10 +103,12 @@ namespace Lotus
 			/// Статический конструктор
 			/// </summary>
 			//---------------------------------------------------------------------------------------------------------
+#pragma warning disable S3963 // "static" fields should be initialized inline
 			static SharedResourceDictionary()
 			{
-				mIsInDesignerMode = (Boolean)DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue;
+				_isInDesignerMode = (Boolean)DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue;
 			}
+#pragma warning restore S3963 // "static" fields should be initialized inline
 			#endregion
 		}
 		//-------------------------------------------------------------------------------------------------------------

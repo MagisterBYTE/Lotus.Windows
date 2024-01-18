@@ -22,6 +22,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Maths;
+//---------------------------------------------------------------------------------------------------------------------
+#nullable disable
 //=====================================================================================================================
 namespace Lotus
 {
@@ -830,7 +832,7 @@ namespace Lotus
 				if (mContent == null)
 				{
 					mContent = Content as FrameworkElement;
-					if(mContent != null)
+					if (mContent != null)
 					{
 						mContent.RenderTransform = mContentTotalTransform;
 					}
@@ -952,8 +954,8 @@ namespace Lotus
 				// Update mContent offset from itself when the size of the viewport changes.
 				// This ensures that the mContent offset remains properly clamped to its valid range.
 				//
-				ContentOffsetX = ContentOffsetX;
-				ContentOffsetY = ContentOffsetY;
+				// ContentOffsetX = ContentOffsetX;
+				// ContentOffsetY = ContentOffsetY;
 
 				if (mScrollOwner != null)
 				{
@@ -1295,7 +1297,6 @@ namespace Lotus
 				base.OnApplyTemplate();
 
 				mContent = this.Template.FindName("PART_Content", this) as FrameworkElement;
-				//mContent = this.Content as FrameworkElement;
 				if (mContent != null)
 				{
 					InitContentTransformation();
@@ -1911,7 +1912,7 @@ namespace Lotus
 			{
 				base.OnMouseDown(e);
 
-				var status = mContent.Focus();
+				mContent.Focus();
 				Keyboard.Focus(mContent);
 
 				// 1) Получаем позиции курсора в координатах канвы

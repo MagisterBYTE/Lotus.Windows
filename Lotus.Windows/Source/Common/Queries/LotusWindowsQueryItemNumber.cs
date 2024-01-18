@@ -210,7 +210,7 @@ namespace Lotus
 				{
 					var binding = new System.Windows.Data.Binding();
 					binding.Source = this;
-					binding.Path = new System.Windows.PropertyPath(nameof(ComparisonOperator));
+					binding.Path = new System.Windows.PropertyPath(path: nameof(ComparisonOperator));
 					binding.Converter = EnumToStringConverter.Instance;
 
 					combo_box.ItemsSource = XEnum.GetDescriptions(typeof(TComparisonOperator));

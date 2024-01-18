@@ -85,7 +85,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла без точки или список расширений или null</param>
 			/// <returns>Полное имя существующего файла или null</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String Open(String title, String directory, String extension)
+			public String? Open(String title, String directory, String? extension)
 			{
 				// Конфигурация диалога
 				var dialog = new Microsoft.Win32.OpenFileDialog();
@@ -119,8 +119,7 @@ namespace Lotus
 					return dialog.FileName;
 				}
 
-				return "";
-
+				return null;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -133,15 +132,18 @@ namespace Lotus
 			/// <param name="extension">Расширение файла без точки</param>
 			/// <returns>Полное имя файла или null</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String Save(String title, String directory, String defaultName, String extension)
+			public String? Save(String title, String directory, String defaultName, String? extension)
 			{
 				// Конфигурация диалога
 				var dialog = new Microsoft.Win32.SaveFileDialog();
-				dialog.DefaultExt = extension[0] == XChar.Dot ? extension : XChar.Dot + extension;
+				if (extension != null)
+				{
+					dialog.DefaultExt = extension[0] == XChar.Dot ? extension : XChar.Dot + extension;
+                    dialog.Filter = GetFilterFromExt(extension);
+                }
 				dialog.Title = title;
 				dialog.InitialDirectory = directory;
 				dialog.FileName = defaultName;
-				dialog.Filter = GetFilterFromExt(extension);
 
 				// Показываем диалог открытия
 				var result = dialog.ShowDialog();
@@ -152,7 +154,7 @@ namespace Lotus
 					return dialog.FileName;
 				}
 
-				return "";
+				return null;
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

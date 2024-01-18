@@ -34,8 +34,8 @@ namespace Lotus
 		public class CPropertyModelEnum : PropertyModel<Enum>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			internal ArrayList mEnumValues;
-			internal List<String> mEnumNames;
+			protected internal ArrayList _enumValues;
+			protected internal List<String> _enumNames;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -44,7 +44,7 @@ namespace Lotus
 			/// </summary>
 			public ArrayList EnumValues
 			{
-				get { return mEnumValues; }
+				get { return _enumValues; }
 			}
 
 			/// <summary>
@@ -52,7 +52,7 @@ namespace Lotus
 			/// </summary>
 			public List<String> EnumNames
 			{
-				get { return mEnumNames; }
+				get { return _enumNames; }
 			}
 			#endregion
 
@@ -64,7 +64,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CPropertyModelEnum()
 			{
-				mPropertyType = TPropertyType.Enum;
+				_propertyType = TPropertyType.Enum;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -76,8 +76,8 @@ namespace Lotus
 			public CPropertyModelEnum(PropertyInfo property_info)
 				: base(property_info, TPropertyType.Enum)
 			{
-				mEnumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-				mEnumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
+				_enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
+				_enumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -90,8 +90,8 @@ namespace Lotus
 			public CPropertyModelEnum(PropertyInfo property_info, List<CPropertyDesc> property_desc)
 				: base(property_info, property_desc, TPropertyType.Enum)
 			{
-				mEnumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-				mEnumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
+				_enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
+				_enumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
 			}
 			#endregion
 		}
