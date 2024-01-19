@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RootNamespace>Lotus</RootNamespace>
     <Authors>MagistrBYTE aka DanielDem</Authors>
@@ -21,11 +21,11 @@
     <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.72.1" />
     <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.72.1" />
     <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="4.72.1" />
-    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.106" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.113" />
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
     <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
     <PackageReference Include="FreeImage.Standard" Version="4.3.9-beta4" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.64.0.3155" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.66.0.3296" />
     <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.24.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.24.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.24.0" />
