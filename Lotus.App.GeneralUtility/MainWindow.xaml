@@ -128,11 +128,51 @@
         <TabItem Header="Анализ карты">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="563*"/>
-                    <ColumnDefinition Width="831*"/>
+                    <ColumnDefinition Width="563*" />
+                    <ColumnDefinition Width="831*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="20" Grid.Column="0">
-                    <Button x:Name="analysMap" Click="analysMap_Click" >Анализировать данные</Button>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="20">
+                    <Button
+                        x:Name="analysMap"
+                        Click="analysMap_Click">
+                        Анализировать данные
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Конвертация">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="563*" />
+                    <ColumnDefinition Width="831*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="20">
+                    <Button
+                        x:Name="convertButton"
+                        Click="convertButton_Click">
+                        Анализировать данные
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Генерация кода С№">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="563*" />
+                    <ColumnDefinition Width="831*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="20">
+                    <Button
+                        x:Name="generateButton"
+                        Click="generateButtonButton_Click">
+                        Создать код
+                    </Button>
                 </StackPanel>
             </Grid>
         </TabItem>

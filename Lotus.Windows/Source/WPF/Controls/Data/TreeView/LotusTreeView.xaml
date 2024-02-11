@@ -29,7 +29,8 @@
 		</LinearGradientBrush>
 
 		<!-- Drag and Drop Popup -->
-		<Popup x:Key="popupHandKey"
+		<Popup 
+            x:Key="popupHandKey"
 			IsHitTestVisible="False"
 			Placement="RelativePoint"
 			PlacementTarget="{Binding ElementName=treeExplorer}"
