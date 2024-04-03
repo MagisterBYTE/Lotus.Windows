@@ -1,22 +1,40 @@
-﻿<UserControl x:Class="Lotus.Windows.LotusColumnStringFilter"
-				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-				xmlns:ctrl="clr-namespace:Lotus.Windows"
-				mc:Ignorable="d" 
-				d:DesignHeight="24" d:DesignWidth="200"
-				x:Name="queryStringControl">
-	<ctrl:LotusStackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-		<ComboBox x:Name="comboSearchOption"
-				  MinWidth="86"
-				  IsEnabled="{Binding ElementName=queryStringControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"/>
-		<ctrl:LotusTextBox x:Name="textSearchValue" 
-								 ShowButtonClear="True" VerticalContentAlignment="Center" 
-								 Height="{Binding ElementName=queryStringControl, Path=Height}"
-								 Text="{Binding ElementName=queryStringControl, Path=QueryItem.SearchValue, UpdateSourceTrigger=PropertyChanged}"
-								 IsEnabled="{Binding ElementName=queryStringControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
-								 ctrl:LotusStackPanel.Fill="Fill" />
-		<ToggleButton Content="A" IsChecked="{Binding ElementName=queryStringControl, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"/>
-	</ctrl:LotusStackPanel>
+﻿<UserControl
+    x:Class="Lotus.Windows.LotusColumnStringFilter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="queryStringControl"
+    d:DesignHeight="24"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+    <ctrl:LotusStackPanel
+        HorizontalAlignment="Stretch"
+        Orientation="Horizontal">
+        <ComboBox
+            x:Name="comboSearchOption"
+            MinWidth="86"
+            IsEnabled="{Binding ElementName=queryStringControl,
+                                Path=QueryItem.NotCalculation,
+                                Converter={StaticResource BooleanInverseConverterKey}}" />
+        <ctrl:LotusTextBox
+            x:Name="textSearchValue"
+            Height="{Binding ElementName=queryStringControl,
+                             Path=Height}"
+            VerticalContentAlignment="Center"
+            ctrl:LotusStackPanel.Fill="Fill"
+            IsEnabled="{Binding ElementName=queryStringControl,
+                                Path=QueryItem.NotCalculation,
+                                Converter={StaticResource BooleanInverseConverterKey}}"
+            ShowButtonClear="True"
+            Text="{Binding ElementName=queryStringControl,
+                           Path=QueryItem.SearchValue,
+                           UpdateSourceTrigger=PropertyChanged}" />
+        <ToggleButton
+            Content="A"
+            IsChecked="{Binding ElementName=queryStringControl,
+                                Path=QueryItem.NotCalculation,
+                                Converter={StaticResource BooleanInverseConverterKey}}" />
+    </ctrl:LotusStackPanel>
 </UserControl>

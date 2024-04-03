@@ -1,49 +1,90 @@
-﻿<fluent:RibbonTabItem x:Class="Lotus.Windows.LotusRibbonTabContent3DEditor"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:fluent="urn:fluent-ribbon"
-		mc:Ignorable="d" 
-		Header="Просмотр и редактирование 3D контента"
-		d:DesignHeight="450"
-		d:DesignWidth="800"
-		Name="ribbonTabContent3DEditor"
-		Loaded="OnRibbonTabContent3DEditor_Loaded">
+﻿<fluent:RibbonTabItem
+    x:Class="Lotus.Windows.LotusRibbonTabContent3DEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fluent="urn:fluent-ribbon"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="ribbonTabContent3DEditor"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Header="Просмотр и редактирование 3D контента"
+    Loaded="OnRibbonTabContent3DEditor_Loaded"
+    mc:Ignorable="d">
 
-	<!--Открытие и сохранение-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorOpen" Header="Открытие и сохранение" MinWidth="160">
-		<fluent:Button x:Name="buttonOpen" Header="Открыть" Size="Large" Click="OnButtonOpen_Click"
-					   ToolTip="Открытие изображения"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_open_32.png"/>
-		
-		<fluent:Button x:Name="buttonSave" Header="Сохранить" Size="Large" Click="OnButtonSave_Click"
-					   ToolTip="Сохранение изображения"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png"/>
+    <!--  Открытие и сохранение  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorOpen"
+        MinWidth="160"
+        Header="Открытие и сохранение">
+        <fluent:Button
+            x:Name="buttonOpen"
+            Click="OnButtonOpen_Click"
+            Header="Открыть"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_open_32.png"
+            Size="Large"
+            ToolTip="Открытие изображения" />
 
-		<fluent:Button x:Name="buttonSaveAs" Header="Сохранить как" Size="Large" Click="OnButtonSaveAs_Click"
-					   ToolTip="Сохранение изображения под новым именем"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_as_32.png"/>		
-		
-		<TextBlock Text="Кодировка файла" Margin="8 0 0 0"/>
-		
-		<fluent:ComboBox x:Name="comboBoxEncodings" 
-						 DisplayMemberPath="EncodingName" IsEditable="False">
-		</fluent:ComboBox>
+        <fluent:Button
+            x:Name="buttonSave"
+            Click="OnButtonSave_Click"
+            Header="Сохранить"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png"
+            Size="Large"
+            ToolTip="Сохранение изображения" />
 
-		<fluent:Button x:Name="buttonOpenDefault" Header="Открыть в Notepad" Size="Large" Click="OnButtonOpenNotepad_Click"
-					   ToolTip="Открытие изображения в приложении по умолчанию"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_import_32.png"/>
-	</fluent:RibbonGroupBox>
+        <fluent:Button
+            x:Name="buttonSaveAs"
+            Click="OnButtonSaveAs_Click"
+            Header="Сохранить как"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_as_32.png"
+            Size="Large"
+            ToolTip="Сохранение изображения под новым именем" />
 
-	<!--Параметры представления-->
-	<fluent:RibbonGroupBox Name="ribbonTabContent3DEditorView" Header="Параметры представления" MinWidth="160">
-		<fluent:CheckBox MinWidth="120" Header="Позиция камера"/>
-		<fluent:CheckBox MinWidth="120" Header="Цель камера"/>
-		<fluent:CheckBox MinWidth="120" Header="Показать FPS"/>
+        <TextBlock
+            Margin="8,0,0,0"
+            Text="Кодировка файла" />
 
-		<fluent:RadioButton IsChecked="True" GroupName="Axis" Content="Y-Up" Checked="OnRadioSetYUp_Checked"/>
-		<fluent:RadioButton GroupName="Axis" Content="Z-Up" Checked="OnRadioSetZUp_Checked"/>
-		<fluent:CheckBox Name="checkBoxYUpModel"  Content="Y - Up Model"/>
-	</fluent:RibbonGroupBox>
+        <fluent:ComboBox
+            x:Name="comboBoxEncodings"
+            DisplayMemberPath="EncodingName"
+            IsEditable="False" />
+
+        <fluent:Button
+            x:Name="buttonOpenDefault"
+            Click="OnButtonOpenNotepad_Click"
+            Header="Открыть в Notepad"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_import_32.png"
+            Size="Large"
+            ToolTip="Открытие изображения в приложении по умолчанию" />
+    </fluent:RibbonGroupBox>
+
+    <!--  Параметры представления  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabContent3DEditorView"
+        MinWidth="160"
+        Header="Параметры представления">
+        <fluent:CheckBox
+            MinWidth="120"
+            Header="Позиция камера" />
+        <fluent:CheckBox
+            MinWidth="120"
+            Header="Цель камера" />
+        <fluent:CheckBox
+            MinWidth="120"
+            Header="Показать FPS" />
+
+        <fluent:RadioButton
+            Checked="OnRadioSetYUp_Checked"
+            Content="Y-Up"
+            GroupName="Axis"
+            IsChecked="True" />
+        <fluent:RadioButton
+            Checked="OnRadioSetZUp_Checked"
+            Content="Z-Up"
+            GroupName="Axis" />
+        <fluent:CheckBox
+            Name="checkBoxYUpModel"
+            Content="Y - Up Model" />
+    </fluent:RibbonGroupBox>
 </fluent:RibbonTabItem>

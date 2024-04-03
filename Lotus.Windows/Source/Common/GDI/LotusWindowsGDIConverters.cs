@@ -1,77 +1,50 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Общая подсистема
-// Подраздел: Подсистема работы с GDI
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusWindowsGDIConverters.cs
-*		Реализация типовых конвертаций различных типов и структур в данные System.Drawing.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/** \addtogroup WindowsCommonGDI
-		*@{*/
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Статический класс для реализации методов конвертации
-		/// </summary>
-		/// <remarks>
-		/// Используется для некоторых типовых преобразований
-		/// </remarks>
-		//-------------------------------------------------------------------------------------------------------------
-		public static class XDrawingConverters
-		{
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертация списка векторов
-			/// </summary>
-			/// <param name="values">Список векторов одинарной точности</param>
-			/// <returns>Список точек System.Drawing</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public static Point[] ConvertToDrawingPoints(this IList<Vector2> values)
-			{
-				var list = new Point[values.Count];
-				for (var i = 0; i < values.Count; i++)
-				{
-					list[i] = new Point((int)values[i].X, (int)values[i].Y);
-				}
+    /** \addtogroup WindowsCommonGDI
+	*@{*/
+    /// <summary>
+    /// Статический класс для реализации методов конвертации.
+    /// </summary>
+    /// <remarks>
+    /// Используется для некоторых типовых преобразований.
+    /// </remarks>
+    public static class XDrawingConverters
+    {
+        /// <summary>
+        /// Конвертация списка векторов.
+        /// </summary>
+        /// <param name="values">Список векторов одинарной точности.</param>
+        /// <returns>Список точек System.Drawing.</returns>
+        public static Point[] ConvertToDrawingPoints(this IList<Vector2> values)
+        {
+            var list = new Point[values.Count];
+            for (var i = 0; i < values.Count; i++)
+            {
+                list[i] = new Point((int)values[i].X, (int)values[i].Y);
+            }
 
-				return list;
-			}
+            return list;
+        }
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертация списка векторов
-			/// </summary>
-			/// <param name="values">Список векторов одинарной точности</param>
-			/// <returns>Список точек System.Drawing</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public static PointF[] ConvertToDrawingPointsF(this IList<Vector2> values)
-			{
-				var list = new PointF[values.Count];
-				for (var i = 0; i < values.Count; i++)
-				{
-					list[i] = new PointF(values[i].X, values[i].Y);
-				}
+        /// <summary>
+        /// Конвертация списка векторов.
+        /// </summary>
+        /// <param name="values">Список векторов одинарной точности.</param>
+        /// <returns>Список точек System.Drawing.</returns>
+        public static PointF[] ConvertToDrawingPointsF(this IList<Vector2> values)
+        {
+            var list = new PointF[values.Count];
+            for (var i = 0; i < values.Count; i++)
+            {
+                list[i] = new PointF(values[i].X, values[i].Y);
+            }
 
-				return list;
-			}
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+            return list;
+        }
+    }
+    /**@}*/
 }
-//=====================================================================================================================

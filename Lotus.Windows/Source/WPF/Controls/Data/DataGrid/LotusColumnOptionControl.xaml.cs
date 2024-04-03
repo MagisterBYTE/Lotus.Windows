@@ -1,99 +1,68 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Подсистема работы с WPF
-// Подраздел: Элементы интерфейса
-// Группа: Элементы для работы с данными
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusColumnOptionControl.xaml.cs
-*		Дополнительный элемент для управления столбцом таблицы.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
-using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/** \addtogroup WindowsWPFControlsData
-		*@{*/
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Дополнительный элемент для управления столбцом таблицы
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		public partial class LotusColumnOptionControl : UserControl, INotifyPropertyChanged
-		{
-			#region ======================================= КОНСТРУКТОРЫ ==============================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конструктор по умолчанию инициализирует объект класса предустановленными значениями
-			/// </summary>
-			//---------------------------------------------------------------------------------------------------------
-			public LotusColumnOptionControl()
-			{
-				InitializeComponent();
-			}
-			#endregion
+    /** \addtogroup WindowsWPFControlsData
+	*@{*/
+    /// <summary>
+    /// Дополнительный элемент для управления столбцом таблицы.
+    /// </summary>
+    public partial class LotusColumnOptionControl : UserControl, INotifyPropertyChanged
+    {
+        #region Constructors
+        /// <summary>
+        /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
+        /// </summary>
+        public LotusColumnOptionControl()
+        {
+            InitializeComponent();
+        }
+        #endregion
 
-			#region ======================================= ОБРАБОТЧИКИ СОБЫТИЙ =======================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Выбор опции
-			/// </summary>
-			/// <param name="sender">Источник события</param>
-			/// <param name="args">Аргументы события</param>
-			//---------------------------------------------------------------------------------------------------------
-			private void OnComboBoxOptions_SelectionChanged(object sender, SelectionChangedEventArgs args)
-			{
-				// Method intentionally left empty.
-			}
-			#endregion
+        #region Event handlers 
+        /// <summary>
+        /// Выбор опции.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="args">Аргументы события.</param>
+        private void OnComboBoxOptions_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            // Method intentionally left empty.
+        }
+        #endregion
 
-			#region ======================================= ДАННЫЕ INotifyPropertyChanged =============================
-			/// <summary>
-			/// Событие срабатывает ПОСЛЕ изменения свойства
-			/// </summary>
-			public event PropertyChangedEventHandler? PropertyChanged;
+        #region Interface INotifyPropertyChanged 
+        /// <summary>
+        /// Событие срабатывает ПОСЛЕ изменения свойства.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Вспомогательный метод для нотификации изменений свойства
-			/// </summary>
-			/// <param name="property_name">Имя свойства</param>
-			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(string property_name = "")
-			{
-				if (PropertyChanged != null)
-				{
-					PropertyChanged(this, new PropertyChangedEventArgs(property_name));
-				}
-			}
+        /// <summary>
+        /// Вспомогательный метод для нотификации изменений свойства.
+        /// </summary>
+        /// <param name="propertyName">Имя свойства.</param>
+        public void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Вспомогательный метод для нотификации изменений свойства
-			/// </summary>
-			/// <param name="args">Аргументы события</param>
-			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(PropertyChangedEventArgs args)
-			{
-				if (PropertyChanged != null)
-				{
-					PropertyChanged(this, args);
-				}
-			}
-			#endregion
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+        /// <summary>
+        /// Вспомогательный метод для нотификации изменений свойства.
+        /// </summary>
+        /// <param name="args">Аргументы события.</param>
+        public void NotifyPropertyChanged(PropertyChangedEventArgs args)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, args);
+            }
+        }
+        #endregion
+    }
+    /**@}*/
 }
-//=====================================================================================================================

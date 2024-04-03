@@ -127,7 +127,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(string property_name = "")
+			public void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
 			{
 				if (PropertyChanged != null)
 				{

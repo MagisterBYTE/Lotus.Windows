@@ -1,162 +1,134 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Общая подсистема
-// Подраздел: Подсистема центральных менеджеров
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusApplicationManager.cs
-*		Центральный менеджер приложения.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
 using System;
 using System.IO;
-//---------------------------------------------------------------------------------------------------------------------
+
 using Lotus.Core;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/**
-         * \defgroup WindowsCommon Общая подсистема
-         * \ingroup Windows
-         * \brief Общая подсистема содержит код развивающий в целом платформу Windows.
-         * \defgroup WindowsCommonManagers Подсистема центральных менеджеров
-         * \ingroup WindowsCommon
-         * \brief Подсистема центральных менеджеров.
-         * @{
-         */
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Центральный менеджер приложения
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		public static class XApplicationManager
-		{
-			#region ======================================= ДАННЫЕ ====================================================
-			// Доступ к ресурсам
-			private static string _directoryData = "Data";
-			private static string _directorySettings = "Settings";
-			private static string _directoryPlugins = "Plugins";
-			private static string _projectName;
-			private static string _currentDirectory;
-			#endregion
+    /**
+     * \defgroup WindowsCommon Общая подсистема
+	 * \ingroup Windows
+	 * \brief Общая подсистема содержит код развивающий в целом платформу Windows.
+	 * \defgroup WindowsCommonManagers Подсистема центральных менеджеров
+	 * \ingroup WindowsCommon
+	 * \brief Подсистема центральных менеджеров.
+	 * @{
+	 */
+    /// <summary>
+    /// Центральный менеджер приложения.
+    /// </summary>
+    public static class XApplicationManager
+    {
+        #region Fields
+        // Доступ к ресурсам
+        private static string _directoryData = "Data";
+        private static string _directorySettings = "Settings";
+        private static string _directoryPlugins = "Plugins";
+        private static string _projectName;
+        private static string _currentDirectory;
+        #endregion
 
-			#region ======================================= СВОЙСТВА ==================================================
-			/// <summary>
-			/// Имя директории для доступа к основным данным
-			/// </summary>
-			public static string DirectoryData
-			{
-				get { return _directoryData; }
-				set
-				{
-					_directoryData = value;
-				}
-			}
+        #region Properties
+        /// <summary>
+        /// Имя директории для доступа к основным данным.
+        /// </summary>
+        public static string DirectoryData
+        {
+            get { return _directoryData; }
+            set
+            {
+                _directoryData = value;
+            }
+        }
 
-			/// <summary>
-			/// Имя директории для доступа к настройкам
-			/// </summary>
-			public static string DirectorySettings
-			{
-				get { return _directorySettings; }
-				set
-				{
-					_directorySettings = value;
-				}
-			}
+        /// <summary>
+        /// Имя директории для доступа к настройкам.
+        /// </summary>
+        public static string DirectorySettings
+        {
+            get { return _directorySettings; }
+            set
+            {
+                _directorySettings = value;
+            }
+        }
 
-			/// <summary>
-			/// Имя директории для доступа к плагинам
-			/// </summary>
-			public static string DirectoryPlugins
-			{
-				get { return _directoryPlugins; }
-				set
-				{
-					_directoryPlugins = value;
-				}
-			}
+        /// <summary>
+        /// Имя директории для доступа к плагинам.
+        /// </summary>
+        public static string DirectoryPlugins
+        {
+            get { return _directoryPlugins; }
+            set
+            {
+                _directoryPlugins = value;
+            }
+        }
 
-			/// <summary>
-			/// Имя проекта/приложения
-			/// </summary>
-			public static string ProjectName
-			{
-				get
-				{
-					if(string.IsNullOrEmpty(_projectName))
-					{
-						_projectName = (System.Reflection.Assembly.GetEntryAssembly()!.GetName().Name)!;
-					}
-					return _projectName; 
-				}
-			}
-			#endregion
+        /// <summary>
+        /// Имя проекта/приложения.
+        /// </summary>
+        public static string ProjectName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_projectName))
+                {
+                    _projectName = (System.Reflection.Assembly.GetEntryAssembly()!.GetName().Name)!;
+                }
+                return _projectName;
+            }
+        }
+        #endregion
 
-			#region ======================================= МЕТОДЫ ПОЛУЧЕНИЯ ПУТЕЙ ====================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Получение полного пути относительно проекта или приложения
-			/// </summary>
-			/// <returns>Путь</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public static string GetPath()
-			{
-				if (string.IsNullOrEmpty(_currentDirectory))
-				{
-					// Получаем путь
-					var path = Environment.CurrentDirectory;
+        #region Get methods
+        /// <summary>
+        /// Получение полного пути относительно проекта или приложения.
+        /// </summary>
+        /// <returns>Путь.</returns>
+        public static string GetPath()
+        {
+            if (string.IsNullOrEmpty(_currentDirectory))
+            {
+                // Получаем путь
+                var path = Environment.CurrentDirectory;
 
-					// Удаляем все до директории LotusPlatform
-					path = path.RemoveFrom("LotusPlatform");
+                // Удаляем все до директории LotusPlatform
+                path = path.RemoveFrom("LotusPlatform");
 
-					// Соединяем
-					_currentDirectory = Path.Combine(path, "Desktop", ProjectName);
+                // Соединяем
+                _currentDirectory = Path.Combine(path, "Desktop", ProjectName);
 
-					if (Directory.Exists(_currentDirectory) == false)
-					{
-						_currentDirectory = Environment.CurrentDirectory;
-					}
-				}
+                if (Directory.Exists(_currentDirectory) == false)
+                {
+                    _currentDirectory = Environment.CurrentDirectory;
+                }
+            }
 
-				return _currentDirectory;
-			}
+            return _currentDirectory;
+        }
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Получение полного пути для директории данных проекта
-			/// </summary>
-			/// <returns>Полный путь для директории данных проекта</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public static string GetPathDirectoryData()
-			{
-				return Path.Combine(GetPath(), _directoryData);
-			}
+        /// <summary>
+        /// Получение полного пути для директории данных проекта.
+        /// </summary>
+        /// <returns>Полный путь для директории данных проекта.</returns>
+        public static string GetPathDirectoryData()
+        {
+            return Path.Combine(GetPath(), _directoryData);
+        }
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Получение полного пути для файла данных проекта
-			/// </summary>
-			/// <param name="file_name">Имя файла</param>
-			/// <returns>Полный путь к файлу данных проекта</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public static string GetPathFileData(string file_name)
-			{
-				var path = Path.Combine(GetPath(), _directoryData, file_name);
-				path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-				return path;
-			}
-			#endregion
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+        /// <summary>
+        /// Получение полного пути для файла данных проекта.
+        /// </summary>
+        /// <param name="file_name">Имя файла.</param>
+        /// <returns>Полный путь к файлу данных проекта.</returns>
+        public static string GetPathFileData(string file_name)
+        {
+            var path = Path.Combine(GetPath(), _directoryData, file_name);
+            path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            return path;
+        }
+        #endregion
+    }
+    /**@}*/
 }
-//=====================================================================================================================

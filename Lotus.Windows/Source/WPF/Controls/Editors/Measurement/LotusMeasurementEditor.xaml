@@ -1,101 +1,168 @@
-﻿<UserControl x:Class="Lotus.Windows.LotusMeasurementEditor"
-				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-				xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-				xmlns:core="clr-namespace:Lotus.Core;assembly=Lotus.Core"
-			 	xmlns:unit="clr-namespace:Lotus.UnitMeasurement;assembly=Lotus.UnitMeasurement"
-			 	xmlns:ctrl="clr-namespace:Lotus.Windows"
-				mc:Ignorable="d" 
-				d:DesignWidth="300"
-				d:DesignHeight="34"
-				x:Name="spinQuantityValueEditor">
-	<ctrl:LotusStackPanel>
-		<TextBox x:Name="TextField" ctrl:LotusStackPanel.Fill="Fill"
-				 x:FieldModifier="public"
-				 VerticalContentAlignment="Center"
-				 IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=LotusMeasurementEditor}, Path=IsReadOnly}"
-				 PreviewTextInput="OnTextField_PreviewTextInput"
-				 TextChanged="OnTextField_TextChanged"
-				 LostFocus="OnTextField_LostFocus">
-			<TextBox.Style>
-				<Style TargetType="TextBox">
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=LotusMeasurementEditor}, Path=IsReadOnly}" Value="True">
-							<Setter Property="Background" Value="LightGray" />
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</TextBox.Style>
-		</TextBox>
-		<ctrl:LotusStackPanel Orientation="Vertical" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=LotusMeasurementEditor}, Path=IsReadOnly, Converter={StaticResource BooleanTrueToCollapsedConverterKey}}">
-			<RepeatButton x:Name="buttonUp" 
-					x:FieldModifier="public"
-					Padding="0 0 0 0"
-					MinWidth="16"
-					Click="OnButtonUp_Click">
-				<RepeatButton.Content>
-					<TextBlock Text="{x:Static core:XString.TriangleUp}" FontSize="10"/>
-				</RepeatButton.Content>
-			</RepeatButton>
-			<RepeatButton x:Name="buttonDown" 
-					x:FieldModifier="public"
-					Padding="0 0 0 0"
-					MinWidth="16"
-					Click="OnButtonDown_Click">
-				<RepeatButton.Content>
-					<TextBlock Text="{x:Static core:XString.TriangleDown}" FontSize="10"/>
-				</RepeatButton.Content>
-			</RepeatButton>
-		</ctrl:LotusStackPanel>
-		<Button x:Name="buttonMenu"
-				Visibility="Visible"
-				Content="{x:Static core:XString.TriangleDown}"
-				MinWidth="20"
-				Click="OnButtonMenu_Click">
-			<Button.ContextMenu>
-				<ContextMenu x:Name="contextMenu">
-					<MenuItem Header="Объект">
-						<MenuItem Header="шт" Tag="{x:Static unit:TUnitThing.Thing}" Click="OnMenuItemSetUnit_Click"/>
-						<MenuItem Header="комп." Tag="{x:Static unit:TUnitThing.Kit}" Click="OnMenuItemSetUnit_Click"/>
-					</MenuItem>
-					<MenuItem Header="Длина">
-						<MenuItem Header="м" Tag="{x:Static unit:TUnitLength.Meter}" Click="OnMenuItemSetUnit_Click"/>
-						<MenuItem Header="км" Tag="{x:Static unit:TUnitLength.Kilometer}" Click="OnMenuItemSetUnit_Click"/>
-					</MenuItem>
-					<MenuItem Header="Площадь">
-						<MenuItem Header="м2" Tag="{x:Static unit:TUnitArea.SquareMeter}" Click="OnMenuItemSetUnit_Click"/>
-						<MenuItem Header="км2" Tag="{x:Static unit:TUnitArea.SquareKilometer}" Click="OnMenuItemSetUnit_Click"/>
-					</MenuItem>
-					<Separator/>
-					<MenuItem x:Name="miCopy" Header="Копировать" Click="OnMenuItemCopyValue_Click">
-						<MenuItem.Icon>
-							<Image Width="16" Height="16" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_copy_32.png"/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="miPaste" Header="Вставить" Click="OnMenuItemPasteValue_Click" >
-						<MenuItem.Icon>
-							<Image Width="16" Height="16" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_paste_32.png"/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="miClear" Header="Очистка" Click="OnMenuItemClearValue_Click">
-						<MenuItem.Icon>
-							<Image Width="16" Height="16" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_delete_32.png"/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<Separator/>
-					<MenuItem x:Name="miDefault" Header="Значение по умолчанию" Click="OnMenuItemSetDefaultValue_Click">
-						<MenuItem.Icon>
-							<Image Width="16" Height="16" Stretch="Fill" Source="/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_refresh_32.png"/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<Separator/>
-					<RadioButton Checked="OnRadioRadixZero_Checked">Разрядность 0</RadioButton>
-					<RadioButton Checked="OnRadioRadixOne_Checked">Разрядность 0,0</RadioButton>
-					<RadioButton Checked="OnRadioRadixTwo_Checked">Разрядность 0,00</RadioButton>
-					<RadioButton Checked="OnRadioRadixThree_Checked">Разрядность 0,000</RadioButton>
-				</ContextMenu>
-			</Button.ContextMenu>
-		</Button>
-	</ctrl:LotusStackPanel>
+﻿<UserControl
+    x:Class="Lotus.Windows.LotusMeasurementEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:Lotus.Core;assembly=Lotus.Core"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:unit="clr-namespace:Lotus.UnitMeasurement;assembly=Lotus.UnitMeasurement"
+    x:Name="spinQuantityValueEditor"
+    d:DesignHeight="34"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <ctrl:LotusStackPanel>
+        <TextBox
+            x:Name="TextField"
+            VerticalContentAlignment="Center"
+            ctrl:LotusStackPanel.Fill="Fill"
+            x:FieldModifier="public"
+            IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                AncestorType=LotusMeasurementEditor},
+                                 Path=IsReadOnly}"
+            LostFocus="OnTextField_LostFocus"
+            PreviewTextInput="OnTextField_PreviewTextInput"
+            TextChanged="OnTextField_TextChanged">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                             AncestorType=LotusMeasurementEditor},
+                                              Path=IsReadOnly}"
+                            Value="True">
+                            <Setter Property="Background" Value="LightGray" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <ctrl:LotusStackPanel
+            Orientation="Vertical"
+            Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                AncestorType=LotusMeasurementEditor},
+                                 Path=IsReadOnly,
+                                 Converter={StaticResource BooleanTrueToCollapsedConverterKey}}">
+            <RepeatButton
+                x:Name="buttonUp"
+                MinWidth="16"
+                Padding="0,0,0,0"
+                x:FieldModifier="public"
+                Click="OnButtonUp_Click">
+                <RepeatButton.Content>
+                    <TextBlock
+                        FontSize="10"
+                        Text="{x:Static core:XString.TriangleUp}" />
+                </RepeatButton.Content>
+            </RepeatButton>
+            <RepeatButton
+                x:Name="buttonDown"
+                MinWidth="16"
+                Padding="0,0,0,0"
+                x:FieldModifier="public"
+                Click="OnButtonDown_Click">
+                <RepeatButton.Content>
+                    <TextBlock
+                        FontSize="10"
+                        Text="{x:Static core:XString.TriangleDown}" />
+                </RepeatButton.Content>
+            </RepeatButton>
+        </ctrl:LotusStackPanel>
+        <Button
+            x:Name="buttonMenu"
+            MinWidth="20"
+            Click="OnButtonMenu_Click"
+            Content="{x:Static core:XString.TriangleDown}"
+            Visibility="Visible">
+            <Button.ContextMenu>
+                <ContextMenu x:Name="contextMenu">
+                    <MenuItem Header="Объект">
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="шт"
+                            Tag="{x:Static unit:TUnitThing.Thing}" />
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="комп."
+                            Tag="{x:Static unit:TUnitThing.Kit}" />
+                    </MenuItem>
+                    <MenuItem Header="Длина">
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="м"
+                            Tag="{x:Static unit:TUnitLength.Meter}" />
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="км"
+                            Tag="{x:Static unit:TUnitLength.Kilometer}" />
+                    </MenuItem>
+                    <MenuItem Header="Площадь">
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="м2"
+                            Tag="{x:Static unit:TUnitArea.SquareMeter}" />
+                        <MenuItem
+                            Click="OnMenuItemSetUnit_Click"
+                            Header="км2"
+                            Tag="{x:Static unit:TUnitArea.SquareKilometer}" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        x:Name="miCopy"
+                        Click="OnMenuItemCopyValue_Click"
+                        Header="Копировать">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_copy_32.png"
+                                Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="miPaste"
+                        Click="OnMenuItemPasteValue_Click"
+                        Header="Вставить">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_paste_32.png"
+                                Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        x:Name="miClear"
+                        Click="OnMenuItemClearValue_Click"
+                        Header="Очистка">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_delete_32.png"
+                                Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        x:Name="miDefault"
+                        Click="OnMenuItemSetDefaultValue_Click"
+                        Header="Значение по умолчанию">
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_refresh_32.png"
+                                Stretch="Fill" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <RadioButton Checked="OnRadioRadixZero_Checked">Разрядность 0</RadioButton>
+                    <RadioButton Checked="OnRadioRadixOne_Checked">Разрядность 0,0</RadioButton>
+                    <RadioButton Checked="OnRadioRadixTwo_Checked">Разрядность 0,00</RadioButton>
+                    <RadioButton Checked="OnRadioRadixThree_Checked">Разрядность 0,000</RadioButton>
+                </ContextMenu>
+            </Button.ContextMenu>
+        </Button>
+    </ctrl:LotusStackPanel>
 </UserControl>

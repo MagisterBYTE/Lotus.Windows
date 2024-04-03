@@ -644,8 +644,6 @@ namespace Lotus.App.GeneralUtility
 			return false;
 		}
 
-
-
 		private void generateButtonButton_Click(object sender, RoutedEventArgs e)
 		{
 			string path = @"D:\CODE\Lithosphere\Source\GMex.Stable\GMex.Stable.Structure\Xml\ServiceDirectorys.xml";
@@ -943,7 +941,7 @@ namespace Lotus.App.GeneralUtility
 
 		private void transformButton_Click(object sender, RoutedEventArgs e)
 		{
-			var dir = "D:\\CODE\\LotusPlatform\\Lotus.Windows\\Lotus.Windows\\Source";
+			var dir = "D:\\CODE\\LotusPlatform\\Lotus.Windows\\Lotus.Windows.ViewerText\\Source";
 
 			//var files = Directory.GetFileSystemEntries(dir);
 
@@ -990,7 +988,7 @@ namespace Lotus.App.GeneralUtility
 			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removePart2);
 			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removeNamespace);
 
-			fileList.ReplaceFirst("namespace Lotus", "namespace Lotus.DeNova");
+			fileList.ReplaceFirst("namespace Lotus", "namespace Lotus.Windows");
 			fileList.ReplaceAll(replaceFields, "#region Fields");
 			fileList.ReplaceAll(replaceProperties, "#region Properties");
 			fileList.ReplaceAll(replaceConstructors, "#region Constructors");
@@ -1005,13 +1003,13 @@ namespace Lotus.App.GeneralUtility
 
 			fileList.AddDotToComment();
 
-			fileList.RemoveEmptyBraces("namespace Lotus.DeNova");
+			fileList.RemoveEmptyBraces("namespace Lotus.Windows");
 
 			fileList.RemoveRegions();
 
 			fileList.RemoveTabs();
 
-			fileList.InsertEmptyLineBeforeNamespace("namespace Lotus.DeNova");
+			fileList.InsertEmptyLineBeforeNamespace("namespace Lotus.Windows");
 
 			fileList.Save(fileName);
 		}

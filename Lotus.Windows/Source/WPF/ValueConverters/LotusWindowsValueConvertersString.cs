@@ -1,98 +1,72 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Подсистема работы с WPF
-// Подраздел: Конвертеры данных
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusWindowsValueConvertersString.cs
-*		Конвертеры типа String в различные типы данных.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
 using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/** \addtogroup WindowsWPFValueConverters
-		*@{*/
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Конвертер строки(как пути) в источник изображения которое находится по данному пути
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(string), typeof(BitmapSource))]
-		public class StringToBitmapSourceConverter : IValueConverter
-		{
-			#region ======================================= СВОЙСТВА ==================================================
-			/// <summary>
-			/// Директория по умолчанию
-			/// </summary>
-			/// <remarks>
-			/// Если значение установлено то комбинируется имя файла и путь директории
-			/// </remarks>
-			public string ImageDirectory { get; set; }
-			#endregion
+    /** \addtogroup WindowsWPFValueConverters
+	*@{*/
+    /// <summary>
+    /// Конвертер строки(как пути) в источник изображения которое находится по данному пути.
+    /// </summary>
+    [ValueConversion(typeof(string), typeof(BitmapSource))]
+    public class StringToBitmapSourceConverter : IValueConverter
+    {
+        #region Properties
+        /// <summary>
+        /// Директория по умолчанию.
+        /// </summary>
+        /// <remarks>
+        /// Если значение установлено то комбинируется имя файла и путь директории.
+        /// </remarks>
+        public string ImageDirectory { get; set; }
+        #endregion
 
-			#region ======================================= МЕТОДЫ ====================================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертер строки(как пути) в источник изображения
-			/// </summary>
-			/// <param name="value">Значение</param>
-			/// <param name="targetType">Целевой тип</param>
-			/// <param name="parameter">Дополнительный параметр</param>
-			/// <param name="culture">Культура</param>
-			/// <returns>Тип BitmapSource</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-			{
-				if (string.IsNullOrWhiteSpace(ImageDirectory))
-				{
-					try
-					{
-						return new BitmapImage(new Uri((string)value));
-					}
-					catch (Exception)
-					{
+        #region Methods 
+        /// <summary>
+        /// Конвертер строки(как пути) в источник изображения.
+        /// </summary>
+        /// <param name="value">Значение.</param>
+        /// <param name="targetType">Целевой тип.</param>
+        /// <param name="parameter">Дополнительный параметр.</param>
+        /// <param name="culture">Культура.</param>
+        /// <returns>Тип BitmapSource.</returns>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (string.IsNullOrWhiteSpace(ImageDirectory))
+            {
+                try
+                {
+                    return new BitmapImage(new Uri((string)value));
+                }
+                catch (Exception)
+                {
 
-						return null!;
-					}
-					
-				}
-				else
-				{
-					var image_path = System.IO.Path.Combine(ImageDirectory, (string)value);
-					return new BitmapImage(new Uri(image_path));
-				}
-			}
+                    return null!;
+                }
 
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конвертация типа BitmapSource в путь
-			/// </summary>
-			/// <param name="value">Значение</param>
-			/// <param name="targetType">Целевой тип</param>
-			/// <param name="parameter">Дополнительный параметр</param>
-			/// <param name="culture">Культура</param>
-			/// <returns>Путь</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			{
-				return null!;
-			}
-			#endregion
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+            }
+            else
+            {
+                var image_path = System.IO.Path.Combine(ImageDirectory, (string)value);
+                return new BitmapImage(new Uri(image_path));
+            }
+        }
+
+        /// <summary>
+        /// Конвертация типа BitmapSource в путь.
+        /// </summary>
+        /// <param name="value">Значение.</param>
+        /// <param name="targetType">Целевой тип.</param>
+        /// <param name="parameter">Дополнительный параметр.</param>
+        /// <param name="culture">Культура.</param>
+        /// <returns>Путь.</returns>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null!;
+        }
+        #endregion
+    }
+    /**@}*/
 }
-//=====================================================================================================================

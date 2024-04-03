@@ -1,93 +1,60 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Подсистема работы с WPF
-// Подраздел: Элементы интерфейса
-// Группа: Элементы для работы с данными
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusColumnDatetimeFilter.xaml.cs
-*		Элемент служащий для формирования элемента запроса для типов данных дата-время.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
-using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/** \addtogroup WindowsWPFControlsData
-		*@{*/
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Элемент служащий для формирования элемента запроса для типов данных дата-время
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		public partial class LotusColumnDatetimeFilter : UserControl
-		{
-			#region ======================================= ОПРЕДЕЛЕНИЕ СВОЙСТВ ЗАВИСИМОСТИ ===========================
-			/// <summary>
-			/// Элемент запроса для данных дата-время
-			/// </summary>
-			public static readonly DependencyProperty QueryItemProperty = DependencyProperty.Register(nameof(QueryItem),
-				typeof(CQueryItemDateTime), typeof(LotusColumnDatetimeFilter),
-				new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
-			#endregion
+    /** \addtogroup WindowsWPFControlsData
+	*@{*/
+    /// <summary>
+    /// Элемент служащий для формирования элемента запроса для типов данных дата-время.
+    /// </summary>
+    public partial class LotusColumnDatetimeFilter : UserControl
+    {
+        #region Declare DependencyProperty 
+        /// <summary>
+        /// Элемент запроса для данных дата-время.
+        /// </summary>
+        public static readonly DependencyProperty QueryItemProperty = DependencyProperty.Register(nameof(QueryItem),
+            typeof(CQueryItemDateTime), typeof(LotusColumnDatetimeFilter),
+            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+        #endregion
 
-			#region ======================================= МЕТОДЫ СВОЙСТВ ЗАВИСИМОСТИ ================================
-			#endregion
+        #region Properties
+        /// <summary>
+        /// Элемент запроса для данных дата-время.
+        /// </summary>
+        [Browsable(false)]
+        public CQueryItemDateTime QueryItem
+        {
+            get { return (CQueryItemDateTime)GetValue(QueryItemProperty); }
+            set { SetValue(QueryItemProperty, value); }
+        }
+        #endregion
 
-			#region ======================================= СВОЙСТВА ==================================================
-			/// <summary>
-			/// Элемент запроса для данных дата-время
-			/// </summary>
-			[Browsable(false)]
-			public CQueryItemDateTime QueryItem
-			{
-				get { return (CQueryItemDateTime)GetValue(QueryItemProperty); }
-				set { SetValue(QueryItemProperty, value); }
-			}
-			#endregion
+        #region Constructors
+        /// <summary>
+        /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
+        /// </summary>
+        public LotusColumnDatetimeFilter()
+        {
+            InitializeComponent();
+            QueryItem = new CQueryItemDateTime();
+            QueryItem.BindingComboBoxToComparisonOperator(comboOperator);
+        }
+        #endregion
 
-			#region ======================================= КОНСТРУКТОРЫ ==============================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Конструктор по умолчанию инициализирует объект класса предустановленными значениями
-			/// </summary>
-			//---------------------------------------------------------------------------------------------------------
-			public LotusColumnDatetimeFilter()
-			{
-				InitializeComponent();
-				QueryItem = new CQueryItemDateTime();
-				QueryItem.BindingComboBoxToComparisonOperator(comboOperator);
-			}
-			#endregion
-
-			#region ======================================= ОБРАБОТЧИКИ СОБЫТИЙ =======================================
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Выбор оператора сравнения
-			/// </summary>
-			/// <param name="sender">Источник события</param>
-			/// <param name="args">Аргументы события</param>
-			//---------------------------------------------------------------------------------------------------------
-			private void OnComboOperator_SelectionChanged(object sender, SelectionChangedEventArgs args)
-			{
-				// Method intentionally left empty.
-			}
-			#endregion
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+        #region Event handlers 
+        /// <summary>
+        /// Выбор оператора сравнения.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="args">Аргументы события.</param>
+        private void OnComboOperator_SelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            // Method intentionally left empty.
+        }
+        #endregion
+    }
+    /**@}*/
 }
-//=====================================================================================================================

@@ -1,96 +1,72 @@
-﻿//=====================================================================================================================
-// Проект: Модуль платформы Windows
-// Раздел: Имплементация модуля базового ядра
-// Подраздел: Подсистема ViewModel для файловой системы
-// Автор: MagistrBYTE aka DanielDem <dementevds@gmail.com>
-//---------------------------------------------------------------------------------------------------------------------
-/** \file LotusFileSystemDataSelector.cs
-*		Селекторы для выбора ViewModel.
-*/
-//---------------------------------------------------------------------------------------------------------------------
-// Версия: 1.0.0.0
-// Последнее изменение от 30.04.2023
-//=====================================================================================================================
-using System;
 using System.Windows;
 using System.Windows.Controls;
-//---------------------------------------------------------------------------------------------------------------------
+
 using Lotus.Core;
-//=====================================================================================================================
-namespace Lotus
+
+namespace Lotus.Windows
 {
-	namespace Windows
-	{
-		//-------------------------------------------------------------------------------------------------------------
-		/** \addtogroup CoreFileSystem
-		*@{*/
-		//-------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Селектор шаблона данных для отображения иерархии элементов
-		/// </summary>
-		//-------------------------------------------------------------------------------------------------------------
-		public class CFileSystemEntityDataSelector : DataTemplateSelector
-		{
-			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
-			/// <summary>
-			/// Глобальный экземпляр селектора
-			/// </summary>
-			public static readonly CFileSystemEntityDataSelector Instance = (Application.Current.Resources["FileSystemEntityDataSelectorKey"] as CFileSystemEntityDataSelector)!;
-			#endregion
 
-			#region ======================================= ДАННЫЕ ====================================================
-			/// <summary>
-			/// Шаблон для представления диска
-			/// </summary>
-			public DataTemplate Disk { get; set; }
+    /** \addtogroup CoreFileSystem
+	*@{*/
+    /// <summary>
+    /// Селектор шаблона данных для отображения иерархии элементов.
+    /// </summary>
+    public class CFileSystemEntityDataSelector : DataTemplateSelector
+    {
+        #region Static fields
+        /// <summary>
+        /// Глобальный экземпляр селектора.
+        /// </summary>
+        public static readonly CFileSystemEntityDataSelector Instance = (Application.Current.Resources["FileSystemEntityDataSelectorKey"] as CFileSystemEntityDataSelector)!;
+        #endregion
 
-			/// <summary>
-			/// Шаблон для представления директории
-			/// </summary>
-			public DataTemplate Directory { get; set; }
+        #region Fields
+        /// <summary>
+        /// Шаблон для представления диска.
+        /// </summary>
+        public DataTemplate Disk { get; set; }
 
-			/// <summary>
-			/// Шаблон для представления файла
-			/// </summary>
-			public DataTemplate File { get; set; }
+        /// <summary>
+        /// Шаблон для представления директории.
+        /// </summary>
+        public DataTemplate Directory { get; set; }
 
-			/// <summary>
-			/// Шаблон для представления неизвестного узла
-			/// </summary>
-			public DataTemplate Unknow { get; set; }
-			#endregion
+        /// <summary>
+        /// Шаблон для представления файла.
+        /// </summary>
+        public DataTemplate File { get; set; }
 
-			#region Main methods
-			//---------------------------------------------------------------------------------------------------------
-			/// <summary>
-			/// Выбор шаблона привязки данных
-			/// </summary>
-			/// <param name="item">Объект</param>
-			/// <param name="container">Контейнер</param>
-			/// <returns>Нужный шаблон</returns>
-			//---------------------------------------------------------------------------------------------------------
-			public override DataTemplate SelectTemplate(object item, DependencyObject container)
-			{
-				if(item is ViewModelFSFileWin view_model)
-				{
-					if (view_model.Model is CFileSystemDirectory)
-					{
-						return Directory;
-					}
+        /// <summary>
+        /// Шаблон для представления неизвестного узла.
+        /// </summary>
+        public DataTemplate Unknow { get; set; }
+        #endregion
 
-					if (view_model.Model is CFileSystemFile)
-					{
-						return File;
-					}
-				}
+        #region Main methods
+        /// <summary>
+        /// Выбор шаблона привязки данных.
+        /// </summary>
+        /// <param name="item">Объект.</param>
+        /// <param name="container">Контейнер.</param>
+        /// <returns>Нужный шаблон.</returns>
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            if (item is ViewModelFSFileWin view_model)
+            {
+                if (view_model.Model is CFileSystemDirectory)
+                {
+                    return Directory;
+                }
 
-				return Unknow;
-			}
-			#endregion
-		}
-		//-------------------------------------------------------------------------------------------------------------
-		/**@}*/
-		//-------------------------------------------------------------------------------------------------------------
-	}
+                if (view_model.Model is CFileSystemFile)
+                {
+                    return File;
+                }
+            }
+
+            return Unknow;
+        }
+        #endregion
+    }
+    /**@}*/
 }
-//=====================================================================================================================

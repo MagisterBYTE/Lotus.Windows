@@ -1,72 +1,195 @@
-﻿<fluent:RibbonTabItem x:Class="Lotus.Windows.LotusRibbonTabImageEditor"
-		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:fluent="urn:fluent-ribbon"
-		mc:Ignorable="d" 
-		Header="Редактор изображения"
-		d:DesignHeight="450"
-		d:DesignWidth="800"
-		Name="ribbonTabImageEditor"
-		Loaded="OnRibbonTabImageEditor_Loaded">
+﻿<fluent:RibbonTabItem
+    x:Class="Lotus.Windows.LotusRibbonTabImageEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fluent="urn:fluent-ribbon"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="ribbonTabImageEditor"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Header="Редактор изображения"
+    Loaded="OnRibbonTabImageEditor_Loaded"
+    mc:Ignorable="d">
 
-	<!--Открытие и сохранение-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorOpen" Header="Открытие и сохранение" MinWidth="160">
-		<fluent:Button x:Name="buttonOpen" Header="Открыть" Size="Large" Click="OnButtonOpen_Click"
-					   ToolTip="Открытие изображения"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_open_32.png"/>
-		
-		<fluent:Button x:Name="buttonSave" Header="Сохранить" Size="Large" Click="OnButtonSave_Click"
-					   ToolTip="Сохранение изображения"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png"/>
+    <!--  Открытие и сохранение  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorOpen"
+        MinWidth="160"
+        Header="Открытие и сохранение">
+        <fluent:Button
+            x:Name="buttonOpen"
+            Click="OnButtonOpen_Click"
+            Header="Открыть"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_open_32.png"
+            Size="Large"
+            ToolTip="Открытие изображения" />
 
-		<fluent:Button x:Name="buttonSaveAs" Header="Сохранить как" Size="Large" Click="OnButtonSaveAs_Click"
-					   ToolTip="Сохранение изображения под новым именем"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_as_32.png"/>		
-		
-		<TextBlock Text="Кодировка файла" Margin="8 0 0 0"/>
-		
-		<fluent:ComboBox x:Name="comboBoxEncodings" 
-						 DisplayMemberPath="EncodingName" IsEditable="False">
-		</fluent:ComboBox>
+        <fluent:Button
+            x:Name="buttonSave"
+            Click="OnButtonSave_Click"
+            Header="Сохранить"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_32.png"
+            Size="Large"
+            ToolTip="Сохранение изображения" />
 
-		<fluent:Button x:Name="buttonOpenDefault" Header="Открыть в Notepad" Size="Large" Click="OnButtonOpenNotepad_Click"
-					   ToolTip="Открытие изображения в приложении по умолчанию"
-					   LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_import_32.png"/>
-	</fluent:RibbonGroupBox>
+        <fluent:Button
+            x:Name="buttonSaveAs"
+            Click="OnButtonSaveAs_Click"
+            Header="Сохранить как"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_save_as_32.png"
+            Size="Large"
+            ToolTip="Сохранение изображения под новым именем" />
 
-	<!--Параметры изображения-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorParams" Header="Параметры изображения" MinWidth="160">
-	<TextBlock MinWidth="120" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageWidth, Mode=OneWay, StringFormat='Ширина = \{0\}'}"/>
-		<TextBlock MinWidth="120" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageHeight, Mode=OneWay, StringFormat='Высота = \{0\}'}"/>
-		<TextBlock MinWidth="120" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageResolutionX, Mode=OneWay, StringFormat='DPI X = \{0\}'}"/>
-		<TextBlock MinWidth="120" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageResolutionY, Mode=OneWay, StringFormat='DPI Y = \{0\}'}"/>
-	</fluent:RibbonGroupBox>
+        <TextBlock
+            Margin="8,0,0,0"
+            Text="Кодировка файла" />
 
-	<!--Параметры цвета-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorParamsColor" Header="Параметры цвета" MinWidth="160">
-		<TextBlock MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageType, Mode=OneWay, StringFormat='Тип изображения = \{0\}'}"/>
-		<TextBlock MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageFormat, Mode=OneWay, StringFormat='Формат изображения = \{0\}'}"/>
-		<TextBlock MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageColorType, Mode=OneWay, StringFormat='Тип цвета = \{0\}'}"/>
+        <fluent:ComboBox
+            x:Name="comboBoxEncodings"
+            DisplayMemberPath="EncodingName"
+            IsEditable="False" />
 
-		<TextBlock FontFamily="Courier New" FontSize="12" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageRedMask, Mode=OneWay, StringFormat='Red Mask = 0x\{0:X8\}'}"/>
-		<TextBlock FontFamily="Courier New" FontSize="12" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageGreenMask, Mode=OneWay, StringFormat='Green Mask =0x\{0:X8\}'}"/>
-		<TextBlock FontFamily="Courier New" FontSize="12" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageBlueMask, Mode=OneWay, StringFormat='Blue Mask =0x\{0:X8\}'}"/>
-	</fluent:RibbonGroupBox>
+        <fluent:Button
+            x:Name="buttonOpenDefault"
+            Click="OnButtonOpenNotepad_Click"
+            Header="Открыть в Notepad"
+            LargeIcon="pack://application:,,,/Lotus.Windows;component/Resources/Icons/Document/Oxygen_document_import_32.png"
+            Size="Large"
+            ToolTip="Открытие изображения в приложении по умолчанию" />
+    </fluent:RibbonGroupBox>
 
-	<!--Параметры цвета-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorParamsColor1" Header="Параметры цвета" MinWidth="160">
-		<TextBlock FontFamily="Courier New" FontSize="14" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageRedMask, Mode=OneWay, StringFormat='Red Mask   = 0x\{0:X8\}'}"/>
-		<TextBlock FontFamily="Courier New" FontSize="14" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageGreenMask, Mode=OneWay, StringFormat='Green Mask = 0x\{0:X8\}'}"/>
-		<TextBlock FontFamily="Courier New" FontSize="14" MinWidth="140" Text="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.ImageBlueMask, Mode=OneWay, StringFormat='Blue Mask  = 0x\{0:X8\}'}"/>
-	</fluent:RibbonGroupBox>
+    <!--  Параметры изображения  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorParams"
+        MinWidth="160"
+        Header="Параметры изображения">
+        <TextBlock
+            MinWidth="120"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageWidth,
+                           Mode=OneWay,
+                           StringFormat='Ширина = \{0\}'}" />
+        <TextBlock
+            MinWidth="120"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageHeight,
+                           Mode=OneWay,
+                           StringFormat='Высота = \{0\}'}" />
+        <TextBlock
+            MinWidth="120"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageResolutionX,
+                           Mode=OneWay,
+                           StringFormat='DPI X = \{0\}'}" />
+        <TextBlock
+            MinWidth="120"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageResolutionY,
+                           Mode=OneWay,
+                           StringFormat='DPI Y = \{0\}'}" />
+    </fluent:RibbonGroupBox>
 
-	<!--Отображение-->
-	<fluent:RibbonGroupBox Name="ribbonTabImageEditorView" IsEnabled="{Binding ElementName=ribbonTabImageEditor, Path=ImageViewEditor.IsTransparentImage}" 
-						   Header="Отображение" MinWidth="160">
-		<fluent:RadioButton Name="radioChannelOriginal" IsChecked="True" Header="Оригинальное" Checked="OnRadioChannelImage_Checked"/>
-		<fluent:RadioButton Name="radioChannelAlpha" Header="Альфа канал" Checked="OnRadioChannelImage_Checked"/>
-		<fluent:RadioButton Name="radioChannelNoTransparent" Header="Без учета прозрачности" Checked="OnRadioChannelImage_Checked"/>
-	</fluent:RibbonGroupBox>
+    <!--  Параметры цвета  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorParamsColor"
+        MinWidth="160"
+        Header="Параметры цвета">
+        <TextBlock
+            MinWidth="140"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageType,
+                           Mode=OneWay,
+                           StringFormat='Тип изображения = \{0\}'}" />
+        <TextBlock
+            MinWidth="140"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageFormat,
+                           Mode=OneWay,
+                           StringFormat='Формат изображения = \{0\}'}" />
+        <TextBlock
+            MinWidth="140"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageColorType,
+                           Mode=OneWay,
+                           StringFormat='Тип цвета = \{0\}'}" />
+
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="12"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageRedMask,
+                           Mode=OneWay,
+                           StringFormat='Red Mask = 0x\{0:X8\}'}" />
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="12"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageGreenMask,
+                           Mode=OneWay,
+                           StringFormat='Green Mask =0x\{0:X8\}'}" />
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="12"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageBlueMask,
+                           Mode=OneWay,
+                           StringFormat='Blue Mask =0x\{0:X8\}'}" />
+    </fluent:RibbonGroupBox>
+
+    <!--  Параметры цвета  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorParamsColor1"
+        MinWidth="160"
+        Header="Параметры цвета">
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="14"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageRedMask,
+                           Mode=OneWay,
+                           StringFormat='Red Mask   = 0x\{0:X8\}'}" />
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="14"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageGreenMask,
+                           Mode=OneWay,
+                           StringFormat='Green Mask = 0x\{0:X8\}'}" />
+        <TextBlock
+            MinWidth="140"
+            FontFamily="Courier New"
+            FontSize="14"
+            Text="{Binding ElementName=ribbonTabImageEditor,
+                           Path=ImageViewEditor.ImageBlueMask,
+                           Mode=OneWay,
+                           StringFormat='Blue Mask  = 0x\{0:X8\}'}" />
+    </fluent:RibbonGroupBox>
+
+    <!--  Отображение  -->
+    <fluent:RibbonGroupBox
+        Name="ribbonTabImageEditorView"
+        MinWidth="160"
+        Header="Отображение"
+        IsEnabled="{Binding ElementName=ribbonTabImageEditor,
+                            Path=ImageViewEditor.IsTransparentImage}">
+        <fluent:RadioButton
+            Name="radioChannelOriginal"
+            Checked="OnRadioChannelImage_Checked"
+            Header="Оригинальное"
+            IsChecked="True" />
+        <fluent:RadioButton
+            Name="radioChannelAlpha"
+            Checked="OnRadioChannelImage_Checked"
+            Header="Альфа канал" />
+        <fluent:RadioButton
+            Name="radioChannelNoTransparent"
+            Checked="OnRadioChannelImage_Checked"
+            Header="Без учета прозрачности" />
+    </fluent:RibbonGroupBox>
 </fluent:RibbonTabItem>

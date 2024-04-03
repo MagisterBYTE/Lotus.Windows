@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:core="clr-namespace:Lotus.Core;assembly=Lotus.Core"
     xmlns:ctrl="clr-namespace:Lotus.Windows"
-    xmlns:local="clr-namespace:Lotus.Core">
+    xmlns:local="clr-namespace:Lotus.Windows">
     <ResourceDictionary.MergedDictionaries>
         <!--  Конверторы данных  -->
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ValueConverters.xaml" />
