@@ -64,11 +64,11 @@
 
   <ItemGroup>
     <PackageReference Include="AssimpNet" Version="5.0.0-beta1" />
-    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
-    <PackageReference Include="HelixToolkit" Version="2.24.0" />
-    <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.24.0" />
-    <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.24.0" />
-    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.24.0" />
+    <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
+    <PackageReference Include="HelixToolkit" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.25.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Publish'">

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
+    <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
   </ItemGroup>
 
   <ItemGroup>

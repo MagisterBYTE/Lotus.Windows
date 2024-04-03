@@ -37,7 +37,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fluent.Ribbon" Version="10.0.4" />
+    <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
     <PackageReference Include="FreeImage.Standard" Version="4.3.9-beta4" />
   </ItemGroup>
 
