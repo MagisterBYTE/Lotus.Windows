@@ -64,7 +64,7 @@ namespace Lotus
 		/// <param name="content">Контент</param>
 		/// <returns>Документ</returns>
 		//-------------------------------------------------------------------------------------------------------------
-		private LayoutDocument CreatePaneDocument(CFileSystemFile file, System.Object content)
+		private LayoutDocument CreatePaneDocument(CFileSystemFile file, object content)
 		{
 			// Создаем документ
 			var layout_document = new LayoutDocument();
@@ -135,7 +135,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindow_Loaded(Object sender, RoutedEventArgs args)
+		private void OnMainWindow_Loaded(object sender, RoutedEventArgs args)
 		{
 			// Главное окно приложения
 			// Создаём менеджер репозиториев
@@ -177,7 +177,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindow_Closing(Object sender, CancelEventArgs args)
+		private void OnMainWindow_Closing(object sender, CancelEventArgs args)
 		{
 		}
 
@@ -191,7 +191,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindowClose(Object sender, RoutedEventArgs args)
+		private void OnMainWindowClose(object sender, RoutedEventArgs args)
 		{
 			Close();
 		}
@@ -205,7 +205,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditSave(Object sender, RoutedEventArgs args)
+		private void OnEditSave(object sender, RoutedEventArgs args)
 		{
 			//XManager.SaveAllProject();
 			//XManager.SaveAllDocument();
@@ -218,7 +218,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditCopy(Object sender, RoutedEventArgs args)
+		private void OnEditCopy(object sender, RoutedEventArgs args)
 		{
 			//XManager.Editor.Copy();
 		}
@@ -230,7 +230,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditCut(Object sender, RoutedEventArgs args)
+		private void OnEditCut(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -242,7 +242,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditPaste(Object sender, RoutedEventArgs args)
+		private void OnEditPaste(object sender, RoutedEventArgs args)
 		{
 			//XManager.Editor.Paste();
 		}
@@ -254,7 +254,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditUndo(Object sender, RoutedEventArgs args)
+		private void OnEditUndo(object sender, RoutedEventArgs args)
 		{
 			//XManager.MementoManager.Undo();
 		}
@@ -266,7 +266,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditRedo(Object sender, RoutedEventArgs args)
+		private void OnEditRedo(object sender, RoutedEventArgs args)
 		{
 			//XManager.MementoManager.Redo();
 		}
@@ -278,7 +278,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnEditRefresh(Object sender, RoutedEventArgs args)
+		private void OnEditRefresh(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -292,7 +292,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileNew(Object sender, RoutedEventArgs args)
+		private void OnFileNew(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -304,7 +304,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileOpen(Object sender, RoutedEventArgs args)
+		private void OnFileOpen(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -316,7 +316,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileSave(Object sender, RoutedEventArgs args)
+		private void OnFileSave(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -328,7 +328,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileSaveAs(Object sender, RoutedEventArgs args)
+		private void OnFileSaveAs(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -340,7 +340,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFilePrint(Object sender, RoutedEventArgs args)
+		private void OnFilePrint(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -352,7 +352,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileExport(Object sender, RoutedEventArgs args)
+		private void OnFileExport(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -364,7 +364,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileClose(Object sender, RoutedEventArgs args)
+		private void OnFileClose(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -385,7 +385,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnDockingManager_ActiveContentChanged(Object sender, EventArgs args)
+		private void OnDockingManager_ActiveContentChanged(object sender, EventArgs args)
 		{
 			if(dockingManager.ActiveContent is LotusViewerText viewerText)
 			{
@@ -426,7 +426,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnButtonFileSystemSourceOpen_Click(Object sender, RoutedEventArgs args)
+		private void OnButtonFileSystemSourceOpen_Click(object sender, RoutedEventArgs args)
 		{
 			var folder_browser = new System.Windows.Forms.FolderBrowserDialog();
 			if(folder_browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -446,7 +446,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnButtonFileSystemSourceRefresh_Click(Object sender, RoutedEventArgs args)
+		private void OnButtonFileSystemSourceRefresh_Click(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -458,7 +458,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnComboFileSystemSource_SelectionChanged(Object sender, SelectionChangedEventArgs args)
+		private void OnComboFileSystemSource_SelectionChanged(object sender, SelectionChangedEventArgs args)
 		{
 			//busyIndicator.IsBusy = true;
 
@@ -585,7 +585,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerSelectedItemChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+		private void OnSolutionExplorerSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 		{
 			//inspectorProperties.SelectedObject = args.NewValue;
 
@@ -627,7 +627,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerItemDoubleClick(Object sender, MouseButtonEventArgs args)
+		private void OnSolutionExplorerItemDoubleClick(object sender, MouseButtonEventArgs args)
 		{
 			//IBaseDocument doc = solutionExplorer.SelectedItem as IBaseDocument;
 			//if (doc != null)
@@ -651,7 +651,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerDragStart(Object sender, DragEventArgs args)
+		private void OnSolutionExplorerDragStart(object sender, DragEventArgs args)
 		{
 		}
 
@@ -662,7 +662,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerDragOver(Object sender, DragEventArgs args)
+		private void OnSolutionExplorerDragOver(object sender, DragEventArgs args)
 		{
 		}
 
@@ -673,7 +673,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerDragEnter(Object sender, DragEventArgs args)
+		private void OnSolutionExplorerDragEnter(object sender, DragEventArgs args)
 		{
 		}
 
@@ -684,7 +684,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerDragLeave(Object sender, DragEventArgs args)
+		private void OnSolutionExplorerDragLeave(object sender, DragEventArgs args)
 		{
 		}
 
@@ -696,7 +696,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnSolutionExplorerDrop(Object sender, DragEventArgs args)
+		private void OnSolutionExplorerDrop(object sender, DragEventArgs args)
 		{
 		}
 		#endregion
@@ -709,7 +709,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnInspectorPropertiesObjectChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+		private void OnInspectorPropertiesObjectChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 		{
 		}
 
@@ -720,7 +720,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnInspectorPropertiesPrepareProperty(Object sender, PropertyItemEventArgs args)
+		private void OnInspectorPropertiesPrepareProperty(object sender, PropertyItemEventArgs args)
 		{
 
 		}
@@ -732,7 +732,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnInspectorPropertiesPropertyValueChanged(Object sender, PropertyValueChangedEventArgs args)
+		private void OnInspectorPropertiesPropertyValueChanged(object sender, PropertyValueChangedEventArgs args)
 		{
 
 		}
@@ -744,7 +744,7 @@ namespace Lotus
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnInspectorPropertiesPropertySelectedChanged(Object sender, RoutedPropertyChangedEventArgs<PropertyItemBase> args)
+		private void OnInspectorPropertiesPropertySelectedChanged(object sender, RoutedPropertyChangedEventArgs<PropertyItemBase> args)
 		{
 
 		}
@@ -762,7 +762,7 @@ namespace Lotus
 		/// </summary>
 		/// <param name="property_name">Имя свойства</param>
 		//-------------------------------------------------------------------------------------------------------------
-		public void NotifyPropertyChanged(String property_name = "")
+		public void NotifyPropertyChanged(string property_name = "")
 		{
 			if (PropertyChanged != null)
 			{

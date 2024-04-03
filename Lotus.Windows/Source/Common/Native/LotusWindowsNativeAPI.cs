@@ -39,7 +39,7 @@ namespace Lotus
 #pragma warning restore S2223 // Non-constant static fields should not be visible
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Удаление графического объекта GDI
@@ -48,7 +48,7 @@ namespace Lotus
 			/// <returns>Статус операции</returns>
 			//---------------------------------------------------------------------------------------------------------
 			[DllImport("gdi32.dll")]
-			public static extern Boolean DeleteObject(IntPtr h_object);
+			public static extern bool DeleteObject(IntPtr h_object);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -59,7 +59,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			[DllImport("user32.dll")]
 			[return: MarshalAs(UnmanagedType.Bool)]
-			public static extern Boolean GetCursorPos(ref Win32Point point);
+			public static extern bool GetCursorPos(ref Win32Point point);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -78,7 +78,7 @@ namespace Lotus
 			/// <returns>Статус операции</returns>
 			//---------------------------------------------------------------------------------------------------------
 			[DllImport("user32.dll")]
-			public static extern Boolean DestroyIcon(IntPtr handle);
+			public static extern bool DestroyIcon(IntPtr handle);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -88,7 +88,7 @@ namespace Lotus
 			/// <returns>Код ошибки</returns>
 			[DllImport("ole32.dll")]
 			//---------------------------------------------------------------------------------------------------------
-			public static extern UInt32 OleInitialize([In] IntPtr reserved);
+			public static extern uint OleInitialize([In] IntPtr reserved);
 			#endregion
 
 			#region ======================================= МЕТОДЫ SHELL ==============================================
@@ -104,8 +104,8 @@ namespace Lotus
 			/// <returns></returns>
 			//---------------------------------------------------------------------------------------------------------
 			[DllImport("Shell32.dll")]
-			public static extern IntPtr SHGetFileInfo(String path, UInt32 file_attributes, ref ShellFileInfo shell_file_info,
-				UInt32 file_info_size, UInt32 flags);
+			public static extern IntPtr SHGetFileInfo(string path, uint file_attributes, ref ShellFileInfo shell_file_info,
+				uint file_info_size, uint flags);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -120,8 +120,8 @@ namespace Lotus
 			/// <returns>Дескриптор приложения</returns>
 			//---------------------------------------------------------------------------------------------------------
 			[DllImport("shell32.dll")]
-			public static extern IntPtr ShellExecute(IntPtr hwnd, String operation, String file_name, String parameters,
-				String directory, TShowCommands show_commands);
+			public static extern IntPtr ShellExecute(IntPtr hwnd, string operation, string file_name, string parameters,
+				string directory, TShowCommands show_commands);
 			#endregion
 		}
 		//-------------------------------------------------------------------------------------------------------------

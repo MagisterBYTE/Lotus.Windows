@@ -79,7 +79,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnComboOperator_SelectionChanged(Object sender, SelectionChangedEventArgs args)
+			private void OnComboOperator_SelectionChanged(object sender, SelectionChangedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}

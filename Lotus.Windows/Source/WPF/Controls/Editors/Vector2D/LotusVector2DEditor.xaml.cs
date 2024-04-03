@@ -86,7 +86,7 @@ namespace Lotus
 			/// Шаг приращения
 			/// </summary>
 			public static readonly DependencyProperty StepProperty = DependencyProperty.Register(nameof(Step), 
-				typeof(Double),
+				typeof(double),
 				typeof(LotusVector2DEditor), 
 				new FrameworkPropertyMetadata(1.0));
 
@@ -103,7 +103,7 @@ namespace Lotus
 			/// Формат отображения значения
 			/// </summary>
 			public static readonly DependencyProperty FormatValueProperty = DependencyProperty.Register(nameof(FormatValue),
-				typeof(String),
+				typeof(string),
 				typeof(LotusVector2DEditor), 
 				new FrameworkPropertyMetadata("", Format_Changed));
 
@@ -111,7 +111,7 @@ namespace Lotus
 			/// Формат отображения значения по умолчанию
 			/// </summary>
 			public static readonly DependencyProperty FormatValueDefaultProperty = DependencyProperty.Register(nameof(FormatValueDefault), 
-				typeof(String),
+				typeof(string),
 				typeof(LotusVector2DEditor), 
 				new FrameworkPropertyMetadata("{0:0}", FormatValueDefault_Changed));
 
@@ -119,7 +119,7 @@ namespace Lotus
 			/// Режим только для чтения
 			/// </summary>
 			public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), 
-				typeof(Boolean),
+				typeof(bool),
 				typeof(LotusVector2DEditor), new FrameworkPropertyMetadata(false,
 					FrameworkPropertyMetadataOptions.AffectsArrange |
 					FrameworkPropertyMetadataOptions.AffectsRender, 
@@ -218,7 +218,7 @@ namespace Lotus
 			private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
 			{
 				var vector_editor = (LotusVector2DEditor)sender;
-				var new_read_only = (Boolean)args.NewValue;
+				var new_read_only = (bool)args.NewValue;
 				if (new_read_only)
 				{
 					vector_editor.miClear.IsEnabled = false;
@@ -230,7 +230,7 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal PropertyItem _propertyItem;
-			protected internal String _formatRadix;
+			protected internal string _formatRadix;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -264,9 +264,9 @@ namespace Lotus
 			/// <summary>
 			/// Шаг приращения
 			/// </summary>
-			public Double Step
+			public double Step
 			{
-				get { return (Double)GetValue(StepProperty); }
+				get { return (double)GetValue(StepProperty); }
 				set { SetValue(StepProperty, value); }
 			}
 
@@ -282,27 +282,27 @@ namespace Lotus
 			/// <summary>
 			/// Формат отображения значения
 			/// </summary>
-			public String FormatValue
+			public string FormatValue
 			{
-				get { return (String)GetValue(FormatValueProperty); }
+				get { return (string)GetValue(FormatValueProperty); }
 				set { SetValue(FormatValueProperty, value); }
 			}
 
 			/// <summary>
 			/// Формат отображения значения по умолчанию
 			/// </summary>
-			public String FormatValueDefault
+			public string FormatValueDefault
 			{
-				get { return (String)GetValue(FormatValueDefaultProperty); }
+				get { return (string)GetValue(FormatValueDefaultProperty); }
 				set { SetValue(FormatValueDefaultProperty, value); }
 			}
 
 			/// <summary>
 			/// Режим только для чтения
 			/// </summary>
-			public Boolean IsReadOnly
+			public bool IsReadOnly
 			{
-				get { return (Boolean)GetValue(IsReadOnlyProperty); }
+				get { return (bool)GetValue(IsReadOnlyProperty); }
 				set { SetValue(IsReadOnlyProperty, value); }
 			}
 
@@ -356,7 +356,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Режим отображения величины
@@ -382,7 +382,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnSpinnerX_ValueChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnSpinnerX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				if (spinnerX.Value != null)
 				{
@@ -397,7 +397,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnSpinnerY_ValueChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnSpinnerY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				if (spinnerY.Value != null)
 				{
@@ -412,7 +412,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonMenu_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonMenu_Click(object sender, RoutedEventArgs args)
 			{
 				ButtonMenu.ContextMenu.IsOpen = true;
 				if (_copyValue != Vector2D.Zero)
@@ -428,7 +428,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixZero_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixZero_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F0";
 				spinnerX.FormatString = _formatRadix;
@@ -442,7 +442,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixOne_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixOne_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F1";
 				spinnerX.FormatString = _formatRadix;
@@ -456,7 +456,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixTwo_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixTwo_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F2";
 				spinnerX.FormatString = _formatRadix;
@@ -470,7 +470,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemCopyVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemCopyVector_Click(object sender, RoutedEventArgs args)
 			{
 				_copyValue = new Vector2D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault());
 				if (_copyValue != Vector2D.Zero)
@@ -486,7 +486,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemPasteVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemPasteVector_Click(object sender, RoutedEventArgs args)
 			{
 				spinnerX.Value = _copyValue.X;
 				spinnerY.Value = _copyValue.Y;
@@ -499,7 +499,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemSetDefaultVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
 			{
 				if (_propertyItem != null)
 				{
@@ -529,7 +529,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemClearVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemClearVector_Click(object sender, RoutedEventArgs args)
 			{
 				spinnerX.Value = 0;
 				spinnerY.Value = 0;

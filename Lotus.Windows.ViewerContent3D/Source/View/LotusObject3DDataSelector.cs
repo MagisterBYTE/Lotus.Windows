@@ -26,6 +26,8 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Object3D;
+using Material = Lotus.Object3D.Material;
+using Model3D = Lotus.Object3D.Model3D;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -83,7 +85,7 @@ namespace Lotus
 			public DataTemplate MaterialSet { get; set; }
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Выбор шаблона привязки данных
@@ -92,51 +94,51 @@ namespace Lotus
 			/// <param name="container">Контейнер</param>
 			/// <returns>Нужный шаблон</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
+			public override DataTemplate SelectTemplate(object item, DependencyObject container)
 			{
-				var scene = item as CScene3D;
+				var scene = item as Scene3D;
 				if (scene != null)
 				{
 					return Scene;
 				}
 
-				var node = item as CNode3D;
+				var node = item as Node3D;
 				if (node != null)
 				{
 					return Node;
 				}
 
-				var model = item as CModel3D;
+				var model = item as Model3D;
 				if (model != null)
 				{
 					return Model;
 				}
 
-				var mesh = item as CMesh3Df;
+				var mesh = item as Mesh3Df;
 				if (mesh != null)
 				{
 					return Mesh;
 				}
 
-				var mesh_set = item as CMeshSet;
+				var mesh_set = item as MeshSet;
 				if (mesh_set != null)
 				{
 					return MeshSet;
 				}
 
-				var material = item as CMaterial;
+				var material = item as Material;
 				if (material != null)
 				{
 					return Material;
 				}
 
-				var texture_slot = item as CTextureSlot;
+				var texture_slot = item as TextureSlot;
 				if (texture_slot != null)
 				{
 					return TextureSlot;
 				}
 
-				var material_set = item as CMaterialSet;
+				var material_set = item as MaterialSet;
 				if (material_set != null)
 				{
 					return MaterialSet;

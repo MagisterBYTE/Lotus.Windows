@@ -88,7 +88,7 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal PropertyItem _propertyItem;
-			protected internal String _formatRadix;
+			protected internal string _formatRadix;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -150,7 +150,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnSpinnerX_ValueChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnSpinnerX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				if (spinnerX.Value != null)
 				{
@@ -165,7 +165,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnSpinnerY_ValueChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnSpinnerY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				if (spinnerY.Value != null)
 				{
@@ -180,7 +180,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnSpinnerZ_ValueChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnSpinnerZ_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				if (spinnerZ.Value != null)
 				{
@@ -195,7 +195,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonMenu_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonMenu_Click(object sender, RoutedEventArgs args)
 			{
 				ButtonMenu.ContextMenu.IsOpen = true;
 				if (_copyValue != Vector3D.Zero)
@@ -211,7 +211,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixZero_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixZero_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F0";
 				spinnerX.FormatString = _formatRadix;
@@ -226,7 +226,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixOne_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixOne_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F1";
 				spinnerX.FormatString = _formatRadix;
@@ -241,7 +241,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadixTwo_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadixTwo_Checked(object sender, RoutedEventArgs args)
 			{
 				_formatRadix = "F2";
 				spinnerX.FormatString = _formatRadix;
@@ -256,7 +256,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemCopyVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemCopyVector_Click(object sender, RoutedEventArgs args)
 			{
 				_copyValue = new Vector3D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault(),
 					spinnerZ.Value.GetValueOrDefault());
@@ -273,7 +273,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemPasteVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemPasteVector_Click(object sender, RoutedEventArgs args)
 			{
 				spinnerX.Value = _copyValue.X;
 				spinnerY.Value = _copyValue.Y;
@@ -287,7 +287,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemSetDefaultVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
 			{
 				if(_propertyItem != null)
 				{
@@ -317,7 +317,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemClearVector_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemClearVector_Click(object sender, RoutedEventArgs args)
 			{
 				spinnerX.Value = 0;
 				spinnerY.Value = 0;

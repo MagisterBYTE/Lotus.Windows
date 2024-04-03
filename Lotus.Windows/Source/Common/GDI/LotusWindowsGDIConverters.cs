@@ -45,7 +45,7 @@ namespace Lotus
 				var list = new Point[values.Count];
 				for (var i = 0; i < values.Count; i++)
 				{
-					list[i] = new Point((Int32)values[i].X, (Int32)values[i].Y);
+					list[i] = new Point((int)values[i].X, (int)values[i].Y);
 				}
 
 				return list;

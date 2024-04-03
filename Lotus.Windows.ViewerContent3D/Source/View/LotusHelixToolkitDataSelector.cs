@@ -75,7 +75,7 @@ namespace Lotus
 			public DataTemplate Unknow { get; set; }
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Выбор шаблона привязки данных
@@ -84,7 +84,7 @@ namespace Lotus
 			/// <param name="container">Контейнер</param>
 			/// <returns>Нужный шаблон</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
+			public override DataTemplate SelectTemplate(object item, DependencyObject container)
 			{
 				var node = item as GroupNode;
 				if (node != null)

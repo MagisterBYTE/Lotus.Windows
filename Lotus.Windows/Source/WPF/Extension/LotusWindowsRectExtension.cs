@@ -37,9 +37,9 @@ namespace Lotus
 			/// <param name="rect">Прямоугольник</param>
 			/// <returns>Строка данных</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String SerializeToString(this Rect rect)
+			public static string SerializeToString(this Rect rect)
 			{
-				return String.Format("{0};{1};{2};{3}", rect.X, rect.Y, rect.Width, rect.Height);
+				return string.Format("{0};{1};{2};{3}", rect.X, rect.Y, rect.Width, rect.Height);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ namespace Lotus
 			/// <param name="data">Строка данных</param>
 			/// <returns>Прямоугольник</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Rect DeserializeFromString(String data)
+			public static Rect DeserializeFromString(string data)
 			{
 				var rect = new Rect();
 				var rect_data = data.Split(';');
@@ -68,7 +68,7 @@ namespace Lotus
 			/// <param name="point">Проверяемая точка</param>
 			/// <returns>Статус попадания</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean Contains(this Rect rect, Lotus.Maths.Vector2Df point)
+			public static bool Contains(this Rect rect, Lotus.Maths.Vector2Df point)
 			{
 				return rect.X <= point.X && rect.X + rect.Width >= point.X && rect.Y <= point.Y && rect.Y + rect.Height >= point.Y;
 			}
@@ -81,7 +81,7 @@ namespace Lotus
 			/// <param name="point">Проверяемая точка</param>
 			/// <returns>Статус попадания</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean Contains(this Rect rect, Lotus.Maths.Vector2D point)
+			public static bool Contains(this Rect rect, Lotus.Maths.Vector2D point)
 			{
 				return rect.X <= point.X && rect.X + rect.Width >= point.X && rect.Y <= point.Y && rect.Y + rect.Height >= point.Y;
 			}

@@ -33,7 +33,7 @@ namespace Lotus
 			/// <summary>
 			/// Список всех команд по ключу имени команды
 			/// </summary>
-			public static readonly Dictionary<String, CommandBinding> CommandBindings = new Dictionary<String, CommandBinding>();
+			public static readonly Dictionary<string, CommandBinding> CommandBindings = new Dictionary<string, CommandBinding>();
 			#endregion
 
 			#region ======================================= КОМАНДЫ РАБОТЫ С ФАЙЛОМ ===================================

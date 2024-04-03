@@ -38,7 +38,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 			
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null) 
@@ -82,7 +82,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -182,7 +182,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -192,7 +192,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -382,7 +382,7 @@ namespace Lotus.App.GeneralUtility
 				value = "Reciprocal" + value;
 			}
 
-			if (Char.IsAsciiDigit(value[0]))
+			if (char.IsAsciiDigit(value[0]))
 			{
 				char first = value[0];
 				value = value.Substring(1);
@@ -807,7 +807,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -851,7 +851,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -977,7 +977,7 @@ namespace Lotus.App.GeneralUtility
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new (nameof({codeType}), {serviceCode}, {codeType}, {color})");
 
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					codeCSharp.Add($"ShortName = \"{shortName}\",");
@@ -986,7 +986,7 @@ namespace Lotus.App.GeneralUtility
 					codeCSharp.Add($"SymbolEnum = {symbolType}");
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 
 
 					codeCSharp.AddEmptyLine();
@@ -995,7 +995,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -1005,7 +1005,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -1083,7 +1083,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -1127,7 +1127,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -1229,7 +1229,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -1239,7 +1239,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -1318,7 +1318,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -1362,7 +1362,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -1460,7 +1460,7 @@ namespace Lotus.App.GeneralUtility
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new(nameof({codeType}), {serviceCode}, {codeType}, {color})");
 
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					codeCSharp.AddComment($"Extension: bmp");
@@ -1471,7 +1471,7 @@ namespace Lotus.App.GeneralUtility
 					codeCSharp.Add($"TextureData = Convert.FromBase64String(\"{image}\")");
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 
 					codeCSharp.AddEmptyLine();
 				}
@@ -1479,7 +1479,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -1489,7 +1489,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -1587,7 +1587,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -1634,7 +1634,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -1762,7 +1762,7 @@ namespace Lotus.App.GeneralUtility
 					types.Add(enumName);
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new (nameof({codeType}), {serviceCode}, {codeType})");
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					codeCSharp.Add($"ShortName = \"{aliaseName}\",");
@@ -1771,7 +1771,7 @@ namespace Lotus.App.GeneralUtility
 					codeCSharp.Add($"GroupLoggingTypeEnum = {groupLogginType},");
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 
 					codeCSharp.AddEmptyLine();
 				}
@@ -1779,7 +1779,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -1789,7 +1789,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -1869,7 +1869,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -1946,7 +1946,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -2051,7 +2051,7 @@ namespace Lotus.App.GeneralUtility
 					codeCSharp.AddCommentSummary(false, firstTypeCommnent, false);
 				}
 				codeCSharp.Add($"public static readonly {GetTypeName()} {firstType} = new (nameof({firstType}), -1, {GetEnumName()}.{firstType})");
-				codeCSharp.AddOpenBlock();
+				codeCSharp.AddBlockOpen();
 				codeCSharp.CurrentIndent++;
 				codeCSharp.Add($"A = 0.0f,");
 				codeCSharp.Add($"B = 0.0f,");
@@ -2059,7 +2059,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add($"BaseUnitTypeEnum = UnitTypeEnum.Unspecified,");
 				codeCSharp.Add($"GroupUnitTypeEnum = GroupUnitTypeEnum.Unspecified");
 				codeCSharp.CurrentIndent--;
-				codeCSharp.AddCloseBlock(";");
+				codeCSharp.AddBlockClose(";");
 				codeCSharp.AddEmptyLine();
 			}
 
@@ -2103,7 +2103,7 @@ namespace Lotus.App.GeneralUtility
 					types.Add(enumName);
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new (nameof({codeType}), {serviceCode}, {codeType})");
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 					if (coefA is not null && coefB is not null)
 					{
@@ -2125,14 +2125,14 @@ namespace Lotus.App.GeneralUtility
 					codeCSharp.Add($"GroupUnitTypeEnum = {groupUnitType}");
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 					codeCSharp.AddEmptyLine();
 				}
 			}
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -2142,7 +2142,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -2222,7 +2222,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -2266,7 +2266,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -2364,11 +2364,11 @@ namespace Lotus.App.GeneralUtility
 					types.Add(enumName);
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new (nameof({codeType}), {serviceCode}, {codeType})");
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					codeCSharp.Add("UnitTypes = new UnitType[]");
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					var list = Groups[enumName];
@@ -2378,10 +2378,10 @@ namespace Lotus.App.GeneralUtility
 					}
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock();
+					codeCSharp.AddBlockClose();
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 
 					codeCSharp.AddEmptyLine();
 				}
@@ -2389,7 +2389,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -2399,7 +2399,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType
@@ -2480,7 +2480,7 @@ namespace Lotus.App.GeneralUtility
 			codeCSharp.AddCommentSummary(false, namePrefx + nameType, false);
 
 			codeCSharp.Add($"public enum {GetEnumName()}");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			if (firstEnum != null)
@@ -2524,7 +2524,7 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock();
+			codeCSharp.AddBlockClose();
 
 			codeCSharp.CurrentIndent--;
 			codeCSharp.AddNamespaceClose();
@@ -2623,11 +2623,11 @@ namespace Lotus.App.GeneralUtility
 
 					codeCSharp.Add($"public static readonly {GetTypeName()} {enumName} = new (nameof({codeType}), {serviceCode}, {codeType})");
 
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					codeCSharp.Add("LoggingTypes = new LoggingType[]");
-					codeCSharp.AddOpenBlock();
+					codeCSharp.AddBlockOpen();
 					codeCSharp.CurrentIndent++;
 
 					var list = Groups[enumName];
@@ -2637,10 +2637,10 @@ namespace Lotus.App.GeneralUtility
 					}
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock();
+					codeCSharp.AddBlockClose();
 
 					codeCSharp.CurrentIndent--;
-					codeCSharp.AddCloseBlock(";");
+					codeCSharp.AddBlockClose(";");
 
 					codeCSharp.AddEmptyLine();
 				}
@@ -2648,7 +2648,7 @@ namespace Lotus.App.GeneralUtility
 
 			codeCSharp.AddCommentSummary(false, "Список " + CorrectNameForList(nameType), false);
 			codeCSharp.Add($"public static readonly {GetTypeName()}[] All = new {GetTypeName()}[]");
-			codeCSharp.AddOpenBlock();
+			codeCSharp.AddBlockOpen();
 			codeCSharp.CurrentIndent++;
 
 			for (int i = 0; i < types.Count; i++)
@@ -2658,7 +2658,7 @@ namespace Lotus.App.GeneralUtility
 				codeCSharp.Add(text);
 			}
 			codeCSharp.CurrentIndent--;
-			codeCSharp.AddCloseBlock(";");
+			codeCSharp.AddBlockClose(";");
 
 			//
 			// GetByType

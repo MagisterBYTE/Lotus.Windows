@@ -46,7 +46,7 @@ namespace Lotus
 						if (full_name.IsExists())
 						{
 							_iconSource = Windows.XWindowsLoaderBitmap.GetIconFromFileTypeFromShell(full_name,
-								(UInt32)(Windows.TShellAttribute.Icon | Windows.TShellAttribute.SmallIcon));
+								(uint)(Windows.TShellAttribute.Icon | Windows.TShellAttribute.SmallIcon));
 
 							if (_iconSource == null)
 							{
@@ -78,7 +78,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Установка контекстного меню
@@ -108,7 +108,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="contextMenu">Контекстное меню</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void OpenContextMenu(System.Object contextMenu)
+			public override void OpenContextMenu(object contextMenu)
 			{
 				if (contextMenu is System.Windows.Controls.ContextMenu window_context_menu)
 				{
@@ -143,7 +143,7 @@ namespace Lotus
 			/// </summary>
 			//---------------------------------------------------------------------------------------------------------
 			public CollectionViewModelFSWin()
-				: base(String.Empty)
+				: base(string.Empty)
 			{
 
 			}
@@ -154,7 +154,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="name">Имя коллекции</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CollectionViewModelFSWin(String name)
+			public CollectionViewModelFSWin(string name)
 				: base(name)
 			{
 			}
@@ -166,7 +166,7 @@ namespace Lotus
 			/// <param name="name">Имя коллекции</param>
 			/// <param name="source">Источник данных</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CollectionViewModelFSWin(String name, ILotusFileSystemEntity source)
+			public CollectionViewModelFSWin(string name, ILotusFileSystemEntity source)
 				: base(name, source)
 			{
 			}
@@ -181,7 +181,7 @@ namespace Lotus
 			/// <param name="parent">Родительский элемент ViewModel</param>
 			/// <returns>ViewModel</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override ILotusViewModelHierarchy CreateViewModelHierarchy(System.Object model, ILotusViewModelHierarchy? parent)
+			public override ILotusViewModelHierarchy CreateViewModelHierarchy(object model, ILotusViewModelHierarchy? parent)
 			{
 				if (model is CFileSystemFile file)
 				{

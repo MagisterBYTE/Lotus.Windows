@@ -44,7 +44,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект тип <see cref="Brush"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if(value is Color color)
 				{
@@ -72,7 +72,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект тип <see cref="Color"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}
@@ -98,7 +98,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект тип <see cref="TColor"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is Color color)
 				{
@@ -114,7 +114,7 @@ namespace Lotus
 					}
 				}
 
-				return TColor.White;
+				return XColors.White;
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект тип <see cref="Color"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is TColor color)
 				{

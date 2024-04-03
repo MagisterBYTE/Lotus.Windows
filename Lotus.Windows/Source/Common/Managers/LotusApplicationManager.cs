@@ -39,18 +39,18 @@ namespace Lotus
 		{
 			#region ======================================= ДАННЫЕ ====================================================
 			// Доступ к ресурсам
-			private static String _directoryData = "Data";
-			private static String _directorySettings = "Settings";
-			private static String _directoryPlugins = "Plugins";
-			private static String _projectName;
-			private static String _currentDirectory;
+			private static string _directoryData = "Data";
+			private static string _directorySettings = "Settings";
+			private static string _directoryPlugins = "Plugins";
+			private static string _projectName;
+			private static string _currentDirectory;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Имя директории для доступа к основным данным
 			/// </summary>
-			public static String DirectoryData
+			public static string DirectoryData
 			{
 				get { return _directoryData; }
 				set
@@ -62,7 +62,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя директории для доступа к настройкам
 			/// </summary>
-			public static String DirectorySettings
+			public static string DirectorySettings
 			{
 				get { return _directorySettings; }
 				set
@@ -74,7 +74,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя директории для доступа к плагинам
 			/// </summary>
-			public static String DirectoryPlugins
+			public static string DirectoryPlugins
 			{
 				get { return _directoryPlugins; }
 				set
@@ -86,11 +86,11 @@ namespace Lotus
 			/// <summary>
 			/// Имя проекта/приложения
 			/// </summary>
-			public static String ProjectName
+			public static string ProjectName
 			{
 				get
 				{
-					if(String.IsNullOrEmpty(_projectName))
+					if(string.IsNullOrEmpty(_projectName))
 					{
 						_projectName = (System.Reflection.Assembly.GetEntryAssembly()!.GetName().Name)!;
 					}
@@ -106,9 +106,9 @@ namespace Lotus
 			/// </summary>
 			/// <returns>Путь</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetPath()
+			public static string GetPath()
 			{
-				if (String.IsNullOrEmpty(_currentDirectory))
+				if (string.IsNullOrEmpty(_currentDirectory))
 				{
 					// Получаем путь
 					var path = Environment.CurrentDirectory;
@@ -134,7 +134,7 @@ namespace Lotus
 			/// </summary>
 			/// <returns>Полный путь для директории данных проекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetPathDirectoryData()
+			public static string GetPathDirectoryData()
 			{
 				return Path.Combine(GetPath(), _directoryData);
 			}
@@ -146,7 +146,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <returns>Полный путь к файлу данных проекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetPathFileData(String file_name)
+			public static string GetPathFileData(string file_name)
 			{
 				var path = Path.Combine(GetPath(), _directoryData, file_name);
 				path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);

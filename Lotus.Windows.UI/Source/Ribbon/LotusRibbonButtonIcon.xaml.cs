@@ -56,7 +56,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonButton_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonButton_Loaded(object sender, RoutedEventArgs args)
 			{
 				if(Command != null)
 				{

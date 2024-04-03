@@ -99,55 +99,55 @@ namespace Lotus
 			// Definitions for dependency properties.
 			//
 			public static readonly DependencyProperty ContentScaleProperty =
-					DependencyProperty.Register("ContentScale", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentScale", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(1.0, ContentScale_PropertyChanged, ContentScale_Coerce));
 
 			public static readonly DependencyProperty MinContentScaleProperty =
-					DependencyProperty.Register("MinContentScale", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("MinContentScale", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.01, MinOrMaxContentScale_PropertyChanged));
 
 			public static readonly DependencyProperty MaxContentScaleProperty =
-					DependencyProperty.Register("MaxContentScale", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("MaxContentScale", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(10.0, MinOrMaxContentScale_PropertyChanged));
 
 			public static readonly DependencyProperty ContentOffsetXProperty =
-					DependencyProperty.Register("ContentOffsetX", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentOffsetX", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0, ContentOffsetX_PropertyChanged, ContentOffsetX_Coerce));
 
 			public static readonly DependencyProperty ContentOffsetYProperty =
-					DependencyProperty.Register("ContentOffsetY", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentOffsetY", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0, ContentOffsetY_PropertyChanged, ContentOffsetY_Coerce));
 
 			public static readonly DependencyProperty AnimationDurationProperty =
-					DependencyProperty.Register("AnimationDuration", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("AnimationDuration", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.4));
 
 			public static readonly DependencyProperty ContentZoomFocusXProperty =
-					DependencyProperty.Register("ContentZoomFocusX", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentZoomFocusX", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty ContentZoomFocusYProperty =
-					DependencyProperty.Register("ContentZoomFocusY", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentZoomFocusY", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty ViewportZoomFocusXProperty =
-					DependencyProperty.Register("ViewportZoomFocusX", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ViewportZoomFocusX", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty ViewportZoomFocusYProperty =
-					DependencyProperty.Register("ViewportZoomFocusY", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ViewportZoomFocusY", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty ContentViewportWidthProperty =
-					DependencyProperty.Register("ContentViewportWidth", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentViewportWidth", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty ContentViewportHeightProperty =
-					DependencyProperty.Register("ContentViewportHeight", typeof(Double), typeof(LotusContentViewer),
+					DependencyProperty.Register("ContentViewportHeight", typeof(double), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(0.0));
 
 			public static readonly DependencyProperty IsMouseWheelScrollingEnabledProperty =
-					DependencyProperty.Register("IsMouseWheelScrollingEnabled", typeof(Boolean), typeof(LotusContentViewer),
+					DependencyProperty.Register("IsMouseWheelScrollingEnabled", typeof(bool), typeof(LotusContentViewer),
 												new FrameworkPropertyMetadata(false));
 			#endregion
 
@@ -241,10 +241,10 @@ namespace Lotus
 			/// <param name="base_value">Базовое значение</param>
 			/// <returns>Скорректированное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private static Object ContentScale_Coerce(DependencyObject obj, Object base_value)
+			private static object ContentScale_Coerce(DependencyObject obj, object base_value)
 			{
 				var c = (LotusContentViewer)obj;
-				var value = (Double)base_value;
+				var value = (double)base_value;
 				value = Math.Min(Math.Max(value, c.MinContentScale), c.MaxContentScale);
 				return value;
 			}
@@ -311,10 +311,10 @@ namespace Lotus
 			/// <param name="base_value">Базовое значение</param>
 			/// <returns>Скорректированное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private static Object ContentOffsetX_Coerce(DependencyObject obj, Object base_value)
+			private static object ContentOffsetX_Coerce(DependencyObject obj, object base_value)
 			{
 				var c = (LotusContentViewer)obj;
-				var value = (Double)base_value;
+				var value = (double)base_value;
 				var min_offset_x = 0.0;
 				var max_offset_x = Math.Max(0.0, c.mUnScaledExtent.Width - c.mConstrainedContentViewportWidth);
 				value = Math.Min(Math.Max(value, min_offset_x), max_offset_x);
@@ -370,10 +370,10 @@ namespace Lotus
 			/// <param name="base_value">Базовое значение</param>
 			/// <returns>Скорректированное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private static Object ContentOffsetY_Coerce(DependencyObject obj, Object base_value)
+			private static object ContentOffsetY_Coerce(DependencyObject obj, object base_value)
 			{
 				var c = (LotusContentViewer)obj;
-				var value = (Double)base_value;
+				var value = (double)base_value;
 				var min_offset_y = 0.0;
 				var max_offset_y = Math.Max(0.0, c.mUnScaledExtent.Height - c.mConstrainedContentViewportHeight);
 				value = Math.Min(Math.Max(value, min_offset_y), max_offset_y);
@@ -389,41 +389,41 @@ namespace Lotus
 			protected internal ScaleTransform mContentScaleTransform = null;
 			protected internal TranslateTransform mContentOffsetTransform = null;
 			protected internal TransformGroup mContentTotalTransform = null;
-			protected internal Boolean mEnableContentOffsetUpdateFromScale = false;
-			protected internal Boolean mDisableScrollOffsetSync = false;
-			protected internal Boolean mDisableContentFocusSync = false;
-			protected internal Double mConstrainedContentViewportWidth = 0.0;
-			protected internal Double mConstrainedContentViewportHeight = 0.0;
+			protected internal bool mEnableContentOffsetUpdateFromScale = false;
+			protected internal bool mDisableScrollOffsetSync = false;
+			protected internal bool mDisableContentFocusSync = false;
+			protected internal double mConstrainedContentViewportWidth = 0.0;
+			protected internal double mConstrainedContentViewportHeight = 0.0;
 
 			// Поддержка скроллинга
 			protected internal ScrollViewer mScrollOwner = null;
-			protected internal Boolean mCanVerticallyScroll = false;
-			protected internal Boolean mCanHorizontallyScroll = false;
+			protected internal bool mCanVerticallyScroll = false;
+			protected internal bool mCanHorizontallyScroll = false;
 			protected internal Size mUnScaledExtent = new Size(0, 0);
 			protected internal Size mViewportScroll = new Size(0, 0);
 
 			// Операции
 			protected internal TViewHandling mOperationCurrent;  // Текущая операция
 			protected internal TViewHandling mOperationPreview;  // Предыдущая операция
-			protected internal String mOperationDesc; // Описание операции
+			protected internal string mOperationDesc; // Описание операции
 
 			// Прямоугольник увеличение области канвы
-			protected internal Boolean mZoomingIsSupport = true;
-			protected internal Boolean mZoomingStarting = false;
+			protected internal bool mZoomingIsSupport = true;
+			protected internal bool mZoomingStarting = false;
 			protected internal Point mZoomingStartPoint;
 			protected internal Vector mZoomingLeftUpPoint;
 			protected internal Rect mZoomingRect;
-			protected internal Single mZoomingDragCorrect = 10;
+			protected internal float mZoomingDragCorrect = 10;
 			protected internal Rect mZoomingRectCorrect;
 
 			// Выбор региона
-			protected internal Boolean mSelectingIsSupport = true;
-			protected internal Boolean mSelectingStarting = false;
+			protected internal bool mSelectingIsSupport = true;
+			protected internal bool mSelectingStarting = false;
 			protected internal Point mSelectingStartPoint;
 			protected internal Vector mSelectingLeftUpPoint;
-			protected internal Boolean mSelectingRightToLeft;
+			protected internal bool mSelectingRightToLeft;
 			protected internal Rect mSelectingRect;
-			protected internal Single mSelectingDragCorrect = 10;
+			protected internal float mSelectingDragCorrect = 10;
 			protected internal Rect mSelectingRectCorrect;
 
 			// Координаты курсора
@@ -438,7 +438,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус нахождения компонента в режиме разработки
 			/// </summary>
-			public static Boolean IsDesignMode
+			public static bool IsDesignMode
 			{
 				get
 				{
@@ -455,9 +455,9 @@ namespace Lotus
 			/// Смещение контента по X
 			/// </summary>
 			[Description("Смещение области просмотра по X в координтах контета")]
-			public Double ContentOffsetX
+			public double ContentOffsetX
 			{
-				get { return (Double)GetValue(ContentOffsetXProperty); }
+				get { return (double)GetValue(ContentOffsetXProperty); }
 				set { SetValue(ContentOffsetXProperty, value); }
 			}
 
@@ -470,9 +470,9 @@ namespace Lotus
 			/// Смещение контента по Y
 			/// </summary>
 			[Description("Смещение области просмотра по Y в координтах контета")]
-			public Double ContentOffsetY
+			public double ContentOffsetY
 			{
-				get { return (Double)GetValue(ContentOffsetYProperty); }
+				get { return (double)GetValue(ContentOffsetYProperty); }
 				set { SetValue(ContentOffsetYProperty, value); }
 			}
 
@@ -484,9 +484,9 @@ namespace Lotus
 			/// <summary>
 			/// Масштаб контента
 			/// </summary>
-			public Double ContentScale
+			public double ContentScale
 			{
-				get { return (Double)GetValue(ContentScaleProperty); }
+				get { return (double)GetValue(ContentScaleProperty); }
 				set { SetValue(ContentScaleProperty, value); }
 			}
 
@@ -498,90 +498,90 @@ namespace Lotus
 			/// <summary>
 			/// Минимальное значение масштаба контента
 			/// </summary>
-			public Double MinContentScale
+			public double MinContentScale
 			{
-				get { return (Double)GetValue(MinContentScaleProperty); }
+				get { return (double)GetValue(MinContentScaleProperty); }
 				set { SetValue(MinContentScaleProperty, value); }
 			}
 
 			/// <summary>
 			/// Максимальное значение масштаба
 			/// </summary>
-			public Double MaxContentScale
+			public double MaxContentScale
 			{
-				get { return (Double)GetValue(MaxContentScaleProperty); }
+				get { return (double)GetValue(MaxContentScaleProperty); }
 				set { SetValue(MaxContentScaleProperty, value); }
 			}
 
 			/// <summary>
 			/// Координата по X контента точки фокуса при масштабировании
 			/// </summary>
-			public Double ContentZoomFocusX
+			public double ContentZoomFocusX
 			{
-				get { return (Double)GetValue(ContentZoomFocusXProperty); }
+				get { return (double)GetValue(ContentZoomFocusXProperty); }
 				set { SetValue(ContentZoomFocusXProperty, value); }
 			}
 
 			/// <summary>
 			/// Координата по Y контента точки фокуса при масштабировании
 			/// </summary>
-			public Double ContentZoomFocusY
+			public double ContentZoomFocusY
 			{
-				get { return (Double)GetValue(ContentZoomFocusYProperty); }
+				get { return (double)GetValue(ContentZoomFocusYProperty); }
 				set { SetValue(ContentZoomFocusYProperty, value); }
 			}
 
 			/// <summary>
 			/// Координата по X области просмотра точки фокуса при масштабировании
 			/// </summary>
-			public Double ViewportZoomFocusX
+			public double ViewportZoomFocusX
 			{
-				get { return (Double)GetValue(ViewportZoomFocusXProperty); }
+				get { return (double)GetValue(ViewportZoomFocusXProperty); }
 				set { SetValue(ViewportZoomFocusXProperty, value); }
 			}
 
 			/// <summary>
 			/// Координата по Y области просмотра точки фокуса при масштабировании
 			/// </summary>
-			public Double ViewportZoomFocusY
+			public double ViewportZoomFocusY
 			{
-				get { return (Double)GetValue(ViewportZoomFocusYProperty); }
+				get { return (double)GetValue(ViewportZoomFocusYProperty); }
 				set { SetValue(ViewportZoomFocusYProperty, value); }
 			}
 
 			/// <summary>
 			/// Время анимации при эффектах масштабирования
 			/// </summary>
-			public Double AnimationDuration
+			public double AnimationDuration
 			{
-				get { return (Double)GetValue(AnimationDurationProperty); }
+				get { return (double)GetValue(AnimationDurationProperty); }
 				set { SetValue(AnimationDurationProperty, value); }
 			}
 
 			/// <summary>
 			/// Ширина области просмотра в координтах контента
 			/// </summary>
-			public Double ContentViewportWidth
+			public double ContentViewportWidth
 			{
-				get { return (Double)GetValue(ContentViewportWidthProperty); }
+				get { return (double)GetValue(ContentViewportWidthProperty); }
 				set { SetValue(ContentViewportWidthProperty, value); }
 			}
 
 			/// <summary>
 			/// Высота области просмотра в координтах контента
 			/// </summary>
-			public Double ContentViewportHeight
+			public double ContentViewportHeight
 			{
-				get { return (Double)GetValue(ContentViewportHeightProperty); }
+				get { return (double)GetValue(ContentViewportHeightProperty); }
 				set { SetValue(ContentViewportHeightProperty, value); }
 			}
 
 			/// <summary>
 			/// Возможность прокрутки области просмотра колесом мыши
 			/// </summary>
-			public Boolean IsMouseWheelScrollingEnabled
+			public bool IsMouseWheelScrollingEnabled
 			{
-				get { return (Boolean)GetValue(IsMouseWheelScrollingEnabledProperty); }
+				get { return (bool)GetValue(IsMouseWheelScrollingEnabledProperty); }
 				set { SetValue(IsMouseWheelScrollingEnabledProperty, value); }
 			}
 
@@ -600,7 +600,7 @@ namespace Lotus
 			/// <summary>
 			/// Возможность вертикальной прокрутки
 			/// </summary>
-			public Boolean CanVerticallyScroll
+			public bool CanVerticallyScroll
 			{
 				get { return mCanVerticallyScroll; }
 				set
@@ -613,7 +613,7 @@ namespace Lotus
 			/// <summary>
 			/// Возможность горизонтальной прокрутки
 			/// </summary>
-			public Boolean CanHorizontallyScroll
+			public bool CanHorizontallyScroll
 			{
 				get { return mCanHorizontallyScroll; }
 				set
@@ -626,7 +626,7 @@ namespace Lotus
 			/// <summary>
 			/// Горизонтальный размер контента с учетом масштаба
 			/// </summary>
-			public Double ExtentWidth
+			public double ExtentWidth
 			{
 				get { return mUnScaledExtent.Width * ContentScale; }
 			}
@@ -634,7 +634,7 @@ namespace Lotus
 			/// <summary>
 			/// Вертикальный размер контента с учетом масштаба
 			/// </summary>
-			public Double ExtentHeight
+			public double ExtentHeight
 			{
 				get { return mUnScaledExtent.Height * ContentScale; }
 			}
@@ -642,7 +642,7 @@ namespace Lotus
 			/// <summary>
 			/// Горизонтальный размер окна просмотра для данного содержимого
 			/// </summary>
-			public Double ViewportWidth
+			public double ViewportWidth
 			{
 				get { return mViewportScroll.Width; }
 			}
@@ -650,7 +650,7 @@ namespace Lotus
 			/// <summary>
 			/// Вертикальный размер окна просмотра для данного содержимого
 			/// </summary>
-			public Double ViewportHeight
+			public double ViewportHeight
 			{
 				get { return mViewportScroll.Height; }
 			}
@@ -658,7 +658,7 @@ namespace Lotus
 			/// <summary>
 			/// Горизонтальное смещение прокручиваемого содержимого
 			/// </summary>
-			public Double HorizontalOffset
+			public double HorizontalOffset
 			{
 				get { return ContentOffsetX * ContentScale; }
 			}
@@ -666,7 +666,7 @@ namespace Lotus
 			/// <summary>
 			/// Вертикальное смещение прокручиваемого содержимого
 			/// </summary>
-			public Double VerticalOffset
+			public double VerticalOffset
 			{
 				get { return ContentOffsetY * ContentScale; }
 			}
@@ -693,7 +693,7 @@ namespace Lotus
 			/// <summary>
 			/// Описание текущей операции
 			/// </summary>
-			public String OperationDesc
+			public string OperationDesc
 			{
 				get { return mOperationDesc; }
 			}
@@ -705,7 +705,7 @@ namespace Lotus
 			/// Возможность увеличение прямоугольной области
 			/// </summary>
 			[Description("Возможность увеличение прямоугольной области")]
-			public Boolean ZoomingIsSupport
+			public bool ZoomingIsSupport
 			{
 				get { return mZoomingIsSupport; }
 				set { mZoomingIsSupport = value; }
@@ -714,7 +714,7 @@ namespace Lotus
 			/// <summary>
 			/// Начало увеличение прямоугольной области
 			/// </summary>
-			public Boolean ZoomingStarting
+			public bool ZoomingStarting
 			{
 				get { return mZoomingStarting; }
 			}
@@ -723,7 +723,7 @@ namespace Lotus
 			/// Минимальное смещение для увеличения области
 			/// </summary>
 			[Description("Минимальное смещение для увеличения области")]
-			public Single ZoomingDragCorrect
+			public float ZoomingDragCorrect
 			{
 				get { return mZoomingDragCorrect; }
 				set { mZoomingDragCorrect = value; }
@@ -744,7 +744,7 @@ namespace Lotus
 			/// Возможность выбора прямоугольной области
 			/// </summary>
 			[Description("Возможность выбора прямоугольной области")]
-			public Boolean SelectingIsSupport
+			public bool SelectingIsSupport
 			{
 				get { return mSelectingIsSupport; }
 				set { mSelectingIsSupport = value; }
@@ -754,7 +754,7 @@ namespace Lotus
 			/// Минимальное смещение для выбора области
 			/// </summary>
 			[Description("Минимальное смещение для выбора области")]
-			public Single SelectingDragCorrect
+			public float SelectingDragCorrect
 			{
 				get { return mSelectingDragCorrect; }
 				set { mSelectingDragCorrect = value; }
@@ -763,7 +763,7 @@ namespace Lotus
 			/// <summary>
 			/// Выбора области справа налево
 			/// </summary>
-			public Boolean SelectingRightToLeft
+			public bool SelectingRightToLeft
 			{
 				get { return mSelectingRightToLeft; }
 				set { mSelectingRightToLeft = value; }
@@ -851,7 +851,7 @@ namespace Lotus
 			/// <param name="content_zoom_focus">Точка масштабирования в координатах контента</param>
 			/// <param name="callback">Метод обратного вызова</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void AnimatedZoomPointToViewportCenter(Double new_сontent_scale, Point content_zoom_focus, EventHandler callback)
+			private void AnimatedZoomPointToViewportCenter(double new_сontent_scale, Point content_zoom_focus, EventHandler callback)
 			{
 				new_сontent_scale = Math.Min(Math.Max(new_сontent_scale, MinContentScale), MaxContentScale);
 
@@ -871,7 +871,7 @@ namespace Lotus
 				mEnableContentOffsetUpdateFromScale = true;
 
 				XAnimationHelper.StartAnimation(this, ContentScaleProperty, new_сontent_scale, AnimationDuration,
-					delegate (Object sender, EventArgs args)
+					delegate (object sender, EventArgs args)
 					{
 						mEnableContentOffsetUpdateFromScale = false;
 
@@ -892,7 +892,7 @@ namespace Lotus
 			/// <param name="new_сontent_scale">Новый масштаб</param>
 			/// <param name="content_zoom_focus">Точка масштабирования в координатах контента</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void ZoomPointToViewportCenter(Double new_сontent_scale, Point content_zoom_focus)
+			private void ZoomPointToViewportCenter(double new_сontent_scale, Point content_zoom_focus)
 			{
 				new_сontent_scale = Math.Min(Math.Max(new_сontent_scale, MinContentScale), MaxContentScale);
 
@@ -1053,7 +1053,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="offset">Величина, на которую содержимое смещается по горизонтали от окна просмотра</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SetHorizontalOffset(Double offset)
+			public void SetHorizontalOffset(double offset)
 			{
 				if (mDisableScrollOffsetSync)
 				{
@@ -1078,7 +1078,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="offset">Величина, на которую содержимое смещается по вертикали от окна просмотра</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SetVerticalOffset(Double offset)
+			public void SetVerticalOffset(double offset)
 			{
 				if (mDisableScrollOffsetSync)
 				{
@@ -1245,8 +1245,8 @@ namespace Lotus
 					var viewportRect = new Rect(ContentOffsetX, ContentOffsetY, ContentViewportWidth, ContentViewportHeight);
 					if (!transformedRect.Contains(viewportRect))
 					{
-						Double horizOffset = 0;
-						Double vertOffset = 0;
+						double horizOffset = 0;
+						double vertOffset = 0;
 
 						if (transformedRect.Left < viewportRect.Left)
 						{
@@ -1326,7 +1326,7 @@ namespace Lotus
 					InitContentTransformation();
 				}
 
-				var infinite_size = new Size(Double.PositiveInfinity, Double.PositiveInfinity);
+				var infinite_size = new Size(double.PositiveInfinity, double.PositiveInfinity);
 				Size child_size = base.MeasureOverride(infinite_size);
 
 				if (child_size != mUnScaledExtent)
@@ -1350,7 +1350,7 @@ namespace Lotus
 				var width = constraint.Width;
 				var height = constraint.Height;
 
-				if (Double.IsInfinity(width))
+				if (double.IsInfinity(width))
 				{
 					//
 					// Make sure we don't return infinity!
@@ -1358,7 +1358,7 @@ namespace Lotus
 					width = child_size.Width;
 				}
 
-				if (Double.IsInfinity(height))
+				if (double.IsInfinity(height))
 				{
 					//
 					// Make sure we don't return infinity!
@@ -1428,10 +1428,10 @@ namespace Lotus
 			/// <param name="new_scale">Масштаб</param>
 			/// <param name="content_rect">Прямоугольник области контента</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void AnimatedZoomTo(Double new_scale, Rect content_rect)
+			public void AnimatedZoomTo(double new_scale, Rect content_rect)
 			{
 				AnimatedZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)),
-					delegate (Object sender, EventArgs args)
+					delegate (object sender, EventArgs args)
 					{
 						//
 						// At the end of the animation, ensure that we are snapped to the specified mContent offset.
@@ -1525,7 +1525,7 @@ namespace Lotus
 			/// <param name="new_сontent_scale">Новый масштаб</param>
 			/// <param name="content_zoom_focus">Точка масштабирования</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void AnimatedZoomAboutPoint(Double new_сontent_scale, Point content_zoom_focus)
+			public void AnimatedZoomAboutPoint(double new_сontent_scale, Point content_zoom_focus)
 			{
 				new_сontent_scale = Math.Min(Math.Max(new_сontent_scale, MinContentScale), MaxContentScale);
 
@@ -1545,7 +1545,7 @@ namespace Lotus
 				mEnableContentOffsetUpdateFromScale = true;
 
 				XAnimationHelper.StartAnimation(this, ContentScaleProperty, new_сontent_scale, AnimationDuration,
-					delegate (Object sender, EventArgs args)
+					delegate (object sender, EventArgs args)
 					{
 						mEnableContentOffsetUpdateFromScale = false;
 
@@ -1560,7 +1560,7 @@ namespace Lotus
 			/// <param name="new_content_scale">Новый масштаб</param>
 			/// <param name="content_zoom_focus">Точка масштабирования</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ZoomAboutPoint(Double new_content_scale, System.Windows.Point content_zoom_focus)
+			public void ZoomAboutPoint(double new_content_scale, System.Windows.Point content_zoom_focus)
 			{
 				new_content_scale = Math.Min(Math.Max(new_content_scale, MinContentScale), MaxContentScale);
 
@@ -1586,7 +1586,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="content_scale">Масштаб</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void AnimatedZoomTo(Double content_scale)
+			public void AnimatedZoomTo(double content_scale)
 			{
 				var zoom_center = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
 				AnimatedZoomAboutPoint(content_scale, zoom_center);
@@ -1598,7 +1598,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="content_scale">Масштаб</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ZoomTo(Double content_scale)
+			public void ZoomTo(double content_scale)
 			{
 				var zoom_сenter = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
 				ZoomAboutPoint(content_scale, zoom_сenter);
@@ -1789,10 +1789,10 @@ namespace Lotus
 							mSelectingLeftUpPoint.Y = MousePositionCurrent.Y;
 						}
 
-						mSelectingRect.X = (Single)mSelectingLeftUpPoint.X;
-						mSelectingRect.Y = (Single)mSelectingLeftUpPoint.Y;
-						mSelectingRect.Width = (Single)Math.Abs(mSelectingStartPoint.X - MousePositionCurrent.X);
-						mSelectingRect.Height = (Single)Math.Abs(mSelectingStartPoint.Y - MousePositionCurrent.Y);
+						mSelectingRect.X = (float)mSelectingLeftUpPoint.X;
+						mSelectingRect.Y = (float)mSelectingLeftUpPoint.Y;
+						mSelectingRect.Width = (float)Math.Abs(mSelectingStartPoint.X - MousePositionCurrent.X);
+						mSelectingRect.Height = (float)Math.Abs(mSelectingStartPoint.Y - MousePositionCurrent.Y);
 					}
 				}
 			}
@@ -1892,7 +1892,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected virtual void OnContentViewerLoaded(Object sender, RoutedEventArgs args)
+			protected virtual void OnContentViewerLoaded(object sender, RoutedEventArgs args)
 			{
 				if (mContent == null)
 				{
@@ -2108,7 +2108,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

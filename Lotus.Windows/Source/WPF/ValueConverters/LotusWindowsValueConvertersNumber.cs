@@ -42,7 +42,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return System.Convert.ToDouble(value);
 			}
@@ -57,9 +57,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				return XConverter.ToNumber(targetType, (Double)value);
+				return XConverter.ToNumber(targetType, (double)value);
 			}
 			#endregion
 		}
@@ -82,7 +82,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return System.Convert.ToDecimal(value);
 			}
@@ -97,9 +97,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				return XConverter.ToNumber(targetType, (Decimal)value);
+				return XConverter.ToNumber(targetType, (decimal)value);
 			}
 			#endregion
 		}

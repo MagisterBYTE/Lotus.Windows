@@ -43,21 +43,21 @@ namespace Lotus
 			/// Красная компонента цвета
 			/// </summary>
 			public static readonly DependencyProperty RedProperty = DependencyProperty.Register(nameof(Red), 
-				typeof(Byte), typeof(LotusColorPicker),
+				typeof(byte), typeof(LotusColorPicker),
 				new FrameworkPropertyMetadata(new PropertyChangedCallback(OnColorRGBChanged)));
 
 			/// <summary>
 			/// Зеленая компонента цвета
 			/// </summary>
 			public static readonly DependencyProperty GreenProperty = DependencyProperty.Register(nameof(Green), 
-				typeof(Byte), typeof(LotusColorPicker),
+				typeof(byte), typeof(LotusColorPicker),
 				new FrameworkPropertyMetadata(new PropertyChangedCallback(OnColorRGBChanged)));
 
 			/// <summary>
 			/// Синия компонента цвета
 			/// </summary>
 			public static readonly DependencyProperty BlueProperty = DependencyProperty.Register(nameof(Blue), 
-				typeof(Byte), typeof(LotusColorPicker),
+				typeof(byte), typeof(LotusColorPicker),
 				new FrameworkPropertyMetadata(new PropertyChangedCallback(OnColorRGBChanged)));
 
 			/// <summary>
@@ -96,11 +96,11 @@ namespace Lotus
 				var color_picker = (LotusColorPicker)sender;
 				Color color = color_picker.Color;
 				if (args.Property == RedProperty)
-					color.R = (Byte)args.NewValue;
+					color.R = (byte)args.NewValue;
 				else if (args.Property == GreenProperty)
-					color.G = (Byte)args.NewValue;
+					color.G = (byte)args.NewValue;
 				else if (args.Property == BlueProperty)
-					color.B = (Byte)args.NewValue;
+					color.B = (byte)args.NewValue;
 
 				color_picker.Color = color;
 			}
@@ -119,27 +119,27 @@ namespace Lotus
 			/// <summary>
 			/// Красная компонента цвета
 			/// </summary>
-			public Byte Red
+			public byte Red
 			{
-				get { return (Byte)GetValue(RedProperty); }
+				get { return (byte)GetValue(RedProperty); }
 				set { SetValue(RedProperty, value); }
 			}
 
 			/// <summary>
 			/// Зеленая компонента цвета
 			/// </summary>
-			public Byte Green
+			public byte Green
 			{
-				get { return (Byte)GetValue(GreenProperty); }
+				get { return (byte)GetValue(GreenProperty); }
 				set { SetValue(GreenProperty, value); }
 			}
 
 			/// <summary>
 			/// Синия компонента цвета
 			/// </summary>
-			public Byte Blue
+			public byte Blue
 			{
-				get { return (Byte)GetValue(BlueProperty); }
+				get { return (byte)GetValue(BlueProperty); }
 				set { SetValue(BlueProperty, value); }
 			}
 

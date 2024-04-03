@@ -73,7 +73,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			#endregion
 
 			#region ======================================= ОБРАБОТЧИКИ СОБЫТИЙ =======================================
@@ -84,7 +84,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonTabTextEditor_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonTabTextEditor_Loaded(object sender, RoutedEventArgs args)
 			{
 				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 				var encodings = new Encoding[]
@@ -107,7 +107,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonOpen_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonOpen_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -122,12 +122,12 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonOpenNotepad_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonOpenNotepad_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null && XFilePath.CheckCorrectFileName(TextViewEditor.FileName))
 				{
 					var file_name_param = XChar.DoubleQuotes + TextViewEditor.FileName + XChar.DoubleQuotes;
-					XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, String.Empty, TShowCommands.SW_NORMAL);
+					XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, string.Empty, TShowCommands.SW_NORMAL);
 				}
 			}
 
@@ -138,7 +138,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonSave_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonSave_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -153,7 +153,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonSaveAs_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonSaveAs_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -168,7 +168,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnComboBoxEncodings_SelectionChanged(Object sender, SelectionChangedEventArgs args)
+			private void OnComboBoxEncodings_SelectionChanged(object sender, SelectionChangedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -183,7 +183,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonCopy_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonCopy_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -198,7 +198,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonPaste_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonPaste_Click(object sender, RoutedEventArgs args)
 			{
 				if (TextViewEditor != null)
 				{
@@ -213,7 +213,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnComboBoxSyntaxHighlighting_SelectionChanged(Object sender, SelectionChangedEventArgs args)
+			private void OnComboBoxSyntaxHighlighting_SelectionChanged(object sender, SelectionChangedEventArgs args)
 			{
 				if (TextViewEditor == null) return;
 				TextViewEditor.ChangedSyntaxHighlighting(comboBoxSyntaxHighlighting.SelectedItem.ToString()!);

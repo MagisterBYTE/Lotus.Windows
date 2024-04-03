@@ -28,7 +28,7 @@ namespace Lotus
 		/// Конвертер типа Size в строку
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Size), typeof(String))]
+		[ValueConversion(typeof(Size), typeof(string))]
 		public class SizeToStringConverter : IValueConverter
 		{
 			//---------------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var val = (Size)value;
 				return "Ширина = " + val.Width.ToString("F0") + "; Высота = " + val.Height.ToString("F0") + ";";
@@ -57,7 +57,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>тип Size</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}

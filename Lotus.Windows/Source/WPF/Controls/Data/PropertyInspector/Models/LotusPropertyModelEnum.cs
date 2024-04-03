@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Reflection;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -35,7 +36,7 @@ namespace Lotus
 		{
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal ArrayList _enumValues;
-			protected internal List<String> _enumNames;
+			protected internal List<string> _enumNames;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -50,7 +51,7 @@ namespace Lotus
 			/// <summary>
 			/// Имена перечисления
 			/// </summary>
-			public List<String> EnumNames
+			public List<string> EnumNames
 			{
 				get { return _enumNames; }
 			}
@@ -77,7 +78,7 @@ namespace Lotus
 				: base(property_info, TPropertyType.Enum)
 			{
 				_enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-				_enumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
+				_enumNames = new List<string>(Enum.GetNames(property_info.PropertyType));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -91,7 +92,7 @@ namespace Lotus
 				: base(property_info, property_desc, TPropertyType.Enum)
 			{
 				_enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-				_enumNames = new List<String>(Enum.GetNames(property_info.PropertyType));
+				_enumNames = new List<string>(Enum.GetNames(property_info.PropertyType));
 			}
 			#endregion
 		}

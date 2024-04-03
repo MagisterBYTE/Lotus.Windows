@@ -42,7 +42,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект <see cref="Vector3D"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is Vector3D)
 				{
@@ -89,7 +89,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект вектора </returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var real_type = (Type)parameter;
 				if (real_type == null) real_type = targetType;

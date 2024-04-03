@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Windows;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 using Lotus.Maths;
 //=====================================================================================================================
 namespace Lotus
@@ -93,22 +94,22 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Конвертирование значение Vector2D в реальный тип свойства
 			/// </summary>
 			/// <returns></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public System.Object ConvertToRealType()
+			public object ConvertToRealType()
 			{
 				if(_info.PropertyType == typeof(Vector2Df))
 				{
-					return new Vector2Df((Single)_value.X, (Single)_value.Y);
+					return new Vector2Df((float)_value.X, (float)_value.Y);
 				}
 				if (_info.PropertyType == typeof(Vector2Di))
 				{
-					return new Vector2Di((Int32)_value.X, (Int32)_value.Y);
+					return new Vector2Di((int)_value.X, (int)_value.Y);
 				}
 				if (_info.PropertyType == typeof(Point))
 				{
@@ -163,7 +164,7 @@ namespace Lotus
 			/// </remarks>
 			/// <param name="value">Значение свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void SetValue(System.Object value)
+			public override void SetValue(object value)
 			{
 				// Устанавливаем значение свойства объекта
 				if (_info != null)
@@ -173,7 +174,7 @@ namespace Lotus
 
 				// Уведомляем инспектор свойств
 				_value = (Vector2D)value;
-				NotifyPropertyChanged(PropertyArgsValue);
+				OnPropertyChanged(PropertyArgsValue);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -192,7 +193,7 @@ namespace Lotus
 					_value = ConvertFromRealType();
 
 					// Информируем
-					NotifyPropertyChanged(PropertyArgsValue);
+					OnPropertyChanged(PropertyArgsValue);
 				}
 			}
 
@@ -224,7 +225,7 @@ namespace Lotus
 					}
 				}
 
-				NotifyPropertyChanged(PropertyArgsIsValueFromList);
+				OnPropertyChanged(PropertyArgsIsValueFromList);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -237,7 +238,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnPropertyChangedFromInstance(System.Object? sender, PropertyChangedEventArgs args)
+			protected override void OnPropertyChangedFromInstance(object? sender, PropertyChangedEventArgs args)
 			{
 				if (_info != null && _info.Name == args.PropertyName)
 				{
@@ -245,7 +246,7 @@ namespace Lotus
 					_value = ConvertFromRealType();
 
 					// Информируем
-					NotifyPropertyChanged(PropertyArgsValue);
+					OnPropertyChanged(PropertyArgsValue);
 				}
 			}
 			#endregion

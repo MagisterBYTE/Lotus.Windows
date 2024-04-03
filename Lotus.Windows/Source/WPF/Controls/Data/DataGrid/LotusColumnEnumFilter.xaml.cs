@@ -75,7 +75,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnUserControl_Loaded(Object sender, RoutedEventArgs args)
+			private void OnUserControl_Loaded(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -87,7 +87,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnCheckBox_Checked(Object sender, RoutedEventArgs args)
+			private void OnCheckBox_Checked(object sender, RoutedEventArgs args)
 			{
 				if (sender is CheckBox check_box)
 				{
@@ -95,7 +95,7 @@ namespace Lotus
 					if (QueryItem.FiltredItems.Contains(check_box.Content) == false)
 					{
 						QueryItem.FiltredItems.Add(check_box.Content);
-						QueryItem.NotifyPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
+						QueryItem.OnPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
 						comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
 					}
 				}
@@ -108,7 +108,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnCheckBox_Unchecked(Object sender, RoutedEventArgs args)
+			private void OnCheckBox_Unchecked(object sender, RoutedEventArgs args)
 			{
 				if (sender is CheckBox check_box)
 				{
@@ -117,7 +117,7 @@ namespace Lotus
 					if (index > -1)
 					{
 						QueryItem.FiltredItems.RemoveAt(index);
-						QueryItem.NotifyPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
+						QueryItem.OnPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
 						comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
 					}
 				}
@@ -130,7 +130,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnComboBoxSourceItems_Selected(Object sender, SelectionChangedEventArgs args)
+			private void OnComboBoxSourceItems_Selected(object sender, SelectionChangedEventArgs args)
 			{
 				comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
 			}

@@ -39,9 +39,9 @@ namespace Lotus
 			/// <param name="color">Цветовое значение</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String SerializeToString(this Color color)
+			public static string SerializeToString(this Color color)
 			{
-				return String.Format("{0},{1},{2},{3}", color.R, color.G, color.B, color.A);
+				return string.Format("{0},{1},{2},{3}", color.R, color.G, color.B, color.A);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -51,14 +51,14 @@ namespace Lotus
 			/// <param name="data">Строка данных</param>
 			/// <returns>Цветовое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Color DeserializeFromString(String data)
+			public static Color DeserializeFromString(string data)
 			{
 				var color = new Color();
 				var color_data = data.Split(',');
-				color.R = Byte.Parse(color_data[0]);
-				color.G = Byte.Parse(color_data[1]);
-				color.B = Byte.Parse(color_data[2]);
-				color.A = Byte.Parse(color_data[3]);
+				color.R = byte.Parse(color_data[0]);
+				color.G = byte.Parse(color_data[1]);
+				color.B = byte.Parse(color_data[2]);
+				color.A = byte.Parse(color_data[3]);
 				return color;
 			}
 		}

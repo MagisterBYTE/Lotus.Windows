@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Reflection;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 using Lotus.UnitMeasurement;
 //=====================================================================================================================
 namespace Lotus
@@ -34,15 +35,15 @@ namespace Lotus
 		public class PropertyModelMeasurementValue : PropertyModel<TMeasurementValue>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal Double _minValue;
-			protected internal Double _maxValue;
+			protected internal double _minValue;
+			protected internal double _maxValue;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Минимальное значение
 			/// </summary>
-			public Double MinValue
+			public double MinValue
 			{
 				get { return _minValue; }
 			}
@@ -50,7 +51,7 @@ namespace Lotus
 			/// <summary>
 			/// Максимальное значение
 			/// </summary>
-			public Double MaxValue
+			public double MaxValue
 			{
 				get { return _maxValue; }
 			}
@@ -93,7 +94,7 @@ namespace Lotus
 
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Получение данных описание свойства с его атрибутов
@@ -110,7 +111,7 @@ namespace Lotus
 					}
 					else
 					{
-						_minValue = Double.MinValue;
+						_minValue = double.MinValue;
 					}
 
 					LotusMaxValueAttribute? max_value = _info.GetAttribute<LotusMaxValueAttribute>();
@@ -120,7 +121,7 @@ namespace Lotus
 					}
 					else
 					{
-						_maxValue = Double.MaxValue;
+						_maxValue = double.MaxValue;
 					}
 				}
 			}

@@ -38,15 +38,15 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal List<System.Object> _sourceItems;
-			protected internal List<System.Object> _filtredItems;
+			protected internal List<object> _sourceItems;
+			protected internal List<object> _filtredItems;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Коллекция которая является источником данных
 			/// </summary>
-			public List<System.Object> SourceItems
+			public List<object> SourceItems
 			{
 				get
 				{
@@ -55,14 +55,14 @@ namespace Lotus
 				set
 				{
 					_sourceItems = value;
-					NotifyPropertyChanged(PropertyArgsSourceItems);
+					OnPropertyChanged(PropertyArgsSourceItems);
 				}
 			}
 
 			/// <summary>
 			/// Список элементов которые выбраны
 			/// </summary>
-			public List<System.Object> FiltredItems
+			public List<object> FiltredItems
 			{
 				get
 				{
@@ -71,7 +71,7 @@ namespace Lotus
 				set
 				{
 					_filtredItems = value;
-					NotifyPropertyChanged(PropertyArgsFiltredItems);
+					OnPropertyChanged(PropertyArgsFiltredItems);
 				}
 			}
 			#endregion
@@ -84,8 +84,8 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemEnum()
 			{
-				_filtredItems = new List<System.Object>();
-				_sourceItems = new List<System.Object>();
+				_filtredItems = new List<object>();
+				_sourceItems = new List<object>();
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -96,26 +96,26 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public CQueryItemEnum(Type enum_type)
 			{
-				_filtredItems = new List<System.Object>();
-				_sourceItems = new List<System.Object>();
+				_filtredItems = new List<object>();
+				_sourceItems = new List<object>();
 				_sourceItems.AddRange(XEnum.GetDescriptions(enum_type));
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Преобразование к текстовому представлению
 			/// </summary>
 			/// <returns>Наименование объекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				return JoinFiltredItems();
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Формирование SQL запроса
@@ -123,7 +123,7 @@ namespace Lotus
 			/// <param name="sql_query">SQL запрос</param>
 			/// <returns>Статус формирования элемента запроса</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override Boolean ComputeSQLQuery(ref String sql_query)
+			public override bool ComputeSQLQuery(ref string sql_query)
 			{
 				if (_notCalculation == false)
 				{
@@ -154,7 +154,7 @@ namespace Lotus
 			/// </summary>
 			/// <returns>Строка с выбранными элементами</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String JoinFiltredItems()
+			public string JoinFiltredItems()
 			{
 				if (_filtredItems.Count > 0)
 				{
@@ -172,7 +172,7 @@ namespace Lotus
 					return included.ToString();
 				}
 
-				return String.Empty;
+				return string.Empty;
 			}
 			#endregion
 

@@ -42,7 +42,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект <see cref="Vector2D"/></returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is Vector2D)
 				{
@@ -96,7 +96,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект вектора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var real_type = (Type)parameter;
 				if (real_type == null) real_type = targetType;
@@ -109,7 +109,7 @@ namespace Lotus
 				if (real_type == typeof(Vector2Df))
 				{
 					var v = (Vector2D)value;
-					return new Vector2Df((Single)v.X, (Single)v.Y);
+					return new Vector2Df((float)v.X, (float)v.Y);
 				}
 
 				if (real_type == typeof(System.Windows.Vector))

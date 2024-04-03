@@ -38,7 +38,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <returns>Тип MimeType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetMimeType(String file_name)
+			public static string GetMimeType(string file_name)
 			{
 				var mime_type = "application/unknown";
 				var ext = System.IO.Path.GetExtension(file_name).ToLower();

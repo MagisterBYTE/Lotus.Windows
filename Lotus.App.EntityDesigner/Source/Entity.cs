@@ -42,13 +42,13 @@ namespace Lotus
 		{
 			#region ======================================= ДАННЫЕ ====================================================
 			private TEntityFieldImplement _fieldImplement;
-			private String _fieldType;
-			private String _fieldname;
-			private String _name;
-			private String _desc;
-			private Boolean _isCollection;
-			private Boolean _isKey;
-			private Boolean _isEnum;
+			private string _fieldType;
+			private string _fieldname;
+			private string _name;
+			private string _desc;
+			private bool _isCollection;
+			private bool _isKey;
+			private bool _isEnum;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -61,33 +61,33 @@ namespace Lotus
 				set 
 				{ 
 					_fieldImplement = value;
-					NotifyPropertyChanged();
+					OnPropertyChanged();
 				}
 			}
 
 			/// <summary>
 			/// Тип поля
 			/// </summary>
-			public String FieldType
+			public string FieldType
 			{
 				get { return _fieldType; }
 				set
 				{
 					_fieldType = value;
-					NotifyPropertyChanged();
+					OnPropertyChanged();
 				}
 			}
 
 			/// <summary>
 			/// Названия поля на бэке
 			/// </summary>
-			public String FieldName
+			public string FieldName
 			{
 				get { return _fieldname; }
 				set
 				{
 					_fieldname = value;
-					NotifyPropertyChanged();
+					OnPropertyChanged();
 				}
 			}
 			#endregion
@@ -112,7 +112,7 @@ namespace Lotus
 			#region ======================================= КОНСТРУКТОРЫ ==============================================
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			#endregion
 
 			#region ======================================= ДАННЫЕ INotifyPropertyChanged =============================
@@ -127,7 +127,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

@@ -8,7 +8,7 @@
     <!--  Шаблон для сцены  -->
     <HierarchicalDataTemplate
         x:Key="SceneKey"
-        DataType="{x:Type c3d:CScene3D}"
+        DataType="{x:Type c3d:Scene3D}"
         ItemsSource="{Binding Path=AllEntities}">
         <StackPanel Orientation="Horizontal">
             <Image
@@ -25,7 +25,7 @@
     <!--  Шаблон для узла  -->
     <HierarchicalDataTemplate
         x:Key="NodeKey"
-        DataType="{x:Type c3d:CNode3D}"
+        DataType="{x:Type c3d:Node3D}"
         ItemsSource="{Binding Path=AllEntities}">
         <StackPanel Orientation="Horizontal">
             <Image
@@ -42,7 +42,7 @@
     <!--  Шаблон для модели  -->
     <HierarchicalDataTemplate
         x:Key="ModelKey"
-        DataType="{x:Type c3d:CModel3D}">
+        DataType="{x:Type c3d:Model3D}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
@@ -58,7 +58,7 @@
     <!--  Шаблон для меша  -->
     <HierarchicalDataTemplate
         x:Key="MeshKey"
-        DataType="{x:Type c3d:CMesh3Df}">
+        DataType="{x:Type c3d:Mesh3Df}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"
@@ -74,7 +74,7 @@
     <!--  Шаблон для меша  -->
     <HierarchicalDataTemplate
         x:Key="MeshSetKey"
-        DataType="{x:Type c3d:CMeshSet}"
+        DataType="{x:Type c3d:MeshSet}"
         ItemsSource="{Binding Path=Meshes}">
         <StackPanel Orientation="Horizontal">
             <Image
@@ -91,7 +91,7 @@
     <!--  Шаблон для материала  -->
     <HierarchicalDataTemplate
         x:Key="MaterialKey"
-        DataType="{x:Type c3d:CMaterial}"
+        DataType="{x:Type c3d:Material}"
         ItemsSource="{Binding Path=TextureSlots}">
         <StackPanel Orientation="Horizontal">
             <Image
@@ -108,7 +108,7 @@
     <!--  Шаблон для материала  -->
     <HierarchicalDataTemplate
         x:Key="MaterialSetKey"
-        DataType="{x:Type c3d:CMaterialSet}"
+        DataType="{x:Type c3d:MaterialSet}"
         ItemsSource="{Binding Path=Materials}">
         <StackPanel Orientation="Horizontal">
             <Image
@@ -125,7 +125,7 @@
     <!--  Шаблон для материала  -->
     <HierarchicalDataTemplate
         x:Key="TextureSlotKey"
-        DataType="{x:Type c3d:CTextureSlot}">
+        DataType="{x:Type c3d:TextureSlot}">
         <StackPanel Orientation="Horizontal">
             <Image
                 Width="16"

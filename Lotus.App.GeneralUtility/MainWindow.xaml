@@ -176,6 +176,23 @@
                 </StackPanel>
             </Grid>
         </TabItem>
+        <TabItem Header="Преобразование файлов">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="563*" />
+                    <ColumnDefinition Width="831*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="20">
+                    <Button
+                        x:Name="transformButton"
+                        Click="transformButton_Click">
+                        Создать код
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </TabItem>
     </TabControl>
 
 </Window>

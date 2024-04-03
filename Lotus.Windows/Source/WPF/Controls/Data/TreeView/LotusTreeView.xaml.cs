@@ -56,17 +56,17 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			// Основные параметры
-			protected internal Boolean _isNotifySelectedInspector;
+			protected internal bool _isNotifySelectedInspector;
 			protected internal TreeViewItem _selectedItem;
 
 			// Параметры представления
-			protected internal Boolean _isPresentPolicyDefault;
+			protected internal bool _isPresentPolicyDefault;
 			protected internal Type _presentOnlyType;
-			protected internal Boolean _sendViewPresented;
+			protected internal bool _sendViewPresented;
 
 			// Модель перетаскивания
 			protected internal TreeViewItem? _draggedItem;
-			protected internal Boolean _isDragging;
+			protected internal bool _isDragging;
 			protected internal Point _dragLastMouseDown;
 			protected internal Popup _popupHand;
 
@@ -81,7 +81,7 @@ namespace Lotus
 			/// <summary>
 			/// Информирование инспектора свойств о смене выбранного элемента
 			/// </summary>
-			public Boolean IsNotifySelectedInspector
+			public bool IsNotifySelectedInspector
 			{
 				get { return _isNotifySelectedInspector; }
 				set
@@ -109,7 +109,7 @@ namespace Lotus
 			/// Статус представления элементов по умолчанию означает что представлен может быть только один, 
 			/// при активации по двойному щелчку он активируется а предыдущий сбрасывается
 			/// </remarks>
-			public Boolean IsPresentPolicyDefault
+			public bool IsPresentPolicyDefault
 			{
 				get { return _isPresentPolicyDefault; }
 				set
@@ -135,7 +135,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус вызова метода <see cref="ILotusModelPresented"/> при активации по двойному щелчку
 			/// </summary>
-			public Boolean SendViewPresented
+			public bool SendViewPresented
 			{
 				get { return _sendViewPresented; }
 				set
@@ -151,7 +151,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус перетаскивания модели
 			/// </summary>
-			public Boolean IsDragging
+			public bool IsDragging
 			{
 				get { return _isDragging; }
 				set
@@ -196,7 +196,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 
 			#endregion
 
@@ -208,7 +208,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_Loaded(Object sender, RoutedEventArgs args)
+			private void OnTreeView_Loaded(object sender, RoutedEventArgs args)
 			{
 				_popupHand = (Resources["popupHandKey"] as Popup)!;
 			}
@@ -220,7 +220,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_SelectedItemChanged(Object sender, RoutedPropertyChangedEventArgs<Object> args)
+			private void OnTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
 			{
 				// Проверка на иерархическую модель
 				if (args.NewValue is ILotusViewModelHierarchy new_item)
@@ -253,7 +253,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_PreviewMouseLeftButtonDown(Object sender, MouseButtonEventArgs args)
+			private void OnTreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
 			{
 				if (treeExplorer.IsMouseOver && AllowDrop)
 				{
@@ -268,7 +268,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_PreviewMouseLeftButtonUp(Object sender, MouseButtonEventArgs args)
+			private void OnTreeView_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
 			{
 				IsDragging = false;
 				DraggedItem = null;
@@ -281,7 +281,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_PreviewMouseMove(Object sender, MouseEventArgs args)
+			private void OnTreeView_PreviewMouseMove(object sender, MouseEventArgs args)
 			{
 				// Получаем позицию курсора
 				Point mouse_pos = args.GetPosition(treeExplorer);
@@ -327,7 +327,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_DragEnter(Object sender, DragEventArgs args)
+			private void OnTreeView_DragEnter(object sender, DragEventArgs args)
 			{
 				// Если перетаскиваемая объект не содержит модель или тому над которым происходит перетаскивание 
 				if (!args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)) || sender == args.Source)
@@ -343,7 +343,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_DragOver(Object sender, DragEventArgs args)
+			private void OnTreeView_DragOver(object sender, DragEventArgs args)
 			{
 				if (args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)))
 				{
@@ -373,7 +373,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_DragLeave(Object sender, DragEventArgs args)
+			private void OnTreeView_DragLeave(object sender, DragEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -385,7 +385,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_GiveFeedback(Object sender, GiveFeedbackEventArgs args)
+			private void OnTreeView_GiveFeedback(object sender, GiveFeedbackEventArgs args)
 			{
 				var popup_size = new Size(_popupHand.ActualWidth, _popupHand.ActualHeight);
 
@@ -404,7 +404,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeView_Drop(Object sender, DragEventArgs args)
+			private void OnTreeView_Drop(object sender, DragEventArgs args)
 			{
 				if (args.Data.GetDataPresent(nameof(ILotusViewModelHierarchy)))
 				{
@@ -443,7 +443,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeViewItem_Selected(Object sender, RoutedEventArgs args)
+			private void OnTreeViewItem_Selected(object sender, RoutedEventArgs args)
 			{
 				if(args.Source is TreeViewItem view_item)
 				{
@@ -458,7 +458,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeViewItem_ContextMenuOpening(Object sender, ContextMenuEventArgs args)
+			private void OnTreeViewItem_ContextMenuOpening(object sender, ContextMenuEventArgs args)
 			{
 				TreeViewItem? item_sender = (sender as DependencyObject)?.FindVisualParent<TreeViewItem>();
 				TreeViewItem? item_source = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
@@ -505,7 +505,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeViewItem_MouseDoubleClick(Object sender, MouseButtonEventArgs args)
+			private void OnTreeViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs args)
 			{
 				TreeViewItem? item = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
 
@@ -567,7 +567,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeViewItem_KeyDown(Object sender, KeyEventArgs args)
+			private void OnTreeViewItem_KeyDown(object sender, KeyEventArgs args)
 			{
 				if (args.Key == Key.F2)
 				{
@@ -593,7 +593,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTreeViewItem_Expanded(Object sender, RoutedEventArgs args)
+			private void OnTreeViewItem_Expanded(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -611,7 +611,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property_name));
 			}

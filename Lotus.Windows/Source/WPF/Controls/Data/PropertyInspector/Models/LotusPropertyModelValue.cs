@@ -12,13 +12,14 @@
 // Версия: 1.0.0.0
 // Последнее изменение от 30.04.2023
 //=====================================================================================================================
+//---------------------------------------------------------------------------------------------------------------------
+using Lotus.Core;
+using Lotus.Core.Inspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-//---------------------------------------------------------------------------------------------------------------------
-using Lotus.Core;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -112,7 +113,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+			#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Сравнение объектов для упорядочивания
@@ -120,7 +121,7 @@ namespace Lotus
 			/// <param name="other">Сравниваемый объект</param>
 			/// <returns>Статус сравнения объектов</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Int32 CompareTo(PropertyModel<TValue>? other)
+			public int CompareTo(PropertyModel<TValue>? other)
 			{
 				return base.CompareTo(other);
 			}
@@ -131,13 +132,13 @@ namespace Lotus
 			/// </summary>
 			/// <returns>Краткое наименование финасового инструмента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				return DisplayName;
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Установка значения напрямую
@@ -147,7 +148,7 @@ namespace Lotus
 			/// </remarks>
 			/// <param name="value">Значение свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public override void SetValue(System.Object value)
+			public override void SetValue(object value)
 			{
 				// Устанавливаем значение свойства объекта
 				if (_info != null)
@@ -157,7 +158,7 @@ namespace Lotus
 
 				// Уведомляем инспектор свойств
 				_value = (TValue)value;
-				NotifyPropertyChanged(PropertyArgsValue);
+				OnPropertyChanged(PropertyArgsValue);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -177,13 +178,13 @@ namespace Lotus
 						// Получаем актуальное значение с объекта
 						_value = (TValue)_info.GetValue(_instance)!;
 					}
-					catch(InvalidCastException invalid_cast)
+					catch (InvalidCastException invalid_cast)
 					{
 						XLogger.LogException(invalid_cast);
 					}
 
 					// Информируем
-					NotifyPropertyChanged(PropertyArgsValue);
+					OnPropertyChanged(PropertyArgsValue);
 				}
 			}
 
@@ -215,7 +216,7 @@ namespace Lotus
 					}
 				}
 
-				NotifyPropertyChanged(PropertyArgsIsValueFromList);
+				OnPropertyChanged(PropertyArgsIsValueFromList);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -228,7 +229,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected override void OnPropertyChangedFromInstance(System.Object? sender, PropertyChangedEventArgs args)
+			protected override void OnPropertyChangedFromInstance(object? sender, PropertyChangedEventArgs args)
 			{
 				if (_info != null && _info.Name == args.PropertyName)
 				{
@@ -237,13 +238,13 @@ namespace Lotus
 					{
 						_value = (TValue)_info.GetValue(_instance)!;
 					}
-					catch(InvalidCastException invalid_cast)
+					catch (InvalidCastException invalid_cast)
 					{
 						XLogger.LogException(invalid_cast);
 					}
 
 					// Информируем
-					NotifyPropertyChanged(PropertyArgsValue);
+					OnPropertyChanged(PropertyArgsValue);
 				}
 			}
 			#endregion

@@ -40,7 +40,7 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal TStringSearchOption _searchOption;
-			protected internal String _searchValue;
+			protected internal string _searchValue;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -58,8 +58,8 @@ namespace Lotus
 					if (_searchOption != value)
 					{
 						_searchOption = value;
-						NotifyPropertyChanged(PropertyArgsSearchOption);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsSearchOption);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchOption));
 					}
 				}
@@ -68,7 +68,7 @@ namespace Lotus
 			/// <summary>
 			/// Значение для сравнения
 			/// </summary>
-			public String SearchValue
+			public string SearchValue
 			{
 				get
 				{
@@ -79,8 +79,8 @@ namespace Lotus
 					if (_searchValue != value)
 					{
 						_searchValue = value;
-						NotifyPropertyChanged(PropertyArgsSearchValue);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsSearchValue);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchValue));
 					}
 				}
@@ -104,21 +104,21 @@ namespace Lotus
 			/// <param name="search_option">Опции поиска в строке</param>
 			/// <param name="search_value">Значение для сравнения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CQueryItemString(TStringSearchOption search_option, String search_value)
+			public CQueryItemString(TStringSearchOption search_option, string search_value)
 			{
 				_searchOption = search_option;
 				_searchValue = search_value;
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Преобразование к текстовому представлению
 			/// </summary>
 			/// <returns>Наименование объекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				var name = "";
 				ComputeSQLQuery(ref name);
@@ -126,7 +126,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Формирование SQL запроса
@@ -134,9 +134,9 @@ namespace Lotus
 			/// <param name="sql_query">SQL запрос</param>
 			/// <returns>Статус формирования элемента запроса</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override Boolean ComputeSQLQuery(ref String sql_query)
+			public override bool ComputeSQLQuery(ref string sql_query)
 			{
-				if ((_notCalculation == false) && (String.IsNullOrEmpty(_searchValue) == false))
+				if ((_notCalculation == false) && (string.IsNullOrEmpty(_searchValue) == false))
 				{
 					switch (_searchOption)
 					{

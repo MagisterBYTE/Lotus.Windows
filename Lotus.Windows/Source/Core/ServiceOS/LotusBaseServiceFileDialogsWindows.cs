@@ -34,7 +34,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла без точки</param>
 			/// <returns>Фильтр</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private static String GetFilterFromExt(String extension)
+			private static string GetFilterFromExt(string extension)
 			{
 				var result = "";
 				switch (extension.ToLower())
@@ -85,7 +85,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла без точки или список расширений или null</param>
 			/// <returns>Полное имя существующего файла или null</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String? Open(String title, String directory, String? extension)
+			public string? Open(string title, string directory, string? extension)
 			{
 				// Конфигурация диалога
 				var dialog = new Microsoft.Win32.OpenFileDialog();
@@ -132,7 +132,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла без точки</param>
 			/// <returns>Полное имя файла или null</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public String? Save(String title, String directory, String defaultName, String? extension)
+			public string? Save(string title, string directory, string defaultName, string? extension)
 			{
 				// Конфигурация диалога
 				var dialog = new Microsoft.Win32.SaveFileDialog();

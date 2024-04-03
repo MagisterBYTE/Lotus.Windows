@@ -73,9 +73,9 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal TNotificationType _noticeType;
-			protected internal String _message;
-			protected internal Int32 _id;
-			protected internal String _title;
+			protected internal string _message;
+			protected internal int _id;
+			protected internal string _title;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -90,7 +90,7 @@ namespace Lotus
 					if (_noticeType != value)
 					{
 						_noticeType = value;
-						NotifyPropertyChanged(PropertyArgsNoticeType);
+						OnPropertyChanged(PropertyArgsNoticeType);
 					}
 				}
 			}
@@ -98,7 +98,7 @@ namespace Lotus
 			/// <summary>
 			/// Текст сообщения
 			/// </summary>
-			public String Message
+			public string Message
 			{
 				get { return _message; }
 				set
@@ -106,7 +106,7 @@ namespace Lotus
 					if (_message != value)
 					{
 						_message = value;
-						NotifyPropertyChanged(PropertyArgsMessage);
+						OnPropertyChanged(PropertyArgsMessage);
 					}
 				}
 			}
@@ -114,7 +114,7 @@ namespace Lotus
 			/// <summary>
 			/// Уникальный идентификатор сообщения
 			/// </summary>
-			public Int32 ID
+			public int ID
 			{
 				get { return _id; }
 				set
@@ -122,7 +122,7 @@ namespace Lotus
 					if (_id != value)
 					{
 						_id = value;
-						NotifyPropertyChanged(PropertyArgsID);
+						OnPropertyChanged(PropertyArgsID);
 					}
 				}
 			}
@@ -130,7 +130,7 @@ namespace Lotus
 			/// <summary>
 			/// Заголовок сообщения
 			/// </summary>
-			public String Title
+			public string Title
 			{
 				get { return _title; }
 				set
@@ -138,7 +138,7 @@ namespace Lotus
 					if (_title != value)
 					{
 						_title = value;
-						NotifyPropertyChanged(PropertyArgsTitle);
+						OnPropertyChanged(PropertyArgsTitle);
 					}
 				}
 			}
@@ -190,7 +190,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Графическая пиктограмма</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var val = (TNotificationType)value;
 				switch (val)
@@ -222,7 +222,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип NotificationType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object? ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null;
 			}
@@ -240,11 +240,11 @@ namespace Lotus
 			/// <summary>
 			/// Максимальное количество видимых оповещений
 			/// </summary>
-			private const Int32 MaxNotifications = 4;
+			private const int MaxNotifications = 4;
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			private Int32 mCount;
+			private int mCount;
 			private CNotifications mCurrentNotifications;
 			private CNotifications mBufferNotifications;
 			#endregion
@@ -264,7 +264,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Добавление сообщения
@@ -297,7 +297,7 @@ namespace Lotus
 			/// <param name="notice_type">Тип сообщения</param>
 			/// <param name="message">Текст сообщения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void AddNotification(TNotificationType notice_type, String message)
+			public void AddNotification(TNotificationType notice_type, string message)
 			{
 				var notification = new CNotification();
 				notification.NoticeType = notice_type;
@@ -376,14 +376,14 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void NotificationWindow_SizeChanged(Object sender, SizeChangedEventArgs args)
+			private void NotificationWindow_SizeChanged(object sender, SizeChangedEventArgs args)
 			{
 				if (args.NewSize.Height != 0.0)
 				{
 					return;
 				}
 				var element = (sender as Grid)!;
-				RemoveNotification(mCurrentNotifications.First(n => n.ID == Int32.Parse(element.Tag.ToString()!)));
+				RemoveNotification(mCurrentNotifications.First(n => n.ID == int.Parse(element.Tag.ToString()!)));
 			}
 			#endregion
 		}

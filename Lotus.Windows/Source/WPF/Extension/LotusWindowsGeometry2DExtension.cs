@@ -37,7 +37,7 @@ namespace Lotus
 			/// <param name="x">Позиция по X</param>
 			/// <param name="y">Позиция по Y</param>
 			//---------------------------------------------------------------------------------------------------------
-			public static void SetPosition(this Geometry geometry, Double x, Double y)
+			public static void SetPosition(this Geometry geometry, double x, double y)
 			{
 				var transform_group = geometry.Transform as TransformGroup;
 				if (transform_group != null)
@@ -95,7 +95,7 @@ namespace Lotus
 			/// <param name="geometry">Геометрия</param>
 			/// <param name="angle">Угол поворота</param>
 			//---------------------------------------------------------------------------------------------------------
-			public static void SetAngle(this Geometry geometry, Double angle)
+			public static void SetAngle(this Geometry geometry, double angle)
 			{
 				var transform_group = geometry.Transform as TransformGroup;
 				if (transform_group != null)

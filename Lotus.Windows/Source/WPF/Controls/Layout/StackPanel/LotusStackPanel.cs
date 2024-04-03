@@ -98,7 +98,7 @@ namespace Lotus
 					FrameworkPropertyMetadataOptions.AffectsMeasure));
 
 			public static readonly DependencyProperty MarginBetweenChildrenProperty = 
-				DependencyProperty.Register(nameof(MarginBetweenChildren), typeof(Double), typeof(LotusStackPanel),
+				DependencyProperty.Register(nameof(MarginBetweenChildren), typeof(double), typeof(LotusStackPanel),
 					new FrameworkPropertyMetadata(0.0,
 						FrameworkPropertyMetadataOptions.AffectsArrange |
 						FrameworkPropertyMetadataOptions.AffectsMeasure));
@@ -158,7 +158,7 @@ namespace Lotus
 			/// <param name="margin_between_children">Расстояние между элементами</param>
 			/// <returns>Общее расстояния между элементами</returns>
 			//---------------------------------------------------------------------------------------------------------
-			static Double CalculateTotalMarginToAdd(UIElementCollection children, Double margin_between_children)
+			static double CalculateTotalMarginToAdd(UIElementCollection children, double margin_between_children)
 			{
 				var visibleChildrenCount = children
 					.OfType<UIElement>()
@@ -194,9 +194,9 @@ namespace Lotus
 			/// <summary>
 			/// Расстояние между дочерними элементами
 			/// </summary>
-			public Double MarginBetweenChildren
+			public double MarginBetweenChildren
 			{
-				get { return (Double)GetValue(MarginBetweenChildrenProperty); }
+				get { return (double)GetValue(MarginBetweenChildrenProperty); }
 				set { SetValue(MarginBetweenChildrenProperty, value); }
 			}
 			#endregion
@@ -229,10 +229,10 @@ namespace Lotus
 			{
 				UIElementCollection children = InternalChildren;
 
-				Double parentWidth = 0;
-				Double parentHeight = 0;
-				Double accumulatedWidth = 0;
-				Double accumulatedHeight = 0;
+				double parentWidth = 0;
+				double parentHeight = 0;
+				double accumulatedWidth = 0;
+				double accumulatedHeight = 0;
 
 				var isHorizontal = Orientation == Orientation.Horizontal;
 				var totalMarginToAdd = CalculateTotalMarginToAdd(children, MarginBetweenChildren);
@@ -342,8 +342,8 @@ namespace Lotus
 				UIElementCollection children = InternalChildren;
 				var totalChildrenCount = children.Count;
 
-				Double accumulatedLeft = 0;
-				Double accumulatedTop = 0;
+				double accumulatedLeft = 0;
+				double accumulatedTop = 0;
 
 				var isHorizontal = Orientation == Orientation.Horizontal;
 				var marginBetweenChildren = MarginBetweenChildren;
@@ -420,7 +420,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

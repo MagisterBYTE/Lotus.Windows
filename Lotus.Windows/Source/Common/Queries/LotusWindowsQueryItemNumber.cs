@@ -41,8 +41,8 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal TComparisonOperator _comparisonOperator;
-			protected internal Double _comparisonValueLeft;
-			protected internal Double _comparisonValueRight;
+			protected internal double _comparisonValueLeft;
+			protected internal double _comparisonValueRight;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -60,8 +60,8 @@ namespace Lotus
 					if (_comparisonOperator != value)
 					{
 						_comparisonOperator = value;
-						NotifyPropertyChanged(PropertyArgsComparisonOperator);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonOperator);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonOperator));
 					}
 				}
@@ -70,7 +70,7 @@ namespace Lotus
 			/// <summary>
 			/// Значение для сравнения слева
 			/// </summary>
-			public Double ComparisonValueLeft
+			public double ComparisonValueLeft
 			{
 				get
 				{
@@ -81,8 +81,8 @@ namespace Lotus
 					if (Math.Abs(_comparisonValueLeft - value) > 0.000001)
 					{
 						_comparisonValueLeft = value;
-						NotifyPropertyChanged(PropertyArgsComparisonValueLeft);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonValueLeft);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
 					}
 				}
@@ -91,7 +91,7 @@ namespace Lotus
 			/// <summary>
 			/// Значение для сравнения справа
 			/// </summary>
-			public Double ComparisonValueRight
+			public double ComparisonValueRight
 			{
 				get
 				{
@@ -102,8 +102,8 @@ namespace Lotus
 					if (Math.Abs(_comparisonValueRight - value) > 0.000001)
 					{
 						_comparisonValueRight = value;
-						NotifyPropertyChanged(PropertyArgsComparisonValueRight);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonValueRight);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(_comparisonValueRight));
 					}
 				}
@@ -127,7 +127,7 @@ namespace Lotus
 			/// <param name="comparison_operator">Оператор сравнения</param>
 			/// <param name="comparison_value">Значение для сравнения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CQueryItemNumber(TComparisonOperator comparison_operator, Double comparison_value)
+			public CQueryItemNumber(TComparisonOperator comparison_operator, double comparison_value)
 			{
 				_comparisonOperator = comparison_operator;
 				_comparisonValueLeft = comparison_value;
@@ -140,7 +140,7 @@ namespace Lotus
 			/// <param name="comparison_value_left">Значение для сравнения слева</param>
 			/// <param name="comparison_value_right">Значение для сравнения справа</param>
 			//---------------------------------------------------------------------------------------------------------
-			public CQueryItemNumber(Double comparison_value_left, Double comparison_value_right)
+			public CQueryItemNumber(double comparison_value_left, double comparison_value_right)
 			{
 				_comparisonOperator = TComparisonOperator.Equality;
 				_comparisonValueLeft = comparison_value_left;
@@ -148,14 +148,14 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Преобразование к текстовому представлению
 			/// </summary>
 			/// <returns>Наименование объекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				var name = "";
 				ComputeSQLQuery(ref name);
@@ -163,7 +163,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Формирование SQL запроса
@@ -171,10 +171,10 @@ namespace Lotus
 			/// <param name="sql_query">SQL запрос</param>
 			/// <returns>Статус формирования элемента запроса</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override Boolean ComputeSQLQuery(ref String sql_query)
+			public override bool ComputeSQLQuery(ref string sql_query)
 			{
-				if(_notCalculation == false && Double.IsInfinity(_comparisonValueLeft) == false &&
-					Double.IsNaN(_comparisonValueLeft) == false)
+				if(_notCalculation == false && double.IsInfinity(_comparisonValueLeft) == false &&
+					double.IsNaN(_comparisonValueLeft) == false)
 				{
 					//if(_comparisonOperator == TComparisonQueryOperator.Between)
 					//{

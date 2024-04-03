@@ -87,7 +87,7 @@ namespace Lotus
 			/// <param name="comparison_operator">Оператор сравнения</param>
 			/// <returns>Текстовое представление</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetOperatorOfString(this TComparisonOperator comparison_operator)
+			public static string GetOperatorOfString(this TComparisonOperator comparison_operator)
 			{
 				var result = "";
 				switch (comparison_operator)
@@ -140,7 +140,7 @@ namespace Lotus
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal ListArray<CQueryItem> _items;
-			protected internal String _sqlQuery;
+			protected internal string _sqlQuery;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -158,7 +158,7 @@ namespace Lotus
 			/// <summary>
 			/// Стандартный SQL запрос
 			/// </summary>
-			public String SQLQuery
+			public string SQLQuery
 			{
 				get
 				{
@@ -189,7 +189,7 @@ namespace Lotus
 			/// <param name="data_name">Имя данных</param>
 			/// <returns>Статус разрешения/согласования изменения данных</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Boolean OnNotifyUpdating(System.Object source, String data_name)
+			public bool OnNotifyUpdating(object source, string data_name)
 			{
 				return true;
 			}
@@ -201,13 +201,13 @@ namespace Lotus
 			/// <param name="source">Объект данные которого изменились</param>
 			/// <param name="data_name">Имя данных</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OnNotifyUpdated(System.Object source, String data_name)
+			public void OnNotifyUpdated(object source, string data_name)
 			{
-				NotifyPropertyChanged(PropertyArgsSQLQuery);
+				OnPropertyChanged(PropertyArgsSQLQuery);
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Вычисление SQL запроса на основе элементов запроса
@@ -248,16 +248,16 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal String _propertyName;
+			protected internal string _propertyName;
 			protected internal CQuery _queryOwned;
-			protected internal Boolean _notCalculation;
+			protected internal bool _notCalculation;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Имя свойства/столбца
 			/// </summary>
-			public String PropertyName
+			public string PropertyName
 			{
 				get
 				{
@@ -287,7 +287,7 @@ namespace Lotus
 			/// <summary>
 			/// Элемент стандартного SQL запроса
 			/// </summary>
-			public String SQLQueryItem
+			public string SQLQueryItem
 			{
 				get
 				{
@@ -298,13 +298,13 @@ namespace Lotus
 			/// <summary>
 			/// Элемент запроса не участвует в запросе
 			/// </summary>
-			public Boolean NotCalculation
+			public bool NotCalculation
 			{
 				get { return _notCalculation; }
 				set
 				{
 					_notCalculation = value;
-					NotifyPropertyChanged(PropertyArgsNotCalculation);
+					OnPropertyChanged(PropertyArgsNotCalculation);
 					if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(NotCalculation));
 				}
 			}
@@ -321,7 +321,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Формирование SQL запроса
@@ -329,7 +329,7 @@ namespace Lotus
 			/// <param name="sql_query">SQL запрос</param>
 			/// <returns>Статус формирования элемента запроса</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public virtual Boolean ComputeSQLQuery(ref String sql_query)
+			public virtual bool ComputeSQLQuery(ref string sql_query)
 			{
 				return false;
 			}

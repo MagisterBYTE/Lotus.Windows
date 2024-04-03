@@ -29,7 +29,7 @@ namespace Lotus
 		/// Конвертер вещественного типа в строку
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Double), typeof(String))]
+		[ValueConversion(typeof(double), typeof(string))]
 		public class DoubleToStringConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -43,9 +43,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Double)value;
+				var val = (double)value;
 
 				if (parameter != null)
 				{
@@ -67,11 +67,11 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var str = (String)value;
+				var str = (string)value;
 
-				if (String.IsNullOrWhiteSpace(str))
+				if (string.IsNullOrWhiteSpace(str))
 				{
 					return 0;
 				}
@@ -89,7 +89,7 @@ namespace Lotus
 		/// Конвертер для изменения вещественного значения через параметр
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Double), typeof(Double))]
+		[ValueConversion(typeof(double), typeof(double))]
 		public class DoubleOffsetConverter : IValueConverter
 		{
 			//---------------------------------------------------------------------------------------------------------
@@ -102,9 +102,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Double)value;
+				var val = (double)value;
 
 				if (parameter != null)
 				{
@@ -126,9 +126,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Вещественный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Double)value;
+				var val = (double)value;
 
 				if (parameter != null)
 				{

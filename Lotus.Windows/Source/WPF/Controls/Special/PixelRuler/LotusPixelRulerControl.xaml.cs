@@ -96,42 +96,42 @@ namespace Lotus
 			/// Длина линейки
 			/// </summary>
 			public static readonly DependencyProperty LengthProperty =
-				DependencyProperty.Register(nameof(Length), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(Length), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(20D, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Авто размер линейки
 			/// </summary>
 			public static readonly DependencyProperty AutoSizeProperty =
-				DependencyProperty.Register(nameof(AutoSize), typeof(Boolean), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(AutoSize), typeof(bool), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Масштаб основных единиц
 			/// </summary>
 			public static readonly DependencyProperty ZoomProperty =
-				DependencyProperty.Register(nameof(Zoom), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(Zoom), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Малый шаг маркеров основных единиц
 			/// </summary>
 			public static readonly DependencyProperty SmallStepProperty =
-				DependencyProperty.Register(nameof(SmallStep), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(SmallStep), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(5.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Основной шаг маркеров основных единиц
 			/// </summary>
 			public static readonly DependencyProperty StepProperty =
-				DependencyProperty.Register(nameof(Step), typeof(Double), typeof(LotusPixelRulerControl),
-				new FrameworkPropertyMetadata((Double)10, FrameworkPropertyMetadataOptions.AffectsRender));
+				DependencyProperty.Register(nameof(Step), typeof(double), typeof(LotusPixelRulerControl),
+				new FrameworkPropertyMetadata((double)10, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Смещение единиц основных единиц
 			/// </summary>
 			public static readonly DependencyProperty OffsetProperty =
-				DependencyProperty.Register(nameof(Offset), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(Offset), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 
@@ -139,21 +139,21 @@ namespace Lotus
 			/// Дополнительное начальное фиксированное смещение для отрисовки основных единиц
 			/// </summary>
 			public static readonly DependencyProperty UnitFixedOffsetProperty =
-				DependencyProperty.Register(nameof(UnitFixedOffset), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(UnitFixedOffset), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Начальное смещение для отрисовки основных единиц
 			/// </summary>
 			public static readonly DependencyProperty UnitStartOffsetProperty =
-				DependencyProperty.Register(nameof(UnitStartOffset), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(UnitStartOffset), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
 			/// Полная длина отрисовки
 			/// </summary>
 			public static readonly DependencyProperty UnitLengthProperty =
-				DependencyProperty.Register(nameof(UnitLength), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(UnitLength), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
 
 			/// <summary>
@@ -174,14 +174,14 @@ namespace Lotus
 			/// Единица измерения
 			/// </summary>
 			public static readonly DependencyProperty DimensionUserProperty =
-				DependencyProperty.Register(nameof(DimensionUser), typeof(Double), typeof(LotusPixelRulerControl),
+				DependencyProperty.Register(nameof(DimensionUser), typeof(double), typeof(LotusPixelRulerControl),
 				new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender));
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
 			// Основные параметры
 			protected internal Typeface _typefaceNumber;
-			protected internal Double _segmentHeight;
+			protected internal double _segmentHeight;
 			protected internal Pen _thinPen = new Pen(Brushes.Black, 1.0);
 			protected internal Pen _borderPen = new Pen(Brushes.Gray, 1.0);
 			protected internal ScaleTransform _transformScale;
@@ -194,7 +194,7 @@ namespace Lotus
 			/// Получает или задает длину линейки. Если <see cref="AutoSize"/> свойство установлено в ложное (по умолчанию) 
 			/// это фиксированная длина. В противном случае длина вычисляется на основе фактической ширины элемента линейки
 			/// </summary>
-			public Double Length
+			public double Length
 			{
 				get
 				{
@@ -204,7 +204,7 @@ namespace Lotus
 					}
 					else
 					{
-						return (Double)GetValue(LengthProperty);
+						return (double)GetValue(LengthProperty);
 					}
 				}
 				set { SetValue(LengthProperty, value); }
@@ -218,9 +218,9 @@ namespace Lotus
 			/// - True: длина линейки всегда доводится до фактической ширины родительского элемента. Это гарантирует, что линейка будет
 			/// показана на всю ширину родительского элемента.
 			/// </summary>
-			public Boolean AutoSize
+			public bool AutoSize
 			{
-				get { return (Boolean)GetValue(AutoSizeProperty); }
+				get { return (bool)GetValue(AutoSizeProperty); }
 				set
 				{
 					SetValue(AutoSizeProperty, value);
@@ -231,9 +231,9 @@ namespace Lotus
 			/// <summary>
 			/// Масштаб отображения основных единиц
 			/// </summary>
-			public Double Zoom
+			public double Zoom
 			{
-				get { return (Double)GetValue(ZoomProperty); }
+				get { return (double)GetValue(ZoomProperty); }
 				set
 				{
 					SetValue(ZoomProperty, value);
@@ -244,9 +244,9 @@ namespace Lotus
 			/// <summary>
 			/// Малый шаг отображения основных единиц
 			/// </summary>
-			public Double SmallStep
+			public double SmallStep
 			{
-				get { return (Double)GetValue(SmallStepProperty); }
+				get { return (double)GetValue(SmallStepProperty); }
 				set
 				{
 					SetValue(SmallStepProperty, value);
@@ -257,9 +257,9 @@ namespace Lotus
 			/// <summary>
 			/// Основной шаг отображения основных единиц
 			/// </summary>
-			public Double Step
+			public double Step
 			{
-				get { return (Double)GetValue(StepProperty); }
+				get { return (double)GetValue(StepProperty); }
 				set
 				{
 					SetValue(StepProperty, value);
@@ -270,9 +270,9 @@ namespace Lotus
 			/// <summary>
 			/// Смещение основных единиц
 			/// </summary>
-			public Double Offset
+			public double Offset
 			{
-				get { return (Double)GetValue(OffsetProperty); }
+				get { return (double)GetValue(OffsetProperty); }
 				set
 				{
 					SetValue(OffsetProperty, value);
@@ -287,9 +287,9 @@ namespace Lotus
 			/// Применяется для выравнивания относительно других элементов и определения нулю отсчета
 			/// Измеряется в аппаратно-независимых единицах
 			/// </remarks>
-			public Double UnitFixedOffset
+			public double UnitFixedOffset
 			{
-				get { return (Double)GetValue(UnitFixedOffsetProperty); }
+				get { return (double)GetValue(UnitFixedOffsetProperty); }
 				set
 				{
 					SetValue(UnitFixedOffsetProperty, value);
@@ -304,9 +304,9 @@ namespace Lotus
 			/// Применяется для выравнивания относительно других элементов и определения нулю отсчета
 			/// Измеряется в аппаратно-независимых единицах
 			/// </remarks>
-			public Double UnitStartOffset
+			public double UnitStartOffset
 			{
-				get { return (Double)GetValue(UnitStartOffsetProperty); }
+				get { return (double)GetValue(UnitStartOffsetProperty); }
 				set
 				{
 					SetValue(UnitStartOffsetProperty, value);
@@ -317,7 +317,7 @@ namespace Lotus
 			/// <summary>
 			/// Cмещение для отрисовки основных единиц
 			/// </summary>
-			public Double UnitOffset
+			public double UnitOffset
 			{
 				get { return _transformOffset.X; }
 				set
@@ -330,9 +330,9 @@ namespace Lotus
 			/// <summary>
 			/// Полная длина отрисовки
 			/// </summary>
-			public Double UnitLength
+			public double UnitLength
 			{
-				get { return (Double)GetValue(UnitLengthProperty); }
+				get { return (double)GetValue(UnitLengthProperty); }
 				set
 				{
 					SetValue(UnitLengthProperty, value);
@@ -343,7 +343,7 @@ namespace Lotus
 			/// <summary>
 			/// Масштаб увеличения по X
 			/// </summary>
-			public Double UnitScaleX
+			public double UnitScaleX
 			{
 				get { return _transformScale.ScaleX; }
 				set
@@ -356,7 +356,7 @@ namespace Lotus
 			/// <summary>
 			/// Масштаб увеличения по Y
 			/// </summary>
-			public Double UnitScaleY
+			public double UnitScaleY
 			{
 				get { return _transformScale.ScaleY; }
 				set
@@ -369,7 +369,7 @@ namespace Lotus
 			/// <summary>
 			/// Смещение точки при увеличения по X
 			/// </summary>
-			public Double UnitScaleCenterX
+			public double UnitScaleCenterX
 			{
 				get { return _transformScale.CenterX; }
 				set
@@ -382,7 +382,7 @@ namespace Lotus
 			/// <summary>
 			/// Смещение точки при увеличения по Y
 			/// </summary>
-			public Double UnitScaleCenterY
+			public double UnitScaleCenterY
 			{
 				get { return _transformScale.CenterY; }
 				set
@@ -417,9 +417,9 @@ namespace Lotus
 			/// <summary>
 			/// Масштаб пользовательской единицы измерения к миллиметру
 			/// </summary>
-			public Double DimensionUser
+			public double DimensionUser
 			{
-				get { return (Double)GetValue(DimensionUserProperty); }
+				get { return (double)GetValue(DimensionUserProperty); }
 				set
 				{
 					SetValue(DimensionUserProperty, value);
@@ -467,7 +467,7 @@ namespace Lotus
 			/// <param name="value">Значение</param>
 			/// <returns>Размер в аппаратно-независимых единицах</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private Double ToDeviceUnits(Double value)
+			private double ToDeviceUnits(double value)
 			{
 				switch (DimensionType)
 				{
@@ -489,7 +489,7 @@ namespace Lotus
 			/// <param name="device_unit">Размер в аппаратно-независимых единицах</param>
 			/// <returns>Значение в соответствующих единицах измерения</returns>
 			//---------------------------------------------------------------------------------------------------------
-			private Double ToValueDimension(Double device_unit)
+			private double ToValueDimension(double device_unit)
 			{
 				switch (DimensionType)
 				{
@@ -526,7 +526,7 @@ namespace Lotus
 				// 1) Количество отрисовок
 				var small_step = ToDeviceUnits(SmallStep);
 				_ = ToDeviceUnits(Step);
-				var count = (Int32)(UnitLength /small_step + 0.5);
+				var count = (int)(UnitLength /small_step + 0.5);
 
 				// 3) Размер шрифта и пера
 				_thinPen.Thickness = 1.0 / Zoom * 1;
@@ -538,18 +538,18 @@ namespace Lotus
 				drawingContext.PushClip(rect_clip);
 				drawingContext.PushTransform(_transformGroup);
 
-				Double current_length;
-				Double current_value;
+				double current_length;
+				double current_value;
 				for (var i = 0; i < count; i++)
 				{
 					current_length = small_step * i;
 					current_value = SmallStep * i;
 
 					// 5) Если делится без остатка на основной шаг то рисуем его
-					var is_main = ((Int32)current_value % (Int32)Step) == 0;
+					var is_main = ((int)current_value % (int)Step) == 0;
 
-					Double start_height;
-					Double end_height;
+					double start_height;
+					double end_height;
 					if (MarksLocation == TRulerMarksLocation.Up)
 					{
 						start_height = 0;

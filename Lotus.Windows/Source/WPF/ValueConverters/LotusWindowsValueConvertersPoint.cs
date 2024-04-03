@@ -28,7 +28,7 @@ namespace Lotus
 		/// Конвертер типа Point в строку
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Point), typeof(String))]
+		[ValueConversion(typeof(Point), typeof(string))]
 		public class PointToStringConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -42,7 +42,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var val = (Point)value;
 				return "X = " + val.X.ToString("F2") + "; Y = " + val.Y.ToString("F2") + ";";
@@ -58,7 +58,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>тип Point</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}

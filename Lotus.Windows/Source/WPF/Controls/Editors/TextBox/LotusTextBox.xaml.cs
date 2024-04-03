@@ -35,7 +35,7 @@ namespace Lotus
 			/// Заполнитель текста в случае отсутствие текста
 			/// </summary>
 			public static readonly DependencyProperty PlaceholderTextProperty = DependencyProperty.Register(nameof(PlaceholderText),
-				typeof(String),
+				typeof(string),
 				typeof(LotusTextBox),
 				new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsArrange));
 
@@ -43,7 +43,7 @@ namespace Lotus
 			/// Статус показа кнопки отчистки
 			/// </summary>
 			public static readonly DependencyProperty ShowButtonClearProperty = DependencyProperty.Register(nameof(ShowButtonClear),
-				typeof(Boolean),
+				typeof(bool),
 				typeof(LotusTextBox),
 				new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsArrange));
 			#endregion
@@ -52,18 +52,18 @@ namespace Lotus
 			/// <summary>
 			/// Заполнитель текста в случае отсутствие текста
 			/// </summary>
-			public String PlaceholderText
+			public string PlaceholderText
 			{
-				get { return (String)GetValue(PlaceholderTextProperty); }
+				get { return (string)GetValue(PlaceholderTextProperty); }
 				set { SetValue(PlaceholderTextProperty, value); }
 			}
 
 			/// <summary>
 			/// Статус показа кнопки отчистки
 			/// </summary>
-			public Boolean ShowButtonClear
+			public bool ShowButtonClear
 			{
-				get { return (Boolean)GetValue(ShowButtonClearProperty); }
+				get { return (bool)GetValue(ShowButtonClearProperty); }
 				set { SetValue(ShowButtonClearProperty, value); }
 			}
 			#endregion
@@ -90,7 +90,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonClear_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonClear_Click(object sender, RoutedEventArgs args)
 			{
 				this.Text = "";
 			}

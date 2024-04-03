@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -96,29 +97,29 @@ namespace Lotus
 			// Основные параметры
 			protected internal PropertyInfo _info;
 			protected internal TPropertyType _propertyType;
-			protected internal System.Object _instance;
+			protected internal object _instance;
 
 			// Параметры описания
-			protected internal String _displayName;
-			protected internal String _description;
-			protected internal Int32 _propertyOrder = -1;
-			protected internal String _category;
-			protected internal Int32 _categoryOrder = -1;
+			protected internal string _displayName;
+			protected internal string _description;
+			protected internal int _propertyOrder = -1;
+			protected internal string _category;
+			protected internal int _categoryOrder = -1;
 
 			// Параметры управления
-			protected internal Boolean _isReadOnly;
-			protected internal Object _defaultValue;
-			protected internal String _formatValue;
+			protected internal bool _isReadOnly;
+			protected internal object _defaultValue;
+			protected internal string _formatValue;
 
 			// Список значений величины
-			protected internal Object _listValues;
-			protected internal String _listValuesMemberName;
+			protected internal object _listValues;
+			protected internal string _listValuesMemberName;
 			protected internal TInspectorMemberType _listValuesMemberType;
-			protected internal Boolean _isValueFromList;
+			protected internal bool _isValueFromList;
 
 			// Управление кнопкой
-			protected internal String _buttonCaption;
-			protected internal String _buttonMethodName;
+			protected internal string _buttonCaption;
+			protected internal string _buttonMethodName;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
@@ -152,7 +153,7 @@ namespace Lotus
 			/// <summary>
 			/// Экземпляр объекта
 			/// </summary>
-			public System.Object Instance
+			public object Instance
 			{
 				get { return _instance; }
 				set
@@ -188,11 +189,11 @@ namespace Lotus
 			/// <summary>
 			/// Отображаемое имя свойства
 			/// </summary>
-			public String DisplayName
+			public string DisplayName
 			{
 				get
 				{
-					if (String.IsNullOrEmpty(_displayName))
+					if (string.IsNullOrEmpty(_displayName))
 					{
 						if (_info != null)
 						{
@@ -217,7 +218,7 @@ namespace Lotus
 			/// <summary>
 			/// Описание свойства
 			/// </summary>
-			public String Description
+			public string Description
 			{
 				get { return _description; }
 				set
@@ -229,7 +230,7 @@ namespace Lotus
 			/// <summary>
 			/// Порядковый номер отображения свойства внутри категории
 			/// </summary>
-			public Int32 PropertyOrder
+			public int PropertyOrder
 			{
 				get { return _propertyOrder; }
 				set
@@ -241,7 +242,7 @@ namespace Lotus
 			/// <summary>
 			/// Категория свойства
 			/// </summary>
-			public String Category
+			public string Category
 			{
 				get { return _category; }
 				set
@@ -253,7 +254,7 @@ namespace Lotus
 			/// <summary>
 			/// Порядковый номер отображения категории
 			/// </summary>
-			public Int32 CategoryOrder
+			public int CategoryOrder
 			{
 				get { return _categoryOrder; }
 				set
@@ -268,7 +269,7 @@ namespace Lotus
 			/// <summary>
 			/// Свойство только для чтения
 			/// </summary>
-			public Boolean IsReadOnly
+			public bool IsReadOnly
 			{
 				get { return _isReadOnly; }
 				set
@@ -280,7 +281,7 @@ namespace Lotus
 			/// <summary>
 			/// Значение свойства по умолчанию
 			/// </summary>
-			public Object DefaultValue
+			public object DefaultValue
 			{
 				get { return _defaultValue; }
 				set
@@ -292,7 +293,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус наличия значения по умолчанию
 			/// </summary>
-			public Boolean IsDefaultValue
+			public bool IsDefaultValue
 			{
 				get { return _defaultValue != null; }
 			}
@@ -300,7 +301,7 @@ namespace Lotus
 			/// <summary>
 			/// Формат отображения значения свойства
 			/// </summary>
-			public String FormatValue
+			public string FormatValue
 			{
 				get { return _formatValue; }
 				set
@@ -312,9 +313,9 @@ namespace Lotus
 			/// <summary>
 			/// Статус наличия формата отображения значения свойства
 			/// </summary>
-			public Boolean IsFormatValue
+			public bool IsFormatValue
 			{
-				get { return String.IsNullOrEmpty(FormatValue) == false; }
+				get { return string.IsNullOrEmpty(FormatValue) == false; }
 			}
 
 			//
@@ -323,7 +324,7 @@ namespace Lotus
 			/// <summary>
 			/// Список допустимых значений свойств
 			/// </summary>
-			public Object ListValues
+			public object ListValues
 			{
 				get { return _listValues; }
 				set
@@ -335,7 +336,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя члена данных списка допустимых значений свойств
 			/// </summary>
-			public String ListValuesMemberName
+			public string ListValuesMemberName
 			{
 				get { return _listValuesMemberName; }
 				set
@@ -359,7 +360,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус наличия списка значений
 			/// </summary>
-			public Boolean IsListValues
+			public bool IsListValues
 			{
 				get { return _listValues != null || _listValuesMemberName.IsExists(); }
 			}
@@ -367,13 +368,13 @@ namespace Lotus
 			/// <summary>
 			/// Статус значения свойства из списка значений
 			/// </summary>
-			public Boolean IsValueFromList
+			public bool IsValueFromList
 			{
 				get { return _isValueFromList; }
 				set
 				{
 					_isValueFromList = value;
-					NotifyPropertyChanged(PropertyArgsIsValueFromList);
+					OnPropertyChanged(PropertyArgsIsValueFromList);
 				}
 			}
 
@@ -383,7 +384,7 @@ namespace Lotus
 			/// <summary>
 			/// Надпись над кнопкой
 			/// </summary>
-			public String ButtonCaption
+			public string ButtonCaption
 			{
 				get { return _buttonCaption; }
 			}
@@ -391,7 +392,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя метода который вызывается при нажатии на кнопку
 			/// </summary>
-			public String ButtonMethodName
+			public string ButtonMethodName
 			{
 				get { return _buttonMethodName; }
 			}
@@ -399,7 +400,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус наличия атрибута для управления свойством через кнопку
 			/// </summary>
-			public Boolean IsButtonMethod
+			public bool IsButtonMethod
 			{
 				get { return _buttonMethodName.IsExists(); }
 			}
@@ -458,7 +459,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Сравнение объектов для упорядочивания
@@ -466,7 +467,7 @@ namespace Lotus
 			/// <param name="other">Сравниваемый объект</param>
 			/// <returns>Статус сравнения объектов</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Int32 CompareTo(CPropertyModelBase? other)
+			public int CompareTo(CPropertyModelBase? other)
 			{
 				if (other == null) return 0;
 
@@ -502,7 +503,7 @@ namespace Lotus
 			/// </summary>
 			/// <returns>Краткое наименование финасового инструмента</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				return DisplayName;
 			}
@@ -526,7 +527,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="disposing">Статус освобождения</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected virtual void Dispose(Boolean disposing)
+			protected virtual void Dispose(bool disposing)
 			{
 				// Освобождаем только управляемые ресурсы
 				if (disposing)
@@ -538,7 +539,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Получение данных описание свойства с его атрибутов
@@ -549,13 +550,13 @@ namespace Lotus
 				if (_info != null)
 				{
 					DisplayNameAttribute? display_name = _info.GetAttribute<DisplayNameAttribute>();
-					if (display_name != null && String.IsNullOrEmpty(_displayName))
+					if (display_name != null && string.IsNullOrEmpty(_displayName))
 					{
 						_displayName = display_name.DisplayName;
 					}
 
 					DescriptionAttribute? description = _info.GetAttribute<DescriptionAttribute>();
-					if (description != null && String.IsNullOrEmpty(_description))
+					if (description != null && string.IsNullOrEmpty(_description))
 					{
 						_description = description.Description;
 					}
@@ -573,7 +574,7 @@ namespace Lotus
 					}
 
 					CategoryAttribute? category = _info.GetAttribute<CategoryAttribute>();
-					if (category != null && String.IsNullOrEmpty(_category))
+					if (category != null && string.IsNullOrEmpty(_category))
 					{
 						_category = category.Category;
 					}
@@ -609,7 +610,7 @@ namespace Lotus
 					}
 
 					LotusNumberFormatAttribute? format_value = _info.GetAttribute<LotusNumberFormatAttribute>();
-					if (format_value != null && String.IsNullOrEmpty(_formatValue))
+					if (format_value != null && string.IsNullOrEmpty(_formatValue))
 					{
 						_formatValue = format_value.FormatValue;
 					}
@@ -638,12 +639,12 @@ namespace Lotus
 						CPropertyDesc desc = descs[i];
 						if (desc != null)
 						{
-							if (String.IsNullOrEmpty(desc.DisplayName) == false)
+							if (string.IsNullOrEmpty(desc.DisplayName) == false)
 							{
 								_displayName = desc.DisplayName;
 							}
 
-							if (String.IsNullOrEmpty(desc.Description) == false)
+							if (string.IsNullOrEmpty(desc.Description) == false)
 							{
 								_description = desc.Description;
 							}
@@ -653,7 +654,7 @@ namespace Lotus
 								_propertyOrder = desc.PropertyOrder;
 							}
 
-							if (String.IsNullOrEmpty(desc.Category) == false)
+							if (string.IsNullOrEmpty(desc.Category) == false)
 							{
 								_category = desc.Category;
 							}
@@ -691,7 +692,7 @@ namespace Lotus
 			/// </remarks>
 			/// <param name="value">Значение свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public virtual void SetValue(System.Object value)
+			public virtual void SetValue(object value)
 			{
 				// Устанавливаем значение свойства объекта
 				if (_info != null)
@@ -752,7 +753,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			protected virtual void OnPropertyChangedFromInstance(System.Object? sender, PropertyChangedEventArgs args)
+			protected virtual void OnPropertyChangedFromInstance(object? sender, PropertyChangedEventArgs args)
 			{
 			}
 			#endregion

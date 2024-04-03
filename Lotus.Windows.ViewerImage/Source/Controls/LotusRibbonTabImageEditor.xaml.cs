@@ -70,7 +70,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			#endregion
 
 			#region ======================================= ОБРАБОТЧИКИ СОБЫТИЙ =======================================
@@ -81,7 +81,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonTabImageEditor_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonTabImageEditor_Loaded(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -93,7 +93,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonOpen_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonOpen_Click(object sender, RoutedEventArgs args)
 			{
 				if (ImageViewEditor != null)
 				{
@@ -108,7 +108,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonOpenNotepad_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonOpenNotepad_Click(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -120,7 +120,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonSave_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonSave_Click(object sender, RoutedEventArgs args)
 			{
 				if (ImageViewEditor != null)
 				{
@@ -135,7 +135,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonSaveAs_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonSaveAs_Click(object sender, RoutedEventArgs args)
 			{
 				if (ImageViewEditor != null)
 				{
@@ -150,7 +150,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadioChannelImage_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadioChannelImage_Checked(object sender, RoutedEventArgs args)
 			{
 				if (ImageViewEditor != null)
 				{

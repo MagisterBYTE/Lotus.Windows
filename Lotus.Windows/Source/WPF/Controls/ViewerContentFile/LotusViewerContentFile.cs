@@ -38,7 +38,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя файла
 			/// </summary>
-			String FileName { get; set; }
+			string FileName { get; set; }
 			#endregion
 
 			#region ======================================= МЕТОДЫ ====================================================
@@ -49,7 +49,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void NewFile(String file_name, CParameters? parameters_create);
+			void NewFile(string file_name, CParameters? parameters_create);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -58,7 +58,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void OpenFile(String file_name, CParameters? parameters_open);
+			void OpenFile(string file_name, CParameters? parameters_open);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -74,7 +74,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void SaveAsFile(String file_name, CParameters? parameters_save);
+			void SaveAsFile(string file_name, CParameters? parameters_save);
 
 			//-------------------------------------------------------------------------------------------------------------
 			/// <summary>
@@ -91,7 +91,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			void ExportFile(String file_name, CParameters? parameters_export);
+			void ExportFile(string file_name, CParameters? parameters_export);
 
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>

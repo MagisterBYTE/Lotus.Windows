@@ -22,6 +22,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 using Lotus.Maths;
 using Lotus.UnitMeasurement;
 //=====================================================================================================================
@@ -81,7 +82,7 @@ namespace Lotus
 			public DataTemplate Invalid { get; set; }
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Выбор шаблона привязки данных
@@ -90,7 +91,7 @@ namespace Lotus
 			/// <param name="container">Контейнер</param>
 			/// <returns>Нужный шаблон</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
+			public override DataTemplate SelectTemplate(object item, DependencyObject container)
 			{
 				DataTemplate template = Invalid;
 				var model = item as CPropertyModelBase;
@@ -191,12 +192,12 @@ namespace Lotus
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal Object _selectedObject;
-			protected internal String _typeName;
-			protected internal String _objectName;
-			protected internal Boolean _isGrouping;
-			protected internal Boolean _isFiltration;
-			protected internal String _filterString;
+			protected internal object _selectedObject;
+			protected internal string _typeName;
+			protected internal string _objectName;
+			protected internal bool _isGrouping;
+			protected internal bool _isFiltration;
+			protected internal string _filterString;
 			protected internal CPropertyDesc[] _propertiesDesc;
 			protected internal ListArray<CPropertyModelBase> _properties;
 			protected internal ListCollectionView _propertiesView;
@@ -206,7 +207,7 @@ namespace Lotus
 			/// <summary>
 			/// Выбранный объект
 			/// </summary>
-			public Object SelectedObject
+			public object SelectedObject
 			{
 				get { return _selectedObject; }
 				set
@@ -223,7 +224,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя типа
 			/// </summary>
-			public String TypeName
+			public string TypeName
 			{
 				get { return _typeName; }
 				set
@@ -240,7 +241,7 @@ namespace Lotus
 			/// <summary>
 			/// Имя объекта
 			/// </summary>
-			public String ObjectName
+			public string ObjectName
 			{
 				get { return _objectName; }
 				set
@@ -258,7 +259,7 @@ namespace Lotus
 			/// Статус основного группирования
 			/// </summary>
 			[Browsable(false)]
-			public Boolean IsGrouping
+			public bool IsGrouping
 			{
 				get { return _isGrouping; }
 				set
@@ -285,7 +286,7 @@ namespace Lotus
 			/// Статус фильтрации данных
 			/// </summary>
 			[Browsable(false)]
-			public Boolean IsFiltration
+			public bool IsFiltration
 			{
 				get { return _isFiltration; }
 				set
@@ -312,7 +313,7 @@ namespace Lotus
 			/// Строка для фильтра
 			/// </summary>
 			[Browsable(false)]
-			public String FilterString
+			public string FilterString
 			{
 				get { return _filterString; }
 				set
@@ -356,7 +357,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Установка нового объекта для отображения свойств
@@ -465,7 +466,7 @@ namespace Lotus
 					// Логическое свойство
 					if (type.Name == nameof(Boolean))
 					{
-						_properties.Add(new PropertyModel<Boolean>(property_info, property_desc!, TPropertyType.Boolean));
+						_properties.Add(new PropertyModel<bool>(property_info, property_desc!, TPropertyType.Boolean));
 						continue;
 					}
 
@@ -497,7 +498,7 @@ namespace Lotus
 
 					if (type.Name == nameof(String))
 					{
-						_properties.Add(new PropertyModel<String>(property_info, property_desc!, TPropertyType.String));
+						_properties.Add(new PropertyModel<string>(property_info, property_desc!, TPropertyType.String));
 						continue;
 					}
 
@@ -540,40 +541,40 @@ namespace Lotus
 					case TypeCode.Boolean:
 						break;
 					case TypeCode.Char:
-						_properties.Add(new PropertyModelRange<Char>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<char>(property_info, property_desc));
 						break;
 					case TypeCode.SByte:
-						_properties.Add(new PropertyModelRange<SByte>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<sbyte>(property_info, property_desc));
 						break;
 					case TypeCode.Byte:
-						_properties.Add(new PropertyModelRange<Byte>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<byte>(property_info, property_desc));
 						break;
 					case TypeCode.Int16:
-						_properties.Add(new PropertyModelRange<Int16>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<short>(property_info, property_desc));
 						break;
 					case TypeCode.UInt16:
-						_properties.Add(new PropertyModelRange<UInt16>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<ushort>(property_info, property_desc));
 						break;
 					case TypeCode.Int32:
-						_properties.Add(new PropertyModelRange<Int32>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<int>(property_info, property_desc));
 						break;
 					case TypeCode.UInt32:
-						_properties.Add(new PropertyModelRange<UInt32>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<uint>(property_info, property_desc));
 						break;
 					case TypeCode.Int64:
-						_properties.Add(new PropertyModelRange<Int64>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<long>(property_info, property_desc));
 						break;
 					case TypeCode.UInt64:
-						_properties.Add(new PropertyModelRange<UInt64>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<ulong>(property_info, property_desc));
 						break;
 					case TypeCode.Single:
-						_properties.Add(new PropertyModelRange<Single>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<float>(property_info, property_desc));
 						break;
 					case TypeCode.Double:
-						_properties.Add(new PropertyModelRange<Double>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<double>(property_info, property_desc));
 						break;
 					case TypeCode.Decimal:
-						_properties.Add(new PropertyModelRange<Decimal>(property_info, property_desc));
+						_properties.Add(new PropertyModelRange<decimal>(property_info, property_desc));
 						break;
 					case TypeCode.DateTime:
 						break;
@@ -616,7 +617,7 @@ namespace Lotus
 			protected void UpdateCategoryOrders()
 			{
 				// Собираем группы
-				var groups = new List<String>();
+				var groups = new List<string>();
 				for (var i = 0; i < _properties.Count; i++)
 				{
 					groups.AddIfNotContains(_properties[i].Category);
@@ -660,9 +661,9 @@ namespace Lotus
 			/// <param name="item">Объект</param>
 			/// <returns>Статус проверки</returns>
 			//---------------------------------------------------------------------------------------------------------
-			protected virtual Boolean OnPropertyViewFilter(Object item)
+			protected virtual bool OnPropertyViewFilter(object item)
 			{
-				if (String.IsNullOrEmpty(FilterString))
+				if (string.IsNullOrEmpty(FilterString))
 				{
 					return true;
 				}
@@ -680,7 +681,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTextFilterProperty_TextChanged(Object sender, TextChangedEventArgs args)
+			private void OnTextFilterProperty_TextChanged(object sender, TextChangedEventArgs args)
 			{
 				FilterString = textFilterProperty.Text;
 			}
@@ -721,7 +722,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadioButtonGroup_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadioButtonGroup_Checked(object sender, RoutedEventArgs args)
 			{
 				toogleButtonAlphabetically.IsChecked = false;
 				SetGroupings();
@@ -734,7 +735,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRadioButtonAlphabetically_Checked(Object sender, RoutedEventArgs args)
+			private void OnRadioButtonAlphabetically_Checked(object sender, RoutedEventArgs args)
 			{
 				toogleButtonGroup.IsChecked = false;
 				UnsetGroupings();
@@ -767,7 +768,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonStringContextMenu_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonStringContextMenu_Click(object sender, RoutedEventArgs args)
 			{
 				var element = (args.Source as FrameworkElement)!;
 				var property_model = element.DataContext as CPropertyModelBase;
@@ -790,7 +791,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonListValuesString_ContextMenuOpening(Object sender, ContextMenuEventArgs args)
+			private void OnButtonListValuesString_ContextMenuOpening(object sender, ContextMenuEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -802,7 +803,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnMenuItemSetValueFromListForString_Click(Object sender, RoutedEventArgs args)
+			private void OnMenuItemSetValueFromListForString_Click(object sender, RoutedEventArgs args)
 			{
 				var menu_item = (args.OriginalSource as MenuItem)!;
 				var property_model = menu_item.Tag as CPropertyModelBase;
@@ -822,7 +823,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnUserControl_Loaded(Object sender, RoutedEventArgs args)
+			private void OnUserControl_Loaded(object sender, RoutedEventArgs args)
 			{
 				toogleButtonGroup.IsChecked = true;
 			}
@@ -834,7 +835,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonClearFilterProperty_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonClearFilterProperty_Click(object sender, RoutedEventArgs args)
 			{
 				textFilterProperty.Text = "";
 			}
@@ -846,7 +847,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDataProperties_SelectionChanged(Object sender, SelectionChangedEventArgs args)
+			private void OnDataProperties_SelectionChanged(object sender, SelectionChangedEventArgs args)
 			{
 				var property_model = _propertiesView.CurrentItem as CPropertyModelBase;
 				if (property_model != null)
@@ -862,7 +863,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTextBoxString_LostFocus(Object sender, RoutedEventArgs args)
+			private void OnTextBoxString_LostFocus(object sender, RoutedEventArgs args)
 			{
 				var property_model = _propertiesView.CurrentItem as CPropertyModelBase;
 				if (property_model != null)
@@ -878,7 +879,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonAttribute_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonAttribute_Click(object sender, RoutedEventArgs args)
 			{
 				if(sender is Button button)
 				{
@@ -900,7 +901,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

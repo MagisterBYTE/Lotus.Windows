@@ -32,12 +32,12 @@ namespace Lotus
 			/// <summary>
 			/// Координата по X
 			/// </summary>
-			public Int32 X;
+			public int X;
 
 			/// <summary>
 			/// Координата по Y
 			/// </summary>
-			public Int32 Y;
+			public int Y;
 		};
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -51,12 +51,12 @@ namespace Lotus
 			/// <summary>
 			/// Ширина
 			/// </summary>
-			public Int32 Width;
+			public int Width;
 
 			/// <summary>
 			/// Высота
 			/// </summary>
-			public Int32 Height;
+			public int Height;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ namespace Lotus
 			/// <summary>
 			/// Цветовой ключ
 			/// </summary>
-			public Int32 ColorKey;
+			public int ColorKey;
 		}
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -103,24 +103,24 @@ namespace Lotus
 			/// <summary>
 			/// Индекс иконки в списке
 			/// </summary>
-			public Int32 IconIndex;
+			public int IconIndex;
 			
 			/// <summary>
 			/// Атрибуты файла
 			/// </summary>
-			public UInt32 Attributes;
+			public uint Attributes;
 			
 			/// <summary>
 			/// Путь к файлу
 			/// </summary>
 			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-			public String DisplayName;
+			public string DisplayName;
 
 			/// <summary>
 			/// Имя типа файла
 			/// </summary>
 			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-			public String TypeName;
+			public string TypeName;
 		};
 
 		//-------------------------------------------------------------------------------------------------------------
@@ -128,8 +128,8 @@ namespace Lotus
 		/// Параметры открытия приложения
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public enum TShowCommands : UInt32
-        {
+		public enum TShowCommands : uint
+		{
 			SW_HIDE = 0,
 			SW_SHOWNORMAL = 1,
 			SW_NORMAL = 1,
@@ -153,7 +153,7 @@ namespace Lotus
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
 		[Flags]
-		public enum TShellAttribute : UInt32
+		public enum TShellAttribute : uint
 		{
 			LargeIcon = 0,              // 0x000000000
 			SmallIcon = 1,              // 0x000000001

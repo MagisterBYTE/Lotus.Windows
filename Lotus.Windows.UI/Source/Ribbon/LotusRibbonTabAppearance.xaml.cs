@@ -75,7 +75,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonTabView_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonTabView_Loaded(object sender, RoutedEventArgs args)
 			{
 				ribbonDropAccentTheme.ItemsSource = ControlzEx.Theming.ThemeManager.Current.BaseColors;
 				ribbonDropAppTheme.ItemsSource = ControlzEx.Theming.ThemeManager.Current.ColorSchemes;
@@ -88,11 +88,11 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnViewStyleRibbon_Checked(Object sender, SelectionChangedEventArgs args)
+			private void OnViewStyleRibbon_Checked(object sender, SelectionChangedEventArgs args)
 			{
-				var base_color = ribbonDropAccentTheme.SelectedItem as String;
-				var color_schemes = ribbonDropAppTheme.SelectedItem as String;
-				if (String.IsNullOrEmpty(base_color) == false && String.IsNullOrEmpty(color_schemes) == false)
+				var base_color = ribbonDropAccentTheme.SelectedItem as string;
+				var color_schemes = ribbonDropAppTheme.SelectedItem as string;
+				if (string.IsNullOrEmpty(base_color) == false && string.IsNullOrEmpty(color_schemes) == false)
 				{
 					ControlzEx.Theming.ThemeManager.Current.ChangeTheme(Application.Current, base_color, color_schemes);
 				}
@@ -105,7 +105,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnViewStyleControl_Checked(Object sender, RoutedEventArgs args)
+			private void OnViewStyleControl_Checked(object sender, RoutedEventArgs args)
 			{
 				if (this.IsLoaded)
 				{
@@ -133,13 +133,13 @@ namespace Lotus
 							break;
 					}
 
-					if (!String.IsNullOrEmpty(control))
+					if (!string.IsNullOrEmpty(control))
 					{
 						var resource_controls = new ResourceDictionary();
 						resource_controls.Source = new Uri(control, UriKind.Absolute);
 						Application.Current.Resources.MergedDictionaries.Add(resource_controls);
 					}
-					if (!String.IsNullOrEmpty(toolkit))
+					if (!string.IsNullOrEmpty(toolkit))
 					{
 						var resource_toolkit = new ResourceDictionary();
 						resource_toolkit.Source = new Uri(toolkit, UriKind.Absolute);
@@ -155,7 +155,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnViewStyleTable_Checked(Object sender, RoutedEventArgs args)
+			private void OnViewStyleTable_Checked(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -167,7 +167,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnViewStyleDocking_Checked(Object sender, RoutedEventArgs args)
+			private void OnViewStyleDocking_Checked(object sender, RoutedEventArgs args)
 			{
 				if (this.IsLoaded && DockManager != null)
 				{

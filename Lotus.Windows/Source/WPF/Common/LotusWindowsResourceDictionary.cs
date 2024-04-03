@@ -44,7 +44,7 @@ namespace Lotus
 			/// <summary>
 			/// Значение, указывающее, является ли приложение в режиме разработки
 			/// </summary>
-			private static Boolean _isInDesignerMode;
+			private static bool _isInDesignerMode;
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ СВОЙСТВА ======================================
@@ -106,7 +106,7 @@ namespace Lotus
 #pragma warning disable S3963 // "static" fields should be initialized inline
 			static SharedResourceDictionary()
 			{
-				_isInDesignerMode = (Boolean)DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue;
+				_isInDesignerMode = (bool)DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue;
 			}
 #pragma warning restore S3963 // "static" fields should be initialized inline
 			#endregion

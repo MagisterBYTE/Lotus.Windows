@@ -79,7 +79,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Графическая пиктограмма</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var val = (TLogType)value;
 				BitmapSource? bitmap;
@@ -128,7 +128,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Объект TLogType</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}
@@ -164,7 +164,7 @@ namespace Lotus
 			public DataTemplate TraceModule { get; set; }
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Выбор шаблона привязки данных
@@ -173,13 +173,13 @@ namespace Lotus
 			/// <param name="container">Контейнер</param>
 			/// <returns>Нужный шаблон</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override DataTemplate SelectTemplate(Object item, DependencyObject container)
+			public override DataTemplate SelectTemplate(object item, DependencyObject container)
 			{
-				var message = (TLogMessage)item;
+				var message = (LogMessage)item;
 
-				if (String.IsNullOrEmpty(message.Module))
+				if (string.IsNullOrEmpty(message.Module))
 				{
-					if (String.IsNullOrEmpty(message.MemberName))
+					if (string.IsNullOrEmpty(message.MemberName))
 					{
 						return Simple;
 					}
@@ -190,7 +190,7 @@ namespace Lotus
 				}
 				else
 				{
-					if (String.IsNullOrEmpty(message.MemberName))
+					if (string.IsNullOrEmpty(message.MemberName))
 					{
 						return SimpleModule;
 					}
@@ -211,14 +211,14 @@ namespace Lotus
 		public partial class LotusLoggerControl : UserControl, ILotusLoggerView, INotifyPropertyChanged
 		{
 			#region ======================================= ДАННЫЕ ====================================================
-			private ListArray<TLogMessage> _messages;
+			private ListArray<LogMessage> _messages;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Все сообщения
 			/// </summary>
-			public ListArray<TLogMessage> Messages
+			public ListArray<LogMessage> Messages
 			{
 				get { return _messages; }
 			}
@@ -233,7 +233,7 @@ namespace Lotus
 			public LotusLoggerControl()
 			{
 				InitializeComponent();
-				_messages = new ListArray<TLogMessage>();
+				_messages = new ListArray<LogMessage>();
 				_messages.IsNotify = true;
 				outputData.ItemsSource = _messages;
 			}
@@ -247,9 +247,9 @@ namespace Lotus
 			/// <param name="text">Имя сообщения</param>
 			/// <param name="type">Тип сообщения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void Log(String text, TLogType type)
+			public void Log(string text, TLogType type)
 			{
-				_messages.Add(new TLogMessage(text, type));
+				_messages.Add(new LogMessage(text, type));
 				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
 			}
 
@@ -259,7 +259,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="message">Сообщение</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void Log(TLogMessage message)
+			public void Log(LogMessage message)
 			{
 				_messages.Add(message);
 				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
@@ -273,9 +273,9 @@ namespace Lotus
 			/// <param name="text">Имя сообщения</param>
 			/// <param name="type">Тип сообщения</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void LogModule(String moduleName, String text, TLogType type)
+			public void LogModule(string moduleName, string text, TLogType type)
 			{
-				_messages.Add(new TLogMessage(moduleName, text, type));
+				_messages.Add(new LogMessage(moduleName, text, type));
 				outputData.ScrollIntoView(_messages[_messages.Count - 1]);
 			}
 			#endregion
@@ -288,7 +288,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonMessageClear_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonMessageClear_Click(object sender, RoutedEventArgs args)
 			{
 				_messages.Clear();
 			}
@@ -300,7 +300,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnButtonSave_Click(Object sender, RoutedEventArgs args)
+			private void OnButtonSave_Click(object sender, RoutedEventArgs args)
 			{
 				XLogger.SaveToText("Log.txt");
 			}
@@ -318,7 +318,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

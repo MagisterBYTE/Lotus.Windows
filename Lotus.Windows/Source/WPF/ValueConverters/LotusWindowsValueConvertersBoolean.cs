@@ -34,7 +34,7 @@ namespace Lotus
 		/// Конвертер логического значения в соответствующую графическую пиктограмму
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(BitmapSource))]
+		[ValueConversion(typeof(bool), typeof(BitmapSource))]
 		public class BooleanToBitmapSourceConverter : IValueConverter
 		{
 			#region ======================================= СВОЙСТВА ==================================================
@@ -60,9 +60,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Image</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Boolean)value;
+				var val = (bool)value;
 				if (val)
 				{
 					return BitmapYes;
@@ -83,7 +83,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логический тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}
@@ -95,7 +95,7 @@ namespace Lotus
 		/// Конвертер логического значения в обратное значение
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(Boolean))]
+		[ValueConversion(typeof(bool), typeof(bool))]
 		public class BooleanInverseConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -109,9 +109,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Обратное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Boolean)value;
+				var val = (bool)value;
 				return !val;
 			}
 
@@ -125,9 +125,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>братное значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var val = (Boolean)value;
+				var val = (bool)value;
 				return val;
 			}
 			#endregion
@@ -138,7 +138,7 @@ namespace Lotus
 		/// Конвертер логического значения в три состояния выбора
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(ToggleState))]
+		[ValueConversion(typeof(bool), typeof(ToggleState))]
 		public class BooleanToToggleStateConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -152,7 +152,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is bool?)
 				{
@@ -177,7 +177,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value is ToggleState toggleStat)
 				{
@@ -199,7 +199,7 @@ namespace Lotus
 		/// Конвертер логического значения в тип <see cref="Visibility"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(Visibility))]
+		[ValueConversion(typeof(bool), typeof(Visibility))]
 		public class BooleanToVisibilityConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -213,9 +213,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean)value;
+				var status = (bool)value;
 				if (status)
 				{
 					return Visibility.Visible;
@@ -236,7 +236,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Visible)
@@ -256,7 +256,7 @@ namespace Lotus
 		/// Конвертер логического значения в тип <see cref="Visibility"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(Visibility))]
+		[ValueConversion(typeof(bool), typeof(Visibility))]
 		public class BooleanInverseToVisibilityConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -270,9 +270,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean)value;
+				var status = (bool)value;
 				if (!status)
 				{
 					return Visibility.Visible;
@@ -293,7 +293,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Visible)
@@ -313,7 +313,7 @@ namespace Lotus
 		/// Конвертер логического значения в тип <see cref="Visibility"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean?), typeof(Visibility))]
+		[ValueConversion(typeof(bool?), typeof(Visibility))]
 		public class BooleanNullToVisibilityConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -327,9 +327,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean?)value;
+				var status = (bool?)value;
 				if (status.HasValue && status.Value)
 				{
 					return Visibility.Visible;
@@ -350,16 +350,16 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return new Boolean?(true);
+					return new bool?(true);
 				}
 				else
 				{
-					return new Boolean?(false);
+					return new bool?(false);
 				}
 			}
 			#endregion
@@ -370,7 +370,7 @@ namespace Lotus
 		/// Конвертер типа <see cref="Visibility"/> в логического значения
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Visibility), typeof(Boolean?))]
+		[ValueConversion(typeof(Visibility), typeof(bool?))]
 		public class VisibilityToBooleanNullConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -384,16 +384,16 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Visible)
 				{
-					return new Boolean?(true);
+					return new bool?(true);
 				}
 				else
 				{
-					return new Boolean?(false);
+					return new bool?(false);
 				}
 			}
 
@@ -407,9 +407,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean?)value;
+				var status = (bool?)value;
 				if (status.HasValue && status.Value)
 				{
 					return Visibility.Visible;
@@ -427,7 +427,7 @@ namespace Lotus
 		/// Конвертер логического значения в тип <see cref="Visibility"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(Visibility))]
+		[ValueConversion(typeof(bool), typeof(Visibility))]
 		public class BooleanTrueToCollapsedConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -441,9 +441,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean)value;
+				var status = (bool)value;
 				if (status)
 				{
 					return Visibility.Collapsed;
@@ -464,7 +464,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Collapsed)
@@ -484,7 +484,7 @@ namespace Lotus
 		/// Конвертер логического значения в тип <see cref="Visibility"/>
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Boolean), typeof(Visibility))]
+		[ValueConversion(typeof(bool), typeof(Visibility))]
 		public class BooleanFalseToCollapsedConverter : IValueConverter
 		{
 			#region ======================================= МЕТОДЫ ====================================================
@@ -498,9 +498,9 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Cостояние выбора</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				var status = (Boolean)value;
+				var status = (bool)value;
 				if (status == false)
 				{
 					return Visibility.Collapsed;
@@ -521,7 +521,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Логическое значение</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				var status = (Visibility)value;
 				if (status == Visibility.Collapsed)

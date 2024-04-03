@@ -34,12 +34,12 @@ namespace Lotus
 			/// <summary>
 			/// Словарь цветов по имени цвета
 			/// </summary>
-			public static readonly List<KeyValuePair<String, Color>> KnownColors = [];
+			public static readonly List<KeyValuePair<string, Color>> KnownColors = [];
 
 			/// <summary>
 			/// Словарь сплошных кистей по имени цвета
 			/// </summary>
-			public static readonly List<KeyValuePair<String, SolidColorBrush>> KnownBrushes = [];
+			public static readonly List<KeyValuePair<string, SolidColorBrush>> KnownBrushes = [];
 			#endregion
 
 			#region ======================================= МЕТОДЫ ====================================================
@@ -58,12 +58,12 @@ namespace Lotus
 
 				for (var i = 0; i < arr_colors.Length; i++)
 				{
-					KnownColors.Add(new KeyValuePair<String, Color>(arr_colors[i].Name, (Color)arr_colors[i].GetValue(null, null)!));
+					KnownColors.Add(new KeyValuePair<string, Color>(arr_colors[i].Name, (Color)arr_colors[i].GetValue(null, null)!));
 				}
 
 				for (var i = 0; i < arr_brushes.Length; i++)
 				{
-					KnownBrushes.Add(new KeyValuePair<String, SolidColorBrush>(arr_brushes[i].Name,
+					KnownBrushes.Add(new KeyValuePair<string, SolidColorBrush>(arr_brushes[i].Name,
 						(SolidColorBrush)arr_brushes[i].GetValue(null, null)!));
 				}
 			}
@@ -75,9 +75,9 @@ namespace Lotus
 			/// <param name="color">Цвет</param>
 			/// <returns>Имя цвета</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetKnownColorName(Color color)
+			public static string GetKnownColorName(Color color)
 			{
-				var result = String.Empty;
+				var result = string.Empty;
 
 				for (var i = 0; i < KnownColors.Count; i++)
 				{
@@ -97,9 +97,9 @@ namespace Lotus
 			/// <param name="brush">Сплошная кисть</param>
 			/// <returns>Имя кисти</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String GetKnownBrushName(SolidColorBrush brush)
+			public static string GetKnownBrushName(SolidColorBrush brush)
 			{
-				var result = String.Empty;
+				var result = string.Empty;
 
 				for (var i = 0; i < KnownColors.Count; i++)
 				{
@@ -119,7 +119,7 @@ namespace Lotus
 			/// <param name="color_name">Стандартное имя цвета</param>
 			/// <returns>Найденный цвет или белый цвет если не нашли</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Color GetColorByName(String color_name)
+			public static Color GetColorByName(string color_name)
 			{
 				Color result = Colors.White;
 
@@ -144,7 +144,7 @@ namespace Lotus
 			/// <param name="brush_name">Стандартное имя кисти</param>
 			/// <returns>Найденную кисть или белый цвет кисти если не нашли</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static SolidColorBrush GetBrushByName(String brush_name)
+			public static SolidColorBrush GetBrushByName(string brush_name)
 			{
 				SolidColorBrush result = Brushes.White;
 

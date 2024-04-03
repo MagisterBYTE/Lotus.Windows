@@ -10,34 +10,29 @@
 // Версия: 1.0.0.0
 // Последнее изменение от 30.04.2023
 //=====================================================================================================================
-using System;
-using System.IO;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Diagnostics;
-//---------------------------------------------------------------------------------------------------------------------
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Controls;
-using System.Windows.Media.Media3D;
-//---------------------------------------------------------------------------------------------------------------------
-using Helix = HelixToolkit.Wpf.SharpDX;
-using HelixToolkit.Wpf.SharpDX.Controls;
 using HelixToolkit.SharpDX.Core;
-using HelixToolkit.SharpDX.Core.Model;
-using HelixToolkit.SharpDX.Core.Model.Scene;
 using HelixToolkit.SharpDX.Core.Animations;
 using HelixToolkit.SharpDX.Core.Assimp;
+using HelixToolkit.SharpDX.Core.Model;
+using HelixToolkit.SharpDX.Core.Model.Scene;
 using HelixToolkit.Wpf.SharpDX;
+using HelixToolkit.Wpf.SharpDX.Controls;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
 using Lotus.Object3D;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
+//---------------------------------------------------------------------------------------------------------------------
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
+//---------------------------------------------------------------------------------------------------------------------
+using Helix = HelixToolkit.Wpf.SharpDX;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -57,17 +52,17 @@ namespace Lotus
 			/// <summary>
 			/// Команда для увеличения выбранного объема. Аргумент - выбранный объём типа <see cref="Rect3D"/> 
 			/// </summary>
-			public const String COMMAND_ZOOM_EXTENTS = "ZoomExtents";
+			public const string COMMAND_ZOOM_EXTENTS = "ZoomExtents";
 
 			/// <summary>
 			/// Имя ортографической камеры
 			/// </summary>
-			public const String OrthographicCameraName = "Orthographic Camera";
+			public const string OrthographicCameraName = "Orthographic Camera";
 
 			/// <summary>
 			/// Имя перспективной камеры
 			/// </summary>
-			public const String PerspectiveCameraName = "Perspective Camera";
+			public const string PerspectiveCameraName = "Perspective Camera";
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================
@@ -77,7 +72,7 @@ namespace Lotus
 
 			protected static readonly PropertyChangedEventArgs PropertyArgsCamera = new PropertyChangedEventArgs(nameof(Camera));
 			protected static readonly PropertyChangedEventArgs PropertyArgsCameraModel = new PropertyChangedEventArgs(nameof(CameraModel));
-			
+
 			protected static readonly PropertyChangedEventArgs PropertyArgsEffectsManager = new PropertyChangedEventArgs(nameof(EffectsManager));
 
 			protected static readonly PropertyChangedEventArgs PropertyArgsScene = new PropertyChangedEventArgs(nameof(Scene));
@@ -90,11 +85,11 @@ namespace Lotus
 			protected static readonly PropertyChangedEventArgs PropertyArgsSpeedAnimation = new PropertyChangedEventArgs(nameof(SpeedAnimation));
 
 			protected static readonly PropertyChangedEventArgs PropertyArgsGridGeometry = new PropertyChangedEventArgs(nameof(GridGeometry));
-			protected static readonly	PropertyChangedEventArgs PropertyArgsGridColor = new PropertyChangedEventArgs(nameof(GridColor));
+			protected static readonly PropertyChangedEventArgs PropertyArgsGridColor = new PropertyChangedEventArgs(nameof(GridColor));
 			protected static readonly PropertyChangedEventArgs PropertyArgsGridTransform = new PropertyChangedEventArgs(nameof(GridTransform));
 
-			private static String OpenFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Importer.SupportedFormatsString}";
-			private static String ExportFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Exporter.SupportedFormatsString}";
+			private static string OpenFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Importer.SupportedFormatsString}";
+			private static string ExportFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Exporter.SupportedFormatsString}";
 			#endregion
 
 			#region ======================================= СТАТИЧЕСКИЕ МЕТОДЫ ========================================
@@ -105,7 +100,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла</param>
 			/// <returns>Статус поддержки</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean IsSupportFormatFile(String extension)
+			public static bool IsSupportFormatFile(string extension)
 			{
 				return OpenFileFilter.Contains(extension);
 			}
@@ -116,20 +111,20 @@ namespace Lotus
 			/// Имя файла
 			/// </summary>
 			public static readonly DependencyProperty FileNameProperty = DependencyProperty.Register(nameof(FileName),
-				typeof(String),
+				typeof(string),
 				typeof(LotusViewerContent3D),
 				new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
 			// Параметры визуализации
-			protected internal Boolean _showWireframe = false;
-			protected internal Boolean _renderFlat = false;
-			protected internal Boolean _renderEnvironmentMap = true;
+			protected internal bool _showWireframe = false;
+			protected internal bool _renderFlat = false;
+			protected internal bool _renderEnvironmentMap = true;
 			protected internal TextureModel _environmentMap;
 
 			// Камера
-			protected internal String? _cameraModel;
+			protected internal string? _cameraModel;
 			protected internal Helix.Camera _camera;
 			protected internal Helix.OrthographicCamera _defaultOrthographicCamera;
 			protected internal Helix.PerspectiveCamera _defaultPerspectiveCamera;
@@ -138,25 +133,25 @@ namespace Lotus
 			protected internal IEffectsManager _effectsManager;
 
 			// Базовые модели
-			protected internal CScene3D _scene;
+			protected internal Scene3D _scene;
 			protected internal SceneNode _sceneRoot;
 			protected internal Helix.SceneNodeGroupModel3D _groupModel;
 			protected internal Helix.GeometryModel3D _selectedModel;
 
 			// Анимация
-			protected internal Boolean _enableAnimation = false;
+			protected internal bool _enableAnimation = false;
 			protected internal IList<Animation> _sceneAnimations;
 			protected internal ObservableCollection<IAnimationUpdater> _animationsUpdater;
 			protected internal IAnimationUpdater? _selectedAnimationUpdater = null;
 			protected internal IAnimationUpdater? _animationUpdater;
-			protected internal Single _speedAnimation = 1.0f;
+			protected internal float _speedAnimation = 1.0f;
 
 			// Параметры скелета
 			protected internal List<BoneSkinMeshNode> _boneSkinNodes = new List<BoneSkinMeshNode>();
 			protected internal List<BoneSkinMeshNode> _skeletonNodes = new List<BoneSkinMeshNode>();
 			protected internal CompositionTargetEx _compositeHelper = new CompositionTargetEx();
 
-			protected internal Boolean _isLoading = false;
+			protected internal bool _isLoading = false;
 
 			// Опорная сетка
 			protected internal LineGeometry3D _gridGeometry;
@@ -168,9 +163,9 @@ namespace Lotus
 			/// <summary>
 			/// Имя файла
 			/// </summary>
-			public String FileName
+			public string FileName
 			{
-				get { return (String)GetValue(FileNameProperty); }
+				get { return (string)GetValue(FileNameProperty); }
 				set { SetValue(FileNameProperty, value); }
 			}
 
@@ -195,7 +190,7 @@ namespace Lotus
 			/// <summary>
 			/// Режим показа каркаса
 			/// </summary>
-			public Boolean ShowWireframe
+			public bool ShowWireframe
 			{
 				get
 				{
@@ -225,7 +220,7 @@ namespace Lotus
 			/// <summary>
 			/// Режим закраски по Гуро
 			/// </summary>
-			public Boolean RenderFlat
+			public bool RenderFlat
 			{
 				get
 				{
@@ -262,7 +257,7 @@ namespace Lotus
 			/// <summary>
 			/// Ренденить карту окружения
 			/// </summary>
-			public Boolean RenderEnvironmentMap
+			public bool RenderEnvironmentMap
 			{
 				get
 				{
@@ -305,7 +300,7 @@ namespace Lotus
 			/// <summary>
 			/// Текущая модель камеры
 			/// </summary>
-			public String? CameraModel
+			public string? CameraModel
 			{
 				get { return _cameraModel; }
 				set
@@ -351,7 +346,7 @@ namespace Lotus
 			/// <summary>
 			/// Набор моделей камеры
 			/// </summary>
-			public List<String> CameraModelCollection { get; private set; }
+			public List<string> CameraModelCollection { get; private set; }
 
 			/// <summary>
 			/// Событие смены камеры
@@ -383,7 +378,7 @@ namespace Lotus
 			/// <summary>
 			/// Сцена
 			/// </summary>
-			public CScene3D Scene
+			public Scene3D Scene
 			{
 				get { return _scene; }
 				set
@@ -450,7 +445,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус проигрывания анимации
 			/// </summary>
-			public Boolean EnableAnimation
+			public bool EnableAnimation
 			{
 				get { return _enableAnimation; }
 				set
@@ -533,7 +528,7 @@ namespace Lotus
 			/// <summary>
 			/// Скорость воспроизведения анимации
 			/// </summary>
-			public Single SpeedAnimation
+			public float SpeedAnimation
 			{
 				get
 				{
@@ -627,7 +622,7 @@ namespace Lotus
 			/// <summary>
 			/// To detect redundant calls
 			/// </summary>
-			private Boolean disposedValue = false;
+			private bool disposedValue = false;
 
 
 			//---------------------------------------------------------------------------------------------------------
@@ -686,7 +681,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String file_name, CParameters? parameters_create)
+			public void NewFile(string file_name, CParameters? parameters_create)
 			{
 				// Method intentionally left empty.
 			}
@@ -698,18 +693,18 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String? file_name, CParameters? parameters_open)
+			public void OpenFile(string? file_name, CParameters? parameters_open)
 			{
 				Assimp.PostProcessSteps post_process_steps = Assimp.PostProcessSteps.None;
 				TreeView? tree_view_model_structure = null;
 
 				// Если файл пустой то используем диалог
-				if (String.IsNullOrEmpty(file_name))
+				if (string.IsNullOrEmpty(file_name))
 				{
 					file_name = XFileDialog.Open("Открыть файл", "", OpenFileFilter);
 					if (file_name != null && file_name.IsExists())
 					{
-						if(parameters_open != null)
+						if (parameters_open != null)
 						{
 							post_process_steps = parameters_open.GetValueOfType<Assimp.PostProcessSteps>(Assimp.PostProcessSteps.None);
 							tree_view_model_structure = parameters_open.GetValueOfType<TreeView>();
@@ -755,11 +750,11 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String file_name, CParameters? parameters_save)
+			public void SaveAsFile(string file_name, CParameters? parameters_save)
 			{
-				if (String.IsNullOrEmpty(file_name))
+				if (string.IsNullOrEmpty(file_name))
 				{
-					if (String.IsNullOrEmpty(FileName) == false)
+					if (string.IsNullOrEmpty(FileName) == false)
 					{
 
 					}
@@ -795,7 +790,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String file_name, CParameters? parameters_export)
+			public void ExportFile(string file_name, CParameters? parameters_export)
 			{
 				// Method intentionally left empty.
 			}
@@ -838,7 +833,7 @@ namespace Lotus
 				};
 
 				// camera models
-				CameraModelCollection = new List<String>()
+				CameraModelCollection = new List<string>()
 				{
 					OrthographicCameraName,
 					PerspectiveCameraName,
@@ -912,7 +907,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Загрузка 3D контента из файла
@@ -921,7 +916,7 @@ namespace Lotus
 			/// <param name="post_process_steps">Флаги обработки контента</param>
 			/// <param name="tree_view_model_structure">Дерево для просмотра внутренней структуры 3D контента</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void Load(String file_name, Assimp.PostProcessSteps post_process_steps, TreeView tree_view_model_structure)
+			public void Load(string file_name, Assimp.PostProcessSteps post_process_steps, TreeView tree_view_model_structure)
 			{
 				if (_isLoading)
 				{
@@ -1026,7 +1021,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void CompositeHelper_Rendering(Object? sender, RenderingEventArgs args)
+			private void CompositeHelper_Rendering(object? sender, RenderingEventArgs args)
 			{
 				if (_animationUpdater != null)
 				{
@@ -1047,7 +1042,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

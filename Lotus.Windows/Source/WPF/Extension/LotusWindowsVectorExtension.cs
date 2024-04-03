@@ -37,9 +37,9 @@ namespace Lotus
 			/// <param name="vector">Двухмерный вектор</param>
 			/// <returns>Строка данных</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static String SerializeToString(this Vector vector)
+			public static string SerializeToString(this Vector vector)
 			{
-				return String.Format("{0};{1}", vector.X, vector.Y);
+				return string.Format("{0};{1}", vector.X, vector.Y);
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ namespace Lotus
 			/// <param name="data">Строка данных</param>
 			/// <returns>Двухмерный вектор</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Vector DeserializeFromString(String data)
+			public static Vector DeserializeFromString(string data)
 			{
 				var vector = new Vector();
 				var vector_data = data.Split(';');
@@ -67,7 +67,7 @@ namespace Lotus
 			/// <param name="epsilon">Погрешность</param>
 			/// <returns>Статус равенства значений</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean Approximately(this Vector vector, Vector other, Double epsilon)
+			public static bool Approximately(this Vector vector, Vector other, double epsilon)
 			{
 				if ((Math.Abs(vector.X - other.X) < epsilon) && (Math.Abs(vector.Y - other.Y) < epsilon))
 				{
@@ -85,7 +85,7 @@ namespace Lotus
 			/// <param name="other">Второе значение</param>
 			/// <returns>Статус равенства значений</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean Approximately(this Vector vector, Vector other)
+			public static bool Approximately(this Vector vector, Vector other)
 			{
 				if ((Math.Abs(vector.X - other.X) < 0.001) && (Math.Abs(vector.Y - other.Y) < 0.001))
 				{
@@ -116,7 +116,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Maths.Vector2Df ToVector2Df(this Vector vector)
 			{
-				return new Maths.Vector2Df((Single)vector.X, (Single)vector.Y);
+				return new Maths.Vector2Df((float)vector.X, (float)vector.Y);
 			}
 		}
 		//-------------------------------------------------------------------------------------------------------------

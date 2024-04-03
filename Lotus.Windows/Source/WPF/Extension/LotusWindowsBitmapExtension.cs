@@ -34,7 +34,7 @@ namespace Lotus
 		public struct PixelColor
 		{
 			// 32 bit BGRA 
-			[FieldOffset(0)] public UInt32 ColorBGRA;
+			[FieldOffset(0)] public uint ColorBGRA;
 			// 8 bit components
 			[FieldOffset(0)] public byte Blue;
 			[FieldOffset(1)] public byte Green;

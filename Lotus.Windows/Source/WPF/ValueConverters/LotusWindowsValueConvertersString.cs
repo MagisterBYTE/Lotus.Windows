@@ -28,7 +28,7 @@ namespace Lotus
 		/// Конвертер строки(как пути) в источник изображения которое находится по данному пути
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(String), typeof(BitmapSource))]
+		[ValueConversion(typeof(string), typeof(BitmapSource))]
 		public class StringToBitmapSourceConverter : IValueConverter
 		{
 			#region ======================================= СВОЙСТВА ==================================================
@@ -38,7 +38,7 @@ namespace Lotus
 			/// <remarks>
 			/// Если значение установлено то комбинируется имя файла и путь директории
 			/// </remarks>
-			public String ImageDirectory { get; set; }
+			public string ImageDirectory { get; set; }
 			#endregion
 
 			#region ======================================= МЕТОДЫ ====================================================
@@ -52,13 +52,13 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
-				if (String.IsNullOrWhiteSpace(ImageDirectory))
+				if (string.IsNullOrWhiteSpace(ImageDirectory))
 				{
 					try
 					{
-						return new BitmapImage(new Uri((String)value));
+						return new BitmapImage(new Uri((string)value));
 					}
 					catch (Exception)
 					{
@@ -69,7 +69,7 @@ namespace Lotus
 				}
 				else
 				{
-					var image_path = System.IO.Path.Combine(ImageDirectory, (String)value);
+					var image_path = System.IO.Path.Combine(ImageDirectory, (string)value);
 					return new BitmapImage(new Uri(image_path));
 				}
 			}
@@ -84,7 +84,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Путь</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				return null!;
 			}

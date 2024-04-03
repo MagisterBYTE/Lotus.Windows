@@ -30,7 +30,7 @@ namespace Lotus
 		/// Конвертер для <see cref="Enum"/> в целочисленный тип
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Enum), typeof(Int32))]
+		[ValueConversion(typeof(Enum), typeof(int))]
 		public class EnumToIntConverter : IValueConverter
 		{
 			//---------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Целочисленный тип</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{
@@ -72,13 +72,13 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Enum</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				Array values = Enum.GetValues(targetType);
 				var index_value = 0;
 				if (value != null)
 				{
-					index_value = (Int32)value;
+					index_value = (int)value;
 				}
 
 				return values.GetValue(index_value)!;
@@ -90,7 +90,7 @@ namespace Lotus
 		/// Конвертер для <see cref="Enum"/>, преобразовывающий Enum к строке с учетом атрибута <see cref="DescriptionAttribute"/> 
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		[ValueConversion(typeof(Enum), typeof(String))]
+		[ValueConversion(typeof(Enum), typeof(string))]
 		public class EnumToStringConverter : IValueConverter
 		{
 			public static readonly EnumToStringConverter Instance = new EnumToStringConverter();
@@ -105,7 +105,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Строка</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{
@@ -125,7 +125,7 @@ namespace Lotus
 			/// <param name="culture">Культура</param>
 			/// <returns>Тип Enum</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+			public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			{
 				if (value == null)
 				{

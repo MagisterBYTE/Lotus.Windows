@@ -51,7 +51,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonQuickAccessButton_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonQuickAccessButton_Loaded(object sender, RoutedEventArgs args)
 			{
 				if (Command != null)
 				{

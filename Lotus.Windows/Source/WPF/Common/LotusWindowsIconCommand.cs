@@ -86,7 +86,7 @@ namespace Lotus
 			/// <param name="text">Описательный текст для команды</param>
 			/// <param name="middle_icon">Иконка команды</param>
 			//---------------------------------------------------------------------------------------------------------
-			public RoutedIconUICommand(String text, BitmapSource middle_icon)
+			public RoutedIconUICommand(string text, BitmapSource middle_icon)
 			{
 				Text = text;
 				_middleIcon = middle_icon;
@@ -100,7 +100,7 @@ namespace Lotus
 			/// <param name="middle_icon">Иконка команды</param>
 			/// <param name="large_icon">Иконка команды</param>
 			//---------------------------------------------------------------------------------------------------------
-			public RoutedIconUICommand(String text, BitmapSource middle_icon, BitmapSource large_icon)
+			public RoutedIconUICommand(string text, BitmapSource middle_icon, BitmapSource large_icon)
 			{
 				Text = text;
 				_middleIcon = middle_icon;
@@ -115,7 +115,7 @@ namespace Lotus
 			/// <param name="name">Объявленное имя команды для сериализации</param>
 			/// <param name="middle_icon">Иконка команды</param>
 			//---------------------------------------------------------------------------------------------------------
-			public RoutedIconUICommand(String text, String name, BitmapSource middle_icon)
+			public RoutedIconUICommand(string text, string name, BitmapSource middle_icon)
 				: base(text, name, typeof(Window))
 			{
 				_middleIcon = middle_icon;
@@ -130,7 +130,7 @@ namespace Lotus
 			/// <param name="middle_icon">Иконка команды</param>
 			/// <param name="large_icon">Иконка команды</param>
 			//---------------------------------------------------------------------------------------------------------
-			public RoutedIconUICommand(String text, String name, BitmapSource middle_icon, BitmapSource large_icon)
+			public RoutedIconUICommand(string text, string name, BitmapSource middle_icon, BitmapSource large_icon)
 				: base(text, name, typeof(Window))
 			{
 				_middleIcon = middle_icon;
@@ -145,7 +145,7 @@ namespace Lotus
 			/// <param name="name">Объявленное имя команды для сериализации</param>
 			/// <param name="owner_type">Тип, регистрирующий команду</param>
 			//---------------------------------------------------------------------------------------------------------
-			public RoutedIconUICommand(String text, String name, Type owner_type)
+			public RoutedIconUICommand(string text, string name, Type owner_type)
 				: base(text, name, owner_type)
 
 			{
@@ -165,7 +165,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

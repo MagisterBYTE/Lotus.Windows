@@ -54,14 +54,14 @@ namespace Lotus
 
 				var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
 				var InputStride = PixelWidth * InputBitsPerPixel / 8;
-				var InputPixelsArray = new Byte[InputStride * PixelHeight];
+				var InputPixelsArray = new byte[InputStride * PixelHeight];
 				bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
 
 				PixelFormat PixelFormat = PixelFormats.Bgr24;
 				BitmapPalette? Palette = null;
 				var BitsPerPixel = 24;
 				var Stride = PixelWidth * BitsPerPixel / 8;
-				var PixelsArray = new Byte[InputStride * PixelHeight / 4 * 3];
+				var PixelsArray = new byte[InputStride * PixelHeight / 4 * 3];
 
 				var i = 0; var j = 0; var k = 0;
 				while (i < InputPixelsArray.Length / 4)
@@ -95,14 +95,14 @@ namespace Lotus
 
 				var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
 				var InputStride = PixelWidth * InputBitsPerPixel / 8;
-				var InputPixelsArray = new Byte[InputStride * PixelHeight];
+				var InputPixelsArray = new byte[InputStride * PixelHeight];
 				bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
 
 				PixelFormat PixelFormat = PixelFormats.Gray8;
 				BitmapPalette? Palette = null;
 				var BitsPerPixel = 8;
 				var Stride = PixelWidth * BitsPerPixel / 8;
-				var A_PixelsArray = new Byte[InputStride * PixelHeight / 4];
+				var A_PixelsArray = new byte[InputStride * PixelHeight / 4];
 
 				var i = 0; var j = 3;
 				while (i < InputPixelsArray.Length / 4)

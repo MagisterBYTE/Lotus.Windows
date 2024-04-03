@@ -44,12 +44,12 @@ namespace Lotus
 			/// <summary>
 			/// Gets/Sets the opening brace. The default value is '{'.
 			/// </summary>
-			public Char OpeningBrace { get; set; }
+			public char OpeningBrace { get; set; }
 
 			/// <summary>
 			/// Gets/Sets the closing brace. The default value is '}'.
 			/// </summary>
-			public Char ClosingBrace { get; set; }
+			public char ClosingBrace { get; set; }
 
 			/// <summary>
 			/// Creates a new BraceFoldingStrategy.
@@ -67,7 +67,7 @@ namespace Lotus
 			/// <param name="document"></param>
 			public void UpdateFoldings(FoldingManager manager, TextDocument document)
 			{
-				Int32 firstErrorOffset;
+				int firstErrorOffset;
 				IEnumerable<NewFolding> newFoldings = CreateNewFoldings(document, out firstErrorOffset);
 				manager.UpdateFoldings(newFoldings, firstErrorOffset);
 			}
@@ -78,7 +78,7 @@ namespace Lotus
 			/// <param name="document"></param>
 			/// <param name="firstErrorOffset"></param>
 			/// <returns></returns>
-			public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out Int32 firstErrorOffset)
+			public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
 			{
 				firstErrorOffset = -1;
 				return CreateNewFoldings(document);
@@ -93,7 +93,7 @@ namespace Lotus
 			{
 				var newFoldings = new List<NewFolding>();
 
-				var startOffsets = new Stack<Int32>();
+				var startOffsets = new Stack<int>();
 				var lastNewLineOffset = 0;
 				var openingBrace = this.OpeningBrace;
 				var closingBrace = this.ClosingBrace;
@@ -134,7 +134,7 @@ namespace Lotus
 			/// <summary>
 			/// Список поддерживаемых форматов файлов
 			/// </summary>
-			public static readonly String[] SupportFormatFile = new String[]
+			public static readonly string[] SupportFormatFile = new string[]
 			{
 				".txt",
 				".md",
@@ -157,7 +157,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла</param>
 			/// <returns>Статус поддержки</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean IsSupportFormatFile(String extension)
+			public static bool IsSupportFormatFile(string extension)
 			{
 				return SupportFormatFile.ContainsElement(extension);
 			}
@@ -168,27 +168,27 @@ namespace Lotus
 			/// Имя файла
 			/// </summary>
 			public static readonly DependencyProperty FileNameProperty = DependencyProperty.Register(nameof(FileName),
-				typeof(String),
+				typeof(string),
 				typeof(LotusViewerText),
 				new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal FoldingManager? _foldingManager;
-			protected internal System.Object? _foldingStrategy;
+			protected internal object? _foldingStrategy;
 
 			// Reasonable max and min font size values
-			private const Double FONT_MAX_SIZE = 60d;
-			private const Double FONT_MIN_SIZE = 5d;
+			private const double FONT_MAX_SIZE = 60d;
+			private const double FONT_MIN_SIZE = 5d;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Имя файла
 			/// </summary>
-			public String FileName
+			public string FileName
 			{
-				get { return (String)GetValue(FileNameProperty); }
+				get { return (string)GetValue(FileNameProperty); }
 				set { SetValue(FileNameProperty, value); }
 			}
 
@@ -221,7 +221,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String? file_name, CParameters? parameters_create)
+			public void NewFile(string? file_name, CParameters? parameters_create)
 			{
 				// Method intentionally left empty.
 			}
@@ -233,12 +233,12 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String? file_name, CParameters? parameters_open)
+			public void OpenFile(string? file_name, CParameters? parameters_open)
 			{
 				// Если файл пустой то используем диалог
-				if(String.IsNullOrEmpty(file_name))
+				if(string.IsNullOrEmpty(file_name))
 				{
-					file_name = XFileDialog.Open("Открыть документ", String.Empty);
+					file_name = XFileDialog.Open("Открыть документ", string.Empty);
 					if (file_name != null && file_name.IsExists())
 					{
 						// Загружаем файл
@@ -265,14 +265,14 @@ namespace Lotus
 			public void SaveFile()
 			{
 				// Если имя файла есть
-				if (String.IsNullOrEmpty(FileName) == false)
+				if (string.IsNullOrEmpty(FileName) == false)
 				{
 					AvalonTextEditor.Save(FileName);
 					XLogger.LogInfoModule(nameof(LotusViewerText), $"Файл с именем: [{FileName}] сохранен");
 				}
 				else
 				{
-					var file_name = XFileDialog.Save("Сохранить документ", String.Empty);
+					var file_name = XFileDialog.Save("Сохранить документ", string.Empty);
 					if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 					{
 						AvalonTextEditor.Save(file_name);
@@ -289,17 +289,17 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String? file_name, CParameters? parameters_save)
+			public void SaveAsFile(string? file_name, CParameters? parameters_save)
 			{
-				if (String.IsNullOrEmpty(file_name))
+				if (string.IsNullOrEmpty(file_name))
 				{
-					if (String.IsNullOrEmpty(FileName) == false)
+					if (string.IsNullOrEmpty(FileName) == false)
 					{
 						var dir = Path.GetDirectoryName(FileName);
 						var file = Path.GetFileNameWithoutExtension(FileName);
 						var ext = Path.GetExtension(FileName).Remove(0, 1);
 
-						 file_name = XFileDialog.Save("Сохранить документ как", dir ?? String.Empty, file, ext);
+						 file_name = XFileDialog.Save("Сохранить документ как", dir ?? string.Empty, file, ext);
 						if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 						{
 							AvalonTextEditor.Save(file_name);
@@ -309,7 +309,7 @@ namespace Lotus
 					}
 					else
 					{
-						file_name = XFileDialog.Save("Сохранить документ как", String.Empty);
+						file_name = XFileDialog.Save("Сохранить документ как", string.Empty);
 						if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
 						{
 							AvalonTextEditor.Save(file_name);
@@ -347,7 +347,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String? file_name, CParameters? parameters_export)
+			public void ExportFile(string? file_name, CParameters? parameters_export)
 			{
 				// Method intentionally left empty.
 			}
@@ -364,7 +364,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Обновление статус сворачивания
@@ -390,7 +390,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="syntax">Язык подсветки синтаксиса</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ChangedSyntaxHighlighting(String syntax)
+			public void ChangedSyntaxHighlighting(string syntax)
 			{
 				if (AvalonTextEditor.SyntaxHighlighting == null)
 				{
@@ -455,7 +455,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnUserControl_Loaded(Object sender, RoutedEventArgs args)
+			private void OnUserControl_Loaded(object sender, RoutedEventArgs args)
 			{
 				SearchPanel.Install(AvalonTextEditor);
 			}
@@ -467,7 +467,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnAvalonTextEditor_PreviewMouseWheel(Object sender, MouseWheelEventArgs args)
+			private void OnAvalonTextEditor_PreviewMouseWheel(object sender, MouseWheelEventArgs args)
 			{
 				var ctrl = Keyboard.Modifiers == ModifierKeys.Control;
 				if (ctrl)
@@ -509,7 +509,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

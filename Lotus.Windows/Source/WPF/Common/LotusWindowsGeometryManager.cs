@@ -33,22 +33,22 @@ namespace Lotus
 			/// <summary>
 			/// Коэффициент для перевода значения в аппаратно-независимых единиц в миллиметры
 			/// </summary>
-			public const Double UnitToMM = 0.26458;
+			public const double UnitToMM = 0.26458;
 
 			/// <summary>
 			/// Коэффициент для перевода значения в аппаратно-независимых единиц в сантиметры
 			/// </summary>
-			public const Double UnitToСM = 0.026458;
+			public const double UnitToСM = 0.026458;
 
 			/// <summary>
 			/// Коэффициент для перевода значения в миллиметрах в аппаратно-независимые единицы
 			/// </summary>
-			public const Double MMToUnit = 3.77952;
+			public const double MMToUnit = 3.77952;
 
 			/// <summary>
 			/// Коэффициент для перевода значения в сантиметрах в аппаратно-независимые единицы
 			/// </summary>
-			public const Double CMToUnit = 37.7952;
+			public const double CMToUnit = 37.7952;
 			#endregion
 
 			#region ======================================= МЕТОДЫ ПРЕОБРАЗОВАНИЯ ЕДИНИЦ ==============================
@@ -73,7 +73,7 @@ namespace Lotus
 			//---------------------------------------------------------------------------------------------------------
 			public static Point ToDeviceUnits(ref Point millimeter)
 			{
-				return new Point((Int32)(millimeter.X * MMToUnit), (Int32)(millimeter.Y * MMToUnit));
+				return new Point((int)(millimeter.X * MMToUnit), (int)(millimeter.Y * MMToUnit));
 			}
 
 			//---------------------------------------------------------------------------------------------------------
@@ -216,7 +216,7 @@ namespace Lotus
 			/// <param name="freeze">Следует ли заморозить геометрию</param>
 			/// <returns>Геометрия</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Geometry CreateGeometryLine(Point[] points, Boolean freeze)
+			public static Geometry CreateGeometryLine(Point[] points, bool freeze)
 			{
 				Geometry geometry = new StreamGeometry();
 				using (StreamGeometryContext sgc = ((StreamGeometry)geometry).Open())
@@ -247,7 +247,7 @@ namespace Lotus
 			/// <param name="freeze">Следует ли заморозить геометрию</param>
 			/// <returns>Геометрия</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Geometry CreateGeometryPolyLine(Point[] points, Boolean closed, Boolean freeze)
+			public static Geometry CreateGeometryPolyLine(Point[] points, bool closed, bool freeze)
 			{
 				Geometry geometry = new StreamGeometry();
 				using (StreamGeometryContext ctx = ((StreamGeometry)geometry).Open())
@@ -276,7 +276,7 @@ namespace Lotus
 			/// <param name="freeze">Следует ли заморозить геометрию</param>
 			/// <returns>Геометрия</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Geometry CreateGeometryArrow(Point start, Point end, Double head_width, Double head_height, Boolean freeze)
+			public static Geometry CreateGeometryArrow(Point start, Point end, double head_width, double head_height, bool freeze)
 			{
 				var theta = Math.Atan2(start.Y - end.Y, start.X - end.X);
 				var sint = Math.Sin(theta);

@@ -51,7 +51,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnComboBoxDistinctProperties_DropDownOpened(Object sender, EventArgs args)
+			private void OnComboBoxDistinctProperties_DropDownOpened(object sender, EventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -63,7 +63,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnTextFilter_KeyUp(Object sender, KeyEventArgs args)
+			private void OnTextFilter_KeyUp(object sender, KeyEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -81,7 +81,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

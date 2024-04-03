@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Collections.Generic;
 //---------------------------------------------------------------------------------------------------------------------
 using Lotus.Core;
+using Lotus.Core.Inspector;
 //=====================================================================================================================
 namespace Lotus
 {
@@ -30,7 +31,7 @@ namespace Lotus
 		/// Модель отображения свойства объекта для универсального типа
 		/// </summary>
 		//-------------------------------------------------------------------------------------------------------------
-		public class CPropertyModelObject : PropertyModel<System.Object>
+		public class CPropertyModelObject : PropertyModel<object>
 		{
 			#region ======================================= ДАННЫЕ ====================================================
 			protected internal Type _editorType;

@@ -239,7 +239,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnRibbonTabItem_Loaded(Object sender, RoutedEventArgs args)
+			private void OnRibbonTabItem_Loaded(object sender, RoutedEventArgs args)
 			{
 				if(DockManager != null)
 				{
@@ -331,7 +331,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerViewLoad(Object sender, RoutedEventArgs args)
+			private void OnDockingManagerViewLoad(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -343,7 +343,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerViewSave(Object sender, RoutedEventArgs args)
+			private void OnDockingManagerViewSave(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -355,7 +355,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerViewRestore(Object sender, RoutedEventArgs args)
+			private void OnDockingManagerViewRestore(object sender, RoutedEventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -367,7 +367,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerTabActive(Object sender, RoutedEventArgs args)
+			private void OnDockingManagerTabActive(object sender, RoutedEventArgs args)
 			{
 				var text = (sender as Fluent.Button)!.Tag.ToString();
 				var layout = DockManager.FindName(text) as LayoutAnchorable;
@@ -410,7 +410,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerCloseAllTabs(Object sender, EventArgs args)
+			private void OnDockingManagerCloseAllTabs(object sender, EventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -422,7 +422,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerCloseOtherTabs(Object sender, EventArgs args)
+			private void OnDockingManagerCloseOtherTabs(object sender, EventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -434,7 +434,7 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnDockingManagerDocumentClosing(Object sender, EventArgs args)
+			private void OnDockingManagerDocumentClosing(object sender, EventArgs args)
 			{
 				// Method intentionally left empty.
 			}
@@ -452,7 +452,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

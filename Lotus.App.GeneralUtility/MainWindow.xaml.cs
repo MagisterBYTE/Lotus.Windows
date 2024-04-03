@@ -29,7 +29,7 @@ namespace Lotus.App.GeneralUtility
 	{
 		public XmlNode Parent { get; set; }
 
-		public String Coords { get; set; }
+		public string Coords { get; set; }
 
 		public XmlNode Child;
 	}
@@ -214,7 +214,7 @@ namespace Lotus.App.GeneralUtility
 					writer.WriteValue(index);
 
 					writer.WritePropertyName("fileName");
-					writer.WriteValue(Path.GetFileName(fileName));
+					writer.WriteValue(System.IO.Path.GetFileName(fileName));
 
 					writer.WritePropertyName("type");
 					writer.WriteValue(Path.GetFileNameWithoutExtension(fileName).SubstringTo("_", false));
@@ -939,6 +939,81 @@ namespace Lotus.App.GeneralUtility
 			}
 
 			return false;
+		}
+
+		private void transformButton_Click(object sender, RoutedEventArgs e)
+		{
+			var dir = "D:\\CODE\\LotusPlatform\\Lotus.Windows\\Lotus.Windows\\Source";
+
+			//var files = Directory.GetFileSystemEntries(dir);
+
+			foreach (string file in Directory.EnumerateFiles(dir, "*.cs", SearchOption.AllDirectories))
+			{
+				TransformFile(file);
+			}
+
+			//for (int i = 0; i < files.Length; i++)
+			//{
+			//	TransformFile(files[i]);
+			//}
+
+		}
+
+		private void TransformFile(string fileName)
+		{
+			const string removeDel = "//=====================================================================================================================";
+			const string removePart = "//-------------------------------------------------------------------------------------------------------------";
+			const string removePart2 = "//---------------------------------------------------------------------------------------------------------";
+			const string removeNamespace = "namespace DeNova";
+
+			const string replaceFields = "#region ======================================= ДАННЫЕ ====================================================";
+			const string replaceProperties = "#region ======================================= СВОЙСТВА ==================================================";
+			const string replaceConstructors = "#region ======================================= КОНСТРУКТОРЫ ==============================================";
+			const string replaceInnerType = "#region ======================================= ВНУТРЕННИЕ ТИПЫ ===========================================";
+			
+			const string replaceIndex = "#region ======================================= ИНДЕКСАТОР ================================================";
+			const string replaceConst = "#region ======================================= КОНСТАНТНЫЕ ДАННЫЕ ========================================";
+			const string replaceStaticFielsd = "#region ======================================= СТАТИЧЕСКИЕ ДАННЫЕ ========================================";
+			const string replaceStaticProperties = "#region ======================================= СТАТИЧЕСКИЕ СВОЙСТВА ========================================";
+			const string replaceStaticMethods = "#region ======================================= СТАТИЧЕСКИЕ МЕТОДЫ ========================================";
+
+			const string replaceMainMethods = "#region ======================================= ОБЩИЕ МЕТОДЫ ========================================";
+			const string replaceSystemMethods = "#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================";
+
+
+			var raw = File.ReadAllLines(fileName, Encoding.UTF8);
+			CTextList fileList = new CTextList(raw);
+
+			fileList.RemoveToLine("using");
+			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removeDel);
+			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removePart);
+			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removePart2);
+			fileList.Lines.RemoveAll((x) => x!.RawString.Trim() == removeNamespace);
+
+			fileList.ReplaceFirst("namespace Lotus", "namespace Lotus.DeNova");
+			fileList.ReplaceAll(replaceFields, "#region Fields");
+			fileList.ReplaceAll(replaceProperties, "#region Properties");
+			fileList.ReplaceAll(replaceConstructors, "#region Constructors");
+			fileList.ReplaceAll(replaceInnerType, "#region Inner types");
+			fileList.ReplaceAll(replaceIndex, "#region Indexer");
+			fileList.ReplaceAll(replaceConst, "#region Const");
+			fileList.ReplaceAll(replaceStaticFielsd, "#region Static fields");
+			fileList.ReplaceAll(replaceStaticProperties, "#region Static properties");
+			fileList.ReplaceAll(replaceStaticMethods, "#region Static methods");
+			fileList.ReplaceAll(replaceMainMethods, "#region Main methods");
+			fileList.ReplaceAll(replaceSystemMethods, "#region System methods");
+
+			fileList.AddDotToComment();
+
+			fileList.RemoveEmptyBraces("namespace Lotus.DeNova");
+
+			fileList.RemoveRegions();
+
+			fileList.RemoveTabs();
+
+			fileList.InsertEmptyLineBeforeNamespace("namespace Lotus.DeNova");
+
+			fileList.Save(fileName);
 		}
 	}
 }

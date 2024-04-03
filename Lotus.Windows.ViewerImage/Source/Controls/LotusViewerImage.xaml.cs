@@ -42,7 +42,7 @@ namespace Lotus
 			/// <summary>
 			/// Список поддерживаемых форматов файлов
 			/// </summary>
-			public static readonly String[] SupportFormatFile = new String[] 
+			public static readonly string[] SupportFormatFile = new string[] 
 			{
 				".bmp",
 				".jpeg",
@@ -84,7 +84,7 @@ namespace Lotus
 			/// <param name="extension">Расширение файла</param>
 			/// <returns>Статус поддержки</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static Boolean IsSupportFormatFile(String extension)
+			public static bool IsSupportFormatFile(string extension)
 			{
 				return SupportFormatFile.Contains(extension);
 			}
@@ -96,7 +96,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <returns>Объект BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static BitmapSource? LoadFromFile(String file_name)
+			public static BitmapSource? LoadFromFile(string file_name)
 			{
 				// Format is stored in 'format' on successfull load.
 				FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
@@ -133,7 +133,7 @@ namespace Lotus
 			/// <param name="height">Требуемая высота изображения</param>
 			/// <returns>Объект BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static BitmapSource? LoadFromFile(String file_name, Int32 width, Int32 height)
+			public static BitmapSource? LoadFromFile(string file_name, int width, int height)
 			{
 				// Format is stored in 'format' on successfull load.
 				FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
@@ -167,42 +167,42 @@ namespace Lotus
 			/// Имя файла
 			/// </summary>
 			public static readonly DependencyProperty FileNameProperty = DependencyProperty.Register(nameof(FileName),
-				typeof(String),
+				typeof(string),
 				typeof(LotusViewerImage),
 				new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None));
 			#endregion
 
 			#region ======================================= ДАННЫЕ ====================================================
-			protected internal String _fileName;
-			protected internal Int32 _imageWidth;
-			protected internal Int32 _imageHeight;
-			protected internal Int32 _imageResolutionX;
-			protected internal Int32 _imageResolutionY;
+			protected internal string _fileName;
+			protected internal int _imageWidth;
+			protected internal int _imageHeight;
+			protected internal int _imageResolutionX;
+			protected internal int _imageResolutionY;
 			protected internal FREE_IMAGE_FORMAT _freeImageFormat;
 			protected internal FREE_IMAGE_TYPE _freeImageType;
 			protected internal FREE_IMAGE_COLOR_TYPE _freeImageColorType;
-			protected internal Int32 _colorDepth;
+			protected internal int _colorDepth;
 			protected internal PixelFormat _pixelFormat;
-			protected internal Boolean _isTransparentImage;
-			protected internal UInt32 _imageRedMask;
-			protected internal UInt32 _imageGreenMask;
-			protected internal UInt32 _imageBlueMask;
+			protected internal bool _isTransparentImage;
+			protected internal uint _imageRedMask;
+			protected internal uint _imageGreenMask;
+			protected internal uint _imageBlueMask;
 
 			protected internal FIBITMAP _freeImageBitmap;
 			protected internal Image _imagePresented;
 			protected internal BitmapSource? _bitmapOriginal;
 			protected internal BitmapSource? _bitmapAlpha;
 			protected internal BitmapSource? _bitmapNoTransparent;
-			protected internal String _currentMessage;
+			protected internal string _currentMessage;
 			#endregion
 
 			#region ======================================= СВОЙСТВА ==================================================
 			/// <summary>
 			/// Имя файла
 			/// </summary>
-			public String FileName
+			public string FileName
 			{
-				get { return (String)GetValue(FileNameProperty); }
+				get { return (string)GetValue(FileNameProperty); }
 				set { SetValue(FileNameProperty, value); }
 			}
 
@@ -212,7 +212,7 @@ namespace Lotus
 			/// <summary>
 			/// Ширина изображения
 			/// </summary>
-			public Int32 ImageWidth
+			public int ImageWidth
 			{
 				get
 				{
@@ -223,7 +223,7 @@ namespace Lotus
 			/// <summary>
 			/// Высота изображения
 			/// </summary>
-			public Int32 ImageHeight
+			public int ImageHeight
 			{
 				get
 				{
@@ -234,7 +234,7 @@ namespace Lotus
 			/// <summary>
 			/// Разрешение изображения по X
 			/// </summary>
-			public Int32 ImageResolutionX
+			public int ImageResolutionX
 			{
 				get
 				{
@@ -245,7 +245,7 @@ namespace Lotus
 			/// <summary>
 			/// Разрешение изображения по Y
 			/// </summary>
-			public Int32 ImageResolutionY
+			public int ImageResolutionY
 			{
 				get
 				{
@@ -289,7 +289,7 @@ namespace Lotus
 			/// <summary>
 			/// Глубина цвета
 			/// </summary>
-			public Int32 ImageColorDepth
+			public int ImageColorDepth
 			{
 				get { return _colorDepth; }
 			}
@@ -305,7 +305,7 @@ namespace Lotus
 			/// <summary>
 			/// Статус прозрачности изображения
 			/// </summary>
-			public Boolean IsTransparentImage
+			public bool IsTransparentImage
 			{
 				get { return _isTransparentImage; }
 			}
@@ -313,7 +313,7 @@ namespace Lotus
 			/// <summary>
 			/// Маска прозрачности для красного цвета
 			/// </summary>
-			public UInt32 ImageRedMask
+			public uint ImageRedMask
 			{
 				get { return _imageRedMask; }
 			}
@@ -321,7 +321,7 @@ namespace Lotus
 			/// <summary>
 			/// Маска прозрачности для зеленого цвета
 			/// </summary>
-			public UInt32 ImageGreenMask
+			public uint ImageGreenMask
 			{
 				get { return _imageGreenMask; }
 			}
@@ -329,7 +329,7 @@ namespace Lotus
 			/// <summary>
 			/// Маска прозрачности для синего цвета
 			/// </summary>
-			public UInt32 ImageBlueMask
+			public uint ImageBlueMask
 			{
 				get { return _imageBlueMask; }
 			}
@@ -366,7 +366,7 @@ namespace Lotus
 			/// <param name="file_name">Имя файла</param>
 			/// <param name="parameters_create">Параметры создания файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NewFile(String file_name, CParameters? parameters_create)
+			public void NewFile(string file_name, CParameters? parameters_create)
 			{
 				// Method intentionally left empty.
 			}
@@ -378,10 +378,10 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_open">Параметры открытия файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void OpenFile(String? file_name, CParameters? parameters_open)
+			public void OpenFile(string? file_name, CParameters? parameters_open)
 			{
 				// Если файл пустой то используем диалог
-				if (String.IsNullOrEmpty(file_name))
+				if (string.IsNullOrEmpty(file_name))
 				{
 					file_name = XFileDialog.Open("Открыть изображение", "");
 					if (file_name != null && file_name.IsExists())
@@ -419,11 +419,11 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_save">Параметры сохранения файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void SaveAsFile(String? file_name, CParameters? parameters_save)
+			public void SaveAsFile(string? file_name, CParameters? parameters_save)
 			{
-				if (String.IsNullOrEmpty(file_name))
+				if (string.IsNullOrEmpty(file_name))
 				{
-					if (String.IsNullOrEmpty(FileName) == false)
+					if (string.IsNullOrEmpty(FileName) == false)
 					{
 
 					}
@@ -459,7 +459,7 @@ namespace Lotus
 			/// <param name="file_name">Полное имя файла</param>
 			/// <param name="parameters_export">Параметры для экспорта файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void ExportFile(String? file_name, CParameters? parameters_export)
+			public void ExportFile(string? file_name, CParameters? parameters_export)
 			{
 				// Method intentionally left empty.
 			}
@@ -479,14 +479,14 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Загрузка изображения по полному пути
 			/// </summary>
 			/// <param name="file_name">Имя файла</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void Load(String file_name)
+			public void Load(string file_name)
 			{
 				if (!_freeImageBitmap.IsNull)
 				{
@@ -520,10 +520,10 @@ namespace Lotus
 					//
 					// РАЗМЕР ИЗОБРАЖЕНИЯ
 					//
-					_imageWidth = (Int32)FreeImage.GetWidth(_freeImageBitmap);
-					_imageHeight = (Int32)FreeImage.GetHeight(_freeImageBitmap);
-					_imageResolutionX = (Int32)FreeImage.GetResolutionX(_freeImageBitmap);
-					_imageResolutionY = (Int32)FreeImage.GetResolutionY(_freeImageBitmap);
+					_imageWidth = (int)FreeImage.GetWidth(_freeImageBitmap);
+					_imageHeight = (int)FreeImage.GetHeight(_freeImageBitmap);
+					_imageResolutionX = (int)FreeImage.GetResolutionX(_freeImageBitmap);
+					_imageResolutionY = (int)FreeImage.GetResolutionY(_freeImageBitmap);
 
 					//
 					// ПАРАМЕТРЫ ИЗОБРАЖЕНИЯ
@@ -534,7 +534,7 @@ namespace Lotus
 					//
 					// ПАРАМЕТРЫ ЦВЕТА
 					//
-					_colorDepth = (Int32)FreeImage.GetBPP(_freeImageBitmap);
+					_colorDepth = (int)FreeImage.GetBPP(_freeImageBitmap);
 					_pixelFormat = FreeImage.GetPixelFormat(_freeImageBitmap);
 					_isTransparentImage = FreeImage.IsTransparent(_freeImageBitmap);
 
@@ -646,16 +646,16 @@ namespace Lotus
 			/// <param name="sender">Источник события</param>
 			/// <param name="args">Аргументы события</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnUserControl_Loaded(Object sender, RoutedEventArgs args)
+			private void OnUserControl_Loaded(object sender, RoutedEventArgs args)
 			{
-				Double min_width = 1;
+				double min_width = 1;
 
 				if (_imagePresented.Width > contentViewer.ViewportWidth - 20)
 				{
 					min_width = (contentViewer.ViewportWidth - 20) / _imagePresented.Width;
 				}
 
-				Double min_height = 1;
+				double min_height = 1;
 				if (_imagePresented.Height > contentViewer.ViewportHeight - 20)
 				{
 					min_height = (contentViewer.ViewportHeight - 20) / _imagePresented.Height;
@@ -671,7 +671,7 @@ namespace Lotus
 			/// <param name="format_image">Формат изображения</param>
 			/// <param name="message">Строка сообщения</param>
 			//---------------------------------------------------------------------------------------------------------
-			private void OnFreeImageMessage(FREE_IMAGE_FORMAT format_image, String message)
+			private void OnFreeImageMessage(FREE_IMAGE_FORMAT format_image, string message)
 			{
 				if (this._currentMessage == null)
 				{
@@ -696,7 +696,7 @@ namespace Lotus
 			/// </summary>
 			/// <param name="property_name">Имя свойства</param>
 			//---------------------------------------------------------------------------------------------------------
-			public void NotifyPropertyChanged(String property_name = "")
+			public void NotifyPropertyChanged(string property_name = "")
 			{
 				if (PropertyChanged != null)
 				{

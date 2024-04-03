@@ -39,7 +39,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindow_Loaded(Object sender, RoutedEventArgs args)
+		private void OnMainWindow_Loaded(object sender, RoutedEventArgs args)
 		{
 			// Устанавливаем глобальные данные по элементам управления
 			XWindowManager.PropertyInspector = propertyInspector;
@@ -61,7 +61,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindow_Closing(Object sender, CancelEventArgs args)
+		private void OnMainWindow_Closing(object sender, CancelEventArgs args)
 		{
 		}
 
@@ -75,7 +75,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnMainWindowClose(Object sender, RoutedEventArgs args)
+		private void OnMainWindowClose(object sender, RoutedEventArgs args)
 		{
 			Close();
 		}
@@ -89,7 +89,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileNew(Object sender, RoutedEventArgs args)
+		private void OnFileNew(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -101,7 +101,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileOpen(Object sender, RoutedEventArgs args)
+		private void OnFileOpen(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -113,7 +113,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileSave(Object sender, RoutedEventArgs args)
+		private void OnFileSave(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -125,7 +125,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileSaveAs(Object sender, RoutedEventArgs args)
+		private void OnFileSaveAs(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -137,7 +137,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFilePrint(Object sender, RoutedEventArgs args)
+		private void OnFilePrint(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -149,7 +149,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileExport(Object sender, RoutedEventArgs args)
+		private void OnFileExport(object sender, RoutedEventArgs args)
 		{
 
 		}
@@ -161,7 +161,7 @@ namespace Lotus.EntityDesigner
 		/// <param name="sender">Источник события</param>
 		/// <param name="args">Аргументы события</param>
 		//-------------------------------------------------------------------------------------------------------------
-		private void OnFileClose(Object sender, RoutedEventArgs args)
+		private void OnFileClose(object sender, RoutedEventArgs args)
 		{
 
 		}

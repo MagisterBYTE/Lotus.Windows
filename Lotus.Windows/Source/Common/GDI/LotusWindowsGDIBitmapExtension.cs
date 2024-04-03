@@ -40,7 +40,7 @@ namespace Lotus
 			/// <param name="height">Высота требуемого изображения</param> 
 			/// <returns>Объект BitmapSource</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public static System.Windows.Media.Imaging.BitmapSource ToBitmapSource(this Bitmap source, Int32 width, Int32 height)
+			public static System.Windows.Media.Imaging.BitmapSource ToBitmapSource(this Bitmap source, int width, int height)
 			{
 				var h_bitmap = source.GetHbitmap();
 				var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(h_bitmap, IntPtr.Zero,

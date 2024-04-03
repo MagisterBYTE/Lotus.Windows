@@ -60,8 +60,8 @@ namespace Lotus
 					if (_comparisonOperator != value)
 					{
 						_comparisonOperator = value;
-						NotifyPropertyChanged(PropertyArgsComparisonOperator);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonOperator);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonOperator));
 					}
 				}
@@ -81,8 +81,8 @@ namespace Lotus
 					if (ComparisonValueLeft != value)
 					{
 						_comparisonValueLeft = value;
-						NotifyPropertyChanged(PropertyArgsComparisonValueLeft);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonValueLeft);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
 					}
 				}
@@ -102,8 +102,8 @@ namespace Lotus
 					if (_comparisonValueRight != value)
 					{
 						_comparisonValueRight = value;
-						NotifyPropertyChanged(PropertyArgsComparisonValueRight);
-						NotifyPropertyChanged(PropertyArgsSQLQueryItem);
+						OnPropertyChanged(PropertyArgsComparisonValueRight);
+						OnPropertyChanged(PropertyArgsSQLQueryItem);
 						if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(_comparisonValueRight));
 					}
 				}
@@ -150,14 +150,14 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= СИСТЕМНЫЕ МЕТОДЫ ==========================================
+#region System methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Преобразование к текстовому представлению
 			/// </summary>
 			/// <returns>Наименование объекта</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override String ToString()
+			public override string ToString()
 			{
 				var name = "";
 				ComputeSQLQuery(ref name);
@@ -165,7 +165,7 @@ namespace Lotus
 			}
 			#endregion
 
-			#region ======================================= ОБЩИЕ МЕТОДЫ ==============================================
+			#region Main methods
 			//---------------------------------------------------------------------------------------------------------
 			/// <summary>
 			/// Формирование SQL запроса
@@ -173,7 +173,7 @@ namespace Lotus
 			/// <param name="sql_query">SQL запрос</param>
 			/// <returns>Статус формирования элемента запроса</returns>
 			//---------------------------------------------------------------------------------------------------------
-			public override Boolean ComputeSQLQuery(ref String sql_query)
+			public override bool ComputeSQLQuery(ref string sql_query)
 			{
 				if (_notCalculation == false)
 				{
