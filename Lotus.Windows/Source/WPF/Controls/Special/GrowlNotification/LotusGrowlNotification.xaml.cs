@@ -343,7 +343,7 @@ namespace Lotus.Windows
                 return;
             }
             var element = (sender as Grid)!;
-            RemoveNotification(mCurrentNotifications.First(n => n.ID == int.Parse(element.Tag.ToString()!)));
+            RemoveNotification(mCurrentNotifications.First(n => n.ID == XNumberHelper.ParseInt(element.Tag.ToString()!)));
         }
         #endregion
     }

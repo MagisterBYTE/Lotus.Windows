@@ -56,7 +56,7 @@ namespace Lotus.Windows
             else
             {
                 str = str.Trim();
-                return XNumbers.ParseDouble(str);
+                return XNumberHelper.ParseDouble(str);
             }
         }
         #endregion
@@ -82,7 +82,7 @@ namespace Lotus.Windows
 
             if (parameter != null)
             {
-                return val - XNumbers.ParseDouble(parameter.ToString()!);
+                return val - XNumberHelper.ParseDouble(parameter.ToString()!);
             }
             else
             {
@@ -104,7 +104,7 @@ namespace Lotus.Windows
 
             if (parameter != null)
             {
-                return val + XNumbers.ParseDouble(parameter.ToString()!);
+                return val + XNumberHelper.ParseDouble(parameter.ToString()!);
             }
             else
             {

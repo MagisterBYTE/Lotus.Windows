@@ -84,7 +84,7 @@ namespace Lotus.Windows
                 else
                 {
                     dialog.Filter = GetFilterFromExt(extension);
-                    dialog.DefaultExt = extension[0] == XChar.Dot ? extension : XChar.Dot + extension;
+                    dialog.DefaultExt = extension[0] == XCharHelper.Dot ? extension : XCharHelper.Dot + extension;
                 }
             }
 
@@ -114,7 +114,7 @@ namespace Lotus.Windows
             var dialog = new Microsoft.Win32.SaveFileDialog();
             if (extension != null)
             {
-                dialog.DefaultExt = extension[0] == XChar.Dot ? extension : XChar.Dot + extension;
+                dialog.DefaultExt = extension[0] == XCharHelper.Dot ? extension : XCharHelper.Dot + extension;
                 dialog.Filter = GetFilterFromExt(extension);
             }
             dialog.Title = title;

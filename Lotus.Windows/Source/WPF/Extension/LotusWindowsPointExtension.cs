@@ -31,8 +31,8 @@ namespace Lotus.Windows
         {
             var point = new Point();
             var vector_data = data.Split(';');
-            point.X = XNumbers.ParseDouble(vector_data[0]);
-            point.Y = XNumbers.ParseDouble(vector_data[1]);
+            point.X = XNumberHelper.ParseDouble(vector_data[0]);
+            point.Y = XNumberHelper.ParseDouble(vector_data[1]);
             return point;
         }
 

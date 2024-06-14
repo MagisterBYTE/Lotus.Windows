@@ -86,7 +86,7 @@ namespace Lotus.Windows
                 return "";
             }
             var type_enum = value.GetType();
-            return XEnum.GetDescriptionOrName(type_enum, (Enum)value);
+            return XEnumHelper.GetDescriptionOrName(type_enum, (Enum)value);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Lotus.Windows
             {
                 return null!;
             }
-            return XEnum.ConvertFromDescriptionOrName(targetType, value.ToString()!);
+            return XEnumHelper.ConvertFromDescriptionOrName(targetType, value.ToString()!);
         }
     }
     /**@}*/

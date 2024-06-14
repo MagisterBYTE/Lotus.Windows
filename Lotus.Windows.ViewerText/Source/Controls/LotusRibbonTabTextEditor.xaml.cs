@@ -99,7 +99,7 @@ namespace Lotus.Windows
         {
             if (TextViewEditor != null && XFilePath.CheckCorrectFileName(TextViewEditor.FileName))
             {
-                var file_name_param = XChar.DoubleQuotes + TextViewEditor.FileName + XChar.DoubleQuotes;
+                var file_name_param = XCharHelper.DoubleQuotes + TextViewEditor.FileName + XCharHelper.DoubleQuotes;
                 XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, string.Empty, TShowCommands.SW_NORMAL);
             }
         }

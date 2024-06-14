@@ -349,7 +349,7 @@ namespace Lotus.Windows
         {
             if (_isDirectText == false)
             {
-                if (XNumbers.TryParseDoubleFormat(TextField.Text, out var result))
+                if (XNumberHelper.TryParseDouble(TextField.Text, out var result))
                 {
                     Value = result;
                     if (Value < MinValue) Value = MinValue;
@@ -370,7 +370,7 @@ namespace Lotus.Windows
         private void OnTextField_LostFocus(object sender, RoutedEventArgs args)
         {
             // 1) Пробуем преобразовать текст в число
-            if (XNumbers.TryParseDoubleFormat(TextField.Text, out var result))
+            if (XNumberHelper.TryParseDouble(TextField.Text, out var result))
             {
                 Value = result;
                 if (Value < MinValue) Value = MinValue;

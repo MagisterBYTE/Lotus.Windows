@@ -30,10 +30,10 @@ namespace Lotus.Windows
         {
             var rect = new Rect();
             var rect_data = data.Split(';');
-            rect.X = XNumbers.ParseDouble(rect_data[0]);
-            rect.Y = XNumbers.ParseDouble(rect_data[1]);
-            rect.Width = XNumbers.ParseDouble(rect_data[2]);
-            rect.Height = XNumbers.ParseDouble(rect_data[3]);
+            rect.X = XNumberHelper.ParseDouble(rect_data[0]);
+            rect.Y = XNumberHelper.ParseDouble(rect_data[1]);
+            rect.Width = XNumberHelper.ParseDouble(rect_data[2]);
+            rect.Height = XNumberHelper.ParseDouble(rect_data[3]);
             return rect;
         }
 

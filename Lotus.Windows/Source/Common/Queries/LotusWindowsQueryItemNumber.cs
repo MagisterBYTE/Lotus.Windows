@@ -183,7 +183,7 @@ namespace Lotus.Windows
                 binding.Path = new System.Windows.PropertyPath(path: nameof(ComparisonOperator));
                 binding.Converter = EnumToStringConverter.Instance;
 
-                combo_box.ItemsSource = XEnum.GetDescriptions(typeof(TComparisonOperator));
+                combo_box.ItemsSource = XEnumHelper.GetDescriptions(typeof(TComparisonOperator));
                 System.Windows.Data.BindingOperations.SetBinding(combo_box,
                     System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
             }

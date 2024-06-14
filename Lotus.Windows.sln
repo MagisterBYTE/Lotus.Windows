@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lotus.UnitMeasurement", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lotus.App.EntityDesigner", "Lotus.App.EntityDesigner\Lotus.App.EntityDesigner.csproj", "{0D1E7E04-5BF0-4F8D-A963-97E1DA39CF95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lotus.App.FileSystem", "Lotus.App.FileSystem\Lotus.App.FileSystem.csproj", "{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,12 @@ Global
 		{0D1E7E04-5BF0-4F8D-A963-97E1DA39CF95}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{0D1E7E04-5BF0-4F8D-A963-97E1DA39CF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D1E7E04-5BF0-4F8D-A963-97E1DA39CF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Publish|Any CPU.ActiveCfg = Debug|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Publish|Any CPU.Build.0 = Debug|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,6 +137,7 @@ Global
 		{69FFE109-E6BB-489C-BD35-DAB7AB6E44B4} = {0215F7D4-3D94-49FC-8AE3-9FE9DEF918BB}
 		{1D7E1278-FBD0-488C-88BC-BB1B491ED793} = {0215F7D4-3D94-49FC-8AE3-9FE9DEF918BB}
 		{0D1E7E04-5BF0-4F8D-A963-97E1DA39CF95} = {3DF49C0E-4362-4B7F-902D-24C4354BDBA9}
+		{7770C8BC-DEDA-4B70-A0DF-6B22873A0295} = {3DF49C0E-4362-4B7F-902D-24C4354BDBA9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A092E24-B2CB-4E16-81DA-049A1541A236}

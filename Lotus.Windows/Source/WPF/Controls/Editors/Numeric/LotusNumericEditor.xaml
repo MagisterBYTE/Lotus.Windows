@@ -51,7 +51,7 @@
                 <RepeatButton.Content>
                     <TextBlock
                         FontSize="10"
-                        Text="{x:Static core:XString.TriangleUp}" />
+                        Text="{x:Static core:XStringHelper.TriangleUp}" />
                 </RepeatButton.Content>
             </RepeatButton>
             <RepeatButton
@@ -63,14 +63,14 @@
                 <RepeatButton.Content>
                     <TextBlock
                         FontSize="10"
-                        Text="{x:Static core:XString.TriangleDown}" />
+                        Text="{x:Static core:XStringHelper.TriangleDown}" />
                 </RepeatButton.Content>
             </RepeatButton>
         </ctrl:LotusStackPanel>
         <Button
             x:Name="ButtonMenu"
             Click="OnButtonMenu_Click"
-            Content="{x:Static core:XString.TriangleDown}"
+            Content="{x:Static core:XStringHelper.TriangleDown}"
             Visibility="Visible">
             <Button.ContextMenu>
                 <ContextMenu x:Name="contextMenu">

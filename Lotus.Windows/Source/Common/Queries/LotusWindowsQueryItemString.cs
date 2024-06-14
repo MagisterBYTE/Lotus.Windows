@@ -173,7 +173,7 @@ namespace Lotus.Windows
                 binding.Path = new System.Windows.PropertyPath(path: nameof(SearchOption));
                 binding.Converter = EnumToStringConverter.Instance;
 
-                combo_box.ItemsSource = XEnum.GetDescriptions(typeof(TStringSearchOption));
+                combo_box.ItemsSource = XEnumHelper.GetDescriptions(typeof(TStringSearchOption));
                 System.Windows.Data.BindingOperations.SetBinding(combo_box,
                     System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
             }

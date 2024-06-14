@@ -77,7 +77,7 @@ namespace Lotus.Windows
         {
             _filtredItems = new List<object>();
             _sourceItems = new List<object>();
-            _sourceItems.AddRange(XEnum.GetDescriptions(enum_type));
+            _sourceItems.AddRange(XEnumHelper.GetDescriptions(enum_type));
         }
         #endregion
 
