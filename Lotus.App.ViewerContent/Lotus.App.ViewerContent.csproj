@@ -5,7 +5,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RootNamespace>Lotus</RootNamespace>
-    <Authors>MagistrBYTE aka DanielDem</Authors>
+    <Authors>MagisterBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <OutputPath>..\Output\$(Configuration)\</OutputPath>
     <Description>Универсальный обозреватель файлов и редактор контента</Description>
