@@ -36,7 +36,7 @@
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
     <PackageReference Include="Fluent.Ribbon" Version="10.1.0" />
     <PackageReference Include="FreeImage.Standard" Version="4.3.9-beta4" />
-    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3428" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3498" />
     <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.25.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Assimp" Version="2.25.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.25.0" />

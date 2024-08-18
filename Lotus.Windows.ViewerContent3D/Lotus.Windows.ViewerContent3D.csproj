@@ -86,6 +86,12 @@
     <Folder Include="Source\Object3D\Mesh\Common\" />
     <Folder Include="Source\Object3D\Mesh\Planar\" />
     <Folder Include="Source\Object3D\Mesh\Primitive\" />
+    <Folder Include="Source\Object3D\Base\" />
+    <Folder Include="Source\Object3D\Extension\" />
+    <Folder Include="Source\Object3D\Material\" />
+    <Folder Include="Source\Object3D\Model\" />
+    <Folder Include="Source\Object3D\Texture\" />
+    <Folder Include="Source\Object3D\Scene\" />
     <Folder Include="Source\Object3D\Scene\" />
     <Folder Include="Source\Object3D\Model\" />
     <Folder Include="Source\Object3D\Texture\" />

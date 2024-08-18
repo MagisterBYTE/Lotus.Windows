@@ -637,7 +637,7 @@ namespace Lotus.Windows
         }
         #endregion
 
-        #region МЕТОДЫ methods
+        #region Service methods
         /// <summary>
         /// Изменение камеры.
         /// </summary>
