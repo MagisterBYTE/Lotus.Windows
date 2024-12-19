@@ -49,24 +49,24 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public CPropertyModelEnum(PropertyInfo property_info)
-            : base(property_info, TPropertyType.Enum)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public CPropertyModelEnum(PropertyInfo propertyInfo)
+            : base(propertyInfo, TPropertyType.Enum)
         {
-            _enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-            _enumNames = new List<string>(Enum.GetNames(property_info.PropertyType));
+            _enumValues = new ArrayList(Enum.GetValues(propertyInfo.PropertyType));
+            _enumNames = new List<string>(Enum.GetNames(propertyInfo.PropertyType));
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        public CPropertyModelEnum(PropertyInfo property_info, List<CPropertyDesc> property_desc)
-            : base(property_info, property_desc, TPropertyType.Enum)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        public CPropertyModelEnum(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
+            : base(propertyInfo, propertyDesc, TPropertyType.Enum)
         {
-            _enumValues = new ArrayList(Enum.GetValues(property_info.PropertyType));
-            _enumNames = new List<string>(Enum.GetNames(property_info.PropertyType));
+            _enumValues = new ArrayList(Enum.GetValues(propertyInfo.PropertyType));
+            _enumNames = new List<string>(Enum.GetNames(propertyInfo.PropertyType));
         }
         #endregion
     }

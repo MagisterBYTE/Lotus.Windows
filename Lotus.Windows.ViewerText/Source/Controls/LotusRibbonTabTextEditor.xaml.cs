@@ -84,10 +84,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonOpen_Click(object sender, RoutedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.OpenFile(null, null);
-            }
+            TextViewEditor?.OpenFile(null, null);
         }
 
         /// <summary>
@@ -100,7 +97,7 @@ namespace Lotus.Windows
             if (TextViewEditor != null && XFilePath.CheckCorrectFileName(TextViewEditor.FileName))
             {
                 var file_name_param = XCharHelper.DoubleQuotes + TextViewEditor.FileName + XCharHelper.DoubleQuotes;
-                XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, string.Empty, TShowCommands.SW_NORMAL);
+                XNative.ShellExecute(IntPtr.Zero, "open", "notepad++", file_name_param, string.Empty, TShowCommands.SWNORMAL);
             }
         }
 
@@ -111,10 +108,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSave_Click(object sender, RoutedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.SaveFile();
-            }
+            TextViewEditor?.SaveFile();
         }
 
         /// <summary>
@@ -124,10 +118,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSaveAs_Click(object sender, RoutedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.SaveAsFile(null, null);
-            }
+            TextViewEditor?.SaveAsFile(null, null);
         }
 
         /// <summary>
@@ -137,10 +128,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnComboBoxEncodings_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.ChangedEncoding((comboBoxEncodings.SelectedItem as Encoding)!);
-            }
+            TextViewEditor?.ChangedEncoding((comboBoxEncodings.SelectedItem as Encoding)!);
         }
 
         /// <summary>
@@ -150,10 +138,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonCopy_Click(object sender, RoutedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.AvalonTextEditor.Copy();
-            }
+            TextViewEditor?.AvalonTextEditor.Copy();
         }
 
         /// <summary>
@@ -163,10 +148,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonPaste_Click(object sender, RoutedEventArgs args)
         {
-            if (TextViewEditor != null)
-            {
-                TextViewEditor.AvalonTextEditor.Paste();
-            }
+            TextViewEditor?.AvalonTextEditor.Paste();
         }
 
         /// <summary>

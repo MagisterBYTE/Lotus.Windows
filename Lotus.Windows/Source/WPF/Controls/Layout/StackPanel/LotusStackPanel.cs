@@ -183,7 +183,7 @@ namespace Lotus.Windows
 
         #region Override methods
         /// <summary>
-        /// Опредилить размеры.
+        /// Определить размеры.
         /// </summary>
         /// <remarks>
         /// Метод, который по заданному available_size определяет желаемые размеры и выставляет их в this.DesiredSize.

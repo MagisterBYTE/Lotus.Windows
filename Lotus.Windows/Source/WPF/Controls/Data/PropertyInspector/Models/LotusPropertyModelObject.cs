@@ -39,9 +39,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public CPropertyModelObject(PropertyInfo property_info)
-            : base(property_info, TPropertyType.Object)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public CPropertyModelObject(PropertyInfo propertyInfo)
+            : base(propertyInfo, TPropertyType.Object)
         {
 
         }
@@ -49,13 +49,13 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        /// <param name="editor_type">Тип редактора для свойства.</param>
-        public CPropertyModelObject(PropertyInfo property_info, List<CPropertyDesc> property_desc, Type editor_type)
-            : base(property_info, property_desc, TPropertyType.Object)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        /// <param name="editorType">Тип редактора для свойства.</param>
+        public CPropertyModelObject(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc, Type editorType)
+            : base(propertyInfo, propertyDesc, TPropertyType.Object)
         {
-            _editorType = editor_type;
+            _editorType = editorType;
         }
         #endregion
     }

@@ -72,10 +72,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonOpen_Click(object sender, RoutedEventArgs args)
         {
-            if (Content3DViewEditor != null)
-            {
-                Content3DViewEditor.OpenFile(null!, null);
-            }
+            Content3DViewEditor?.OpenFile(null!, null);
         }
 
         /// <summary>
@@ -95,10 +92,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSave_Click(object sender, RoutedEventArgs args)
         {
-            if (Content3DViewEditor != null)
-            {
-                Content3DViewEditor.SaveFile();
-            }
+            Content3DViewEditor?.SaveFile();
         }
 
         /// <summary>
@@ -108,10 +102,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSaveAs_Click(object sender, RoutedEventArgs args)
         {
-            if (Content3DViewEditor != null)
-            {
-                Content3DViewEditor.SaveAsFile(null!, null);
-            }
+            Content3DViewEditor?.SaveAsFile(null!, null);
         }
 
         /// <summary>

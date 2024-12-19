@@ -44,19 +44,19 @@ namespace Lotus.Windows
         //
         // Константы для информирования об изменении свойств
         //
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageWidth = new PropertyChangedEventArgs(nameof(ImageWidth));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageHeight = new PropertyChangedEventArgs(nameof(ImageHeight));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionX = new PropertyChangedEventArgs(nameof(ImageResolutionX));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionY = new PropertyChangedEventArgs(nameof(ImageResolutionY));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageFormat = new PropertyChangedEventArgs(nameof(ImageFormat));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageImageType = new PropertyChangedEventArgs(nameof(ImageType));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageColorType = new PropertyChangedEventArgs(nameof(ImageColorType));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageColorDepth = new PropertyChangedEventArgs(nameof(ImageColorDepth));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImagePixelFormat = new PropertyChangedEventArgs(nameof(ImagePixelFormat));
-        protected static readonly PropertyChangedEventArgs PropertyArgsIsTransparentImage = new PropertyChangedEventArgs(nameof(IsTransparentImage));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageRedMask = new PropertyChangedEventArgs(nameof(ImageRedMask));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageGreenMask = new PropertyChangedEventArgs(nameof(ImageGreenMask));
-        protected static readonly PropertyChangedEventArgs PropertyArgsImageBlueMask = new PropertyChangedEventArgs(nameof(ImageBlueMask));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageWidth = new(nameof(ImageWidth));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageHeight = new(nameof(ImageHeight));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionX = new(nameof(ImageResolutionX));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageResolutionY = new(nameof(ImageResolutionY));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageFormat = new(nameof(ImageFormat));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageImageType = new(nameof(ImageType));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageColorType = new(nameof(ImageColorType));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageColorDepth = new(nameof(ImageColorDepth));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImagePixelFormat = new(nameof(ImagePixelFormat));
+        protected static readonly PropertyChangedEventArgs PropertyArgsIsTransparentImage = new(nameof(IsTransparentImage));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageRedMask = new(nameof(ImageRedMask));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageGreenMask = new(nameof(ImageGreenMask));
+        protected static readonly PropertyChangedEventArgs PropertyArgsImageBlueMask = new(nameof(ImageBlueMask));
         #endregion
 
         #region Static methods
@@ -73,15 +73,15 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка изображения по полному пути.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <returns>Объект BitmapSource.</returns>
-        public static BitmapSource? LoadFromFile(string file_name)
+        public static BitmapSource? LoadFromFile(string fileName)
         {
             // Format is stored in 'format' on successfull load.
-            FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
+            var format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
 
             // Try loading the file
-            FIBITMAP dib = FreeImage.LoadEx(file_name, ref format);
+            var dib = FreeImage.LoadEx(fileName, ref format);
 
             try
             {
@@ -106,17 +106,17 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка изображения по полному пути.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <param name="width">Требуемая ширина изображения.</param>
         /// <param name="height">Требуемая высота изображения.</param>
         /// <returns>Объект BitmapSource.</returns>
-        public static BitmapSource? LoadFromFile(string file_name, int width, int height)
+        public static BitmapSource? LoadFromFile(string fileName, int width, int height)
         {
             // Format is stored in 'format' on successfull load.
-            FREE_IMAGE_FORMAT format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
+            var format = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
 
             // Try loading the file
-            FIBITMAP dib = FreeImage.LoadEx(file_name, ref format);
+            var dib = FreeImage.LoadEx(fileName, ref format);
 
             try
             {
@@ -335,9 +335,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание нового файла с указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        /// <param name="parameters_create">Параметры создания файла.</param>
-        public void NewFile(string file_name, CParameters? parameters_create)
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="parametersCreate">Параметры создания файла.</param>
+        public void NewFile(string fileName, CParameters? parametersCreate)
         {
             // Method intentionally left empty.
         }
@@ -345,28 +345,28 @@ namespace Lotus.Windows
         /// <summary>
         /// Открытие указанного файла.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_open">Параметры открытия файла.</param>
-        public void OpenFile(string? file_name, CParameters? parameters_open)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersOpen">Параметры открытия файла.</param>
+        public void OpenFile(string? fileName, CParameters? parametersOpen)
         {
             // Если файл пустой то используем диалог
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
-                file_name = XFileDialog.Open("Открыть изображение", "");
-                if (file_name != null && file_name.IsExists())
+                fileName = XFileDialog.Open("Открыть изображение", "");
+                if (fileName != null && fileName.IsExists())
                 {
                     // Загружаем файл
-                    Load(file_name);
+                    Load(fileName);
 
-                    FileName = file_name;
+                    FileName = fileName;
                     XLogger.LogInfoModule(nameof(LotusViewerImage), $"Открыт файл с именем: [{FileName}]");
                 }
             }
             else
             {
                 // Загружаем файл
-                Load(file_name);
-                FileName = file_name;
+                Load(fileName);
+                FileName = fileName;
                 XLogger.LogInfoModule(nameof(LotusViewerImage), $"Открыт файл с именем: [{FileName}]");
             }
         }
@@ -382,11 +382,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Сохранение файла под новым именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_save">Параметры сохранения файла.</param>
-        public void SaveAsFile(string? file_name, CParameters? parameters_save)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersSave">Параметры сохранения файла.</param>
+        public void SaveAsFile(string? fileName, CParameters? parametersSave)
         {
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
                 if (string.IsNullOrEmpty(FileName) == false)
                 {
@@ -399,7 +399,7 @@ namespace Lotus.Windows
             }
             else
             {
-                if (XFilePath.CheckCorrectFileName(file_name))
+                if (XFilePath.CheckCorrectFileName(fileName))
                 {
 
                 }
@@ -409,8 +409,8 @@ namespace Lotus.Windows
         /// <summary>
         /// Печать файла.
         /// </summary>
-        /// <param name="parameters_print">Параметры печати файла.</param>
-        public void PrintFile(CParameters? parameters_print)
+        /// <param name="parametersPrint">Параметры печати файла.</param>
+        public void PrintFile(CParameters? parametersPrint)
         {
             // Method intentionally left empty.
         }
@@ -418,9 +418,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Экспорт файла под указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_export">Параметры для экспорта файла.</param>
-        public void ExportFile(string? file_name, CParameters? parameters_export)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersExport">Параметры для экспорта файла.</param>
+        public void ExportFile(string? fileName, CParameters? parametersExport)
         {
             // Method intentionally left empty.
         }
@@ -442,8 +442,8 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка изображения по полному пути.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        public void Load(string file_name)
+        /// <param name="fileName">Имя файла.</param>
+        public void Load(string fileName)
         {
             if (!_freeImageBitmap.IsNull)
             {
@@ -452,7 +452,7 @@ namespace Lotus.Windows
 
             // Try loading the file
             _freeImageFormat = FREE_IMAGE_FORMAT.FIF_UNKNOWN;
-            _freeImageBitmap = FreeImage.LoadEx(file_name, ref _freeImageFormat);
+            _freeImageBitmap = FreeImage.LoadEx(fileName, ref _freeImageFormat);
 
             try
             {
@@ -472,7 +472,7 @@ namespace Lotus.Windows
                 }
 
 
-                _fileName = file_name;
+                _fileName = fileName;
 
                 //
                 // РАЗМЕР ИЗОБРАЖЕНИЯ
@@ -512,7 +512,7 @@ namespace Lotus.Windows
                 if (FreeImage.IsTransparent(_freeImageBitmap) && FreeImage.GetBPP(_freeImageBitmap) > 24)
                 {
                     // Получаем альфа-канал
-                    FIBITMAP bitmap_alpha = FreeImage.GetChannel(_freeImageBitmap, FREE_IMAGE_COLOR_CHANNEL.FICC_ALPHA);
+                    var bitmap_alpha = FreeImage.GetChannel(_freeImageBitmap, FREE_IMAGE_COLOR_CHANNEL.FICC_ALPHA);
                     if (!bitmap_alpha.IsNull)
                     {
                         _bitmapAlpha = FreeImage.GetBitmap(bitmap_alpha).ToBitmapSource();
@@ -520,7 +520,7 @@ namespace Lotus.Windows
                     }
 
                     // Преобразуем
-                    FIBITMAP bitmap_no_transparent = FreeImage.ConvertTo24Bits(_freeImageBitmap);
+                    var bitmap_no_transparent = FreeImage.ConvertTo24Bits(_freeImageBitmap);
                     if (!bitmap_no_transparent.IsNull)
                     {
                         _bitmapNoTransparent = FreeImage.GetBitmap(bitmap_no_transparent).ToBitmapSource();

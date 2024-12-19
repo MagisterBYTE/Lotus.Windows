@@ -22,34 +22,36 @@ namespace Lotus.Windows
         /// <summary>
         /// Запускает анимацию вещественного типа определенного значения на свойства зависимостей.
         /// </summary>
-        /// <param name="animatable_element">Элемент.</param>
-        /// <param name="dependency_property">Свойство зависимости.</param>
-        /// <param name="to_value">Целевое значение.</param>
-        /// <param name="animation_duration">Продолжительность в секундах.</param>
-        public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, double to_value,
-            double animation_duration)
+        /// <param name="animatableElement">Элемент.</param>
+        /// <param name="dependencyProperty">Свойство зависимости.</param>
+        /// <param name="toValue">Целевое значение.</param>
+        /// <param name="animationDuration">Продолжительность в секундах.</param>
+        public static void StartAnimation(UIElement animatableElement, DependencyProperty dependencyProperty, double toValue,
+            double animationDuration)
         {
-            StartAnimation(animatable_element, dependency_property, to_value, animation_duration, null);
+            StartAnimation(animatableElement, dependencyProperty, toValue, animationDuration, null);
         }
 
         /// <summary>
         /// Запускает анимацию вещественного типа определенного значения на свойства зависимостей.
         /// Вы можете передать в обработчик событий для вызова, когда анимация завершена.
         /// </summary>
-        /// <param name="animatable_element">Элемент.</param>
-        /// <param name="dependency_property">Свойство зависимости.</param>
-        /// <param name="to_value">Целевое значение.</param>
-        /// <param name="animation_duration">Продолжительность в секундах.</param>
-        /// <param name="completed_handler">Обработчик события окончания анимации.</param>
-        public static void StartAnimation(UIElement animatable_element, DependencyProperty dependency_property, double to_value,
-            double animation_duration, EventHandler? completed_handler)
+        /// <param name="animatableElement">Элемент.</param>
+        /// <param name="dependencyProperty">Свойство зависимости.</param>
+        /// <param name="toValue">Целевое значение.</param>
+        /// <param name="animationDuration">Продолжительность в секундах.</param>
+        /// <param name="completedHandler">Обработчик события окончания анимации.</param>
+        public static void StartAnimation(UIElement animatableElement, DependencyProperty dependencyProperty, double toValue,
+            double animationDuration, EventHandler? completedHandler)
         {
-            var fromValue = (double)animatable_element.GetValue(dependency_property);
+            var fromValue = (double)animatableElement.GetValue(dependencyProperty);
 
-            var animation = new DoubleAnimation();
-            animation.From = fromValue;
-            animation.To = to_value;
-            animation.Duration = TimeSpan.FromSeconds(animation_duration);
+            var animation = new DoubleAnimation
+            {
+                From = fromValue,
+                To = toValue,
+                Duration = TimeSpan.FromSeconds(animationDuration)
+            };
 
             animation.Completed += delegate (object? sender, EventArgs args)
             {
@@ -57,24 +59,24 @@ namespace Lotus.Windows
                 // When the animation has completed bake final value of the animation
                 // into the property.
                 //
-                animatable_element.SetValue(dependency_property, animatable_element.GetValue(dependency_property));
-                CancelAnimation(animatable_element, dependency_property);
+                animatableElement.SetValue(dependencyProperty, animatableElement.GetValue(dependencyProperty));
+                CancelAnimation(animatableElement, dependencyProperty);
 
-                completed_handler?.Invoke(sender, args);
+                completedHandler?.Invoke(sender, args);
             };
 
             animation.Freeze();
-            animatable_element.BeginAnimation(dependency_property, animation);
+            animatableElement.BeginAnimation(dependencyProperty, animation);
         }
 
         /// <summary>
         /// Отмена любых анимации, которые работают на свойства зависимостей.
         /// </summary>
-        /// <param name="animatable_element">Элемент.</param>
-        /// <param name="dependency_property">Свойство зависимости.</param>
-        public static void CancelAnimation(UIElement animatable_element, DependencyProperty dependency_property)
+        /// <param name="animatableElement">Элемент.</param>
+        /// <param name="dependencyProperty">Свойство зависимости.</param>
+        public static void CancelAnimation(UIElement animatableElement, DependencyProperty dependencyProperty)
         {
-            animatable_element.BeginAnimation(dependency_property, null);
+            animatableElement.BeginAnimation(dependencyProperty, null);
         }
     }
     /**@}*/

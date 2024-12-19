@@ -65,17 +65,19 @@ namespace Lotus
 		
 		private LayoutDocument CreatePaneDocument(CFileSystemFile file, object content)
 		{
-			// Создаем документ
-			var layout_document = new LayoutDocument();
-			layout_document.CanFloat = true;
-			layout_document.Title = file.Info.Name;
-			layout_document.ToolTip = file.Info.FullName;
+            // Создаем документ
+            var layout_document = new LayoutDocument
+            {
+                CanFloat = true,
+                Title = file.Info.Name,
+                ToolTip = file.Info.FullName,
 
-			// Присваиваем контент
-			layout_document.Content = content;
+                // Присваиваем контент
+                Content = content
+            };
 
-			// Вставляем в начала
-			layoutDocumentPane.InsertChildAt(0, layout_document);
+            // Вставляем в начала
+            layoutDocumentPane.InsertChildAt(0, layout_document);
 
 			// Активируем
 			layout_document.IsSelected = true;
@@ -471,18 +473,20 @@ namespace Lotus
 						var directory = new CFileSystemDirectory(full_path);
 						directory.GetFileSystemItemsTwoLevel();
 
-						//Thread.Sleep(1000);
-						//busyIndicator.BusyContent = "Получение директорий";
+                        //Thread.Sleep(1000);
+                        //busyIndicator.BusyContent = "Получение директорий";
 
-						var view_file_system = new CollectionViewModelFSWin();
-						view_file_system.IsNotify = true;
-						view_file_system.Source = directory;
+                        var view_file_system = new CollectionViewModelFSWin
+                        {
+                            IsNotify = true,
+                            Source = directory
+                        };
 
-						//Thread.Sleep(1000);
-						//busyIndicator.BusyContent = "Создание визуальной модели";
+                        //Thread.Sleep(1000);
+                        //busyIndicator.BusyContent = "Создание визуальной модели";
 
 
-						treeExploreFileSystem.ItemTemplateSelector = CFileSystemEntityDataSelector.Instance;
+                        treeExploreFileSystem.ItemTemplateSelector = CFileSystemEntityDataSelector.Instance;
 						treeExploreFileSystem.ItemsSource = view_file_system;
 
 						//Thread.Sleep(1000);

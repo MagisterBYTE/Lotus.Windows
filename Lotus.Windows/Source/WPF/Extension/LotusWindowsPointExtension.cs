@@ -96,9 +96,11 @@ namespace Lotus.Windows
         /// <returns>Точка.</returns>
         public static Win32Point ToWin32Point(this Point point)
         {
-            var window_point = new Win32Point();
-            window_point.X = (int)point.X;
-            window_point.Y = (int)point.Y;
+            var window_point = new Win32Point
+            {
+                X = (int)point.X,
+                Y = (int)point.Y
+            };
             return window_point;
         }
     }

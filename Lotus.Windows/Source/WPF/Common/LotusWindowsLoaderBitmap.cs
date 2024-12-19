@@ -18,17 +18,17 @@ namespace Lotus.Windows
         /// <summary>
         /// Словарь иконок файла по имени расширения.
         /// </summary>
-        public static readonly Dictionary<string, BitmapSource> IconFilesExtension = new Dictionary<string, BitmapSource>();
+        public static readonly Dictionary<string, BitmapSource> IconFilesExtension = [];
         #endregion
 
         /// <summary>
         /// Загрузка изображения из ресурсов сборки.
         /// </summary>
-        /// <param name="resource_name">Имя ресурса.</param>
+        /// <param name="resourceName">Имя ресурса.</param>
         /// <returns>Изображение.</returns>
-        public static BitmapSource? LoadBitmapFromResource(string resource_name)
+        public static BitmapSource? LoadBitmapFromResource(string resourceName)
         {
-            var image = Properties.Resources.ResourceManager.GetObject(resource_name);
+            var image = Properties.Resources.ResourceManager.GetObject(resourceName);
             if (image is System.Drawing.Bitmap source)
             {
 
@@ -47,12 +47,12 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка изображения из ресурсов сборки.
         /// </summary>
-        /// <param name="resource_manager">Менеджер ресурсов.</param>
-        /// <param name="resource_name">Имя ресурса.</param>
+        /// <param name="resourceManager">Менеджер ресурсов.</param>
+        /// <param name="resourceName">Имя ресурса.</param>
         /// <returns>Изображение.</returns>
-        public static BitmapSource? LoadBitmapFromResource(System.Resources.ResourceManager resource_manager, string resource_name)
+        public static BitmapSource? LoadBitmapFromResource(System.Resources.ResourceManager resourceManager, string resourceName)
         {
-            var image = resource_manager.GetObject(resource_name);
+            var image = resourceManager.GetObject(resourceName);
 
             if (image is System.Drawing.Bitmap source)
             {
@@ -71,13 +71,13 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка изображения из файла.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <returns>Изображение.</returns>
-        public static BitmapSource LoadBitmapFromFile(string file_name)
+        public static BitmapSource LoadBitmapFromFile(string fileName)
         {
-            var file_stream = new FileStream(file_name, FileMode.Open, FileAccess.Read);
+            var file_stream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 
-            var bitmap = new BitmapImage(new Uri(file_name));
+            var bitmap = new BitmapImage(new Uri(fileName));
             bitmap.BeginInit();
             bitmap.StreamSource = file_stream;
             bitmap.EndInit();
@@ -90,14 +90,14 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание объекта BitmapSource из стандартного дескриптора изображения.
         /// </summary>
-        /// <param name="h_bitmap">Дескриптор изображения.</param>
+        /// <param name="hBitmap">Дескриптор изображения.</param>
         /// <returns>Объект BitmapSource.</returns>
-        public static BitmapSource CreateFromHBitmap(IntPtr h_bitmap)
+        public static BitmapSource CreateFromHBitmap(IntPtr hBitmap)
         {
-            var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(h_bitmap, IntPtr.Zero,
+            var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero,
                 Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
-            XNative.DeleteObject(h_bitmap);
+            XNative.DeleteObject(hBitmap);
 
             return result;
         }
@@ -105,16 +105,16 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание объекта BitmapSource из стандартного дескриптора изображения.
         /// </summary>
-        /// <param name="h_bitmap">Дескриптор изображения.</param>
+        /// <param name="hBitmap">Дескриптор изображения.</param>
         /// <param name="width">Требуемая ширина изображения.</param>
         /// <param name="height">Требуемая высота изображения.</param>
         /// <returns>Объект BitmapSource.</returns>
-        public static BitmapSource CreateFromHBitmap(IntPtr h_bitmap, int width, int height)
+        public static BitmapSource CreateFromHBitmap(IntPtr hBitmap, int width, int height)
         {
-            var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(h_bitmap, IntPtr.Zero,
+            var result = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero,
                 Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(width, height));
 
-            XNative.DeleteObject(h_bitmap);
+            XNative.DeleteObject(hBitmap);
 
             return result;
         }
@@ -122,18 +122,18 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение иконки файла связанного с типом файла.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <param name="flags">Флаги получения иконок .</param>
         /// <returns>Изображение.</returns>
-        public static BitmapSource GetIconFromFileTypeFromShell(string file_name, uint flags)
+        public static BitmapSource GetIconFromFileTypeFromShell(string fileName, uint flags)
         {
-            var ext = Path.GetExtension(file_name);
+            var ext = Path.GetExtension(fileName);
             if (string.IsNullOrEmpty(ext) == false && IconFilesExtension.TryGetValue(ext, out var bitmap_source))
             {
                 return bitmap_source;
             }
 
-            XNative.SHGetFileInfo(file_name, 0, ref XNative.ShellFileInfoDefault,
+            XNative.SHGetFileInfo(fileName, 0, ref XNative.ShellFileInfoDefault,
                 (uint)Marshal.SizeOf(XNative.ShellFileInfoDefault), flags);
 
             //The icon is returned in the hIcon member of the shinfo struct
@@ -156,13 +156,13 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение иконки файла связанного с типом файла.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <returns>Изображение.</returns>
-        public static BitmapSource GetIconFromFileTypeFromExtract(string file_name)
+        public static BitmapSource GetIconFromFileTypeFromExtract(string fileName)
         {
-            if (Path.HasExtension(file_name))
+            if (Path.HasExtension(fileName))
             {
-                var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(file_name);
+                var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
                 if (sysicon != null)
                 {
                     var bmp_src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
@@ -175,7 +175,7 @@ namespace Lotus.Windows
                 }
             }
 
-            return GetIconFromFileTypeFromShell(file_name, (uint)(TShellAttribute.Icon | TShellAttribute.SmallIcon));
+            return GetIconFromFileTypeFromShell(fileName, (uint)(TShellAttribute.Icon | TShellAttribute.SmallIcon));
 
         }
     }

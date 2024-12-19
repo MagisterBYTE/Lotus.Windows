@@ -91,9 +91,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение цвета через имя.
         /// </summary>
-        /// <param name="color_name">Стандартное имя цвета.</param>
+        /// <param name="colorName">Стандартное имя цвета.</param>
         /// <returns>Найденный цвет или белый цвет если не нашли.</returns>
-        public static Color GetColorByName(string color_name)
+        public static Color GetColorByName(string colorName)
         {
             var result = Colors.White;
 
@@ -101,7 +101,7 @@ namespace Lotus.Windows
             {
                 for (var i = 0; i < KnownColors.Count; i++)
                 {
-                    if (KnownColors[i].Key == color_name)
+                    if (KnownColors[i].Key == colorName)
                     {
                         return KnownColors[i].Value;
                     }
@@ -114,9 +114,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение кисти через имя.
         /// </summary>
-        /// <param name="brush_name">Стандартное имя кисти.</param>
+        /// <param name="brushName">Стандартное имя кисти.</param>
         /// <returns>Найденную кисть или белый цвет кисти если не нашли.</returns>
-        public static SolidColorBrush GetBrushByName(string brush_name)
+        public static SolidColorBrush GetBrushByName(string brushName)
         {
             var result = Brushes.White;
 
@@ -125,7 +125,7 @@ namespace Lotus.Windows
 
                 for (var i = 0; i < KnownBrushes.Count; i++)
                 {
-                    if (KnownBrushes[i].Key == brush_name)
+                    if (KnownBrushes[i].Key == brushName)
                     {
                         return KnownBrushes[i].Value;
                     }

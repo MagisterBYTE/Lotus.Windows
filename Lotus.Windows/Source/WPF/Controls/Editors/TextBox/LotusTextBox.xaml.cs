@@ -20,7 +20,7 @@ namespace Lotus.Windows
             new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsArrange));
 
         /// <summary>
-        /// Статус показа кнопки отчистки.
+        /// Статус показа кнопки очистки.
         /// </summary>
         public static readonly DependencyProperty ShowButtonClearProperty = DependencyProperty.Register(nameof(ShowButtonClear),
             typeof(bool),
@@ -39,7 +39,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Статус показа кнопки отчистки.
+        /// Статус показа кнопки очистки.
         /// </summary>
         public bool ShowButtonClear
         {

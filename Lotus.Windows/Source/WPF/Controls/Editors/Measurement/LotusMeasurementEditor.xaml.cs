@@ -24,7 +24,7 @@ namespace Lotus.Windows
             get { return _copyValue; }
         }
 
-        private static TMeasurementValue _copyValue = new TMeasurementValue();
+        private static TMeasurementValue _copyValue = new();
         #endregion
 
         #region Declare DependencyProperty 

@@ -12,22 +12,21 @@ namespace Lotus.Windows
     /// <summary>
     /// Статический класс для реализации доступа к нативным методам Windows.
     /// </summary>
-    public static class XNative
+    public static partial class XNative
     {
         #region Fields
-#pragma warning disable S2223 // Non-constant static fields should not be visible
         public static ShellFileInfo ShellFileInfoDefault;
-#pragma warning restore S2223 // Non-constant static fields should not be visible
         #endregion
 
         #region Main methods
         /// <summary>
         /// Удаление графического объекта GDI.
         /// </summary>
-        /// <param name="h_object">Дескриптор объекта.</param>
+        /// <param name="hObject">Дескриптор объекта.</param>
         /// <returns>Статус операции.</returns>
         [DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr h_object);
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool DeleteObject(IntPtr hObject);
 
         /// <summary>
         /// Получение позиции курсора.
@@ -51,6 +50,7 @@ namespace Lotus.Windows
         /// <param name="handle">Дескриптор иконки.</param>
         /// <returns>Статус операции.</returns>
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool DestroyIcon(IntPtr handle);
 
         /// <summary>
@@ -67,28 +67,28 @@ namespace Lotus.Windows
         /// Получение иконки связанное с данным файлом.
         /// </summary>
         /// <param name="path">Путь к файлу.</param>
-        /// <param name="file_attributes">Атрибуты файла.</param>
-        /// <param name="shell_file_info">Структура для записи данных.</param>
-        /// <param name="file_info_size">Размер структры в байтах.</param>
+        /// <param name="fileAttributes">Атрибуты файла.</param>
+        /// <param name="shellFileInfo">Структура для записи данных.</param>
+        /// <param name="fileInfoSize">Размер структуры в байтах.</param>
         /// <param name="flags">Флаги получения данных.</param>
         /// <returns></returns>
         [DllImport("Shell32.dll")]
-        public static extern IntPtr SHGetFileInfo(string path, uint file_attributes, ref ShellFileInfo shell_file_info,
-            uint file_info_size, uint flags);
+        public static extern IntPtr SHGetFileInfo(string path, uint fileAttributes, ref ShellFileInfo shellFileInfo,
+            uint fileInfoSize, uint flags);
 
         /// <summary>
         /// Запуск приложения.
         /// </summary>
         /// <param name="hwnd">Дескриптор родительского окна.</param>
         /// <param name="operation">Операция.</param>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <param name="parameters">Параметры.</param>
         /// <param name="directory">Рабочая директория.</param>
-        /// <param name="show_commands">Способ открытия файла.</param>
+        /// <param name="showCommands">Способ открытия файла.</param>
         /// <returns>Дескриптор приложения.</returns>
         [DllImport("shell32.dll")]
-        public static extern IntPtr ShellExecute(IntPtr hwnd, string operation, string file_name, string parameters,
-            string directory, TShowCommands show_commands);
+        public static extern IntPtr ShellExecute(IntPtr hwnd, string operation, string fileName, string parameters,
+            string directory, TShowCommands showCommands);
         #endregion
     }
     /**@}*/

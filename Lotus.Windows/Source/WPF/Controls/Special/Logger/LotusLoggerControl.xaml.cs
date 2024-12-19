@@ -203,7 +203,7 @@ namespace Lotus.Windows
         public LotusLoggerControl()
         {
             InitializeComponent();
-            _messages = new ListArray<LogMessage>();
+            _messages = [];
             _messages.IsNotify = true;
             outputData.ItemsSource = _messages;
         }

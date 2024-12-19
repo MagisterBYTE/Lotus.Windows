@@ -53,9 +53,9 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="model">Модель.</param>
-        /// <param name="parent_item">Родительский узел.</param>
-        public ViewModelFSFileWin(ILotusFileSystemEntity model, ILotusViewModelHierarchy? parent_item)
-            : base(model, parent_item)
+        /// <param name="parentItem">Родительский узел.</param>
+        public ViewModelFSFileWin(ILotusFileSystemEntity model, ILotusViewModelHierarchy? parentItem)
+            : base(model, parentItem)
         {
         }
         #endregion
@@ -77,7 +77,7 @@ namespace Lotus.Windows
                     Model.FullName,
                     "",
                     "",
-                    TShowCommands.SW_NORMAL);
+                    TShowCommands.SWNORMAL);
             });
             _contextMenuUI.AddItem(CUIContextMenuWindows.Remove.Duplicate());
         }

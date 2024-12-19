@@ -69,7 +69,7 @@ namespace Lotus.Windows
     [ValueConversion(typeof(Enum), typeof(string))]
     public class EnumToStringConverter : IValueConverter
     {
-        public static readonly EnumToStringConverter Instance = new EnumToStringConverter();
+        public static readonly EnumToStringConverter Instance = new();
 
         /// <summary>
         /// Конвертация типа Enum в строковый тип.

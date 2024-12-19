@@ -18,7 +18,7 @@ namespace Lotus.Windows
     public class PropertyModel<TValue> : CPropertyModelBase, IComparable<PropertyModel<TValue>>
     {
         #region Static fields
-        protected static readonly PropertyChangedEventArgs PropertyArgsValue = new PropertyChangedEventArgs(nameof(Value));
+        protected static readonly PropertyChangedEventArgs PropertyArgsValue = new(nameof(Value));
         #endregion
 
         #region Fields
@@ -56,19 +56,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public PropertyModel(PropertyInfo property_info)
-            : base(property_info)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public PropertyModel(PropertyInfo propertyInfo)
+            : base(propertyInfo)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_type">Допустимый тип свойства.</param>
-        public PropertyModel(PropertyInfo property_info, TPropertyType property_type)
-            : base(property_info, property_type)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyType">Допустимый тип свойства.</param>
+        public PropertyModel(PropertyInfo propertyInfo, TPropertyType propertyType)
+            : base(propertyInfo, propertyType)
         {
 
         }
@@ -76,11 +76,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        /// <param name="property_type">Допустимый тип свойства.</param>
-        public PropertyModel(PropertyInfo property_info, List<CPropertyDesc> property_desc, TPropertyType property_type)
-            : base(property_info, property_desc, property_type)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        /// <param name="propertyType">Допустимый тип свойства.</param>
+        public PropertyModel(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc, TPropertyType propertyType)
+            : base(propertyInfo, propertyDesc, propertyType)
         {
 
         }
@@ -100,7 +100,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Преобразование к текстовому представлению.
         /// </summary>
-        /// <returns>Краткое наименование финасового инструмента.</returns>
+        /// <returns>Краткое наименование финансового инструмента.</returns>
         public override string ToString()
         {
             return DisplayName;
@@ -118,10 +118,7 @@ namespace Lotus.Windows
         public override void SetValue(object value)
         {
             // Устанавливаем значение свойства объекта
-            if (_info != null)
-            {
-                _info.SetValue(_instance, value, null);
-            }
+            _info?.SetValue(_instance, value, null);
 
             // Уведомляем инспектор свойств
             _value = (TValue)value;

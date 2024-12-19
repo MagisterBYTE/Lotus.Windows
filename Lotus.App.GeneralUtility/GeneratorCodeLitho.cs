@@ -1548,7 +1548,7 @@ namespace Lotus.App.GeneralUtility
 
     public class GeneratorCodeLoggingType : GeneratorCodeBase
     {
-        public DictionaryList<string, string> Groups { get; set; } = new DictionaryList<string, string>();
+        public DictionaryList<string, string> Groups { get; set; } = [];
 
         public GeneratorCodeLoggingType() { }
 
@@ -1847,7 +1847,7 @@ namespace Lotus.App.GeneralUtility
 
     public class GeneratorCodeUnitType : GeneratorCodeBase
     {
-        public DictionaryList<string, string> Groups { get; set; } = new DictionaryList<string, string>();
+        public DictionaryList<string, string> Groups { get; set; } = [];
 
         public GeneratorCodeUnitType() { }
 

@@ -36,7 +36,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Команда для увеличения выбранного объема. Аргумент - выбранный объём типа <see cref="Rect3D"/>.
         /// </summary>
-        public const string COMMAND_ZOOM_EXTENTS = "ZoomExtents";
+        public const string COMMANDZOOMEXTENTS = "ZoomExtents";
 
         /// <summary>
         /// Имя ортографической камеры.
@@ -50,27 +50,27 @@ namespace Lotus.Windows
         #endregion
 
         #region Static fields
-        protected static readonly PropertyChangedEventArgs PropertyArgsShowWireframe = new PropertyChangedEventArgs(nameof(ShowWireframe));
-        protected static readonly PropertyChangedEventArgs PropertyArgsRenderFlat = new PropertyChangedEventArgs(nameof(RenderFlat));
-        protected static readonly PropertyChangedEventArgs PropertyArgsRenderEnvironmentMap = new PropertyChangedEventArgs(nameof(PropertyArgsRenderEnvironmentMap));
+        protected static readonly PropertyChangedEventArgs PropertyArgsShowWireframe = new(nameof(ShowWireframe));
+        protected static readonly PropertyChangedEventArgs PropertyArgsRenderFlat = new(nameof(RenderFlat));
+        protected static readonly PropertyChangedEventArgs PropertyArgsRenderEnvironmentMap = new(nameof(PropertyArgsRenderEnvironmentMap));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsCamera = new PropertyChangedEventArgs(nameof(Camera));
-        protected static readonly PropertyChangedEventArgs PropertyArgsCameraModel = new PropertyChangedEventArgs(nameof(CameraModel));
+        protected static readonly PropertyChangedEventArgs PropertyArgsCamera = new(nameof(Camera));
+        protected static readonly PropertyChangedEventArgs PropertyArgsCameraModel = new(nameof(CameraModel));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsEffectsManager = new PropertyChangedEventArgs(nameof(EffectsManager));
+        protected static readonly PropertyChangedEventArgs PropertyArgsEffectsManager = new(nameof(EffectsManager));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsScene = new PropertyChangedEventArgs(nameof(Scene));
-        protected static readonly PropertyChangedEventArgs PropertyArgsSceneRoot = new PropertyChangedEventArgs(nameof(SceneRoot));
-        protected static readonly PropertyChangedEventArgs PropertyArgsGroupModel = new PropertyChangedEventArgs(nameof(GroupModel));
-        protected static readonly PropertyChangedEventArgs PropertyArgsSelectedModel = new PropertyChangedEventArgs(nameof(SelectedModel));
+        protected static readonly PropertyChangedEventArgs PropertyArgsScene = new(nameof(Scene));
+        protected static readonly PropertyChangedEventArgs PropertyArgsSceneRoot = new(nameof(SceneRoot));
+        protected static readonly PropertyChangedEventArgs PropertyArgsGroupModel = new(nameof(GroupModel));
+        protected static readonly PropertyChangedEventArgs PropertyArgsSelectedModel = new(nameof(SelectedModel));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsEnableAnimation = new PropertyChangedEventArgs(nameof(EnableAnimation));
-        protected static readonly PropertyChangedEventArgs PropertyArgsSelectedAnimation = new PropertyChangedEventArgs(nameof(SelectedAnimation));
-        protected static readonly PropertyChangedEventArgs PropertyArgsSpeedAnimation = new PropertyChangedEventArgs(nameof(SpeedAnimation));
+        protected static readonly PropertyChangedEventArgs PropertyArgsEnableAnimation = new(nameof(EnableAnimation));
+        protected static readonly PropertyChangedEventArgs PropertyArgsSelectedAnimation = new(nameof(SelectedAnimation));
+        protected static readonly PropertyChangedEventArgs PropertyArgsSpeedAnimation = new(nameof(SpeedAnimation));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsGridGeometry = new PropertyChangedEventArgs(nameof(GridGeometry));
-        protected static readonly PropertyChangedEventArgs PropertyArgsGridColor = new PropertyChangedEventArgs(nameof(GridColor));
-        protected static readonly PropertyChangedEventArgs PropertyArgsGridTransform = new PropertyChangedEventArgs(nameof(GridTransform));
+        protected static readonly PropertyChangedEventArgs PropertyArgsGridGeometry = new(nameof(GridGeometry));
+        protected static readonly PropertyChangedEventArgs PropertyArgsGridColor = new(nameof(GridColor));
+        protected static readonly PropertyChangedEventArgs PropertyArgsGridTransform = new(nameof(GridTransform));
 
         private static string OpenFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Importer.SupportedFormatsString}";
         private static string ExportFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Exporter.SupportedFormatsString}";
@@ -129,9 +129,9 @@ namespace Lotus.Windows
         protected internal float _speedAnimation = 1.0f;
 
         // Параметры скелета
-        protected internal List<BoneSkinMeshNode> _boneSkinNodes = new List<BoneSkinMeshNode>();
-        protected internal List<BoneSkinMeshNode> _skeletonNodes = new List<BoneSkinMeshNode>();
-        protected internal CompositionTargetEx _compositeHelper = new CompositionTargetEx();
+        protected internal List<BoneSkinMeshNode> _boneSkinNodes = [];
+        protected internal List<BoneSkinMeshNode> _skeletonNodes = [];
+        protected internal CompositionTargetEx _compositeHelper = new();
 
         protected internal bool _isLoading = false;
 
@@ -651,9 +651,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание нового файла с указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        /// <param name="parameters_create">Параметры создания файла.</param>
-        public void NewFile(string file_name, CParameters? parameters_create)
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="parametersCreate">Параметры создания файла.</param>
+        public void NewFile(string fileName, CParameters? parametersCreate)
         {
             // Method intentionally left empty.
         }
@@ -661,44 +661,44 @@ namespace Lotus.Windows
         /// <summary>
         /// Открытие указанного файла.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_open">Параметры открытия файла.</param>
-        public void OpenFile(string? file_name, CParameters? parameters_open)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersOpen">Параметры открытия файла.</param>
+        public void OpenFile(string? fileName, CParameters? parametersOpen)
         {
-            Assimp.PostProcessSteps post_process_steps = Assimp.PostProcessSteps.None;
+            var post_process_steps = Assimp.PostProcessSteps.None;
             TreeView? tree_view_model_structure = null;
 
             // Если файл пустой то используем диалог
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
-                file_name = XFileDialog.Open("Открыть файл", "", OpenFileFilter);
-                if (file_name != null && file_name.IsExists())
+                fileName = XFileDialog.Open("Открыть файл", "", OpenFileFilter);
+                if (fileName != null && fileName.IsExists())
                 {
-                    if (parameters_open != null)
+                    if (parametersOpen != null)
                     {
-                        post_process_steps = parameters_open.GetValueOfType<Assimp.PostProcessSteps>(Assimp.PostProcessSteps.None);
-                        tree_view_model_structure = parameters_open.GetValueOfType<TreeView>();
+                        post_process_steps = parametersOpen.GetValueOfType<Assimp.PostProcessSteps>(Assimp.PostProcessSteps.None);
+                        tree_view_model_structure = parametersOpen.GetValueOfType<TreeView>();
                     }
 
                     // Загружаем файл
-                    Load(file_name, post_process_steps, tree_view_model_structure!);
+                    Load(fileName, post_process_steps, tree_view_model_structure!);
 
-                    FileName = file_name;
+                    FileName = fileName;
                     XLogger.LogInfoModule(nameof(LotusViewerContent3D), $"Открыт файл с именем: [{FileName}]");
                 }
             }
             else
             {
-                if (parameters_open != null)
+                if (parametersOpen != null)
                 {
-                    post_process_steps = parameters_open.GetValueOfType<Assimp.PostProcessSteps>(Assimp.PostProcessSteps.None);
-                    tree_view_model_structure = parameters_open.GetValueOfType<TreeView>();
+                    post_process_steps = parametersOpen.GetValueOfType<Assimp.PostProcessSteps>(Assimp.PostProcessSteps.None);
+                    tree_view_model_structure = parametersOpen.GetValueOfType<TreeView>();
                 }
 
                 // Загружаем файл
-                Load(file_name, post_process_steps, tree_view_model_structure!);
+                Load(fileName, post_process_steps, tree_view_model_structure!);
 
-                FileName = file_name;
+                FileName = fileName;
                 XLogger.LogInfoModule(nameof(LotusViewerContent3D), $"Открыт файл с именем: [{FileName}]");
             }
         }
@@ -714,11 +714,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Сохранение файла под новым именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_save">Параметры сохранения файла.</param>
-        public void SaveAsFile(string file_name, CParameters? parameters_save)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersSave">Параметры сохранения файла.</param>
+        public void SaveAsFile(string fileName, CParameters? parametersSave)
         {
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
                 if (string.IsNullOrEmpty(FileName) == false)
                 {
@@ -731,7 +731,7 @@ namespace Lotus.Windows
             }
             else
             {
-                if (XFilePath.CheckCorrectFileName(file_name))
+                if (XFilePath.CheckCorrectFileName(fileName))
                 {
 
                 }
@@ -741,8 +741,8 @@ namespace Lotus.Windows
         /// <summary>
         /// Печать файла.
         /// </summary>
-        /// <param name="parameters_print">Параметры печати файла.</param>
-        public void PrintFile(CParameters? parameters_print)
+        /// <param name="parametersPrint">Параметры печати файла.</param>
+        public void PrintFile(CParameters? parametersPrint)
         {
             // Method intentionally left empty.
         }
@@ -750,9 +750,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Экспорт файла под указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_export">Параметры для экспорта файла.</param>
-        public void ExportFile(string file_name, CParameters? parameters_export)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersExport">Параметры для экспорта файла.</param>
+        public void ExportFile(string fileName, CParameters? parametersExport)
         {
             // Method intentionally left empty.
         }
@@ -791,11 +791,11 @@ namespace Lotus.Windows
             };
 
             // camera models
-            CameraModelCollection = new List<string>()
-            {
+            CameraModelCollection =
+            [
                 OrthographicCameraName,
                 PerspectiveCameraName,
-            };
+            ];
 
             // on camera changed callback
             CameraModelChanged += (sender, args) =>
@@ -842,7 +842,7 @@ namespace Lotus.Windows
         /// </summary>
         protected void InitAnimation()
         {
-            _animationsUpdater = new ObservableCollection<IAnimationUpdater>();
+            _animationsUpdater = [];
         }
 
         /// <summary>
@@ -861,10 +861,10 @@ namespace Lotus.Windows
         /// <summary>
         /// Загрузка 3D контента из файла.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        /// <param name="post_process_steps">Флаги обработки контента.</param>
-        /// <param name="tree_view_model_structure">Дерево для просмотра внутренней структуры 3D контента.</param>
-        public void Load(string file_name, Assimp.PostProcessSteps post_process_steps, TreeView tree_view_model_structure)
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="postProcessSteps">Флаги обработки контента.</param>
+        /// <param name="treeViewModelStructure">Дерево для просмотра внутренней структуры 3D контента.</param>
+        public void Load(string fileName, Assimp.PostProcessSteps postProcessSteps, TreeView treeViewModelStructure)
         {
             if (_isLoading)
             {
@@ -880,18 +880,18 @@ namespace Lotus.Windows
             {
                 var loader = new Importer();
 
-                if (post_process_steps != Assimp.PostProcessSteps.None)
+                if (postProcessSteps != Assimp.PostProcessSteps.None)
                 {
-                    loader.Configuration.AssimpPostProcessSteps = post_process_steps;
+                    loader.Configuration.AssimpPostProcessSteps = postProcessSteps;
                 }
 
-                return loader.Load(file_name);
+                return loader.Load(fileName);
             }).ContinueWith((result) =>
             {
                 _isLoading = false;
                 if (result.IsCompleted)
                 {
-                    HelixToolkitScene helix_toolkit_scene = result.Result;
+                    var helix_toolkit_scene = result.Result;
                     if (helix_toolkit_scene == null) return;
                     _sceneRoot = helix_toolkit_scene.Root;
                     _sceneAnimations = helix_toolkit_scene.Animations;
@@ -929,9 +929,9 @@ namespace Lotus.Windows
                         //node.Tag = new AttachedNodeViewModel(node);
                     }
 
-                    if (tree_view_model_structure != null)
+                    if (treeViewModelStructure != null)
                     {
-                        tree_view_model_structure.ItemsSource = _sceneRoot.Items;
+                        treeViewModelStructure.ItemsSource = _sceneRoot.Items;
                     }
 
                 }
@@ -965,10 +965,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void CompositeHelper_Rendering(object? sender, RenderingEventArgs args)
         {
-            if (_animationUpdater != null)
-            {
-                _animationUpdater.Update(Stopwatch.GetTimestamp(), Stopwatch.Frequency);
-            }
+            _animationUpdater?.Update(Stopwatch.GetTimestamp(), Stopwatch.Frequency);
         }
         #endregion
 

@@ -18,11 +18,11 @@ namespace Lotus.Windows
     public partial class LotusTreeView : TreeView, INotifyPropertyChanged
     {
         #region Static fields
-        protected static readonly PropertyChangedEventArgs PropertyArgsIsNotifySelectedInspector = new PropertyChangedEventArgs(nameof(IsNotifySelectedInspector));
-        protected static readonly PropertyChangedEventArgs PropertyArgsIsDragging = new PropertyChangedEventArgs(nameof(IsDragging));
+        protected static readonly PropertyChangedEventArgs PropertyArgsIsNotifySelectedInspector = new(nameof(IsNotifySelectedInspector));
+        protected static readonly PropertyChangedEventArgs PropertyArgsIsDragging = new(nameof(IsDragging));
 
-        protected static readonly PropertyChangedEventArgs PropertyArgsIsPresentPolicyDefault = new PropertyChangedEventArgs(nameof(PropertyArgsIsPresentPolicyDefault));
-        protected static readonly PropertyChangedEventArgs PropertyArgsSendViewPresented = new PropertyChangedEventArgs(nameof(SendViewPresented));
+        protected static readonly PropertyChangedEventArgs PropertyArgsIsPresentPolicyDefault = new(nameof(PropertyArgsIsPresentPolicyDefault));
+        protected static readonly PropertyChangedEventArgs PropertyArgsSendViewPresented = new(nameof(SendViewPresented));
         #endregion
 
         #region Declare DependencyProperty 

@@ -71,10 +71,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonOpen_Click(object sender, RoutedEventArgs args)
         {
-            if (ImageViewEditor != null)
-            {
-                ImageViewEditor.OpenFile(null, null);
-            }
+            ImageViewEditor?.OpenFile(null, null);
         }
 
         /// <summary>
@@ -94,10 +91,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSave_Click(object sender, RoutedEventArgs args)
         {
-            if (ImageViewEditor != null)
-            {
-                ImageViewEditor.SaveFile();
-            }
+            ImageViewEditor?.SaveFile();
         }
 
         /// <summary>
@@ -107,10 +101,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSaveAs_Click(object sender, RoutedEventArgs args)
         {
-            if (ImageViewEditor != null)
-            {
-                ImageViewEditor.SaveAsFile(null, null);
-            }
+            ImageViewEditor?.SaveAsFile(null, null);
         }
 
         /// <summary>

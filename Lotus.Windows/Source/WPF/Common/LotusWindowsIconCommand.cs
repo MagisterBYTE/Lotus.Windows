@@ -15,8 +15,8 @@ namespace Lotus.Windows
     public class RoutedIconUICommand : RoutedUICommand, INotifyPropertyChanged
     {
         #region Static fields 
-        private static readonly PropertyChangedEventArgs PropertyArgsMiddleIcon = new PropertyChangedEventArgs(nameof(MiddleIcon));
-        private static readonly PropertyChangedEventArgs PropertyArgsLargeIcon = new PropertyChangedEventArgs(nameof(LargeIcon));
+        private static readonly PropertyChangedEventArgs PropertyArgsMiddleIcon = new(nameof(MiddleIcon));
+        private static readonly PropertyChangedEventArgs PropertyArgsLargeIcon = new(nameof(LargeIcon));
         #endregion
 
         #region Fields 
@@ -64,24 +64,24 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="text">Описательный текст для команды.</param>
-        /// <param name="middle_icon">Иконка команды.</param>
-        public RoutedIconUICommand(string text, BitmapSource middle_icon)
+        /// <param name="middleIcon">Иконка команды.</param>
+        public RoutedIconUICommand(string text, BitmapSource middleIcon)
         {
             Text = text;
-            _middleIcon = middle_icon;
+            _middleIcon = middleIcon;
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="text">Описательный текст для команды.</param>
-        /// <param name="middle_icon">Иконка команды.</param>
-        /// <param name="large_icon">Иконка команды.</param>
-        public RoutedIconUICommand(string text, BitmapSource middle_icon, BitmapSource large_icon)
+        /// <param name="middleIcon">Иконка команды.</param>
+        /// <param name="largeIcon">Иконка команды.</param>
+        public RoutedIconUICommand(string text, BitmapSource middleIcon, BitmapSource largeIcon)
         {
             Text = text;
-            _middleIcon = middle_icon;
-            _largeIcon = large_icon;
+            _middleIcon = middleIcon;
+            _largeIcon = largeIcon;
         }
 
         /// <summary>
@@ -89,11 +89,11 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="text">Описательный текст для команды.</param>
         /// <param name="name">Объявленное имя команды для сериализации.</param>
-        /// <param name="middle_icon">Иконка команды.</param>
-        public RoutedIconUICommand(string text, string name, BitmapSource middle_icon)
+        /// <param name="middleIcon">Иконка команды.</param>
+        public RoutedIconUICommand(string text, string name, BitmapSource middleIcon)
             : base(text, name, typeof(Window))
         {
-            _middleIcon = middle_icon;
+            _middleIcon = middleIcon;
         }
 
         /// <summary>
@@ -101,13 +101,13 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="text">Описательный текст для команды.</param>
         /// <param name="name">Объявленное имя команды для сериализации.</param>
-        /// <param name="middle_icon">Иконка команды.</param>
-        /// <param name="large_icon">Иконка команды.</param>
-        public RoutedIconUICommand(string text, string name, BitmapSource middle_icon, BitmapSource large_icon)
+        /// <param name="middleIcon">Иконка команды.</param>
+        /// <param name="largeIcon">Иконка команды.</param>
+        public RoutedIconUICommand(string text, string name, BitmapSource middleIcon, BitmapSource largeIcon)
             : base(text, name, typeof(Window))
         {
-            _middleIcon = middle_icon;
-            _largeIcon = large_icon;
+            _middleIcon = middleIcon;
+            _largeIcon = largeIcon;
         }
 
         /// <summary>
@@ -115,9 +115,9 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="text">Описательный текст для команды.</param>
         /// <param name="name">Объявленное имя команды для сериализации.</param>
-        /// <param name="owner_type">Тип, регистрирующий команду.</param>
-        public RoutedIconUICommand(string text, string name, Type owner_type)
-            : base(text, name, owner_type)
+        /// <param name="ownerType">Тип, регистрирующий команду.</param>
+        public RoutedIconUICommand(string text, string name, Type ownerType)
+            : base(text, name, ownerType)
 
         {
 

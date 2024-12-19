@@ -45,10 +45,10 @@ namespace Lotus.Windows
     public class CNotification : PropertyChangedBase
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsNoticeType = new PropertyChangedEventArgs(nameof(NoticeType));
-        private static readonly PropertyChangedEventArgs PropertyArgsMessage = new PropertyChangedEventArgs(nameof(Message));
-        private static readonly PropertyChangedEventArgs PropertyArgsID = new PropertyChangedEventArgs(nameof(ID));
-        private static readonly PropertyChangedEventArgs PropertyArgsTitle = new PropertyChangedEventArgs(nameof(Title));
+        private static readonly PropertyChangedEventArgs PropertyArgsNoticeType = new(nameof(NoticeType));
+        private static readonly PropertyChangedEventArgs PropertyArgsMessage = new(nameof(Message));
+        private static readonly PropertyChangedEventArgs PropertyArgsID = new(nameof(ID));
+        private static readonly PropertyChangedEventArgs PropertyArgsTitle = new(nameof(Title));
         #endregion
 
         #region Fields
@@ -226,8 +226,8 @@ namespace Lotus.Windows
         public LotusGrowlNotification()
         {
             InitializeComponent();
-            mCurrentNotifications = new CNotifications();
-            mBufferNotifications = new CNotifications();
+            mCurrentNotifications = [];
+            mBufferNotifications = [];
             NotificationsControl.DataContext = mCurrentNotifications;
         }
         #endregion
@@ -259,16 +259,18 @@ namespace Lotus.Windows
         /// <summary>
         /// Добавление сообщения.
         /// </summary>
-        /// <param name="notice_type">Тип сообщения.</param>
+        /// <param name="noticeType">Тип сообщения.</param>
         /// <param name="message">Текст сообщения.</param>
-        public void AddNotification(TNotificationType notice_type, string message)
+        public void AddNotification(TNotificationType noticeType, string message)
         {
-            var notification = new CNotification();
-            notification.NoticeType = notice_type;
-            notification.Message = message;
-            notification.ID = mCount++;
+            var notification = new CNotification
+            {
+                NoticeType = noticeType,
+                Message = message,
+                ID = mCount++
+            };
 
-            switch (notice_type)
+            switch (noticeType)
             {
                 case TNotificationType.Info:
                     {

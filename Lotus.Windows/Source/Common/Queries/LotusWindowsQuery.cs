@@ -60,12 +60,12 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение текстового представления оператора сравнения.
         /// </summary>
-        /// <param name="comparison_operator">Оператор сравнения.</param>
+        /// <param name="comparisonOperator">Оператор сравнения.</param>
         /// <returns>Текстовое представление.</returns>
-        public static string GetOperatorOfString(this TComparisonOperator comparison_operator)
+        public static string GetOperatorOfString(this TComparisonOperator comparisonOperator)
         {
             var result = "";
-            switch (comparison_operator)
+            switch (comparisonOperator)
             {
                 case TComparisonOperator.Equality:
                     result = " = ";
@@ -108,7 +108,7 @@ namespace Lotus.Windows
     public class CQuery : PropertyChangedBase
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsSQLQuery = new PropertyChangedEventArgs(nameof(SQLQuery));
+        private static readonly PropertyChangedEventArgs PropertyArgsSQLQuery = new(nameof(SQLQuery));
         #endregion
 
         #region Fields
@@ -147,7 +147,7 @@ namespace Lotus.Windows
         /// </summary>
         public CQuery()
         {
-            _items = new ListArray<CQueryItem>();
+            _items = [];
         }
         #endregion
 
@@ -156,9 +156,9 @@ namespace Lotus.Windows
         /// Информирование данного объекта о начале изменения данных указанного объекта.
         /// </summary>
         /// <param name="source">Объект данные которого будут меняться.</param>
-        /// <param name="data_name">Имя данных.</param>
+        /// <param name="dataName">Имя данных.</param>
         /// <returns>Статус разрешения/согласования изменения данных.</returns>
-        public bool OnNotifyUpdating(object source, string data_name)
+        public bool OnNotifyUpdating(object source, string dataName)
         {
             return true;
         }
@@ -167,8 +167,8 @@ namespace Lotus.Windows
         /// Информирование данного объекта об окончании изменении данных указанного объекта.
         /// </summary>
         /// <param name="source">Объект данные которого изменились.</param>
-        /// <param name="data_name">Имя данных.</param>
-        public void OnNotifyUpdated(object source, string data_name)
+        /// <param name="dataName">Имя данных.</param>
+        public void OnNotifyUpdated(object source, string dataName)
         {
             OnPropertyChanged(PropertyArgsSQLQuery);
         }
@@ -206,8 +206,8 @@ namespace Lotus.Windows
     public class CQueryItem : PropertyChangedBase, ILotusNotCalculation
     {
         #region Static fields
-        public static readonly PropertyChangedEventArgs PropertyArgsSQLQueryItem = new PropertyChangedEventArgs(nameof(SQLQueryItem));
-        public static readonly PropertyChangedEventArgs PropertyArgsNotCalculation = new PropertyChangedEventArgs(nameof(NotCalculation));
+        public static readonly PropertyChangedEventArgs PropertyArgsSQLQueryItem = new(nameof(SQLQueryItem));
+        public static readonly PropertyChangedEventArgs PropertyArgsNotCalculation = new(nameof(NotCalculation));
         #endregion
 
         #region Fields
@@ -268,7 +268,7 @@ namespace Lotus.Windows
             {
                 _notCalculation = value;
                 OnPropertyChanged(PropertyArgsNotCalculation);
-                if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(NotCalculation));
+                QueryOwned?.OnNotifyUpdated(this, nameof(NotCalculation));
             }
         }
         #endregion
@@ -286,9 +286,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
-        /// <param name="sql_query">SQL запрос.</param>
+        /// <param name="sqlQuery">SQL запрос.</param>
         /// <returns>Статус формирования элемента запроса.</returns>
-        public virtual bool ComputeSQLQuery(ref string sql_query)
+        public virtual bool ComputeSQLQuery(ref string sqlQuery)
         {
             return false;
         }

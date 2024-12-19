@@ -27,9 +27,9 @@ namespace Lotus.Windows.App
     {
         public static CData[] Datas = new CData[]
         {
-            new CData { Name = "Даниил", Description = "Хороший", Age = 38, Birthday = new DateOnly(1984, 9, 18)},
-            new CData { Name = "Михаил", Description = "Злой", Age = 35, Birthday = new DateOnly(1986, 9, 18)},
-            new CData { Name = "Гаврииил", Description = "Плохой", Age = 42, Birthday = new DateOnly(1985, 9, 18)},
+            new() { Name = "Даниил", Description = "Хороший", Age = 38, Birthday = new DateOnly(1984, 9, 18)},
+            new() { Name = "Михаил", Description = "Злой", Age = 35, Birthday = new DateOnly(1986, 9, 18)},
+            new() { Name = "Гаврииил", Description = "Плохой", Age = 42, Birthday = new DateOnly(1985, 9, 18)},
         };
     }
 

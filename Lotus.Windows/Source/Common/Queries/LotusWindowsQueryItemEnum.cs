@@ -16,8 +16,8 @@ namespace Lotus.Windows
     public class CQueryItemEnum : CQueryItem
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsSourceItems = new PropertyChangedEventArgs(nameof(SourceItems));
-        private static readonly PropertyChangedEventArgs PropertyArgsFiltredItems = new PropertyChangedEventArgs(nameof(FiltredItems));
+        private static readonly PropertyChangedEventArgs PropertyArgsSourceItems = new(nameof(SourceItems));
+        private static readonly PropertyChangedEventArgs PropertyArgsFiltredItems = new(nameof(FiltredItems));
         #endregion
 
         #region Fields
@@ -65,19 +65,18 @@ namespace Lotus.Windows
         /// </summary>
         public CQueryItemEnum()
         {
-            _filtredItems = new List<object>();
-            _sourceItems = new List<object>();
+            _filtredItems = [];
+            _sourceItems = [];
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="enum_type">Тип перечисления.</param>
-        public CQueryItemEnum(Type enum_type)
+        /// <param name="enumType">Тип перечисления.</param>
+        public CQueryItemEnum(Type enumType)
         {
-            _filtredItems = new List<object>();
-            _sourceItems = new List<object>();
-            _sourceItems.AddRange(XEnumHelper.GetDescriptions(enum_type));
+            _filtredItems = [];
+            _sourceItems = [.. XEnumHelper.GetDescriptions(enumType)];
         }
         #endregion
 
@@ -96,9 +95,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
-        /// <param name="sql_query">SQL запрос.</param>
+        /// <param name="sqlQuery">SQL запрос.</param>
         /// <returns>Статус формирования элемента запроса.</returns>
-        public override bool ComputeSQLQuery(ref string sql_query)
+        public override bool ComputeSQLQuery(ref string sqlQuery)
         {
             if (_notCalculation == false)
             {
@@ -115,7 +114,7 @@ namespace Lotus.Windows
                         included.Append("'" + _filtredItems[i].ToString() + "'");
                     }
 
-                    sql_query += " " + _propertyName + " IN (" + included.ToString() + ")";
+                    sqlQuery += " " + _propertyName + " IN (" + included.ToString() + ")";
                     return true;
                 }
             }

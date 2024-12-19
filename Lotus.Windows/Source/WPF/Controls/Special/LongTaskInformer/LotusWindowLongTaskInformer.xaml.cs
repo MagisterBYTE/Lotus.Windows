@@ -5,11 +5,11 @@ namespace Lotus.Windows
     /** \addtogroup WindowsWPFControlsSpecial
 	*@{*/
     /// <summary>
-    /// Логика взаимодействия для LotusWindowNotifyProcces.xaml.
+    /// Логика взаимодействия для LotusWindowLongTaskInformer.xaml.
     /// </summary>
-    public partial class LotusWindowNotifyProcces : Window
+    public partial class LotusWindowLongTaskInformer : Window
     {
-        public LotusWindowNotifyProcces()
+        public LotusWindowLongTaskInformer()
         {
             InitializeComponent();
         }

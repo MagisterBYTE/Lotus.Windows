@@ -15,8 +15,8 @@ namespace Lotus.Windows
     public class CQueryItemString : CQueryItem
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsSearchOption = new PropertyChangedEventArgs(nameof(SearchOption));
-        private static readonly PropertyChangedEventArgs PropertyArgsSearchValue = new PropertyChangedEventArgs(nameof(SearchValue));
+        private static readonly PropertyChangedEventArgs PropertyArgsSearchOption = new(nameof(SearchOption));
+        private static readonly PropertyChangedEventArgs PropertyArgsSearchValue = new(nameof(SearchValue));
         #endregion
 
         #region Fields
@@ -41,7 +41,7 @@ namespace Lotus.Windows
                     _searchOption = value;
                     OnPropertyChanged(PropertyArgsSearchOption);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchOption));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(SearchOption));
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace Lotus.Windows
                     _searchValue = value;
                     OnPropertyChanged(PropertyArgsSearchValue);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(SearchValue));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(SearchValue));
                 }
             }
         }
@@ -79,12 +79,12 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="search_option">Опции поиска в строке.</param>
-        /// <param name="search_value">Значение для сравнения.</param>
-        public CQueryItemString(TStringSearchOption search_option, string search_value)
+        /// <param name="searchOption">Опции поиска в строке.</param>
+        /// <param name="searchValue">Значение для сравнения.</param>
+        public CQueryItemString(TStringSearchOption searchOption, string searchValue)
         {
-            _searchOption = search_option;
-            _searchValue = search_value;
+            _searchOption = searchOption;
+            _searchValue = searchValue;
         }
         #endregion
 
@@ -105,9 +105,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
-        /// <param name="sql_query">SQL запрос.</param>
+        /// <param name="sqlQuery">SQL запрос.</param>
         /// <returns>Статус формирования элемента запроса.</returns>
-        public override bool ComputeSQLQuery(ref string sql_query)
+        public override bool ComputeSQLQuery(ref string sqlQuery)
         {
             if ((_notCalculation == false) && (string.IsNullOrEmpty(_searchValue) == false))
             {
@@ -115,17 +115,17 @@ namespace Lotus.Windows
                 {
                     case TStringSearchOption.Start:
                         {
-                            sql_query += " " + _propertyName + " LIKE '" + _searchValue + "%'";
+                            sqlQuery += " " + _propertyName + " LIKE '" + _searchValue + "%'";
                         }
                         break;
                     case TStringSearchOption.End:
                         {
-                            sql_query += " " + _propertyName + " LIKE '%" + _searchValue + "'";
+                            sqlQuery += " " + _propertyName + " LIKE '%" + _searchValue + "'";
                         }
                         break;
                     case TStringSearchOption.Contains:
                         {
-                            sql_query += " " + _propertyName + " LIKE '%" + _searchValue + "%'";
+                            sqlQuery += " " + _propertyName + " LIKE '%" + _searchValue + "%'";
                         }
                         break;
                     case TStringSearchOption.Equal:
@@ -146,16 +146,18 @@ namespace Lotus.Windows
         /// <summary>
         /// Привязка текстового поля к строке поиска.
         /// </summary>
-        /// <param name="text_box">Текстовое поле.</param>
-        public void BindingTextBoxToSearchValue(in System.Windows.Controls.TextBox text_box)
+        /// <param name="textBox">Текстовое поле.</param>
+        public void BindingTextBoxToSearchValue(in System.Windows.Controls.TextBox textBox)
         {
-            if (text_box != null)
+            if (textBox != null)
             {
-                var binding = new System.Windows.Data.Binding();
-                binding.Source = this;
-                binding.Path = new System.Windows.PropertyPath(path: nameof(SearchValue));
+                var binding = new System.Windows.Data.Binding
+                {
+                    Source = this,
+                    Path = new System.Windows.PropertyPath(path: nameof(SearchValue))
+                };
 
-                System.Windows.Data.BindingOperations.SetBinding(text_box,
+                System.Windows.Data.BindingOperations.SetBinding(textBox,
                     System.Windows.Controls.TextBox.TextProperty, binding);
             }
         }
@@ -163,18 +165,20 @@ namespace Lotus.Windows
         /// <summary>
         /// Привязка выпадающего списка к опциям поиска.
         /// </summary>
-        /// <param name="combo_box">Выпадающий список.</param>
-        public void BindingComboBoxToSearchOption(in System.Windows.Controls.ComboBox combo_box)
+        /// <param name="comboBox">Выпадающий список.</param>
+        public void BindingComboBoxToSearchOption(in System.Windows.Controls.ComboBox comboBox)
         {
-            if (combo_box != null)
+            if (comboBox != null)
             {
-                var binding = new System.Windows.Data.Binding();
-                binding.Source = this;
-                binding.Path = new System.Windows.PropertyPath(path: nameof(SearchOption));
-                binding.Converter = EnumToStringConverter.Instance;
+                var binding = new System.Windows.Data.Binding
+                {
+                    Source = this,
+                    Path = new System.Windows.PropertyPath(path: nameof(SearchOption)),
+                    Converter = EnumToStringConverter.Instance
+                };
 
-                combo_box.ItemsSource = XEnumHelper.GetDescriptions(typeof(TStringSearchOption));
-                System.Windows.Data.BindingOperations.SetBinding(combo_box,
+                comboBox.ItemsSource = XEnumHelper.GetDescriptions(typeof(TStringSearchOption));
+                System.Windows.Data.BindingOperations.SetBinding(comboBox,
                     System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
             }
         }

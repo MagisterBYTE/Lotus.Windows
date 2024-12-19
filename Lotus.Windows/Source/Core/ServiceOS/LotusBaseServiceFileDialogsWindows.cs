@@ -66,9 +66,11 @@ namespace Lotus.Windows
         public string? Open(string title, string directory, string? extension)
         {
             // Конфигурация диалога
-            var dialog = new Microsoft.Win32.OpenFileDialog();
-            dialog.Title = title;
-            dialog.InitialDirectory = directory;
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = title,
+                InitialDirectory = directory
+            };
 
             if (extension == null)
             {

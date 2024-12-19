@@ -20,9 +20,9 @@ namespace Lotus.Windows
     {
         #region Static fields
         /// <summary>
-        /// Универсальный конвертор типа Vector3D между различными типами представлений.
+        /// Универсальный конвертер типа Vector3D между различными типами представлений.
         /// </summary>
-        public static readonly Vector3DToVector3DConverter VectorConverter = new Vector3DToVector3DConverter();
+        public static readonly Vector3DToVector3DConverter VectorConverter = new();
 
         /// <summary>
         /// Текущие скопированное значение.
@@ -98,13 +98,15 @@ namespace Lotus.Windows
         /// <returns>Редактор.</returns>
         public FrameworkElement ResolveEditor(PropertyItem propertyItem)
         {
-            var binding = new Binding(nameof(Value));
-            binding.Source = propertyItem;
-            binding.ValidatesOnExceptions = true;
-            binding.ValidatesOnDataErrors = true;
-            binding.Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay;
-            binding.Converter = VectorConverter;
-            binding.ConverterParameter = propertyItem.PropertyType;
+            var binding = new Binding(nameof(Value))
+            {
+                Source = propertyItem,
+                ValidatesOnExceptions = true,
+                ValidatesOnDataErrors = true,
+                Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                Converter = VectorConverter,
+                ConverterParameter = propertyItem.PropertyType
+            };
 
             // Привязываемся к свойству
             BindingOperations.SetBinding(this, ValueProperty, binding);

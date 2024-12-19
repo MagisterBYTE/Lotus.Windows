@@ -49,9 +49,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public PropertyModelMeasurementValue(PropertyInfo property_info)
-            : base(property_info, TPropertyType.Measurement)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public PropertyModelMeasurementValue(PropertyInfo propertyInfo)
+            : base(propertyInfo, TPropertyType.Measurement)
         {
             GetInfoFromAttributesRange();
         }
@@ -59,10 +59,10 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        public PropertyModelMeasurementValue(PropertyInfo property_info, List<CPropertyDesc> property_desc)
-            : base(property_info, property_desc, TPropertyType.Measurement)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        public PropertyModelMeasurementValue(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
+            : base(propertyInfo, propertyDesc, TPropertyType.Measurement)
         {
             GetInfoFromAttributesRange();
         }

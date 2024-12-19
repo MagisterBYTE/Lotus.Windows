@@ -120,11 +120,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение полного пути для файла данных проекта.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
+        /// <param name="fileName">Имя файла.</param>
         /// <returns>Полный путь к файлу данных проекта.</returns>
-        public static string GetPathFileData(string file_name)
+        public static string GetPathFileData(string fileName)
         {
-            var path = Path.Combine(GetPath(), _directoryData, file_name);
+            var path = Path.Combine(GetPath(), _directoryData, fileName);
             path = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
             return path;
         }

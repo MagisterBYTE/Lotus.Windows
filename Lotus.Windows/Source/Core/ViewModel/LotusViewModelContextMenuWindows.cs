@@ -26,19 +26,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
-        public CUIContextMenuItemWindows(ILotusViewModel view_model)
-            : this(view_model, string.Empty, null, null)
+        /// <param name="viewModel">Элемент ViewModel.</param>
+        public CUIContextMenuItemWindows(ILotusViewModel viewModel)
+            : this(viewModel, string.Empty, null, null)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
+        /// <param name="viewModel">Элемент ViewModel.</param>
         /// <param name="name">Имя элемента меню.</param>
-        public CUIContextMenuItemWindows(ILotusViewModel view_model, string name)
-            : this(view_model, name, null, null)
+        public CUIContextMenuItemWindows(ILotusViewModel viewModel, string name)
+            : this(viewModel, name, null, null)
         {
         }
 
@@ -46,33 +46,33 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="name">Имя элемента меню.</param>
-        /// <param name="on_action">Обработчик событие основного действия.</param>
-        public CUIContextMenuItemWindows(string name, Action<ILotusViewModel> on_action)
-            : this(null, name, on_action, null)
+        /// <param name="onAction">Обработчик событие основного действия.</param>
+        public CUIContextMenuItemWindows(string name, Action<ILotusViewModel> onAction)
+            : this(null, name, onAction, null)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
+        /// <param name="viewModel">Элемент ViewModel.</param>
         /// <param name="name">Имя элемента меню.</param>
-        /// <param name="on_action">Обработчик событие основного действия.</param>
-        public CUIContextMenuItemWindows(ILotusViewModel view_model, string name, Action<ILotusViewModel> on_action)
-            : this(view_model, name, on_action, null)
+        /// <param name="onAction">Обработчик событие основного действия.</param>
+        public CUIContextMenuItemWindows(ILotusViewModel viewModel, string name, Action<ILotusViewModel> onAction)
+            : this(viewModel, name, onAction, null)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
+        /// <param name="viewModel">Элемент ViewModel.</param>
         /// <param name="name">Имя элемента меню.</param>
-        /// <param name="on_action">Обработчик событие основного действия.</param>
-        /// <param name="on_after_action">Дополнительный обработчик события после основного действия.</param>
-        public CUIContextMenuItemWindows(ILotusViewModel? view_model, string name, Action<ILotusViewModel>? on_action,
-            Action<ILotusViewModel>? on_after_action)
-            : base(view_model, name, on_action, on_after_action)
+        /// <param name="onAction">Обработчик событие основного действия.</param>
+        /// <param name="onAfterAction">Дополнительный обработчик события после основного действия.</param>
+        public CUIContextMenuItemWindows(ILotusViewModel? viewModel, string name, Action<ILotusViewModel>? onAction,
+            Action<ILotusViewModel>? onAfterAction)
+            : base(viewModel, name, onAction, onAfterAction)
         {
             CreateMenuItem(name, null);
         }
@@ -81,11 +81,11 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="name">Имя элемента меню.</param>
-        /// <param name="on_action">Обработчик событие основного действия.</param>
+        /// <param name="onAction">Обработчик событие основного действия.</param>
         /// <param name="icon">Графическая иконка.</param>
-        public CUIContextMenuItemWindows(string name, Action<ILotusViewModel> on_action, System.Drawing.Bitmap icon)
+        public CUIContextMenuItemWindows(string name, Action<ILotusViewModel> onAction, System.Drawing.Bitmap icon)
         {
-            OnAction = on_action;
+            OnAction = onAction;
             CreateMenuItem(name, icon);
         }
         #endregion
@@ -98,10 +98,12 @@ namespace Lotus.Windows
         /// <returns>Дубликат объекта.</returns>
         public override CUIContextMenuItem Duplicate(CParameters? parameters = null)
         {
-            var item = new CUIContextMenuItemWindows();
-            item.ViewModel = ViewModel;
-            item.OnAction = OnAction;
-            item.OnAfterAction = OnAfterAction;
+            var item = new CUIContextMenuItemWindows
+            {
+                ViewModel = ViewModel,
+                OnAction = OnAction,
+                OnAfterAction = OnAfterAction
+            };
             item.CreateMenuItem(MenuItem);
             return item;
         }
@@ -117,8 +119,10 @@ namespace Lotus.Windows
         {
             if (MenuItem == null)
             {
-                MenuItem = new System.Windows.Controls.MenuItem();
-                MenuItem.Header = name;
+                MenuItem = new System.Windows.Controls.MenuItem
+                {
+                    Header = name
+                };
                 MenuItem.Click += OnItemClick;
                 if (icon != null)
                 {
@@ -135,20 +139,22 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание элемента меню.
         /// </summary>
-        /// <param name="menu_item">Элемента меню.</param>
-        public void CreateMenuItem(System.Windows.Controls.MenuItem menu_item)
+        /// <param name="menuItem">Элемента меню.</param>
+        public void CreateMenuItem(System.Windows.Controls.MenuItem menuItem)
         {
             if (MenuItem == null)
             {
-                MenuItem = new System.Windows.Controls.MenuItem();
-                MenuItem.Header = menu_item.Header;
-                MenuItem.Icon = menu_item.Icon;
+                MenuItem = new System.Windows.Controls.MenuItem
+                {
+                    Header = menuItem.Header,
+                    Icon = menuItem.Icon
+                };
                 MenuItem.Click += OnItemClick;
             }
             else
             {
-                MenuItem.Header = menu_item.Header;
-                MenuItem.Icon = menu_item.Icon;
+                MenuItem.Header = menuItem.Header;
+                MenuItem.Icon = menuItem.Icon;
             }
         }
         #endregion
@@ -182,43 +188,43 @@ namespace Lotus.Windows
         /// <summary>
         /// Элемент меню - загрузить объект из файла.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows Load = new CUIContextMenuItemWindows("Загрузить...",
+        public readonly static new CUIContextMenuItemWindows Load = new("Загрузить...",
             OnLoadItemClick, XResources.Oxygen_document_open_32);
 
         /// <summary>
         /// Элемент меню - сохранить объект в файл.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows Save = new CUIContextMenuItemWindows("Сохранить...",
+        public readonly static new CUIContextMenuItemWindows Save = new("Сохранить...",
             OnSaveItemClick, XResources.Oxygen_document_save_32);
 
         /// <summary>
         /// Элемент меню - удалить объект.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows Remove = new CUIContextMenuItemWindows("Удалить",
+        public readonly static new CUIContextMenuItemWindows Remove = new("Удалить",
             OnRemoveItemClick, XResources.Oxygen_list_remove_32);
 
         /// <summary>
         /// Элемент меню - дублировать объект.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows Duplicate = new CUIContextMenuItemWindows("Дублировать",
+        public readonly static new CUIContextMenuItemWindows Duplicate = new("Дублировать",
             OnDuplicateItemClick, XResources.Oxygen_tab_duplicate_32);
 
         /// <summary>
         /// Элемент меню - переместить объект вверх.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows MoveUp = new CUIContextMenuItemWindows("Переместить вверх",
+        public readonly static new CUIContextMenuItemWindows MoveUp = new("Переместить вверх",
             OnMoveUpItemClick, XResources.Oxygen_arrow_up_22);
 
         /// <summary>
         /// Элемент меню - переместить объект вниз.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows MoveDown = new CUIContextMenuItemWindows("Переместить вниз",
+        public readonly static new CUIContextMenuItemWindows MoveDown = new("Переместить вниз",
             OnMoveDownItemClick, XResources.Oxygen_arrow_down_22);
 
         /// <summary>
         /// Элемент меню - не учитывать объект в расчетах.
         /// </summary>
-        public readonly static new CUIContextMenuItemWindows NotCalculation = new CUIContextMenuItemWindows("Не учитывать в расчетах",
+        public readonly static new CUIContextMenuItemWindows NotCalculation = new("Не учитывать в расчетах",
             OnNotCalculationItemClick, XResources.Oxygen_user_busy_32);
         #endregion
 
@@ -237,19 +243,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
-        public CUIContextMenuWindows(ILotusViewModel view_model)
-            : this(view_model, null)
+        /// <param name="viewModel">Элемент ViewModel.</param>
+        public CUIContextMenuWindows(ILotusViewModel viewModel)
+            : this(viewModel, null)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="view_model">Элемент ViewModel.</param>
+        /// <param name="viewModel">Элемент ViewModel.</param>
         /// <param name="items">Набор элементов меню.</param>
-        public CUIContextMenuWindows(ILotusViewModel? view_model, params CUIContextMenuItem[]? items)
-            : base(view_model, items)
+        public CUIContextMenuWindows(ILotusViewModel? viewModel, params CUIContextMenuItem[]? items)
+            : base(viewModel, items)
         {
         }
         #endregion
@@ -280,18 +286,18 @@ namespace Lotus.Windows
         /// Добавление элемента меню.
         /// </summary>
         /// <param name="name">Имя элемента меню.</param>
-        /// <param name="on_action">Обработчик события элемента меню.</param>
+        /// <param name="onAction">Обработчик события элемента меню.</param>
         /// <param name="icon">Иконка элемента меню.</param>
-        public virtual void AddItem(string name, Action<ILotusViewModel> on_action, System.Drawing.Bitmap icon)
+        public virtual void AddItem(string name, Action<ILotusViewModel> onAction, System.Drawing.Bitmap icon)
         {
-            Items.Add(new CUIContextMenuItemWindows(name, on_action, icon));
+            Items.Add(new CUIContextMenuItemWindows(name, onAction, icon));
         }
 
         /// <summary>
         /// Установка команд для контекстного меню по умолчанию.
         /// </summary>
-        /// <param name="context_menu">Контекстное меню.</param>
-        public void SetCommandsDefault(System.Windows.Controls.ContextMenu context_menu)
+        /// <param name="contextMenu">Контекстное меню.</param>
+        public void SetCommandsDefault(System.Windows.Controls.ContextMenu contextMenu)
         {
             if (ViewModel == null) return;
 
@@ -303,7 +309,7 @@ namespace Lotus.Windows
                     var item = Items[i] as CUIContextMenuItemWindows;
                     if (item != null)
                     {
-                        // Если у экземпляра меню есть уже родитель то удалям
+                        // Если у экземпляра меню есть уже родитель то удаляем
                         if (item.MenuItem.Items != null)
                         {
                             var item_collection = item.MenuItem.Items;
@@ -311,7 +317,7 @@ namespace Lotus.Windows
                         }
 
                         Items[i].ViewModel = ViewModel;
-                        context_menu.Items.Add(item.MenuItem);
+                        contextMenu.Items.Add(item.MenuItem);
                     }
                 }
 

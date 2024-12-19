@@ -9,7 +9,7 @@ namespace Lotus.Windows
     /** \addtogroup WindowsWPFValueConverters
 	*@{*/
     /// <summary>
-    /// Универсальный конвертор типа Vector2D между различными типами представлений.
+    /// Универсальный конвертер типа Vector2D между различными типами представлений.
     /// </summary>
     public class Vector2DToVector2DConverter : IValueConverter
     {

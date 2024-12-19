@@ -50,19 +50,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public CPropertyModelVector2D(PropertyInfo property_info)
-            : base(property_info, TPropertyType.Vector2D)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public CPropertyModelVector2D(PropertyInfo propertyInfo)
+            : base(propertyInfo, TPropertyType.Vector2D)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        public CPropertyModelVector2D(PropertyInfo property_info, List<CPropertyDesc> property_desc)
-            : base(property_info, property_desc, TPropertyType.Vector2D)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        public CPropertyModelVector2D(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
+            : base(propertyInfo, propertyDesc, TPropertyType.Vector2D)
         {
         }
         #endregion
@@ -134,10 +134,7 @@ namespace Lotus.Windows
         public override void SetValue(object value)
         {
             // Устанавливаем значение свойства объекта
-            if (_info != null)
-            {
-                _info.SetValue(_instance, value, null);
-            }
+            _info?.SetValue(_instance, value, null);
 
             // Уведомляем инспектор свойств
             _value = (Vector2D)value;

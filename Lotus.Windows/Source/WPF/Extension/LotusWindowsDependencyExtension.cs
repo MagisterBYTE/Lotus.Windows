@@ -15,20 +15,20 @@ namespace Lotus.Windows
         /// Поиск визуального предка элемента.
         /// </summary>
         /// <typeparam name="TElement">Требуемый тип элемента предка.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Найденный элемент.</returns>
-        public static TElement? FindVisualParent<TElement>(this DependencyObject source_obj)
+        public static TElement? FindVisualParent<TElement>(this DependencyObject sourceObj)
             where TElement : DependencyObject
         {
             do
             {
-                if (source_obj is TElement)
+                if (sourceObj is TElement)
                 {
-                    return (TElement)source_obj;
+                    return (TElement)sourceObj;
                 }
-                source_obj = VisualTreeHelper.GetParent(source_obj);
+                sourceObj = VisualTreeHelper.GetParent(sourceObj);
             }
-            while (source_obj != null);
+            while (sourceObj != null);
 
             return null;
         }
@@ -37,13 +37,13 @@ namespace Lotus.Windows
         /// Поиск логического предка элемента.
         /// </summary>
         /// <typeparam name="TElement">Требуемый тип элемента предка.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Найденный элемент.</returns>
-        public static TElement? FindLogicalParent<TElement>(this DependencyObject source_obj)
+        public static TElement? FindLogicalParent<TElement>(this DependencyObject sourceObj)
             where TElement : DependencyObject
         {
             //get parent item
-            var parent_object = LogicalTreeHelper.GetParent(source_obj);
+            var parent_object = LogicalTreeHelper.GetParent(sourceObj);
 
             //we've reached the end of the tree
             if (parent_object == null) return null;
@@ -64,14 +64,14 @@ namespace Lotus.Windows
         /// Поиск визуального дочернего элемента.
         /// </summary>
         /// <typeparam name="TElement">Требуемый тип дочернего элемента.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Найденный элемент.</returns>
-        public static TElement? FindVisualChild<TElement>(this DependencyObject source_obj)
+        public static TElement? FindVisualChild<TElement>(this DependencyObject sourceObj)
             where TElement : DependencyObject
         {
-            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(sourceObj); i++)
             {
-                var сhild = VisualTreeHelper.GetChild(source_obj, i);
+                var сhild = VisualTreeHelper.GetChild(sourceObj, i);
 
                 if (сhild is TElement element)
                 {
@@ -95,14 +95,14 @@ namespace Lotus.Windows
         /// Поиск логического дочернего элемента.
         /// </summary>
         /// <typeparam name="TElement">Требуемый тип дочернего элемента.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Найденный элемент.</returns>
-        public static TElement? FindLogicalChild<TElement>(this DependencyObject source_obj)
+        public static TElement? FindLogicalChild<TElement>(this DependencyObject sourceObj)
             where TElement : DependencyObject
         {
-            if (source_obj != null)
+            if (sourceObj != null)
             {
-                foreach (var child in LogicalTreeHelper.GetChildren(source_obj))
+                foreach (var child in LogicalTreeHelper.GetChildren(sourceObj))
                 {
                     if (child is TElement element)
                     {
@@ -127,15 +127,15 @@ namespace Lotus.Windows
         /// Заполнение списка дочерними визуальными элементами.
         /// </summary>
         /// <typeparam name="TElement">Требуемый тип дочернего элемента.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <param name="elements">Список для заполнения.</param>
-        public static void FillVisualChildList<TElement>(this DependencyObject source_obj, in List<TElement> elements)
+        public static void FillVisualChildList<TElement>(this DependencyObject sourceObj, in List<TElement> elements)
             where TElement : Visual
         {
-            var count = VisualTreeHelper.GetChildrenCount(source_obj);
+            var count = VisualTreeHelper.GetChildrenCount(sourceObj);
             for (var i = 0; i < count; i++)
             {
-                var child = VisualTreeHelper.GetChild(source_obj, i);
+                var child = VisualTreeHelper.GetChild(sourceObj, i);
                 if (child is TElement element)
                 {
                     elements.Add(element);
@@ -151,15 +151,15 @@ namespace Lotus.Windows
         /// Перечисление дочерних визуальных объектов.
         /// </summary>
         /// <typeparam name="TType">Требуемый тип.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Перечислитель.</returns>
-        public static IEnumerable<TType> EnumerateVisualChildren<TType>(this DependencyObject source_obj) where TType : DependencyObject
+        public static IEnumerable<TType> EnumerateVisualChildren<TType>(this DependencyObject sourceObj) where TType : DependencyObject
         {
-            if (source_obj != null)
+            if (sourceObj != null)
             {
-                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(source_obj); i++)
+                for (var i = 0; i < VisualTreeHelper.GetChildrenCount(sourceObj); i++)
                 {
-                    var child = VisualTreeHelper.GetChild(source_obj, i);
+                    var child = VisualTreeHelper.GetChild(sourceObj, i);
                     if (child is TType)
                     {
                         yield return (TType)child;
@@ -177,13 +177,13 @@ namespace Lotus.Windows
         /// Перечисление дочерних логических объектов.
         /// </summary>
         /// <typeparam name="TType">Требуемый тип.</typeparam>
-        /// <param name="source_obj">Объект - источник поиска.</param>
+        /// <param name="sourceObj">Объект - источник поиска.</param>
         /// <returns>Перечислитель.</returns>
-        public static IEnumerable<TType> EnumerateLogicalChildren<TType>(this DependencyObject source_obj) where TType : DependencyObject
+        public static IEnumerable<TType> EnumerateLogicalChildren<TType>(this DependencyObject sourceObj) where TType : DependencyObject
         {
-            if (source_obj != null)
+            if (sourceObj != null)
             {
-                foreach (var child in LogicalTreeHelper.GetChildren(source_obj))
+                foreach (var child in LogicalTreeHelper.GetChildren(sourceObj))
                 {
                     if (child is TType)
                     {

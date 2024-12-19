@@ -9,7 +9,7 @@ namespace Lotus.Windows
     /** \addtogroup WindowsWPFValueConverters
 	*@{*/
     /// <summary>
-    /// Универсальный конвертор для числовых значений в тип Double.
+    /// Универсальный конвертер для числовых значений в тип Double.
     /// </summary>
     public class NumberToDoubleConverter : IValueConverter
     {
@@ -43,7 +43,7 @@ namespace Lotus.Windows
     }
 
     /// <summary>
-    /// Универсальный конвертор для числовых значений в тип Decimal.
+    /// Универсальный конвертер для числовых значений в тип Decimal.
     /// </summary>
     public class NumberToDecimalConverter : IValueConverter
     {

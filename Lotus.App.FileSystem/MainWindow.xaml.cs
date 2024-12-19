@@ -42,7 +42,7 @@ namespace Lotus.App.FileSystem
     {
         public string ParentPath { get; set; }
 
-        public ObservableCollection<Folder> Folders { get; set; } = new ObservableCollection<Folder>();
+        public ObservableCollection<Folder> Folders { get; set; } = [];
 
         public MainWindow()
         {
@@ -52,7 +52,7 @@ namespace Lotus.App.FileSystem
 
         private void buttonSetParentFolder_Click(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+            var openFolderDialog = new OpenFolderDialog();
             if(openFolderDialog.ShowDialog().GetValueOrDefault())
             {
                 ParentPath = openFolderDialog.FolderName;
@@ -66,11 +66,13 @@ namespace Lotus.App.FileSystem
             Folders.Clear();
             foreach (var dir in Directory.EnumerateDirectories(ParentPath, "*", SearchOption.AllDirectories))
             {
-                bool empty = (Directory.GetDirectories(dir).Length == 0 && Directory.GetFiles(dir).Length == 0);
+                var empty = (Directory.GetDirectories(dir).Length == 0 && Directory.GetFiles(dir).Length == 0);
                 if(empty)
                 {
-                    Folder folder = new Folder();
-                    folder.Name = dir;
+                    var folder = new Folder
+                    {
+                        Name = dir
+                    };
                     Folders.Add(folder);
                 }
             }

@@ -158,8 +158,8 @@ namespace Lotus.Windows
         // Основные параметры
         protected internal Typeface _typefaceNumber;
         protected internal double _segmentHeight;
-        protected internal Pen _thinPen = new Pen(Brushes.Black, 1.0);
-        protected internal Pen _borderPen = new Pen(Brushes.Gray, 1.0);
+        protected internal Pen _thinPen = new(Brushes.Black, 1.0);
+        protected internal Pen _borderPen = new(Brushes.Gray, 1.0);
         protected internal ScaleTransform _transformScale;
         protected internal TranslateTransform _transformOffset;
         protected internal TransformGroup _transformGroup;
@@ -291,7 +291,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Cмещение для отрисовки основных единиц.
+        /// Смещение для отрисовки основных единиц.
         /// </summary>
         public double UnitOffset
         {

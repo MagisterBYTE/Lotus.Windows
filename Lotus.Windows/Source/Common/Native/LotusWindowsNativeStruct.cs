@@ -105,21 +105,21 @@ namespace Lotus.Windows
     /// </summary>
     public enum TShowCommands : uint
     {
-        SW_HIDE = 0,
-        SW_SHOWNORMAL = 1,
-        SW_NORMAL = 1,
-        SW_SHOWMINIMIZED = 2,
-        SW_SHOWMAXIMIZED = 3,
-        SW_MAXIMIZE = 3,
-        SW_SHOWNOACTIVATE = 4,
-        SW_SHOW = 5,
-        SW_MINIMIZE = 6,
-        SW_SHOWMINNOACTIVE = 7,
-        SW_SHOWNA = 8,
-        SW_RESTORE = 9,
-        SW_SHOWDEFAULT = 10,
-        SW_FORCEMINIMIZE = 11,
-        SW_MAX = 11
+        SWHIDE = 0,
+        SWSHOWNORMAL = 1,
+        SWNORMAL = 1,
+        SWSHOWMINIMIZED = 2,
+        SWSHOWMAXIMIZED = 3,
+        SWMAXIMIZE = 3,
+        SWSHOWNOACTIVATE = 4,
+        SWSHOW = 5,
+        SWMINIMIZE = 6,
+        SWSHOWMINNOACTIVE = 7,
+        SWSHOWNA = 8,
+        SWRESTORE = 9,
+        SWSHOWDEFAULT = 10,
+        SWFORCEMINIMIZE = 11,
+        SWMAX = 11
     }
 
     /// <summary>

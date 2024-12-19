@@ -62,15 +62,15 @@ namespace Lotus.Windows
     public class LotusContentViewer : ContentControl, IScrollInfo, INotifyPropertyChanged
     {
         #region Static fields
-        protected static readonly PropertyChangedEventArgs PropertyArgsOperationDesc = new PropertyChangedEventArgs(nameof(OperationDesc));
-        protected static readonly PropertyChangedEventArgs PropertyArgsCanVerticallyScroll = new PropertyChangedEventArgs(nameof(CanVerticallyScroll));
-        protected static readonly PropertyChangedEventArgs PropertyArgsCanHorizontallyScroll = new PropertyChangedEventArgs(nameof(CanHorizontallyScroll));
-        protected static readonly PropertyChangedEventArgs PropertyArgsExtentWidth = new PropertyChangedEventArgs(nameof(ExtentWidth));
-        protected static readonly PropertyChangedEventArgs PropertyArgsExtentHeight = new PropertyChangedEventArgs(nameof(ExtentHeight));
-        protected static readonly PropertyChangedEventArgs PropertyArgsViewportWidth = new PropertyChangedEventArgs(nameof(ViewportWidth));
-        protected static readonly PropertyChangedEventArgs PropertyArgsViewportHeight = new PropertyChangedEventArgs(nameof(ViewportHeight));
-        protected static readonly PropertyChangedEventArgs PropertyArgsHorizontalOffset = new PropertyChangedEventArgs(nameof(HorizontalOffset));
-        protected static readonly PropertyChangedEventArgs PropertyArgsVerticalOffset = new PropertyChangedEventArgs(nameof(VerticalOffset));
+        protected static readonly PropertyChangedEventArgs PropertyArgsOperationDesc = new(nameof(OperationDesc));
+        protected static readonly PropertyChangedEventArgs PropertyArgsCanVerticallyScroll = new(nameof(CanVerticallyScroll));
+        protected static readonly PropertyChangedEventArgs PropertyArgsCanHorizontallyScroll = new(nameof(CanHorizontallyScroll));
+        protected static readonly PropertyChangedEventArgs PropertyArgsExtentWidth = new(nameof(ExtentWidth));
+        protected static readonly PropertyChangedEventArgs PropertyArgsExtentHeight = new(nameof(ExtentHeight));
+        protected static readonly PropertyChangedEventArgs PropertyArgsViewportWidth = new(nameof(ViewportWidth));
+        protected static readonly PropertyChangedEventArgs PropertyArgsViewportHeight = new(nameof(ViewportHeight));
+        protected static readonly PropertyChangedEventArgs PropertyArgsHorizontalOffset = new(nameof(HorizontalOffset));
+        protected static readonly PropertyChangedEventArgs PropertyArgsVerticalOffset = new(nameof(VerticalOffset));
         #endregion
 
         #region Declare DependencyProperty 
@@ -197,10 +197,7 @@ namespace Lotus.Windows
                 content_viewer.ContentScaleChanged(content_viewer, EventArgs.Empty);
             }
 
-            if (content_viewer.mScrollOwner != null)
-            {
-                content_viewer.mScrollOwner.InvalidateScrollInfo();
-            }
+            content_viewer.mScrollOwner?.InvalidateScrollInfo();
 
             content_viewer.NotifyPropertyChanged(PropertyArgsExtentWidth);
             content_viewer.NotifyPropertyChanged(PropertyArgsExtentHeight);
@@ -362,8 +359,8 @@ namespace Lotus.Windows
         protected internal ScrollViewer mScrollOwner = null;
         protected internal bool mCanVerticallyScroll = false;
         protected internal bool mCanHorizontallyScroll = false;
-        protected internal Size mUnScaledExtent = new Size(0, 0);
-        protected internal Size mViewportScroll = new Size(0, 0);
+        protected internal Size mUnScaledExtent = new(0, 0);
+        protected internal Size mViewportScroll = new(0, 0);
 
         // Операции
         protected internal TViewHandling mOperationCurrent;  // Текущая операция
@@ -417,7 +414,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Смещение контента по X.
         /// </summary>
-        [Description("Смещение области просмотра по X в координтах контета")]
+        [Description("Смещение области просмотра по X в координатах контента")]
         public double ContentOffsetX
         {
             get { return (double)GetValue(ContentOffsetXProperty); }
@@ -432,7 +429,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Смещение контента по Y.
         /// </summary>
-        [Description("Смещение области просмотра по Y в координтах контета")]
+        [Description("Смещение области просмотра по Y в координатах контента")]
         public double ContentOffsetY
         {
             get { return (double)GetValue(ContentOffsetYProperty); }
@@ -522,7 +519,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Ширина области просмотра в координтах контента.
+        /// Ширина области просмотра в координатах контента.
         /// </summary>
         public double ContentViewportWidth
         {
@@ -531,7 +528,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Высота области просмотра в координтах контента.
+        /// Высота области просмотра в координатах контента.
         /// </summary>
         public double ContentViewportHeight
         {
@@ -906,13 +903,10 @@ namespace Lotus.Windows
             // ContentOffsetX = ContentOffsetX;
             // ContentOffsetY = ContentOffsetY;
 
-            if (mScrollOwner != null)
-            {
-                //
-                // Tell that owning ScrollViewer that scrollbar data has changed.
-                //
-                mScrollOwner.InvalidateScrollInfo();
-            }
+            //
+            // Tell that owning ScrollViewer that scrollbar data has changed.
+            //
+            mScrollOwner?.InvalidateScrollInfo();
         }
 
         /// <summary>
@@ -1211,7 +1205,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Опредилить размеры.
+        /// Определить размеры.
         /// </summary>
         /// <remarks>
         /// Метод, который по заданному available_size определяет желаемые размеры и выставляет их в this.DesiredSize.
@@ -1241,10 +1235,7 @@ namespace Lotus.Windows
                 //
                 mUnScaledExtent = child_size;
 
-                if (mScrollOwner != null)
-                {
-                    mScrollOwner.InvalidateScrollInfo();
-                }
+                mScrollOwner?.InvalidateScrollInfo();
             }
 
             //
@@ -1303,10 +1294,7 @@ namespace Lotus.Windows
                 //
                 mUnScaledExtent = mContent.DesiredSize;
 
-                if (mScrollOwner != null)
-                {
-                    mScrollOwner.InvalidateScrollInfo();
-                }
+                mScrollOwner?.InvalidateScrollInfo();
             }
 
             //
@@ -1327,11 +1315,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Анимация масштабирования указанной области контента.
         /// </summary>
-        /// <param name="new_scale">Масштаб.</param>
-        /// <param name="content_rect">Прямоугольник области контента.</param>
-        public void AnimatedZoomTo(double new_scale, Rect content_rect)
+        /// <param name="newScale">Масштаб.</param>
+        /// <param name="contentRect">Прямоугольник области контента.</param>
+        public void AnimatedZoomTo(double newScale, Rect contentRect)
         {
-            AnimatedZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)),
+            AnimatedZoomPointToViewportCenter(newScale, new Point(contentRect.X + (contentRect.Width / 2), contentRect.Y + (contentRect.Height / 2)),
                 delegate (object sender, EventArgs args)
                 {
                     //
@@ -1339,71 +1327,71 @@ namespace Lotus.Windows
                     // Due to zooming in on the mContent focus point and rounding errors, the mContent offset may
                     // be slightly off what we want at the end of the animation and this bit of code corrects it.
                     //
-                    ContentOffsetX = content_rect.X;
-                    ContentOffsetY = content_rect.Y;
+                    ContentOffsetX = contentRect.X;
+                    ContentOffsetY = contentRect.Y;
                 });
         }
 
         /// <summary>
         /// Анимация масштабирования указанной области контента.
         /// </summary>
-        /// <param name="content_rect">Прямоугольник области контента.</param>
-        public void AnimatedZoomTo(Rect content_rect)
+        /// <param name="contentRect">Прямоугольник области контента.</param>
+        public void AnimatedZoomTo(Rect contentRect)
         {
-            var scale_x = ContentViewportWidth / content_rect.Width;
-            var scale_y = ContentViewportHeight / content_rect.Height;
+            var scale_x = ContentViewportWidth / contentRect.Width;
+            var scale_y = ContentViewportHeight / contentRect.Height;
             var new_scale = ContentScale * Math.Min(scale_x, scale_y);
 
-            AnimatedZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)), null);
+            AnimatedZoomPointToViewportCenter(new_scale, new Point(contentRect.X + (contentRect.Width / 2), contentRect.Y + (contentRect.Height / 2)), null);
         }
 
         /// <summary>
         /// Масштабирование указанной области контента.
         /// </summary>
-        /// <param name="content_rect">Прямоугольник области контента.</param>
-        public void ZoomTo(Rect content_rect)
+        /// <param name="contentRect">Прямоугольник области контента.</param>
+        public void ZoomTo(Rect contentRect)
         {
-            var scale_x = ContentViewportWidth / content_rect.Width;
-            var scale_y = ContentViewportHeight / content_rect.Height;
+            var scale_x = ContentViewportWidth / contentRect.Width;
+            var scale_y = ContentViewportHeight / contentRect.Height;
             var new_scale = ContentScale * Math.Min(scale_x, scale_y);
 
-            ZoomPointToViewportCenter(new_scale, new Point(content_rect.X + (content_rect.Width / 2), content_rect.Y + (content_rect.Height / 2)));
+            ZoomPointToViewportCenter(new_scale, new Point(contentRect.X + (contentRect.Width / 2), contentRect.Y + (contentRect.Height / 2)));
         }
 
         /// <summary>
         /// Мгновенное центрирование вида на указанной точке в координатах контента.
         /// </summary>
-        /// <param name="content_offset">Точка.</param>
-        public void SnapContentOffsetTo(Point content_offset)
+        /// <param name="contentOffset">Точка.</param>
+        public void SnapContentOffsetTo(Point contentOffset)
         {
             XAnimationHelper.CancelAnimation(this, ContentOffsetXProperty);
             XAnimationHelper.CancelAnimation(this, ContentOffsetYProperty);
 
-            ContentOffsetX = content_offset.X;
-            ContentOffsetY = content_offset.Y;
+            ContentOffsetX = contentOffset.X;
+            ContentOffsetY = contentOffset.Y;
         }
 
         /// <summary>
         /// Мгновенное центрирование вида на указанной точке в координатах контента.
         /// </summary>
-        /// <param name="content_point">Точка.</param>
-        public void SnapTo(Point content_point)
+        /// <param name="contentPoint">Точка.</param>
+        public void SnapTo(Point contentPoint)
         {
             XAnimationHelper.CancelAnimation(this, ContentOffsetXProperty);
             XAnimationHelper.CancelAnimation(this, ContentOffsetYProperty);
 
-            ContentOffsetX = content_point.X - (ContentViewportWidth / 2);
-            ContentOffsetY = content_point.Y - (ContentViewportHeight / 2);
+            ContentOffsetX = contentPoint.X - (ContentViewportWidth / 2);
+            ContentOffsetY = contentPoint.Y - (ContentViewportHeight / 2);
         }
 
         /// <summary>
         /// Анимация центрирования вида на указанной точке в координатах контента.
         /// </summary>
-        /// <param name="content_point">Точка.</param>
-        public void AnimatedSnapTo(Point content_point)
+        /// <param name="contentPoint">Точка.</param>
+        public void AnimatedSnapTo(Point contentPoint)
         {
-            var newX = content_point.X - (ContentViewportWidth / 2);
-            var newY = content_point.Y - (ContentViewportHeight / 2);
+            var newX = contentPoint.X - (ContentViewportWidth / 2);
+            var newY = contentPoint.Y - (ContentViewportHeight / 2);
 
             XAnimationHelper.StartAnimation(this, ContentOffsetXProperty, newX, AnimationDuration);
             XAnimationHelper.StartAnimation(this, ContentOffsetYProperty, newY, AnimationDuration);
@@ -1412,19 +1400,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Анимация масштабирования с центром в указанной точке в координатах контента.
         /// </summary>
-        /// <param name="new_сontent_scale">Новый масштаб.</param>
-        /// <param name="content_zoom_focus">Точка масштабирования.</param>
-        public void AnimatedZoomAboutPoint(double new_сontent_scale, Point content_zoom_focus)
+        /// <param name="newСontentScale">Новый масштаб.</param>
+        /// <param name="contentZoomFocus">Точка масштабирования.</param>
+        public void AnimatedZoomAboutPoint(double newСontentScale, Point contentZoomFocus)
         {
-            new_сontent_scale = Math.Min(Math.Max(new_сontent_scale, MinContentScale), MaxContentScale);
+            newСontentScale = Math.Min(Math.Max(newСontentScale, MinContentScale), MaxContentScale);
 
             XAnimationHelper.CancelAnimation(this, ContentZoomFocusXProperty);
             XAnimationHelper.CancelAnimation(this, ContentZoomFocusYProperty);
             XAnimationHelper.CancelAnimation(this, ViewportZoomFocusXProperty);
             XAnimationHelper.CancelAnimation(this, ViewportZoomFocusYProperty);
 
-            ContentZoomFocusX = content_zoom_focus.X;
-            ContentZoomFocusY = content_zoom_focus.Y;
+            ContentZoomFocusX = contentZoomFocus.X;
+            ContentZoomFocusY = contentZoomFocus.Y;
             ViewportZoomFocusX = (ContentZoomFocusX - ContentOffsetX) * ContentScale;
             ViewportZoomFocusY = (ContentZoomFocusY - ContentOffsetY) * ContentScale;
 
@@ -1433,7 +1421,7 @@ namespace Lotus.Windows
             //
             mEnableContentOffsetUpdateFromScale = true;
 
-            XAnimationHelper.StartAnimation(this, ContentScaleProperty, new_сontent_scale, AnimationDuration,
+            XAnimationHelper.StartAnimation(this, ContentScaleProperty, newСontentScale, AnimationDuration,
                 delegate (object sender, EventArgs args)
                 {
                     mEnableContentOffsetUpdateFromScale = false;
@@ -1445,24 +1433,24 @@ namespace Lotus.Windows
         /// <summary>
         /// Масштабирование с центром в указанной точке в координатах контента.
         /// </summary>
-        /// <param name="new_content_scale">Новый масштаб.</param>
-        /// <param name="content_zoom_focus">Точка масштабирования.</param>
-        public void ZoomAboutPoint(double new_content_scale, System.Windows.Point content_zoom_focus)
+        /// <param name="newContentScale">Новый масштаб.</param>
+        /// <param name="contentZoomFocus">Точка масштабирования.</param>
+        public void ZoomAboutPoint(double newContentScale, System.Windows.Point contentZoomFocus)
         {
-            new_content_scale = Math.Min(Math.Max(new_content_scale, MinContentScale), MaxContentScale);
+            newContentScale = Math.Min(Math.Max(newContentScale, MinContentScale), MaxContentScale);
 
-            var screenSpaceZoomOffsetX = (content_zoom_focus.X - ContentOffsetX) * ContentScale;
-            var screenSpaceZoomOffsetY = (content_zoom_focus.Y - ContentOffsetY) * ContentScale;
-            var contentSpaceZoomOffsetX = screenSpaceZoomOffsetX / new_content_scale;
-            var contentSpaceZoomOffsetY = screenSpaceZoomOffsetY / new_content_scale;
-            var newContentOffsetX = content_zoom_focus.X - contentSpaceZoomOffsetX;
-            var newContentOffsetY = content_zoom_focus.Y - contentSpaceZoomOffsetY;
+            var screenSpaceZoomOffsetX = (contentZoomFocus.X - ContentOffsetX) * ContentScale;
+            var screenSpaceZoomOffsetY = (contentZoomFocus.Y - ContentOffsetY) * ContentScale;
+            var contentSpaceZoomOffsetX = screenSpaceZoomOffsetX / newContentScale;
+            var contentSpaceZoomOffsetY = screenSpaceZoomOffsetY / newContentScale;
+            var newContentOffsetX = contentZoomFocus.X - contentSpaceZoomOffsetX;
+            var newContentOffsetY = contentZoomFocus.Y - contentSpaceZoomOffsetY;
 
             XAnimationHelper.CancelAnimation(this, ContentScaleProperty);
             XAnimationHelper.CancelAnimation(this, ContentOffsetXProperty);
             XAnimationHelper.CancelAnimation(this, ContentOffsetYProperty);
 
-            ContentScale = new_content_scale;
+            ContentScale = newContentScale;
             ContentOffsetX = newContentOffsetX;
             ContentOffsetY = newContentOffsetY;
         }
@@ -1470,21 +1458,21 @@ namespace Lotus.Windows
         /// <summary>
         /// Анимация масштабирования по центру области просмотра.
         /// </summary>
-        /// <param name="content_scale">Масштаб.</param>
-        public void AnimatedZoomTo(double content_scale)
+        /// <param name="contentScale">Масштаб.</param>
+        public void AnimatedZoomTo(double contentScale)
         {
             var zoom_center = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
-            AnimatedZoomAboutPoint(content_scale, zoom_center);
+            AnimatedZoomAboutPoint(contentScale, zoom_center);
         }
 
         /// <summary>
-        /// Mасштабированиe по центру области просмотра.
+        /// Масштабирование по центру области просмотра.
         /// </summary>
-        /// <param name="content_scale">Масштаб.</param>
-        public void ZoomTo(double content_scale)
+        /// <param name="contentScale">Масштаб.</param>
+        public void ZoomTo(double contentScale)
         {
             var zoom_сenter = new Point(ContentOffsetX + (ContentViewportWidth / 2), ContentOffsetY + (ContentViewportHeight / 2));
-            ZoomAboutPoint(content_scale, zoom_сenter);
+            ZoomAboutPoint(contentScale, zoom_сenter);
         }
 
         /// <summary>

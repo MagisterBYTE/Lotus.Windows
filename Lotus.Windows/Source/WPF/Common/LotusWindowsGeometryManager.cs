@@ -100,68 +100,68 @@ namespace Lotus.Windows
         /// <summary>
         /// Перевод размера в аппаратно-независимых единицах в миллиметры.
         /// </summary>
-        /// <param name="device_unit">Размер в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Размер в аппаратно-независимых единицах.</param>
         /// <returns>Размер в миллиметрах.</returns>
-        public static Size ToMilliliters(in Size device_unit)
+        public static Size ToMilliliters(in Size deviceUnit)
         {
-            return new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
+            return new Size(deviceUnit.Width * UnitToMM, deviceUnit.Height * UnitToMM);
         }
 
         /// <summary>
         /// Перевод размера в аппаратно-независимых единицах в миллиметры.
         /// </summary>
-        /// <param name="device_unit">Размер в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Размер в аппаратно-независимых единицах.</param>
         /// <returns>Размер в миллиметрах.</returns>
-        public static Size ToMilliliters(Size device_unit)
+        public static Size ToMilliliters(Size deviceUnit)
         {
-            return new Size(device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
+            return new Size(deviceUnit.Width * UnitToMM, deviceUnit.Height * UnitToMM);
         }
 
         /// <summary>
         /// Перевод размера в аппаратно-независимых единицах в миллиметры.
         /// </summary>
-        /// <param name="device_unit">Размер в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Размер в аппаратно-независимых единицах.</param>
         /// <returns>Размер в миллиметрах.</returns>
-        public static Size ToMillilitersRound(Size device_unit)
+        public static Size ToMillilitersRound(Size deviceUnit)
         {
-            return new Size(Math.Round(device_unit.Width * UnitToMM, 0), Math.Round(device_unit.Height * UnitToMM, 0));
+            return new Size(Math.Round(deviceUnit.Width * UnitToMM, 0), Math.Round(deviceUnit.Height * UnitToMM, 0));
         }
 
         /// <summary>
         /// Перевод прямоугольника в аппаратно-независимых единицах в миллиметры.
         /// </summary>
-        /// <param name="device_unit">Прямоугольник в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Прямоугольник в аппаратно-независимых единицах.</param>
         /// <returns>Прямоугольник в миллиметрах.</returns>
-        public static Rect ToMilliliters(in Rect device_unit)
+        public static Rect ToMilliliters(in Rect deviceUnit)
         {
-            return new Rect(device_unit.X * UnitToMM, device_unit.Y * UnitToMM,
-                device_unit.Width * UnitToMM, device_unit.Height * UnitToMM);
+            return new Rect(deviceUnit.X * UnitToMM, deviceUnit.Y * UnitToMM,
+                deviceUnit.Width * UnitToMM, deviceUnit.Height * UnitToMM);
         }
 
         /// <summary>
         /// Перевод рамки в аппаратно-независимых единицах в миллиметры.
         /// </summary>
-        /// <param name="device_unit">Рамка в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Рамка в аппаратно-независимых единицах.</param>
         /// <returns>Рамка в миллиметрах.</returns>
-        public static Thickness ToMilliliters(in Thickness device_unit)
+        public static Thickness ToMilliliters(in Thickness deviceUnit)
         {
-            return new Thickness(device_unit.Left * UnitToMM,
-                                device_unit.Top * UnitToMM,
-                                device_unit.Right * UnitToMM,
-                                device_unit.Bottom * UnitToMM);
+            return new Thickness(deviceUnit.Left * UnitToMM,
+                                deviceUnit.Top * UnitToMM,
+                                deviceUnit.Right * UnitToMM,
+                                deviceUnit.Bottom * UnitToMM);
         }
 
         /// <summary>
         /// Перевод рамки в аппаратно-независимых единицах в миллиметры c округлением.
         /// </summary>
-        /// <param name="device_unit">Рамка в аппаратно-независимых единицах.</param>
+        /// <param name="deviceUnit">Рамка в аппаратно-независимых единицах.</param>
         /// <returns>Рамка в миллиметрах.</returns>
-        public static Thickness ToMillilitersRound(ref Thickness device_unit)
+        public static Thickness ToMillilitersRound(ref Thickness deviceUnit)
         {
-            return new Thickness(Math.Round(device_unit.Left * UnitToMM, 0),
-                                Math.Round(device_unit.Top * UnitToMM, 0),
-                                Math.Round(device_unit.Right * UnitToMM, 0),
-                                Math.Round(device_unit.Bottom * UnitToMM, 0));
+            return new Thickness(Math.Round(deviceUnit.Left * UnitToMM, 0),
+                                Math.Round(deviceUnit.Top * UnitToMM, 0),
+                                Math.Round(deviceUnit.Right * UnitToMM, 0),
+                                Math.Round(deviceUnit.Bottom * UnitToMM, 0));
         }
         #endregion
 
@@ -224,23 +224,23 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="start">Начало.</param>
         /// <param name="end">Конец.</param>
-        /// <param name="head_width">Ширина.</param>
-        /// <param name="head_height">Высота.</param>
+        /// <param name="headWidth">Ширина.</param>
+        /// <param name="headHeight">Высота.</param>
         /// <param name="freeze">Следует ли заморозить геометрию.</param>
         /// <returns>Геометрия.</returns>
-        public static Geometry CreateGeometryArrow(Point start, Point end, double head_width, double head_height, bool freeze)
+        public static Geometry CreateGeometryArrow(Point start, Point end, double headWidth, double headHeight, bool freeze)
         {
             var theta = Math.Atan2(start.Y - end.Y, start.X - end.X);
             var sint = Math.Sin(theta);
             var cost = Math.Cos(theta);
 
             var pt3 = new Point(
-                end.X + (head_width * cost - head_height * sint),
-                end.Y + (head_width * sint + head_height * cost));
+                end.X + (headWidth * cost - headHeight * sint),
+                end.Y + (headWidth * sint + headHeight * cost));
 
             var pt4 = new Point(
-                end.X + (head_width * cost + head_height * sint),
-                end.Y - (head_height * cost - head_width * sint));
+                end.X + (headWidth * cost + headHeight * sint),
+                end.Y - (headHeight * cost - headWidth * sint));
 
             Geometry geometry = new StreamGeometry();
             using (var ctx = ((StreamGeometry)geometry).Open())

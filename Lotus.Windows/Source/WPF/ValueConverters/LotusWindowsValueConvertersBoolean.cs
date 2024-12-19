@@ -96,7 +96,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>братное значение.</returns>
+        /// <returns>Обратное значение.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var val = (bool)value;
@@ -119,7 +119,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool?)
@@ -174,7 +174,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (bool)value;
@@ -225,7 +225,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (bool)value;
@@ -276,7 +276,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (bool?)value;
@@ -327,7 +327,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (Visibility)value;
@@ -378,7 +378,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (bool)value;
@@ -429,7 +429,7 @@ namespace Lotus.Windows
         /// <param name="targetType">Целевой тип.</param>
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
-        /// <returns>Cостояние выбора.</returns>
+        /// <returns>Состояние выбора.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var status = (bool)value;

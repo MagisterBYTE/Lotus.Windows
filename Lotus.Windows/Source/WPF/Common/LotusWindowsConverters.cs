@@ -22,19 +22,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конвертация изображения из формата Bgra32 в формат Bgr24.
         /// </summary>
-        /// <param name="bitmap_source">Источник изображения.</param>
+        /// <param name="bitmapSource">Источник изображения.</param>
         /// <returns>Сконвертированное изображение.</returns>
-        public static BitmapSource Bgra32ToBgr24(BitmapSource bitmap_source)
+        public static BitmapSource Bgra32ToBgr24(BitmapSource bitmapSource)
         {
-            var PixelWidth = bitmap_source.PixelWidth;
-            var PixelHeight = bitmap_source.PixelHeight;
-            var DpiX = bitmap_source.DpiX;
-            var DpiY = bitmap_source.DpiY;
+            var PixelWidth = bitmapSource.PixelWidth;
+            var PixelHeight = bitmapSource.PixelHeight;
+            var DpiX = bitmapSource.DpiX;
+            var DpiY = bitmapSource.DpiY;
 
-            var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
+            var InputBitsPerPixel = bitmapSource.Format.BitsPerPixel;
             var InputStride = PixelWidth * InputBitsPerPixel / 8;
             var InputPixelsArray = new byte[InputStride * PixelHeight];
-            bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
+            bitmapSource.CopyPixels(InputPixelsArray, InputStride, 0);
 
             var PixelFormat = PixelFormats.Bgr24;
             BitmapPalette? Palette = null;
@@ -54,26 +54,26 @@ namespace Lotus.Windows
                 k = k + 3;
             }
 
-            bitmap_source = BitmapSource.Create(PixelWidth, PixelHeight, DpiX, DpiY, PixelFormat, Palette, PixelsArray, Stride);
-            return bitmap_source;
+            bitmapSource = BitmapSource.Create(PixelWidth, PixelHeight, DpiX, DpiY, PixelFormat, Palette, PixelsArray, Stride);
+            return bitmapSource;
         }
 
         /// <summary>
         /// Конвертация изображения из формата Bgra32 в формат Gray8.
         /// </summary>
-        /// <param name="bitmap_source">Источник изображения.</param>
+        /// <param name="bitmapSource">Источник изображения.</param>
         /// <returns>Сконвертированное изображение.</returns>
-        public static BitmapSource Bgra32ToGray8(BitmapSource bitmap_source)
+        public static BitmapSource Bgra32ToGray8(BitmapSource bitmapSource)
         {
-            var PixelWidth = bitmap_source.PixelWidth;
-            var PixelHeight = bitmap_source.PixelHeight;
-            var DpiX = bitmap_source.DpiX;
-            var DpiY = bitmap_source.DpiY;
+            var PixelWidth = bitmapSource.PixelWidth;
+            var PixelHeight = bitmapSource.PixelHeight;
+            var DpiX = bitmapSource.DpiX;
+            var DpiY = bitmapSource.DpiY;
 
-            var InputBitsPerPixel = bitmap_source.Format.BitsPerPixel;
+            var InputBitsPerPixel = bitmapSource.Format.BitsPerPixel;
             var InputStride = PixelWidth * InputBitsPerPixel / 8;
             var InputPixelsArray = new byte[InputStride * PixelHeight];
-            bitmap_source.CopyPixels(InputPixelsArray, InputStride, 0);
+            bitmapSource.CopyPixels(InputPixelsArray, InputStride, 0);
 
             var PixelFormat = PixelFormats.Gray8;
             BitmapPalette? Palette = null;
@@ -90,8 +90,8 @@ namespace Lotus.Windows
                 j = j + 4;
             }
 
-            bitmap_source = BitmapSource.Create(PixelWidth, PixelHeight, DpiX, DpiY, PixelFormat, Palette, A_PixelsArray, Stride);
-            return bitmap_source;
+            bitmapSource = BitmapSource.Create(PixelWidth, PixelHeight, DpiX, DpiY, PixelFormat, Palette, A_PixelsArray, Stride);
+            return bitmapSource;
         }
 
         /// <summary>

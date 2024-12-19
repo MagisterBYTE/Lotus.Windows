@@ -39,7 +39,7 @@ namespace Lotus.App.GeneralUtility
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<XmlElement> modifys = new List<XmlElement>();
+        List<XmlElement> modifys = [];
         public MainWindow()
         {
             InitializeComponent();
@@ -190,8 +190,10 @@ namespace Lotus.App.GeneralUtility
             var sb = new StringBuilder();
             var sw = new StringWriter(sb);
 
-            JsonWriter writer = new JsonTextWriter(sw);
-            writer.Formatting = Newtonsoft.Json.Formatting.Indented;
+            JsonWriter writer = new JsonTextWriter(sw)
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented
+            };
             writer.WriteStartObject();
             writer.WritePropertyName("items");
             writer.WriteStartArray();
@@ -824,11 +826,13 @@ namespace Lotus.App.GeneralUtility
             // Виды замеров керна - 14
             //
             modifys.Clear();
-            VisitNode(xmlDoc.ChildNodes, "Виды замеров керна", CheckNode_GROUP_DIRECTORY_SERVICE);
+            VisitNode(xmlDoc.ChildNodes, "Виды замеров керна", CheckNodeGROUPDIRECTORYSERVICE);
 
-            var generatorCodeCoreMeasurements = new GeneratorCodeCoreMeasurements(modifys[0]);
-            generatorCodeCoreMeasurements.EntityName = "CoreMeasurements";
-            generatorCodeCoreMeasurements.FolderName = Path.Combine(destPath);
+            var generatorCodeCoreMeasurements = new GeneratorCodeCoreMeasurements(modifys[0])
+            {
+                EntityName = "CoreMeasurements",
+                FolderName = Path.Combine(destPath)
+            };
 
             generatorCodeCoreMeasurements.CreateEntityEnum("NotSet = 0,", "Значение не установлено");
             generatorCodeCoreMeasurements.CreateEntityType("TypedColoredObject");
@@ -919,7 +923,7 @@ namespace Lotus.App.GeneralUtility
             }
         }
 
-        public bool CheckNode_GROUP_DIRECTORY_SERVICE(XmlNode node, string name)
+        public bool CheckNodeGROUPDIRECTORYSERVICE(XmlNode node, string name)
         {
             if (node is XmlElement element && element.Name == "group")
             {

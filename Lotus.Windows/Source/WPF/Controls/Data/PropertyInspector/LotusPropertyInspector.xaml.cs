@@ -118,8 +118,10 @@ namespace Lotus.Windows
                         {
                             var model_object = model as CPropertyModelObject;
 
-                            var data_template = new DataTemplate();
-                            data_template.DataType = typeof(CPropertyModelObject);
+                            var data_template = new DataTemplate
+                            {
+                                DataType = typeof(CPropertyModelObject)
+                            };
 
                             var element = new FrameworkElementFactory(model_object!.EditorType);
 
@@ -128,9 +130,11 @@ namespace Lotus.Windows
 
                             var dependency_property = DependencyPropertyDescriptor.FromProperty(property_description_value);
 
-                            var binding = new Binding("Value");
-                            binding.Mode = BindingMode.TwoWay;
-                            binding.Source = model_object;
+                            var binding = new Binding("Value")
+                            {
+                                Mode = BindingMode.TwoWay,
+                                Source = model_object
+                            };
                             element.SetBinding(dependency_property.DependencyProperty, binding);
 
                             data_template.VisualTree = element;
@@ -160,13 +164,13 @@ namespace Lotus.Windows
     public partial class LotusPropertyInspector : UserControl, ILotusPropertyInspector, INotifyPropertyChanged
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsSelectedObject = new PropertyChangedEventArgs(nameof(SelectedObject));
-        private static readonly PropertyChangedEventArgs PropertyArgsTypeName = new PropertyChangedEventArgs(nameof(TypeName));
-        private static readonly PropertyChangedEventArgs PropertyArgsObjectName = new PropertyChangedEventArgs(nameof(ObjectName));
-        private static readonly PropertyChangedEventArgs PropertyArgsIsGrouping = new PropertyChangedEventArgs(nameof(IsGrouping));
-        private static readonly PropertyChangedEventArgs PropertyArgsIsFiltration = new PropertyChangedEventArgs(nameof(IsFiltration));
-        private static readonly PropertyChangedEventArgs PropertyArgsFilterString = new PropertyChangedEventArgs(nameof(FilterString));
-        private static readonly PropertyGroupDescription PropertyGroupDescriptionGroup = new PropertyGroupDescription(nameof(CPropertyDesc.Category));
+        private static readonly PropertyChangedEventArgs PropertyArgsSelectedObject = new(nameof(SelectedObject));
+        private static readonly PropertyChangedEventArgs PropertyArgsTypeName = new(nameof(TypeName));
+        private static readonly PropertyChangedEventArgs PropertyArgsObjectName = new(nameof(ObjectName));
+        private static readonly PropertyChangedEventArgs PropertyArgsIsGrouping = new(nameof(IsGrouping));
+        private static readonly PropertyChangedEventArgs PropertyArgsIsFiltration = new(nameof(IsFiltration));
+        private static readonly PropertyChangedEventArgs PropertyArgsFilterString = new(nameof(FilterString));
+        private static readonly PropertyGroupDescription PropertyGroupDescriptionGroup = new(nameof(CPropertyDesc.Category));
         #endregion
 
         #region Fields
@@ -298,10 +302,7 @@ namespace Lotus.Windows
             {
                 _filterString = value;
                 NotifyPropertyChanged(PropertyArgsFilterString);
-                if (_propertiesView != null)
-                {
-                    _propertiesView.Refresh();
-                }
+                _propertiesView?.Refresh();
             }
         }
 
@@ -329,7 +330,7 @@ namespace Lotus.Windows
         public LotusPropertyInspector()
         {
             InitializeComponent();
-            _properties = new ListArray<CPropertyModelBase>();
+            _properties = [];
         }
         #endregion
 
@@ -496,11 +497,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Добавление модели свойства для числовых типов.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        protected void AddModelPropertyNumeric(PropertyInfo property_info, List<CPropertyDesc> property_desc)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        protected void AddModelPropertyNumeric(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
         {
-            switch (Type.GetTypeCode(property_info.PropertyType))
+            switch (Type.GetTypeCode(propertyInfo.PropertyType))
             {
                 case TypeCode.Empty:
                     break;
@@ -511,40 +512,40 @@ namespace Lotus.Windows
                 case TypeCode.Boolean:
                     break;
                 case TypeCode.Char:
-                    _properties.Add(new PropertyModelRange<char>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<char>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.SByte:
-                    _properties.Add(new PropertyModelRange<sbyte>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<sbyte>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Byte:
-                    _properties.Add(new PropertyModelRange<byte>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<byte>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Int16:
-                    _properties.Add(new PropertyModelRange<short>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<short>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.UInt16:
-                    _properties.Add(new PropertyModelRange<ushort>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<ushort>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Int32:
-                    _properties.Add(new PropertyModelRange<int>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<int>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.UInt32:
-                    _properties.Add(new PropertyModelRange<uint>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<uint>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Int64:
-                    _properties.Add(new PropertyModelRange<long>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<long>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.UInt64:
-                    _properties.Add(new PropertyModelRange<ulong>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<ulong>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Single:
-                    _properties.Add(new PropertyModelRange<float>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<float>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Double:
-                    _properties.Add(new PropertyModelRange<double>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<double>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.Decimal:
-                    _properties.Add(new PropertyModelRange<decimal>(property_info, property_desc));
+                    _properties.Add(new PropertyModelRange<decimal>(propertyInfo, propertyDesc));
                     break;
                 case TypeCode.DateTime:
                     break;
@@ -558,9 +559,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Получение списка описание свойства по указным метаданными свойства.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
+        /// <param name="propertyInfo">Метаданные свойства.</param>
         /// <returns>Список описания свойств.</returns>
-        protected List<CPropertyDesc>? GetPropertyDesc(PropertyInfo property_info)
+        protected List<CPropertyDesc>? GetPropertyDesc(PropertyInfo propertyInfo)
         {
             var result = new List<CPropertyDesc>();
 
@@ -568,7 +569,7 @@ namespace Lotus.Windows
 
             for (var i = 0; i < _propertiesDesc.Length; i++)
             {
-                if (_propertiesDesc[i].PropertyName == property_info.Name)
+                if (_propertiesDesc[i].PropertyName == propertyInfo.Name)
                 {
                     result.Add(_propertiesDesc[i]);
                 }
@@ -667,10 +668,7 @@ namespace Lotus.Windows
         /// </summary>
         protected virtual void UnsetGroupings()
         {
-            if (_propertiesView != null)
-            {
-                _propertiesView.GroupDescriptions.Remove(PropertyGroupDescriptionGroup);
-            }
+            _propertiesView?.GroupDescriptions.Remove(PropertyGroupDescriptionGroup);
         }
 
         /// <summary>
@@ -706,10 +704,7 @@ namespace Lotus.Windows
             {
                 var property_model = _properties[i];
 
-                if (property_model != null)
-                {
-                    property_model.CheckIsValueFromList();
-                }
+                property_model?.CheckIsValueFromList();
             }
         }
 
@@ -725,10 +720,7 @@ namespace Lotus.Windows
             var context_menu = element.ContextMenu;
             if (context_menu != null)
             {
-                if (property_model != null)
-                {
-                    property_model.AssingContenxMenuListValues(context_menu);
-                }
+                property_model?.AssingContenxMenuListValues(context_menu);
 
                 context_menu.IsOpen = true;
             }
@@ -804,10 +796,7 @@ namespace Lotus.Windows
         private void OnTextBoxString_LostFocus(object sender, RoutedEventArgs args)
         {
             var property_model = _propertiesView.CurrentItem as CPropertyModelBase;
-            if (property_model != null)
-            {
-                property_model.CheckIsValueFromList();
-            }
+            property_model?.CheckIsValueFromList();
         }
 
         /// <summary>

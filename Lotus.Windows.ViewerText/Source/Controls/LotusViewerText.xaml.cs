@@ -51,7 +51,7 @@ namespace Lotus.Windows
         public void UpdateFoldings(FoldingManager manager, TextDocument document)
         {
             int firstErrorOffset;
-            IEnumerable<NewFolding> newFoldings = CreateNewFoldings(document, out firstErrorOffset);
+            var newFoldings = CreateNewFoldings(document, out firstErrorOffset);
             manager.UpdateFoldings(newFoldings, firstErrorOffset);
         }
 
@@ -194,9 +194,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание нового файла с указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        /// <param name="parameters_create">Параметры создания файла.</param>
-        public void NewFile(string? file_name, CParameters? parameters_create)
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="parametersCreate">Параметры создания файла.</param>
+        public void NewFile(string? fileName, CParameters? parametersCreate)
         {
             // Method intentionally left empty.
         }
@@ -204,28 +204,28 @@ namespace Lotus.Windows
         /// <summary>
         /// Открытие указанного файла.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_open">Параметры открытия файла.</param>
-        public void OpenFile(string? file_name, CParameters? parameters_open)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersOpen">Параметры открытия файла.</param>
+        public void OpenFile(string? fileName, CParameters? parametersOpen)
         {
             // Если файл пустой то используем диалог
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
-                file_name = XFileDialog.Open("Открыть документ", string.Empty);
-                if (file_name != null && file_name.IsExists())
+                fileName = XFileDialog.Open("Открыть документ", string.Empty);
+                if (fileName != null && fileName.IsExists())
                 {
                     // Загружаем файл
-                    AvalonTextEditor.Load(file_name);
+                    AvalonTextEditor.Load(fileName);
 
-                    FileName = file_name;
+                    FileName = fileName;
                     XLogger.LogInfoModule(nameof(LotusViewerText), $"Открыт файл с именем: [{FileName}]");
                 }
             }
             else
             {
                 // Загружаем файл
-                AvalonTextEditor.Load(file_name);
-                FileName = file_name;
+                AvalonTextEditor.Load(fileName);
+                FileName = fileName;
                 XLogger.LogInfoModule(nameof(LotusViewerText), $"Открыт файл с именем: [{FileName}]");
             }
         }
@@ -256,11 +256,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Сохранение файла под новым именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_save">Параметры сохранения файла.</param>
-        public void SaveAsFile(string? file_name, CParameters? parameters_save)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersSave">Параметры сохранения файла.</param>
+        public void SaveAsFile(string? fileName, CParameters? parametersSave)
         {
-            if (string.IsNullOrEmpty(file_name))
+            if (string.IsNullOrEmpty(fileName))
             {
                 if (string.IsNullOrEmpty(FileName) == false)
                 {
@@ -268,31 +268,31 @@ namespace Lotus.Windows
                     var file = Path.GetFileNameWithoutExtension(FileName);
                     var ext = Path.GetExtension(FileName).Remove(0, 1);
 
-                    file_name = XFileDialog.Save("Сохранить документ как", dir ?? string.Empty, file, ext);
-                    if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
+                    fileName = XFileDialog.Save("Сохранить документ как", dir ?? string.Empty, file, ext);
+                    if (fileName != null && XFilePath.CheckCorrectFileName(fileName))
                     {
-                        AvalonTextEditor.Save(file_name);
-                        FileName = file_name;
+                        AvalonTextEditor.Save(fileName);
+                        FileName = fileName;
                         XLogger.LogInfoModule(nameof(LotusViewerText), $"Файл с именем: [{FileName}] сохранен");
                     }
                 }
                 else
                 {
-                    file_name = XFileDialog.Save("Сохранить документ как", string.Empty);
-                    if (file_name != null && XFilePath.CheckCorrectFileName(file_name))
+                    fileName = XFileDialog.Save("Сохранить документ как", string.Empty);
+                    if (fileName != null && XFilePath.CheckCorrectFileName(fileName))
                     {
-                        AvalonTextEditor.Save(file_name);
-                        FileName = file_name;
+                        AvalonTextEditor.Save(fileName);
+                        FileName = fileName;
                         XLogger.LogInfoModule(nameof(LotusViewerText), $"Файл с именем: [{FileName}] сохранен");
                     }
                 }
             }
             else
             {
-                if (XFilePath.CheckCorrectFileName(file_name))
+                if (XFilePath.CheckCorrectFileName(fileName))
                 {
-                    AvalonTextEditor.Save(file_name);
-                    FileName = file_name;
+                    AvalonTextEditor.Save(fileName);
+                    FileName = fileName;
                     XLogger.LogInfoModule(nameof(LotusViewerText), $"Файл с именем: [{FileName}] сохранен");
                 }
             }
@@ -301,8 +301,8 @@ namespace Lotus.Windows
         /// <summary>
         /// Печать файла.
         /// </summary>
-        /// <param name="parameters_print">Параметры печати файла.</param>
-        public void PrintFile(CParameters? parameters_print)
+        /// <param name="parametersPrint">Параметры печати файла.</param>
+        public void PrintFile(CParameters? parametersPrint)
         {
             // Method intentionally left empty.
         }
@@ -310,9 +310,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Экспорт файла под указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_export">Параметры для экспорта файла.</param>
-        public void ExportFile(string? file_name, CParameters? parameters_export)
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersExport">Параметры для экспорта файла.</param>
+        public void ExportFile(string? fileName, CParameters? parametersExport)
         {
             // Method intentionally left empty.
         }

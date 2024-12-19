@@ -24,16 +24,16 @@ namespace Lotus.Windows
         /// <summary>
         /// Создание нового файла с указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Имя файла.</param>
-        /// <param name="parameters_create">Параметры создания файла.</param>
-        void NewFile(string file_name, CParameters? parameters_create);
+        /// <param name="fileName">Имя файла.</param>
+        /// <param name="parametersCreate">Параметры создания файла.</param>
+        void NewFile(string fileName, CParameters? parametersCreate);
 
         /// <summary>
         /// Открытие указанного файла.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_open">Параметры открытия файла.</param>
-        void OpenFile(string file_name, CParameters? parameters_open);
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersOpen">Параметры открытия файла.</param>
+        void OpenFile(string fileName, CParameters? parametersOpen);
 
         /// <summary>
         /// Сохранения файла.
@@ -43,22 +43,22 @@ namespace Lotus.Windows
         /// <summary>
         /// Сохранение файла под новым именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_save">Параметры сохранения файла.</param>
-        void SaveAsFile(string file_name, CParameters? parameters_save);
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersSave">Параметры сохранения файла.</param>
+        void SaveAsFile(string fileName, CParameters? parametersSave);
 
         /// <summary>
         /// Печать файла.
         /// </summary>
-        /// <param name="parameters_print">Параметры печати файла.</param>
-        void PrintFile(CParameters? parameters_print);
+        /// <param name="parametersPrint">Параметры печати файла.</param>
+        void PrintFile(CParameters? parametersPrint);
 
         /// <summary>
         /// Экспорт файла под указанным именем и параметрами.
         /// </summary>
-        /// <param name="file_name">Полное имя файла.</param>
-        /// <param name="parameters_export">Параметры для экспорта файла.</param>
-        void ExportFile(string file_name, CParameters? parameters_export);
+        /// <param name="fileName">Полное имя файла.</param>
+        /// <param name="parametersExport">Параметры для экспорта файла.</param>
+        void ExportFile(string fileName, CParameters? parametersExport);
 
         /// <summary>
         /// Закрытие файла.

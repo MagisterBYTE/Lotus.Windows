@@ -14,7 +14,7 @@ namespace Lotus.Windows
     /// Статический класс реализующий методы сериализации базовых классов и данных подсистемы WPF.
     /// </summary>
     /// <remarks>
-    /// Для обеспечения большей гибкости и универсальности сериализация базовых базовых классов и данных
+    /// Для обеспечения большей гибкости и универсальности сериализация базовых классов и данных
     /// подсистемы WPF в формате XML предусмотрена только в формате атрибутов элементов XML
     /// </remarks>
     public static class XWindowsSerialization
@@ -363,27 +363,27 @@ namespace Lotus.Windows
         /// <summary>
         /// Запись значение цвета в формат атрибутов.
         /// </summary>
-        /// <param name="xml_writer">Средство записи данных в формат XML.</param>
+        /// <param name="xmlWriter">Средство записи данных в формат XML.</param>
         /// <param name="name">Имя атрибута.</param>
         /// <param name="color">Цвет.</param>
-        public static void WriteWinColorToAttribute(this XmlWriter xml_writer, string name, Color color)
+        public static void WriteWinColorToAttribute(this XmlWriter xmlWriter, string name, Color color)
         {
-            xml_writer.WriteStartAttribute(name);
-            xml_writer.WriteValue(color.SerializeToString());
-            xml_writer.WriteEndAttribute();
+            xmlWriter.WriteStartAttribute(name);
+            xmlWriter.WriteValue(color.SerializeToString());
+            xmlWriter.WriteEndAttribute();
         }
 
         /// <summary>
         /// Запись данных двухмерного вектора в формат атрибутов.
         /// </summary>
-        /// <param name="xml_writer">Средство записи данных в формат XML.</param>
+        /// <param name="xmlWriter">Средство записи данных в формат XML.</param>
         /// <param name="name">Имя атрибута.</param>
         /// <param name="vector">Двухмерный вектор.</param>
-        public static void WriteWinVectorToAttribute(this XmlWriter xml_writer, string name, Vector vector)
+        public static void WriteWinVectorToAttribute(this XmlWriter xmlWriter, string name, Vector vector)
         {
-            xml_writer.WriteStartAttribute(name);
-            xml_writer.WriteValue(vector.SerializeToString());
-            xml_writer.WriteEndAttribute();
+            xmlWriter.WriteStartAttribute(name);
+            xmlWriter.WriteValue(vector.SerializeToString());
+            xmlWriter.WriteEndAttribute();
         }
         #endregion
 
@@ -391,30 +391,30 @@ namespace Lotus.Windows
         /// <summary>
         /// Чтение данных цветового значения из формата атрибутов.
         /// </summary>
-        /// <param name="xml_reader">Средство чтения данных формата XML.</param>
+        /// <param name="xmlReader">Средство чтения данных формата XML.</param>
         /// <param name="name">Имя атрибута.</param>
-        /// <param name="default_value">Значение по умолчанию в случает отсутствия атрибута.</param>
+        /// <param name="defaultValue">Значение по умолчанию в случает отсутствия атрибута.</param>
         /// <returns>Цветовое значение.</returns>
-        public static Color ReadWinColorFromAttribute(this XmlReader xml_reader, string name, Color default_value)
+        public static Color ReadWinColorFromAttribute(this XmlReader xmlReader, string name, Color defaultValue)
         {
             string? value;
-            if ((value = xml_reader.GetAttribute(name)) != null)
+            if ((value = xmlReader.GetAttribute(name)) != null)
             {
                 return XWindowsColorExtension.DeserializeFromString(value);
             }
-            return default_value;
+            return defaultValue;
         }
 
         /// <summary>
         /// Чтение данных двухмерного вектора из формата атрибутов.
         /// </summary>
-        /// <param name="xml_reader">Средство чтения данных формата XML.</param>
+        /// <param name="xmlReader">Средство чтения данных формата XML.</param>
         /// <param name="name">Имя атрибута.</param>
         /// <returns>Двухмерный вектор.</returns>
-        public static Vector ReadWinVectorFromAttribute(this XmlReader xml_reader, string name)
+        public static Vector ReadWinVectorFromAttribute(this XmlReader xmlReader, string name)
         {
             string? value;
-            if ((value = xml_reader.GetAttribute(name)) != null)
+            if ((value = xmlReader.GetAttribute(name)) != null)
             {
                 return XWindowsVectorExtension.DeserializeFromString(value);
             }

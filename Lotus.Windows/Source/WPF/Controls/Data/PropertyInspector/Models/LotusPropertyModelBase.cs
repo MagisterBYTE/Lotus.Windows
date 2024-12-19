@@ -69,7 +69,7 @@ namespace Lotus.Windows
     public class CPropertyModelBase : PropertyChangedBase, IComparable<CPropertyModelBase>, IDisposable
     {
         #region Static fields
-        protected static readonly PropertyChangedEventArgs PropertyArgsIsValueFromList = new PropertyChangedEventArgs(nameof(IsValueFromList));
+        protected static readonly PropertyChangedEventArgs PropertyArgsIsValueFromList = new(nameof(IsValueFromList));
         #endregion
 
         #region Fields
@@ -396,36 +396,36 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        public CPropertyModelBase(PropertyInfo property_info)
-            : this(property_info, TPropertyType.Unknow)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        public CPropertyModelBase(PropertyInfo propertyInfo)
+            : this(propertyInfo, TPropertyType.Unknow)
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_type">Допустимый тип свойства.</param>
-        public CPropertyModelBase(PropertyInfo property_info, TPropertyType property_type)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyType">Допустимый тип свойства.</param>
+        public CPropertyModelBase(PropertyInfo propertyInfo, TPropertyType propertyType)
         {
-            _info = property_info;
-            _propertyType = property_type;
+            _info = propertyInfo;
+            _propertyType = propertyType;
             ApplyInfoFromAttributes();
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="property_info">Метаданные свойства.</param>
-        /// <param name="property_desc">Список описания свойства.</param>
-        /// <param name="property_type">Допустимый тип свойства.</param>
-        public CPropertyModelBase(PropertyInfo property_info, List<CPropertyDesc> property_desc,
-            TPropertyType property_type)
+        /// <param name="propertyInfo">Метаданные свойства.</param>
+        /// <param name="propertyDesc">Список описания свойства.</param>
+        /// <param name="propertyType">Допустимый тип свойства.</param>
+        public CPropertyModelBase(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc,
+            TPropertyType propertyType)
         {
-            _info = property_info;
-            _propertyType = property_type;
-            ApplyInfoFromDecs(property_desc);   // Имеет преимущество
+            _info = propertyInfo;
+            _propertyType = propertyType;
+            ApplyInfoFromDecs(propertyDesc);   // Имеет преимущество
             ApplyInfoFromAttributes();
         }
         #endregion
@@ -469,7 +469,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Преобразование к текстовому представлению.
         /// </summary>
-        /// <returns>Краткое наименование финасового инструмента.</returns>
+        /// <returns>Краткое наименование финансового инструмента.</returns>
         public override string ToString()
         {
             return DisplayName;
@@ -652,10 +652,7 @@ namespace Lotus.Windows
         public virtual void SetValue(object value)
         {
             // Устанавливаем значение свойства объекта
-            if (_info != null)
-            {
-                _info.SetValue(_instance, value, null);
-            }
+            _info?.SetValue(_instance, value, null);
         }
 
         /// <summary>
@@ -669,19 +666,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Заполнить контекстное меню списком допустимых значений.
         /// </summary>
-        /// <param name="context_menu">Контекстное меню.</param>
-        public virtual void AssingContenxMenuListValues(ContextMenu context_menu)
+        /// <param name="contextMenu">Контекстное меню.</param>
+        public virtual void AssingContenxMenuListValues(ContextMenu contextMenu)
         {
             if (IsListValues)
             {
                 var enumerable = CPropertyDesc.GetValue(_listValues, _listValuesMemberName,
                     _listValuesMemberType, _instance) as IEnumerable;
-                if (context_menu != null && enumerable != null)
+                if (contextMenu != null && enumerable != null)
                 {
-                    context_menu.Items.Clear();
+                    contextMenu.Items.Clear();
                     foreach (var item in enumerable)
                     {
-                        context_menu.Items.Add(new MenuItem() { Header = item, Tag = this });
+                        contextMenu.Items.Add(new MenuItem() { Header = item, Tag = this });
                     }
                 }
             }

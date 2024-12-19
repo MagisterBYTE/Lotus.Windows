@@ -13,11 +13,11 @@ namespace Lotus.Windows
         /// Установить текст для указанного элемента Run.
         /// </summary>
         /// <param name="this">Документ.</param>
-        /// <param name="run_name">Имя элемента Run.</param>
+        /// <param name="runName">Имя элемента Run.</param>
         /// <param name="text">Текст.</param>
-        public static void SetTextForRunName(this FlowDocument @this, string run_name, string text)
+        public static void SetTextForRunName(this FlowDocument @this, string runName, string text)
         {
-            var run = @this.FindName(run_name) as Run;
+            var run = @this.FindName(runName) as Run;
             if (run != null)
             {
                 run.Text = text;

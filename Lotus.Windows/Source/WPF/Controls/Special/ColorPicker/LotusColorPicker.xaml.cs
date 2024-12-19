@@ -34,7 +34,7 @@ namespace Lotus.Windows
             new FrameworkPropertyMetadata(new PropertyChangedCallback(OnColorRGBChanged)));
 
         /// <summary>
-        /// Синия компонента цвета.
+        /// Синий компонент цвета.
         /// </summary>
         public static readonly DependencyProperty BlueProperty = DependencyProperty.Register(nameof(Blue),
             typeof(byte), typeof(LotusColorPicker),
@@ -111,7 +111,7 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Синия компонента цвета.
+        /// Синий компонента цвета.
         /// </summary>
         public byte Blue
         {

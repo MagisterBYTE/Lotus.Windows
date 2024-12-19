@@ -16,9 +16,9 @@ namespace Lotus.Windows
     public class CQueryItemNumber : CQueryItem
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsComparisonOperator = new PropertyChangedEventArgs(nameof(ComparisonOperator));
-        private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueLeft = new PropertyChangedEventArgs(nameof(ComparisonValueLeft));
-        private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueRight = new PropertyChangedEventArgs(nameof(ComparisonValueRight));
+        private static readonly PropertyChangedEventArgs PropertyArgsComparisonOperator = new(nameof(ComparisonOperator));
+        private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueLeft = new(nameof(ComparisonValueLeft));
+        private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueRight = new(nameof(ComparisonValueRight));
         #endregion
 
         #region Fields
@@ -44,7 +44,7 @@ namespace Lotus.Windows
                     _comparisonOperator = value;
                     OnPropertyChanged(PropertyArgsComparisonOperator);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonOperator));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(ComparisonOperator));
                 }
             }
         }
@@ -65,7 +65,7 @@ namespace Lotus.Windows
                     _comparisonValueLeft = value;
                     OnPropertyChanged(PropertyArgsComparisonValueLeft);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(ComparisonValueLeft));
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace Lotus.Windows
                     _comparisonValueRight = value;
                     OnPropertyChanged(PropertyArgsComparisonValueRight);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    if (QueryOwned != null) QueryOwned.OnNotifyUpdated(this, nameof(_comparisonValueRight));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(_comparisonValueRight));
                 }
             }
         }
@@ -103,24 +103,24 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="comparison_operator">Оператор сравнения.</param>
-        /// <param name="comparison_value">Значение для сравнения.</param>
-        public CQueryItemNumber(TComparisonOperator comparison_operator, double comparison_value)
+        /// <param name="comparisonOperator">Оператор сравнения.</param>
+        /// <param name="comparisonValue">Значение для сравнения.</param>
+        public CQueryItemNumber(TComparisonOperator comparisonOperator, double comparisonValue)
         {
-            _comparisonOperator = comparison_operator;
-            _comparisonValueLeft = comparison_value;
+            _comparisonOperator = comparisonOperator;
+            _comparisonValueLeft = comparisonValue;
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="comparison_value_left">Значение для сравнения слева.</param>
-        /// <param name="comparison_value_right">Значение для сравнения справа.</param>
-        public CQueryItemNumber(double comparison_value_left, double comparison_value_right)
+        /// <param name="comparisonValueLeft">Значение для сравнения слева.</param>
+        /// <param name="comparisonValueRight">Значение для сравнения справа.</param>
+        public CQueryItemNumber(double comparisonValueLeft, double comparisonValueRight)
         {
             _comparisonOperator = TComparisonOperator.Equality;
-            _comparisonValueLeft = comparison_value_left;
-            _comparisonValueRight = comparison_value_right;
+            _comparisonValueLeft = comparisonValueLeft;
+            _comparisonValueRight = comparisonValueRight;
         }
         #endregion
 
@@ -141,9 +141,9 @@ namespace Lotus.Windows
         /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
-        /// <param name="sql_query">SQL запрос.</param>
+        /// <param name="sqlQuery">SQL запрос.</param>
         /// <returns>Статус формирования элемента запроса.</returns>
-        public override bool ComputeSQLQuery(ref string sql_query)
+        public override bool ComputeSQLQuery(ref string sqlQuery)
         {
             if (_notCalculation == false && double.IsInfinity(_comparisonValueLeft) == false &&
                 double.IsNaN(_comparisonValueLeft) == false)
@@ -173,18 +173,20 @@ namespace Lotus.Windows
         /// <summary>
         /// Привязка выпадающего списка к оператору сравнения.
         /// </summary>
-        /// <param name="combo_box">Выпадающий список.</param>
-        public void BindingComboBoxToComparisonOperator(in System.Windows.Controls.ComboBox combo_box)
+        /// <param name="comboBox">Выпадающий список.</param>
+        public void BindingComboBoxToComparisonOperator(in System.Windows.Controls.ComboBox comboBox)
         {
-            if (combo_box != null)
+            if (comboBox != null)
             {
-                var binding = new System.Windows.Data.Binding();
-                binding.Source = this;
-                binding.Path = new System.Windows.PropertyPath(path: nameof(ComparisonOperator));
-                binding.Converter = EnumToStringConverter.Instance;
+                var binding = new System.Windows.Data.Binding
+                {
+                    Source = this,
+                    Path = new System.Windows.PropertyPath(path: nameof(ComparisonOperator)),
+                    Converter = EnumToStringConverter.Instance
+                };
 
-                combo_box.ItemsSource = XEnumHelper.GetDescriptions(typeof(TComparisonOperator));
-                System.Windows.Data.BindingOperations.SetBinding(combo_box,
+                comboBox.ItemsSource = XEnumHelper.GetDescriptions(typeof(TComparisonOperator));
+                System.Windows.Data.BindingOperations.SetBinding(comboBox,
                     System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
             }
         }

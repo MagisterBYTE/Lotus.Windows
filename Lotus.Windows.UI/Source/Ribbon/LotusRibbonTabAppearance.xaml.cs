@@ -109,14 +109,18 @@ namespace Lotus.Windows
 
                 if (!string.IsNullOrEmpty(control))
                 {
-                    var resource_controls = new ResourceDictionary();
-                    resource_controls.Source = new Uri(control, UriKind.Absolute);
+                    var resource_controls = new ResourceDictionary
+                    {
+                        Source = new Uri(control, UriKind.Absolute)
+                    };
                     Application.Current.Resources.MergedDictionaries.Add(resource_controls);
                 }
                 if (!string.IsNullOrEmpty(toolkit))
                 {
-                    var resource_toolkit = new ResourceDictionary();
-                    resource_toolkit.Source = new Uri(toolkit, UriKind.Absolute);
+                    var resource_toolkit = new ResourceDictionary
+                    {
+                        Source = new Uri(toolkit, UriKind.Absolute)
+                    };
                     this.Resources.MergedDictionaries.Add(resource_toolkit);
                 }
             }
