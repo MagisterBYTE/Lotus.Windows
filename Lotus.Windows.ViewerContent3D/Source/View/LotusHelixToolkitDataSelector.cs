@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-using HelixToolkit.SharpDX.Core.Model.Scene;
+using HelixToolkit.SharpDX.Model.Scene;
 
 namespace Lotus.Windows
 {

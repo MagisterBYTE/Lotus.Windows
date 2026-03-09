@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -6,27 +7,28 @@ namespace Lotus.Windows
     /** \addtogroup WindowsWPFControlsData
 	*@{*/
     /// <summary>
-    /// Элемент служащий для формирования элемента запроса для строковых типов данных.
+    /// Элемент служащий для формирования элемента запроса для числовых типов данных.
     /// </summary>
     public partial class LotusColumnNumberFilter : UserControl
     {
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Элемент запроса для числовых данных.
         /// </summary>
         public static readonly DependencyProperty QueryItemProperty = DependencyProperty.Register(nameof(QueryItem),
-            typeof(CQueryItemNumber), typeof(LotusColumnNumberFilter),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            typeof(QueryItemNumber), typeof(LotusColumnNumberFilter),
+            new FrameworkPropertyMetadata(null));
         #endregion
 
         #region Properties
         /// <summary>
         /// Элемент запроса для числовых данных.
         /// </summary>
-        public CQueryItemNumber QueryItem
+        [Browsable(false)]
+        public QueryItemNumber? QueryItem
         {
-            get { return (CQueryItemNumber)GetValue(QueryItemProperty); }
-            set { SetValue(QueryItemProperty, value); }
+            get => (QueryItemNumber?)GetValue(QueryItemProperty);
+            set => SetValue(QueryItemProperty, value);
         }
         #endregion
 
@@ -37,20 +39,6 @@ namespace Lotus.Windows
         public LotusColumnNumberFilter()
         {
             InitializeComponent();
-            QueryItem = new CQueryItemNumber();
-            QueryItem.BindingComboBoxToComparisonOperator(comboOperator);
-        }
-        #endregion
-
-        #region Event handlers 
-        /// <summary>
-        /// Выбор оператора сравнения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnComboOperator_SelectionChanged(object sender, SelectionChangedEventArgs args)
-        {
-            // Method intentionally left empty.
         }
         #endregion
     }

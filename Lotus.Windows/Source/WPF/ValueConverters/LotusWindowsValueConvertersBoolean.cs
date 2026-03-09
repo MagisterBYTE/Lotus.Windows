@@ -100,7 +100,7 @@ namespace Lotus.Windows
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var val = (bool)value;
-            return val;
+            return !val;
         }
         #endregion
     }

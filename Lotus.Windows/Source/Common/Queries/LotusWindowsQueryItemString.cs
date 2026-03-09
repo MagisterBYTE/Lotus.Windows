@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 
 using Lotus.Core;
@@ -10,39 +11,59 @@ namespace Lotus.Windows
     /// Класс представляющий элемент запроса для строковых значений.
     /// </summary>
     /// <remarks>
-    /// Поддерживаются опции поиска представление типом <see cref="TStringSearchOption"/> и стандартная операция LIKE.
+    /// Поддерживаются стандартные операторы для строк и стандартная операция LIKE.
     /// </remarks>
-    public class CQueryItemString : CQueryItem
+    public class QueryItemString : QueryItem
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsSearchOption = new(nameof(SearchOption));
+        private static readonly PropertyChangedEventArgs PropertyArgsFilterFunction = new(nameof(FilterFunction));
         private static readonly PropertyChangedEventArgs PropertyArgsSearchValue = new(nameof(SearchValue));
+        private static readonly TFilterFunction[] FilterFunctionsStatic =
+        [
+            TFilterFunction.Equals,
+            TFilterFunction.NotEqual,
+            TFilterFunction.Contains,
+            TFilterFunction.StartsWith,
+            TFilterFunction.EndsWith,
+            TFilterFunction.Like
+        ];
         #endregion
 
         #region Fields
-        protected internal TStringSearchOption _searchOption;
+        protected internal TFilterFunction _filterFunction;
         protected internal string _searchValue;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Опции поиска в строке.
+        /// Функция фильтрации.
         /// </summary>
-        public TStringSearchOption SearchOption
+        public TFilterFunction FilterFunction
         {
             get
             {
-                return _searchOption;
+                return _filterFunction;
             }
             set
             {
-                if (_searchOption != value)
+                if (_filterFunction != value)
                 {
-                    _searchOption = value;
-                    OnPropertyChanged(PropertyArgsSearchOption);
+                    _filterFunction = value;
+                    OnPropertyChanged(PropertyArgsFilterFunction);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    QueryOwned?.OnNotifyUpdated(this, nameof(SearchOption));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(FilterFunction));
                 }
+            }
+        }
+
+        /// <summary>
+        /// Набор доступных функций фильтрации для DateTime
+        /// </summary>
+        public TFilterFunction[] FilterFunctions
+        {
+            get
+            {
+                return QueryItemString.FilterFunctionsStatic;
             }
         }
 
@@ -72,18 +93,18 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CQueryItemString()
+        public QueryItemString()
         {
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="searchOption">Опции поиска в строке.</param>
+        /// <param name="filterFunction">Функция фильтрации.</param>
         /// <param name="searchValue">Значение для сравнения.</param>
-        public CQueryItemString(TStringSearchOption searchOption, string searchValue)
+        public QueryItemString(TFilterFunction filterFunction, string searchValue)
         {
-            _searchOption = searchOption;
+            _filterFunction = filterFunction;
             _searchValue = searchValue;
         }
         #endregion
@@ -103,6 +124,74 @@ namespace Lotus.Windows
 
         #region Main methods
         /// <summary>
+        /// Проверяет, соответствует ли объект текущему условию фильтрации.
+        /// </summary>
+        /// <param name="item">Проверяемый объект.</param>
+        /// <returns>Статус проверки.</returns>
+        public override bool MatchesFilter(object? item)
+        {
+            if (item is null) return false;
+
+            // Извлекаем свойство
+            var valueRaw = XReflection.GetPropertyValue(item, PropertyName);
+
+            if (valueRaw is null) return false;
+
+            var value = valueRaw.ToString();
+
+            if (value is null) return false;
+
+            var status = false;
+            switch (_filterFunction)
+            {
+                case TFilterFunction.Equals:
+                    status = _searchValue == value;
+                    break;
+                case TFilterFunction.NotEqual:
+                    status = _searchValue != value;
+                    break;
+                case TFilterFunction.LessThan:
+                    break;
+                case TFilterFunction.LessThanOrEqual:
+                    break;
+                case TFilterFunction.GreaterThan:
+                    break;
+                case TFilterFunction.GreaterThanOrEqual:
+                    break;
+                case TFilterFunction.Between:
+                    break;
+                case TFilterFunction.Contains:
+                    status = value.Contains(_searchValue, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case TFilterFunction.StartsWith:
+                    status = value.StartsWith(_searchValue, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case TFilterFunction.EndsWith:
+                    status = value.EndsWith(_searchValue, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case TFilterFunction.Like:
+                    status = value.Contains(_searchValue, StringComparison.OrdinalIgnoreCase);
+                    break;
+                case TFilterFunction.NotEmpty:
+                    break;
+                case TFilterFunction.Empty:
+                    break;
+                case TFilterFunction.IncludeAny:
+                    break;
+                case TFilterFunction.IncludeAll:
+                    break;
+                case TFilterFunction.IncludeEquals:
+                    break;
+                case TFilterFunction.IncludeNone:
+                    break;
+                default:
+                    break;
+            }
+
+            return status;
+        }
+
+        /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
         /// <param name="sqlQuery">SQL запрос.</param>
@@ -111,24 +200,24 @@ namespace Lotus.Windows
         {
             if ((_notCalculation == false) && (string.IsNullOrEmpty(_searchValue) == false))
             {
-                switch (_searchOption)
+                switch (_filterFunction)
                 {
-                    case TStringSearchOption.Start:
+                    case TFilterFunction.StartsWith:
                         {
                             sqlQuery += " " + _propertyName + " LIKE '" + _searchValue + "%'";
                         }
                         break;
-                    case TStringSearchOption.End:
+                    case TFilterFunction.EndsWith:
                         {
                             sqlQuery += " " + _propertyName + " LIKE '%" + _searchValue + "'";
                         }
                         break;
-                    case TStringSearchOption.Contains:
+                    case TFilterFunction.Contains:
                         {
                             sqlQuery += " " + _propertyName + " LIKE '%" + _searchValue + "%'";
                         }
                         break;
-                    case TStringSearchOption.Equal:
+                    case TFilterFunction.Equals:
                         break;
                     default:
                         break;
@@ -139,50 +228,6 @@ namespace Lotus.Windows
 
             return false;
         }
-        #endregion
-
-        #region Binding methods
-#if USE_WINDOWS
-        /// <summary>
-        /// Привязка текстового поля к строке поиска.
-        /// </summary>
-        /// <param name="textBox">Текстовое поле.</param>
-        public void BindingTextBoxToSearchValue(in System.Windows.Controls.TextBox textBox)
-        {
-            if (textBox != null)
-            {
-                var binding = new System.Windows.Data.Binding
-                {
-                    Source = this,
-                    Path = new System.Windows.PropertyPath(path: nameof(SearchValue))
-                };
-
-                System.Windows.Data.BindingOperations.SetBinding(textBox,
-                    System.Windows.Controls.TextBox.TextProperty, binding);
-            }
-        }
-
-        /// <summary>
-        /// Привязка выпадающего списка к опциям поиска.
-        /// </summary>
-        /// <param name="comboBox">Выпадающий список.</param>
-        public void BindingComboBoxToSearchOption(in System.Windows.Controls.ComboBox comboBox)
-        {
-            if (comboBox != null)
-            {
-                var binding = new System.Windows.Data.Binding
-                {
-                    Source = this,
-                    Path = new System.Windows.PropertyPath(path: nameof(SearchOption)),
-                    Converter = EnumToStringConverter.Instance
-                };
-
-                comboBox.ItemsSource = XEnumHelper.GetDescriptions(typeof(TStringSearchOption));
-                System.Windows.Data.BindingOperations.SetBinding(comboBox,
-                    System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
-            }
-        }
-#endif
         #endregion
     }
     /**@}*/

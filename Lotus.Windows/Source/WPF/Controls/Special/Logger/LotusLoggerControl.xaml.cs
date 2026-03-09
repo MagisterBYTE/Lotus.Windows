@@ -1,7 +1,5 @@
 using System;
-using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,17 +9,13 @@ using Lotus.Core;
 
 namespace Lotus.Windows
 {
-    /**
-     * \defgroup WindowsWPFControlsSpecial Специальные элементы
-     * \ingroup WindowsWPFControls
-     * \brief Специальные элементы.
-     * @{
-     */
+    /** \addtogroup WindowsWPFControlsSpecial
+	*@{*/
     /// <summary>
     /// Конвертер типа <see cref="TLogType"/> в соответствующую графическую пиктограмму.
     /// </summary>
     [ValueConversion(typeof(TLogType), typeof(BitmapSource))]
-    public sealed class CLogTypeToImageConverter : IValueConverter
+    public sealed class LogTypeToImageConverter : IValueConverter
     {
         #region Properties
         /// <summary>
@@ -50,7 +44,7 @@ namespace Lotus.Windows
         public BitmapSource Failed { get; set; }
         #endregion
 
-        #region Methods 
+        #region Methods
         /// <summary>
         /// Конвертация объекта TLogType в соответствующую графическую пиктограмму.
         /// </summary>
@@ -65,36 +59,13 @@ namespace Lotus.Windows
             BitmapSource? bitmap;
             switch (val)
             {
-                case TLogType.Info:
-                    {
-                        bitmap = Info;
-                    }
-                    break;
-                case TLogType.Warning:
-                    {
-                        bitmap = Warning;
-                    }
-                    break;
-                case TLogType.Error:
-                    {
-                        bitmap = Error;
-                    }
-                    break;
-                case TLogType.Succeed:
-                    {
-                        bitmap = Succeed;
-                    }
-                    break;
-                case TLogType.Failed:
-                    {
-                        bitmap = Failed;
-                    }
-                    break;
-                default:
-                    bitmap = Info;
-                    break;
+                case TLogType.Info: bitmap = Info; break;
+                case TLogType.Warning: bitmap = Warning; break;
+                case TLogType.Error: bitmap = Error; break;
+                case TLogType.Succeed: bitmap = Succeed; break;
+                case TLogType.Failed: bitmap = Failed; break;
+                default: bitmap = Info; break;
             }
-
             return bitmap;
         }
 
@@ -106,19 +77,16 @@ namespace Lotus.Windows
         /// <param name="parameter">Дополнительный параметр.</param>
         /// <param name="culture">Культура.</param>
         /// <returns>Объект TLogType.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null!;
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null!;
         #endregion
     }
 
     /// <summary>
     /// Селектор шаблона данных для отображения сообщения.
     /// </summary>
-    public class CLogViewItemDataSelector : DataTemplateSelector
+    public class LogViewItemDataSelector : DataTemplateSelector
     {
-        #region Fields
+        #region Properties
         /// <summary>
         /// Шаблон для представления простого сообщения.
         /// </summary>
@@ -140,7 +108,7 @@ namespace Lotus.Windows
         public DataTemplate TraceModule { get; set; }
         #endregion
 
-        #region Main methods
+        #region Methods
         /// <summary>
         /// Выбор шаблона привязки данных.
         /// </summary>
@@ -152,27 +120,9 @@ namespace Lotus.Windows
             var message = (LogMessage)item;
 
             if (string.IsNullOrEmpty(message.Module))
-            {
-                if (string.IsNullOrEmpty(message.MemberName))
-                {
-                    return Simple;
-                }
-                else
-                {
-                    return Trace;
-                }
-            }
+                return string.IsNullOrEmpty(message.MemberName) ? Simple : Trace;
             else
-            {
-                if (string.IsNullOrEmpty(message.MemberName))
-                {
-                    return SimpleModule;
-                }
-                else
-                {
-                    return TraceModule;
-                }
-            }
+                return string.IsNullOrEmpty(message.MemberName) ? SimpleModule : TraceModule;
         }
         #endregion
     }
@@ -180,45 +130,67 @@ namespace Lotus.Windows
     /// <summary>
     /// Панель для ведения лога и вывода вспомогательной информации.
     /// </summary>
-    public partial class LotusLoggerControl : UserControl, ILotusLoggerView, INotifyPropertyChanged
+    public class LotusLoggerControl : UserControl, ILotusLoggerView
     {
         #region Fields
         private ListArray<LogMessage> _messages;
+        private ListBox? _listBox;
         #endregion
 
         #region Properties
         /// <summary>
         /// Все сообщения.
         /// </summary>
-        public ListArray<LogMessage> Messages
-        {
-            get { return _messages; }
-        }
+        public ListArray<LogMessage> Messages => _messages;
         #endregion
 
         #region Constructors
+        static LotusLoggerControl()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LotusLoggerControl),
+                new FrameworkPropertyMetadata(typeof(LotusLoggerControl)));
+        }
+
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
         public LotusLoggerControl()
         {
-            InitializeComponent();
             _messages = [];
             _messages.IsNotify = true;
-            outputData.ItemsSource = _messages;
         }
         #endregion
 
-        #region ILoggerView methods
+        #region System methods
+        /// <inheritdoc />
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            if (GetTemplateChild("buttonClear") is Button buttonClear)
+                buttonClear.Click += OnButtonMessageClear_Click;
+
+            if (GetTemplateChild("buttonSave") is Button buttonSave)
+                buttonSave.Click += OnButtonSave_Click;
+
+            if (GetTemplateChild("outputData") is ListBox listBox)
+            {
+                _listBox = listBox;
+                _listBox.ItemsSource = _messages;
+            }
+        }
+        #endregion
+
+        #region ILotusLoggerView methods
         /// <summary>
         /// Добавление сообщения.
         /// </summary>
-        /// <param name="text">Имя сообщения.</param>
+        /// <param name="text">Текст сообщения.</param>
         /// <param name="type">Тип сообщения.</param>
         public void Log(string text, TLogType type)
         {
             _messages.Add(new LogMessage(text, type));
-            outputData.ScrollIntoView(_messages[_messages.Count - 1]);
+            _listBox?.ScrollIntoView(_messages[_messages.Count - 1]);
         }
 
         /// <summary>
@@ -228,23 +200,23 @@ namespace Lotus.Windows
         public void Log(LogMessage message)
         {
             _messages.Add(message);
-            outputData.ScrollIntoView(_messages[_messages.Count - 1]);
+            _listBox?.ScrollIntoView(_messages[_messages.Count - 1]);
         }
 
         /// <summary>
-        /// Добавление сообщения.
+        /// Добавление сообщения с указанием модуля.
         /// </summary>
         /// <param name="moduleName">Имя модуля.</param>
-        /// <param name="text">Имя сообщения.</param>
+        /// <param name="text">Текст сообщения.</param>
         /// <param name="type">Тип сообщения.</param>
         public void LogModule(string moduleName, string text, TLogType type)
         {
             _messages.Add(new LogMessage(moduleName, text, type));
-            outputData.ScrollIntoView(_messages[_messages.Count - 1]);
+            _listBox?.ScrollIntoView(_messages[_messages.Count - 1]);
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
         /// Очистка списка сообщений.
         /// </summary>
@@ -256,44 +228,13 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Очистка списка сообщений.
+        /// Сохранение лога в файл.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonSave_Click(object sender, RoutedEventArgs args)
         {
             XLogger.SaveToText("Log.txt");
-        }
-        #endregion
-
-        #region Interface INotifyPropertyChanged 
-        /// <summary>
-        /// Событие срабатывает ПОСЛЕ изменения свойства.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Вспомогательный метод для нотификации изменений свойства.
-        /// </summary>
-        /// <param name="propertyName">Имя свойства.</param>
-        public void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        /// <summary>
-        /// Вспомогательный метод для нотификации изменений свойства.
-        /// </summary>
-        /// <param name="args">Аргументы события.</param>
-        public void NotifyPropertyChanged(PropertyChangedEventArgs args)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, args);
-            }
         }
         #endregion
     }

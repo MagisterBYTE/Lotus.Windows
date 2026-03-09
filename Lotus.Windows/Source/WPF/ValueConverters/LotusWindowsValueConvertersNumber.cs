@@ -37,7 +37,7 @@ namespace Lotus.Windows
         /// <returns>Значение.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return XConverter.ToNumber(targetType, (double)value);
+            return XNumberConverter.ToNumber(targetType, (double)value);
         }
         #endregion
     }
@@ -71,7 +71,7 @@ namespace Lotus.Windows
         /// <returns>Значение.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return XConverter.ToNumber(targetType, (decimal)value);
+            return XNumberConverter.ToNumber(targetType, (decimal)value);
         }
         #endregion
     }

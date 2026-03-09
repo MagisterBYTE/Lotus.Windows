@@ -11,13 +11,13 @@ namespace Lotus.Windows
     /// </summary>
     public partial class LotusColumnStringFilter : UserControl
     {
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Элемент запроса для строковых данных.
         /// </summary>
         public static readonly DependencyProperty QueryItemProperty = DependencyProperty.Register(nameof(QueryItem),
-            typeof(CQueryItemString), typeof(LotusColumnStringFilter),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            typeof(QueryItemString), typeof(LotusColumnStringFilter),
+            new FrameworkPropertyMetadata(null));
         #endregion
 
         #region Properties
@@ -25,10 +25,10 @@ namespace Lotus.Windows
         /// Элемент запроса для строковых данных.
         /// </summary>
         [Browsable(false)]
-        public CQueryItemString QueryItem
+        public QueryItemString? QueryItem
         {
-            get { return (CQueryItemString)GetValue(QueryItemProperty); }
-            set { SetValue(QueryItemProperty, value); }
+            get => (QueryItemString?)GetValue(QueryItemProperty);
+            set => SetValue(QueryItemProperty, value);
         }
         #endregion
 
@@ -39,8 +39,6 @@ namespace Lotus.Windows
         public LotusColumnStringFilter()
         {
             InitializeComponent();
-            QueryItem = new CQueryItemString();
-            QueryItem.BindingComboBoxToSearchOption(comboSearchOption);
         }
         #endregion
     }

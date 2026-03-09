@@ -1,4 +1,6 @@
+using System;
 using System.ComponentModel;
+using System.Reflection;
 
 using Lotus.Core;
 
@@ -11,86 +13,131 @@ namespace Lotus.Windows
      * @{
      */
     /// <summary>
-    /// Оператор сравнения.
+    /// Функции для фильтрации данных.
     /// </summary>
-    public enum TComparisonOperator
+    public enum TFilterFunction
     {
         /// <summary>
-        /// Равно.
+        /// Равно аргументу.
         /// </summary>
-        [LotusAbbreviation("=")]
-        Equality,
+        Equals = 0,
 
         /// <summary>
-        /// Не равно.
+        /// Не равно аргументу.
         /// </summary>
-        [LotusAbbreviation("!=")]
-        Inequality,
+        NotEqual = 1,
 
         /// <summary>
-        /// Меньше.
+        /// Меньше аргумента.
         /// </summary>
-        [LotusAbbreviation("<")]
-        LessThan,
+        LessThan = 2,
 
         /// <summary>
-        /// Меньше или равно.
+        /// Меньше или равно аргумента.
         /// </summary>
-        [LotusAbbreviation("<=")]
-        LessThanOrEqual,
+        LessThanOrEqual = 3,
 
         /// <summary>
-        /// Больше.
+        /// Больше аргумента.
         /// </summary>
-        [LotusAbbreviation(">")]
-        GreaterThan,
+        GreaterThan = 4,
 
         /// <summary>
-        /// Больше или равно.
+        /// Больше или равно аргумента.
         /// </summary>
-        [LotusAbbreviation(">=")]
-        GreaterThanOrEqual
+        GreaterThanOrEqual = 5,
+
+        /// <summary>
+        /// Между первым аргументом (меньшим) и вторым аргументом (большим).
+        /// </summary>
+        Between = 6,
+
+        /// <summary>
+        /// Аргумент(строка) может находиться в любом месте с учётом регистра.
+        /// Аргумент(иной) значение должно присутствовать в аргументе массива.
+        /// </summary>
+        Contains = 7,
+
+        /// <summary>
+        /// Аргумент(строка) должна находиться в начале с учётом регистра.
+        /// </summary>
+        StartsWith = 8,
+
+        /// <summary>
+        /// Аргумент(строка) должна находиться в конце с учётом регистра.
+        /// </summary>
+        EndsWith = 9,
+
+        /// <summary>
+        /// Аргумент(строка) должна сравниваться с учётом оператора Like.
+        /// </summary>
+        Like = 10,
+
+        /// <summary>
+        /// Не равно пустой или NULL строке. Аргумент НЕ требуется.
+        /// Не равно значению NULL для иных объектов.
+        /// </summary>
+        NotEmpty = 11,
+
+        /// <summary>
+        /// Равно пустой или NULL строке. Аргумент НЕ требуется.
+        /// Равно значению NULL для иных объектов.
+        /// </summary>
+        Empty = 12,
+
+        /// <summary>
+        /// Любой из проверяемых элементов списка должен находиться в массиве аргумента.
+        /// </summary>
+        /// <remarks>
+        /// filter [1, 2]
+        /// item01 [1,2,3] -> true
+        /// item02 [4,2,3] -> true
+        /// item03 [2,3]   -> true
+        /// item04 [1,2]   -> true
+        /// item05 [4,5]   -> false
+        /// </remarks>
+        IncludeAny = 13,
+
+        /// <summary>
+        /// Все из проверяемых элементов списка должен находиться в массиве аргумента.
+        /// </summary>
+        /// <remarks>
+        /// filter [1, 2]
+        /// item01 [1,2,3] -> true
+        /// item02 [4,2,3] -> false
+        /// item03 [2,3]   -> false
+        /// item04 [1,2]   -> true
+        /// item05 [4,5]   -> false
+        /// </remarks>
+        IncludeAll = 14,
+
+        /// <summary>
+        /// Проверяемые элементы списка должен быть равны массиву аргумента.
+        /// </summary>
+        /// <remarks>
+        /// filter [1, 2]
+        /// item01 [1,2,3] -> false
+        /// item02 [4,2,3] -> false
+        /// item03 [2,3]   -> false
+        /// item04 [1,2]   -> true
+        /// item05 [4,5]   -> false
+        /// </remarks>
+        IncludeEquals = 15,
+
+        /// <summary>
+        /// Ни один из проверяемых элементов списка не должен находиться в массиве аргумента.
+        /// </summary>
+        /// <remarks>
+        /// filter [1, 2]
+        /// item01 [1,2,3] -> false
+        /// item02 [4,2,3] -> false
+        /// item03 [2,3]   -> false
+        /// item04 [1,2]   -> false
+        /// item05 [4,5]   -> true
+        /// </remarks>
+        IncludeNone = 16,
     }
-
-    /// <summary>
-    /// Статический класс реализующий методы расширений для перечисления <see cref="TComparisonOperator"/>.
-    /// </summary>
-    public static class XComparisonOperatorExtension
-    {
-        /// <summary>
-        /// Получение текстового представления оператора сравнения.
-        /// </summary>
-        /// <param name="comparisonOperator">Оператор сравнения.</param>
-        /// <returns>Текстовое представление.</returns>
-        public static string GetOperatorOfString(this TComparisonOperator comparisonOperator)
-        {
-            var result = "";
-            switch (comparisonOperator)
-            {
-                case TComparisonOperator.Equality:
-                    result = " = ";
-                    break;
-                case TComparisonOperator.Inequality:
-                    result = " != ";
-                    break;
-                case TComparisonOperator.LessThan:
-                    result = " < ";
-                    break;
-                case TComparisonOperator.LessThanOrEqual:
-                    result = " <= ";
-                    break;
-                case TComparisonOperator.GreaterThan:
-                    result = " > ";
-                    break;
-                case TComparisonOperator.GreaterThanOrEqual:
-                    result = " >= ";
-                    break;
-            }
-
-            return result;
-        }
-    }
-
+    
     /// <summary>
     /// Класс представляющий запрос.
     /// </summary>
@@ -105,14 +152,14 @@ namespace Lotus.Windows
     /// Запрос при этом представлен в виде стандартного SQL запроса и предиката
     /// </para>
     /// </remarks>
-    public class CQuery : PropertyChangedBase
+    public class QueryBase : PropertyChangedBase
     {
         #region Static fields
         private static readonly PropertyChangedEventArgs PropertyArgsSQLQuery = new(nameof(SQLQuery));
         #endregion
 
         #region Fields
-        protected internal ListArray<CQueryItem> _items;
+        protected internal ListArray<QueryItem> _items;
         protected internal string _sqlQuery;
         #endregion
 
@@ -120,7 +167,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Элементы запроса.
         /// </summary>
-        public ListArray<CQueryItem> Items
+        public ListArray<QueryItem> Items
         {
             get
             {
@@ -145,7 +192,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CQuery()
+        public QueryBase()
         {
             _items = [];
         }
@@ -176,6 +223,25 @@ namespace Lotus.Windows
 
         #region Main methods
         /// <summary>
+        /// Проверяет, соответствует ли объект текущему условию фильтрации.
+        /// </summary>
+        /// <param name="item">Проверяемый объект.</param>
+        /// <returns>Статус проверки.</returns>
+        public bool MatchesFilter(object? item)
+        {
+            if (item is null) return true;
+
+            foreach (var queryItem in Items)
+            {
+                if (queryItem == null || string.IsNullOrEmpty(queryItem.PropertyName) || queryItem.NotCalculation) return true;
+                var status = queryItem.MatchesFilter(item);
+                if(status) return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Вычисление SQL запроса на основе элементов запроса.
         /// </summary>
         public void ComputeSQLQuery()
@@ -203,7 +269,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Класс представляющий элемент запроса.
     /// </summary>
-    public class CQueryItem : PropertyChangedBase, ILotusNotCalculation
+    public abstract class QueryItem : PropertyChangedBase, ILotusNotCalculation
     {
         #region Static fields
         public static readonly PropertyChangedEventArgs PropertyArgsSQLQueryItem = new(nameof(SQLQueryItem));
@@ -212,7 +278,7 @@ namespace Lotus.Windows
 
         #region Fields
         protected internal string _propertyName;
-        protected internal CQuery _queryOwned;
+        protected internal QueryBase _queryOwned;
         protected internal bool _notCalculation;
         #endregion
 
@@ -235,7 +301,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Запрос.
         /// </summary>
-        public CQuery QueryOwned
+        public QueryBase QueryOwned
         {
             get
             {
@@ -277,12 +343,19 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CQueryItem()
+        public QueryItem()
         {
         }
         #endregion
 
         #region Main methods
+        /// <summary>
+        /// Проверяет, соответствует ли объект текущему условию фильтрации.
+        /// </summary>
+        /// <param name="item">Проверяемый объект.</param>
+        /// <returns>Статус проверки.</returns>
+        public abstract bool MatchesFilter(object? item);
+
         /// <summary>
         /// Формирование SQL запроса.
         /// </summary>

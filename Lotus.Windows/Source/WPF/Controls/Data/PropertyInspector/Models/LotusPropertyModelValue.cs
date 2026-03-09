@@ -15,7 +15,7 @@ namespace Lotus.Windows
     /// Модель отображения свойства объекта к конкретными типом значения свойства.
     /// </summary>
     /// <typeparam name="TValue">Тип значения свойства.</typeparam>
-    public class PropertyModel<TValue> : CPropertyModelBase, IComparable<PropertyModel<TValue>>
+    public class PropertyModel<TValue> : PropertyModelBase, IComparable<PropertyModel<TValue>>
     {
         #region Static fields
         protected static readonly PropertyChangedEventArgs PropertyArgsValue = new(nameof(Value));
@@ -36,7 +36,7 @@ namespace Lotus.Windows
             {
                 // Произошло изменение свойства со стороны инспектора свойств
                 _value = value;
-                if (_info != null && _info.CanWrite)
+                if (_info is not null && _info.CanWrite)
                 {
                     // Обновляем значение свойства у объекта
                     _info.SetValue(_instance, _value, null);
@@ -133,7 +133,7 @@ namespace Lotus.Windows
         /// </remarks>
         protected override void SetInstance()
         {
-            if (_info != null)
+            if (_info is not null)
             {
                 try
                 {
@@ -161,7 +161,7 @@ namespace Lotus.Windows
             {
                 var enumerable = CPropertyDesc.GetValue(_listValues, _listValuesMemberName,
                     _listValuesMemberType, _instance) as IEnumerable;
-                if (enumerable != null)
+                if (enumerable is not null)
                 {
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
                     foreach (var item in enumerable)
@@ -189,7 +189,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         protected override void OnPropertyChangedFromInstance(object? sender, PropertyChangedEventArgs args)
         {
-            if (_info != null && _info.Name == args.PropertyName)
+            if (_info is not null && _info.Name == args.PropertyName)
             {
                 // Получаем актуальное значение с объекта
                 try

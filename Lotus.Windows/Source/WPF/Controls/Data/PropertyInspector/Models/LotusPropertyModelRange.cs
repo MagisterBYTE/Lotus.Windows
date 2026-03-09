@@ -73,31 +73,31 @@ namespace Lotus.Windows
         /// </summary>
         protected void GetInfoFromAttributesRange()
         {
-            if (_info != null)
+            if (_info is not null)
             {
                 var min_value = _info.GetAttribute<LotusMinValueAttribute>();
-                if (min_value != null)
+                if (min_value is not null)
                 {
                     _minValue = (TNumeric)min_value.MinValue;
                 }
                 else
                 {
                     var field_info = typeof(TNumeric).GetField(nameof(MinValue), BindingFlags.Static | BindingFlags.Public);
-                    if (field_info != null)
+                    if (field_info is not null)
                     {
                         _minValue = (TNumeric)field_info.GetValue(null)!;
                     }
                 }
 
                 var max_value = _info.GetAttribute<LotusMaxValueAttribute>();
-                if (max_value != null)
+                if (max_value is not null)
                 {
                     _maxValue = (TNumeric)max_value.MaxValue;
                 }
                 else
                 {
                     var field_info = typeof(TNumeric).GetField(nameof(MaxValue), BindingFlags.Static | BindingFlags.Public);
-                    if (field_info != null)
+                    if (field_info is not null)
                     {
                         _maxValue = (TNumeric)field_info.GetValue(null)!;
                     }

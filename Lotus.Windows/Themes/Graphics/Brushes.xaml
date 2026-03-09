@@ -16,7 +16,7 @@
     <Color x:Key="BrounCoolDarkColorKey">#534741</Color>
     <Color x:Key="BrounCoolDarkerColorKey">#362f2d</Color>
 
-    <!--  Основные кисти управлющих элементов  -->
+    <!--  Основные кисти управляющих элементов  -->
     <SolidColorBrush
         x:Key="ControlForegroundBrushKey"
         Color="{StaticResource ForegroundColorKey}" />

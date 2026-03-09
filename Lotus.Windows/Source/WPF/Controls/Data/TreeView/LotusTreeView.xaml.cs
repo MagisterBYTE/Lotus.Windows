@@ -15,8 +15,16 @@ namespace Lotus.Windows
     /// <summary>
     /// Дерево для отображения иерархической информации с поддержкой иерархических моделей данных.
     /// </summary>
-    public partial class LotusTreeView : TreeView, INotifyPropertyChanged
+    public class LotusTreeView : TreeView, INotifyPropertyChanged
     {
+        #region Static constructor
+        static LotusTreeView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LotusTreeView),
+                new FrameworkPropertyMetadata(typeof(LotusTreeView)));
+        }
+        #endregion
+
         #region Static fields
         protected static readonly PropertyChangedEventArgs PropertyArgsIsNotifySelectedInspector = new(nameof(IsNotifySelectedInspector));
         protected static readonly PropertyChangedEventArgs PropertyArgsIsDragging = new(nameof(IsDragging));
@@ -163,8 +171,11 @@ namespace Lotus.Windows
         /// </summary>
         public LotusTreeView()
         {
-            InitializeComponent();
-            SetResourceReference(StyleProperty, typeof(TreeView));
+            AddHandler(TreeViewItem.SelectedEvent, new RoutedEventHandler(OnTreeViewItem_Selected));
+            AddHandler(TreeViewItem.KeyDownEvent, new KeyEventHandler(OnTreeViewItem_KeyDown));
+            AddHandler(TreeViewItem.MouseDoubleClickEvent, new MouseButtonEventHandler(OnTreeViewItem_MouseDoubleClick));
+            AddHandler(ContextMenuService.ContextMenuOpeningEvent, new ContextMenuEventHandler(OnTreeViewItem_ContextMenuOpening));
+            AddHandler(TreeViewItem.ExpandedEvent, new RoutedEventHandler(OnTreeViewItem_Expanded));
         }
         #endregion
 
@@ -193,7 +204,7 @@ namespace Lotus.Windows
             // Проверка на иерархическую модель
             if (args.NewValue is ILotusViewModelHierarchy new_item)
             {
-                if (CollectionViewModelHierarchy != null)
+                if (CollectionViewModelHierarchy is not null)
                 {
                     CollectionViewModelHierarchy.ISelectedViewModel = new_item;
                 }
@@ -207,8 +218,8 @@ namespace Lotus.Windows
             }
 
 
-            if (IsNotifySelectedInspector && XWindowManager.PropertyInspector != null
-                && args.NewValue is ILotusViewModelHierarchy new_item_data && new_item_data.Model != null)
+            if (IsNotifySelectedInspector && XWindowManager.PropertyInspector is not null
+                && args.NewValue is ILotusViewModelHierarchy new_item_data && new_item_data.Model is not null)
             {
                 XWindowManager.PropertyInspector.SelectedObject = new_item_data.Model;
             }
@@ -221,9 +232,9 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnTreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
         {
-            if (treeExplorer.IsMouseOver && AllowDrop)
+            if (this.IsMouseOver && AllowDrop)
             {
-                _dragLastMouseDown = args.GetPosition(treeExplorer);
+                _dragLastMouseDown = args.GetPosition(this);
             }
         }
 
@@ -246,7 +257,7 @@ namespace Lotus.Windows
         private void OnTreeView_PreviewMouseMove(object sender, MouseEventArgs args)
         {
             // Получаем позицию курсора
-            var mouse_pos = args.GetPosition(treeExplorer);
+            var mouse_pos = args.GetPosition(this);
             var diff = _dragLastMouseDown - mouse_pos;
 
             // Проверяем смещение
@@ -309,10 +320,10 @@ namespace Lotus.Windows
 
                 // Над этим элементом находится перетаскиваемый объект
                 var over_item = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
-                if (over_item != null)
+                if (over_item is not null)
                 {
                     var over_view_model = over_item.DataContext as ILotusViewModelHierarchy;
-                    if (over_view_model != null && over_view_model.IsSupportViewModel(view_model!))
+                    if (over_view_model is not null && over_view_model.IsSupportViewModel(view_model!))
                     {
 
                     }
@@ -364,10 +375,10 @@ namespace Lotus.Windows
 
                 // Над этим элементом находится перетаскиваемый объект
                 var over_item = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
-                if (over_item != null)
+                if (over_item is not null)
                 {
                     var over_view_model = over_item.DataContext as ILotusViewModelHierarchy;
-                    if (over_view_model != null && over_view_model.IsSupportViewModel(view_model!))
+                    if (over_view_model is not null && over_view_model.IsSupportViewModel(view_model!))
                     {
                         // Удаляем с предыдущего элемента
                         view_model.IParent?.IViewModels.Remove(view_model);
@@ -410,7 +421,7 @@ namespace Lotus.Windows
         {
             var item_sender = (sender as DependencyObject)?.FindVisualParent<TreeViewItem>();
             var item_source = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
-            if (item_sender != null && item_source != null)
+            if (item_sender is not null && item_source is not null)
             {
                 // Делаем событие обработанным чтобы оно не поднималось вверх
                 // В случае необходимости меню открываем вручную
@@ -421,7 +432,7 @@ namespace Lotus.Windows
                 if (item_sender == item_source)
                 {
                     var support_contex_menu = item_source.DataContext as ILotusViewModelHierarchy;
-                    if (support_contex_menu != null)
+                    if (support_contex_menu is not null)
                     {
                         var context_menu = item_source.ContextMenu;
                         if (context_menu == null)
@@ -437,7 +448,7 @@ namespace Lotus.Windows
                     {
                         // Проверяем просто наличие меню
                         var context_menu = item_source.ContextMenu;
-                        if (context_menu != null)
+                        if (context_menu is not null)
                         {
                             context_menu.IsOpen = true;
                         }
@@ -467,10 +478,10 @@ namespace Lotus.Windows
                 var handled = false;
                 if (IsPresentPolicyDefault && (_presentOnlyType == null || view_item_presented.Model.GetType().IsAssignableFrom(_presentOnlyType)))
                 {
-                    if (CollectionViewModelHierarchy != null)
+                    if (CollectionViewModelHierarchy is not null)
                     {
                         // Если уже был выбран какой либо элемент
-                        if (CollectionViewModelHierarchy.IPresentedViewModel != null)
+                        if (CollectionViewModelHierarchy.IPresentedViewModel is not null)
                         {
                             // И не совпадает
                             if (CollectionViewModelHierarchy.IPresentedViewModel != view_item_presented)
@@ -516,7 +527,7 @@ namespace Lotus.Windows
             if (args.Key == Key.F2)
             {
                 var item = (args.OriginalSource as DependencyObject)?.FindVisualParent<TreeViewItem>();
-                if (item != null && item.DataContext != null)
+                if (item is not null && item.DataContext is not null)
                 {
                     // Делаем событие обработанным чтобы оно не поднималось вверх
                     // В случае необходимости меню открываем вручную

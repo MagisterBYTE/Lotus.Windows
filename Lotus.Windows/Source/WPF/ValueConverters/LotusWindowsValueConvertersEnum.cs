@@ -54,7 +54,7 @@ namespace Lotus.Windows
         {
             var values = Enum.GetValues(targetType);
             var index_value = 0;
-            if (value != null)
+            if (value is not null)
             {
                 index_value = (int)value;
             }

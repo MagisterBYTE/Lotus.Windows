@@ -12,7 +12,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Модель отображения свойства объекта типа перечисления.
     /// </summary>
-    public class CPropertyModelEnum : PropertyModel<Enum>
+    public class PropertyModelEnum : PropertyModel<Enum>
     {
         #region Fields
         protected internal ArrayList _enumValues;
@@ -41,7 +41,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CPropertyModelEnum()
+        public PropertyModelEnum()
         {
             _propertyType = TPropertyType.Enum;
         }
@@ -50,7 +50,7 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="propertyInfo">Метаданные свойства.</param>
-        public CPropertyModelEnum(PropertyInfo propertyInfo)
+        public PropertyModelEnum(PropertyInfo propertyInfo)
             : base(propertyInfo, TPropertyType.Enum)
         {
             _enumValues = new ArrayList(Enum.GetValues(propertyInfo.PropertyType));
@@ -62,7 +62,7 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="propertyInfo">Метаданные свойства.</param>
         /// <param name="propertyDesc">Список описания свойства.</param>
-        public CPropertyModelEnum(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
+        public PropertyModelEnum(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc)
             : base(propertyInfo, propertyDesc, TPropertyType.Enum)
         {
             _enumValues = new ArrayList(Enum.GetValues(propertyInfo.PropertyType));

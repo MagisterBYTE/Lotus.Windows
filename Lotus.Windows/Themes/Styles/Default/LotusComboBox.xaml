@@ -1,0 +1,132 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Стандартный выпадающий список Lotus  -->
+    <Style
+        x:Key="LotusComboBoxStyleKey"
+        TargetType="ComboBox">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="{StaticResource LotusBorderBrush}" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Padding" Value="4,2" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <!--  Фишка в TemplateBinding Background  -->
+                                <Border
+                                    x:Name="Gd"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderThickness="0">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <!--  Мышь наведена (подсветка)  -->
+                                    <Trigger Property="IsHighlighted" Value="True">
+                                        <Setter TargetName="Gd" Property="Background" Value="{StaticResource LotusAccentLightBrush}" />
+                                        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+                                    </Trigger>
+                                    <!--  Элемент выбран  -->
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Gd" Property="Background" Value="{StaticResource LotusAccentDarkBrush}" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Name="Border"
+                            Grid.ColumnSpan="2"
+                            Background="White"
+                            BorderBrush="{StaticResource LotusBorderBrush}"
+                            BorderThickness="1" />
+                        <ContentPresenter
+                            Grid.Column="0"
+                            Margin="4,0,0,0"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            IsHitTestVisible="False" />
+                        <ToggleButton
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ClickMode="Press"
+                            Focusable="False"
+                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="Transparent">
+                                        <Path
+                                            Width="10"
+                                            Height="5"
+                                            Margin="0,0,4,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Data="M 0 0 L 5 5 L 10 0 Z"
+                                            Fill="{StaticResource LotusAccentBrush}"
+                                            Stretch="Fill" />
+                                    </Border>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        <!--  Выпадающая часть  -->
+                        <Popup
+                            Name="Popup"
+                            AllowsTransparency="True"
+                            Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
+                            PopupAnimation="Slide">
+                            <Grid
+                                Name="DropDown"
+                                SnapsToDevicePixels="True">
+                                <Border
+                                    Background="White"
+                                    BorderBrush="{StaticResource LotusAccentBrush}"
+                                    BorderThickness="1,0,1,1" />
+                                <ScrollViewer
+                                    Margin="0"
+                                    SnapsToDevicePixels="True">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource LotusAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

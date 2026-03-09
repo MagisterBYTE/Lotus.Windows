@@ -1,13 +1,10 @@
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 using Lotus.Core;
 using Lotus.Maths;
-
-using Xceed.Wpf.Toolkit.PropertyGrid;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Lotus.Windows
 {
@@ -16,217 +13,104 @@ namespace Lotus.Windows
     /// <summary>
     /// Элемент-редактор для редактирования свойства типа двухмерного вектора.
     /// </summary>
-    public partial class LotusVector2DEditor : UserControl, ITypeEditor
+    public partial class LotusVector2DEditor : UserControl
     {
-        #region Static fields
-        /// <summary>
-        /// Универсальный конвертер типа Vector2D между различными типами представлений.
-        /// </summary>
-        public static readonly Vector2DToVector2DConverter VectorConverter = new();
-
-        /// <summary>
-        /// Текущие скопированное значение.
-        /// </summary>
-        public static Vector2D CopyValue
-        {
-            get { return _copyValue; }
-        }
-
-        private static Vector2D _copyValue = new();
-        #endregion
-
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Значение вектора.
         /// </summary>
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value),
-            typeof(Vector2D),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata(Vector2D.Zero, Value_Changed));
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(Vector2D), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(Vector2D.Zero,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    Value_Changed));
 
         /// <summary>
         /// Минимальное значение.
         /// </summary>
-        public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(nameof(MinValue),
-            typeof(Vector2D),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata(Vector2D.Zero, FrameworkPropertyMetadataOptions.AffectsRender,
-                MaxMinValue_Changed));
+        public static readonly DependencyProperty MinValueProperty =
+            DependencyProperty.Register(nameof(MinValue), typeof(Vector2D), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(Vector2D.Zero));
 
         /// <summary>
         /// Максимальное значение.
         /// </summary>
-        public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue),
-            typeof(Vector2D),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata(Vector2D.Zero, FrameworkPropertyMetadataOptions.AffectsRender,
-                MaxMinValue_Changed));
+        public static readonly DependencyProperty MaxValueProperty =
+            DependencyProperty.Register(nameof(MaxValue), typeof(Vector2D), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(Vector2D.Zero));
 
         /// <summary>
         /// Шаг приращения.
         /// </summary>
-        public static readonly DependencyProperty StepProperty = DependencyProperty.Register(nameof(Step),
-            typeof(double),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata(1.0));
+        public static readonly DependencyProperty StepProperty =
+            DependencyProperty.Register(nameof(Step), typeof(double), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(1.0));
 
         /// <summary>
         /// Значение по умолчанию.
         /// </summary>
-        public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.Register(nameof(DefaultValue),
-            typeof(Vector2D),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata(Vector2D.Zero, FrameworkPropertyMetadataOptions.AffectsRender,
-                ValueDefault_Changed));
-
-        /// <summary>
-        /// Формат отображения значения.
-        /// </summary>
-        public static readonly DependencyProperty FormatValueProperty = DependencyProperty.Register(nameof(FormatValue),
-            typeof(string),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata("", Format_Changed));
-
-        /// <summary>
-        /// Формат отображения значения по умолчанию.
-        /// </summary>
-        public static readonly DependencyProperty FormatValueDefaultProperty = DependencyProperty.Register(nameof(FormatValueDefault),
-            typeof(string),
-            typeof(LotusVector2DEditor),
-            new FrameworkPropertyMetadata("{0:0}", FormatValueDefault_Changed));
+        public static readonly DependencyProperty DefaultValueProperty =
+            DependencyProperty.Register(nameof(DefaultValue), typeof(Vector2D), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(Vector2D.Zero));
 
         /// <summary>
         /// Режим только для чтения.
         /// </summary>
-        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly),
-            typeof(bool),
-            typeof(LotusVector2DEditor), new FrameworkPropertyMetadata(false,
-                FrameworkPropertyMetadataOptions.AffectsArrange |
-                FrameworkPropertyMetadataOptions.AffectsRender,
-                ReadOnly_Changed));
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(LotusVector2DEditor),
+                new FrameworkPropertyMetadata(false));
 
-        // Событие – изменения значения
+        /// <summary>
+        /// Событие изменения значения.
+        /// </summary>
         public static readonly RoutedEvent ValueChangedEvent =
-            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-                typeof(LotusVector2DEditor));
+            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler), typeof(LotusVector2DEditor));
         #endregion
 
-        #region DependencyProperty methods
+        #region DependencyProperty callbacks
         /// <summary>
-        /// Изменение свойства зависимости.
-        /// </summary>
-        /// <param name="obj">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void Value_Changed(DependencyObject obj, DependencyPropertyChangedEventArgs args)
-        {
-            var vector_editor = (LotusVector2DEditor)obj;
-            Vector2D? value = (Vector2D)args.NewValue;
-            if (value.HasValue)
-            {
-                vector_editor.SetPresentValue();
-            }
-
-            vector_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-        }
-
-        /// <summary>
-        /// Обработчик события изменения максимального/минимального значения величины.
+        /// Обработчик изменения значения вектора.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private static void MaxMinValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void Value_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            // Method intentionally left empty.
+            var editor = (LotusVector2DEditor)sender;
+            editor.SetPresentValue();
+            editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
         }
-
-        /// <summary>
-        /// Обработчик события изменения значения по умолчанию.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void ValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var vector_editor = (LotusVector2DEditor)sender;
-            var new_value = (Vector2D)args.NewValue;
-
-            vector_editor.Value = new_value;
-            vector_editor.SetPresentValue();
-            vector_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-        }
-
-        /// <summary>
-        /// Обработчик события изменения формата отображения значения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void Format_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var vector_editor = (LotusVector2DEditor)sender;
-            vector_editor.SetPresentValue();
-        }
-
-        /// <summary>
-        /// Обработчик события изменения формата отображения значения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "<Pending>")]
-
-        private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var vector_editor = (LotusVector2DEditor)sender;
-            vector_editor.SetPresentValue();
-        }
-
-        /// <summary>
-        /// Обработчик события изменения значения только для чтения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var vector_editor = (LotusVector2DEditor)sender;
-            var new_read_only = (bool)args.NewValue;
-            if (new_read_only)
-            {
-                vector_editor.miClear.IsEnabled = false;
-                vector_editor.miPaste.IsEnabled = false;
-                vector_editor.miDefault.IsEnabled = false;
-            }
-        }
-        #endregion
-
-        #region Fields
-        protected internal PropertyItem _propertyItem;
-        protected internal string _formatRadix;
         #endregion
 
         #region Properties
         /// <summary>
         /// Значение вектора.
         /// </summary>
+        [TypeConverter(typeof(LotusVector2DTypeConverter))]
         public Vector2D Value
         {
-            get { return (Vector2D)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (Vector2D)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         /// <summary>
         /// Минимальное значение.
         /// </summary>
+        [TypeConverter(typeof(LotusVector2DTypeConverter))]
         public Vector2D MinValue
         {
-            get { return (Vector2D)GetValue(MinValueProperty); }
-            set { SetValue(MinValueProperty, value); }
+            get => (Vector2D)GetValue(MinValueProperty);
+            set => SetValue(MinValueProperty, value);
         }
 
         /// <summary>
         /// Максимальное значение.
         /// </summary>
+        [TypeConverter(typeof(LotusVector2DTypeConverter))]
         public Vector2D MaxValue
         {
-            get { return (Vector2D)GetValue(MaxValueProperty); }
-            set { SetValue(MaxValueProperty, value); }
+            get => (Vector2D)GetValue(MaxValueProperty);
+            set => SetValue(MaxValueProperty, value);
         }
 
         /// <summary>
@@ -234,35 +118,18 @@ namespace Lotus.Windows
         /// </summary>
         public double Step
         {
-            get { return (double)GetValue(StepProperty); }
-            set { SetValue(StepProperty, value); }
+            get => (double)GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
         }
 
         /// <summary>
         /// Значение по умолчанию.
         /// </summary>
+        [TypeConverter(typeof(LotusVector2DTypeConverter))]
         public Vector2D DefaultValue
         {
-            get { return (Vector2D)GetValue(DefaultValueProperty); }
-            set { SetValue(DefaultValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Формат отображения значения.
-        /// </summary>
-        public string FormatValue
-        {
-            get { return (string)GetValue(FormatValueProperty); }
-            set { SetValue(FormatValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Формат отображения значения по умолчанию.
-        /// </summary>
-        public string FormatValueDefault
-        {
-            get { return (string)GetValue(FormatValueDefaultProperty); }
-            set { SetValue(FormatValueDefaultProperty, value); }
+            get => (Vector2D)GetValue(DefaultValueProperty);
+            set => SetValue(DefaultValueProperty, value);
         }
 
         /// <summary>
@@ -270,17 +137,17 @@ namespace Lotus.Windows
         /// </summary>
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
 
         /// <summary>
-        /// The ValueChanged event is called when the TextField of the control changes.
+        /// Событие изменения значения.
         /// </summary>
         public event RoutedEventHandler ValueChanged
         {
-            add { AddHandler(ValueChangedEvent, value); }
-            remove { RemoveHandler(ValueChangedEvent, value); }
+            add => AddHandler(ValueChangedEvent, value);
+            remove => RemoveHandler(ValueChangedEvent, value);
         }
         #endregion
 
@@ -294,189 +161,123 @@ namespace Lotus.Windows
         }
         #endregion
 
-        #region Create FrameworkElement
-        /// <summary>
-        /// Элемент редактор свойства типа Vector2D.
-        /// </summary>
-        /// <param name="propertyItem">Параметры свойства.</param>
-        /// <returns>Редактор.</returns>
-        public FrameworkElement ResolveEditor(PropertyItem propertyItem)
-        {
-            var binding = new Binding(nameof(Value))
-            {
-                Source = propertyItem,
-                ValidatesOnExceptions = true,
-                ValidatesOnDataErrors = true,
-                Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                Converter = VectorConverter,
-                ConverterParameter = propertyItem.PropertyType
-            };
-
-            // Привязываемся к свойству
-            BindingOperations.SetBinding(this, ValueProperty, binding);
-
-            // Сохраняем объект
-            _propertyItem = propertyItem;
-
-            return this;
-        }
-        #endregion
-
         #region Main methods
         /// <summary>
-        /// Режим отображения величины.
+        /// Обновляет отображение компонентов вектора в редакторах.
+        /// WPF подавляет повторное срабатывание события DependencyProperty при одинаковом значении,
+        /// поэтому дополнительная защита от рекурсии не требуется.
         /// </summary>
         private void SetPresentValue()
         {
-            spinnerX.IsEnabled = false;
-            spinnerX.Value = Value.X;
-            spinnerX.IsEnabled = true;
-
-            spinnerY.IsEnabled = false;
-            spinnerY.Value = Value.Y;
-            spinnerY.IsEnabled = true;
+            EditorX.Value = Value.X;
+            EditorY.Value = Value.Y;
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
-        /// Обработчик события изменения координат X.
+        /// Обработчик изменения компонента X.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnSpinnerX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+        private void OnEditorX_ValueChanged(object sender, RoutedEventArgs args)
         {
-            if (spinnerX.Value != null)
-            {
-                Value = new Vector2D(spinnerX.Value.Value, Value.Y);
-            }
+            Value = new Vector2D(EditorX.Value, Value.Y);
         }
 
         /// <summary>
-        /// Обработчик события изменения координат Y.
+        /// Обработчик изменения компонента Y.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnSpinnerY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+        private void OnEditorY_ValueChanged(object sender, RoutedEventArgs args)
         {
-            if (spinnerY.Value != null)
-            {
-                Value = new Vector2D(Value.X, spinnerY.Value.Value);
-            }
+            Value = new Vector2D(Value.X, EditorY.Value);
         }
 
         /// <summary>
-        /// Открытие контекстного меню.
+        /// Обработчик открытия контекстного меню кнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonMenu_Click(object sender, RoutedEventArgs args)
         {
-            ButtonMenu.ContextMenu.IsOpen = true;
-            if (_copyValue != Vector2D.Zero)
+            if (sender is Button { ContextMenu: { } menu })
             {
-                miPaste.Header = "Вставить (" + _copyValue.ToString("F1") + ")";
+                menu.IsOpen = true;
             }
         }
 
         /// <summary>
-        /// Установка разрядности - ноль цифр после запятой.
+        /// Обработчик выбора разрядности отображения.
+        /// Строка формата берётся из свойства Tag радиокнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnRadixZero_Checked(object sender, RoutedEventArgs args)
+        private void OnRadioRadix_Checked(object sender, RoutedEventArgs args)
         {
-            _formatRadix = "F0";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
+            if (sender is not RadioButton { Tag: string tag })
+            {
+                return;
+            }
+
+            EditorX.FormatValueDefault = tag;
+            EditorY.FormatValueDefault = tag;
         }
 
         /// <summary>
-        /// Установка разрядности - одна цифра после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadixOne_Checked(object sender, RoutedEventArgs args)
-        {
-            _formatRadix = "F1";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
-        }
-
-        /// <summary>
-        /// Установка разрядности - две цифры после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadixTwo_Checked(object sender, RoutedEventArgs args)
-        {
-            _formatRadix = "F2";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
-        }
-
-        /// <summary>
-        /// Копирование вектора.
+        /// Обработчик копирования вектора в буфер обмена.
+        /// Формат: "X,Y" с инвариантной культурой.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemCopyVector_Click(object sender, RoutedEventArgs args)
         {
-            _copyValue = new Vector2D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault());
-            if (_copyValue != Vector2D.Zero)
-            {
-                miPaste.Header = "Вставить (" + _copyValue.ToStringValue(_formatRadix) + ")";
-            }
+            var x = Value.X.ToString(CultureInfo.InvariantCulture);
+            var y = Value.Y.ToString(CultureInfo.InvariantCulture);
+            Clipboard.SetText($"{x},{y}");
         }
 
         /// <summary>
-        /// Вставка вектора.
+        /// Обработчик вставки вектора из буфера обмена.
+        /// Ожидаемый формат: "X,Y".
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemPasteVector_Click(object sender, RoutedEventArgs args)
         {
-            spinnerX.Value = _copyValue.X;
-            spinnerY.Value = _copyValue.Y;
-        }
-
-        /// <summary>
-        /// Установка значения по умолчанию вектора.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
-        {
-            if (_propertyItem != null)
+            if (!Clipboard.ContainsText())
             {
-                for (var i = 0; i < _propertyItem.PropertyDescriptor.Attributes.Count; i++)
-                {
-                    var attr = _propertyItem.PropertyDescriptor.Attributes[i];
-                    if (attr is LotusDefaultValueAttribute def_value)
-                    {
-                        var value = def_value.DefaultValue;
+                return;
+            }
 
-                        // Если все правильно
-                        if (value != null && value.GetType() == _propertyItem.PropertyType)
-                        {
-                            // Конвертируем
-                            Value = (Vector2D)VectorConverter.Convert(value, _propertyItem.PropertyType,
-                                _propertyItem.PropertyType, CultureInfo.CurrentUICulture);
-                        }
-                    }
-                }
+            var parts = Clipboard.GetText().Split(',');
+            if (parts.Length == 2 &&
+                XNumberConverter.TryParseDouble(parts[0].Trim(), out var x) &&
+                XNumberConverter.TryParseDouble(parts[1].Trim(), out var y))
+            {
+                Value = new Vector2D(x, y);
             }
         }
 
         /// <summary>
-        /// Очистка вектора.
+        /// Обработчик очистки вектора (сброс в ноль).
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemClearVector_Click(object sender, RoutedEventArgs args)
         {
-            spinnerX.Value = 0;
-            spinnerY.Value = 0;
+            Value = Vector2D.Zero;
+        }
+
+        /// <summary>
+        /// Обработчик восстановления значения по умолчанию.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="args">Аргументы события.</param>
+        private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
+        {
+            Value = DefaultValue;
         }
         #endregion
     }

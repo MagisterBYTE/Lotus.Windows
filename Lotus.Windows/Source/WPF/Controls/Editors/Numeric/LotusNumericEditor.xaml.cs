@@ -6,198 +6,136 @@ using Lotus.Core;
 
 namespace Lotus.Windows
 {
-    /**
-     * \defgroup WindowsWPFControls Элементы интерфейса
-     * \ingroup WindowsWPF
-     * \brief Элементы интерфейса.
-     * \defgroup WindowsWPFControlsEditor Элементы редактирования и выбора контента
-     * \ingroup WindowsCommon
-     * \brief Элементы редактирования и выбора контента.
-     * @{
-     */
+    /** \addtogroup WindowsWPFControlsEditor
+	*@{*/
     /// <summary>
     /// Элемент-редактор для редактирования свойства числового типа.
     /// </summary>
     public partial class LotusNumericEditor : UserControl
     {
-        #region Static fields
-        /// <summary>
-        /// Текущие скопированное значение.
-        /// </summary>
-        public static double CopyValue
-        {
-            get { return _copyValue; }
-        }
-
-        private static double _copyValue = new();
-        #endregion
-
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Значение.
         /// </summary>
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(double),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(0.0,
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.AffectsArrange,
-                Value_Changed));
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(double), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(0.0,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    Value_Changed,
+                    CoerceValue));
 
         /// <summary>
         /// Минимальное значение.
         /// </summary>
-        public static readonly DependencyProperty MinValueProperty = DependencyProperty.Register(nameof(MinValue), typeof(double),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender,
-                MaxMinValue_Changed));
+        public static readonly DependencyProperty MinValueProperty =
+            DependencyProperty.Register(nameof(MinValue), typeof(double), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(0.0, MinMaxValue_Changed));
 
         /// <summary>
         /// Максимальное значение.
         /// </summary>
-        public static readonly DependencyProperty MaxValueProperty = DependencyProperty.Register(nameof(MaxValue), typeof(double),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender,
-                MaxMinValue_Changed));
+        public static readonly DependencyProperty MaxValueProperty =
+            DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(100.0, MinMaxValue_Changed));
 
         /// <summary>
         /// Шаг приращения.
         /// </summary>
-        public static readonly DependencyProperty StepProperty = DependencyProperty.Register(nameof(Step), typeof(double),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(1.0));
+        public static readonly DependencyProperty StepProperty =
+            DependencyProperty.Register(nameof(Step), typeof(double), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(1.0));
 
         /// <summary>
         /// Значение по умолчанию.
         /// </summary>
-        public static readonly DependencyProperty DefaultValueProperty = DependencyProperty.Register(nameof(DefaultValue), typeof(double),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender,
-                ValueDefault_Changed));
+        public static readonly DependencyProperty DefaultValueProperty =
+            DependencyProperty.Register(nameof(DefaultValue), typeof(double), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(0.0, DefaultValue_Changed));
 
         /// <summary>
-        /// Формат отображения значения.
+        /// Формат отображения значения (приоритетный, задаётся извне).
         /// </summary>
-        public static readonly DependencyProperty FormatValueProperty = DependencyProperty.Register(nameof(FormatValue), typeof(string),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata("", Format_Changed));
+        public static readonly DependencyProperty FormatValueProperty =
+            DependencyProperty.Register(nameof(FormatValue), typeof(string), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(string.Empty, AnyFormat_Changed));
 
         /// <summary>
-        /// Формат отображения значения по умолчанию.
+        /// Формат отображения значения по умолчанию (используется если <see cref="FormatValue"/> не задан).
         /// </summary>
-        public static readonly DependencyProperty FormatValueDefaultProperty = DependencyProperty.Register(nameof(FormatValueDefault), typeof(string),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata("{0:0}", FormatValueDefault_Changed));
+        public static readonly DependencyProperty FormatValueDefaultProperty =
+            DependencyProperty.Register(nameof(FormatValueDefault), typeof(string), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata("{0:0}", AnyFormat_Changed));
 
         /// <summary>
         /// Режим только для чтения.
         /// </summary>
-        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool),
-            typeof(LotusNumericEditor), new FrameworkPropertyMetadata(false,
-                FrameworkPropertyMetadataOptions.AffectsArrange |
-                FrameworkPropertyMetadataOptions.AffectsRender, ReadOnly_Changed));
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(LotusNumericEditor),
+                new FrameworkPropertyMetadata(false));
 
-        // Событие – изменения значения
+        /// <summary>
+        /// Событие изменения значения.
+        /// </summary>
         public static readonly RoutedEvent ValueChangedEvent =
-            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler),
-                typeof(LotusNumericEditor));
+            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler), typeof(LotusNumericEditor));
         #endregion
 
-        #region DependencyProperty methods
+        #region DependencyProperty callbacks
+        private static object CoerceValue(DependencyObject d, object baseValue)
+        {
+            var editor = (LotusNumericEditor)d;
+            var value = (double)baseValue;
+            if (value < editor.MinValue) return editor.MinValue;
+            if (value > editor.MaxValue) return editor.MaxValue;
+            return value;
+        }
+
         /// <summary>
-        /// Обработчик события изменения значения.
+        /// Обработчик изменения значения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private static void Value_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var numeric_editor = (LotusNumericEditor)sender;
-
-            numeric_editor.SetPresentValue();
-
-            numeric_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
+            var editor = (LotusNumericEditor)sender;
+            editor.SetPresentValue();
+            editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
         }
 
         /// <summary>
-        /// Обработчик события изменения максимального/минимального значения величины.
+        /// Обработчик изменения минимального или максимального значения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private static void MaxMinValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void MinMaxValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var numeric_editor = (LotusNumericEditor)sender;
-
-            if (args.Property == MinValueProperty)
-            {
-                var min_value = (double)args.NewValue;
-                if (numeric_editor.Value < min_value)
-                {
-                    numeric_editor.Value = min_value;
-                    numeric_editor.SetPresentValue();
-                    numeric_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-                }
-            }
-            else
-            {
-                var max_value = (double)args.NewValue;
-                if (numeric_editor.Value > max_value)
-                {
-                    numeric_editor.Value = max_value;
-                    numeric_editor.SetPresentValue();
-                    numeric_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
-                }
-            }
+            // Повторная коррекция Value с учётом новых границ. Если Value изменится —
+            // Value_Changed обновит отображение и вызовет событие автоматически.
+            ((LotusNumericEditor)sender).CoerceValue(ValueProperty);
         }
 
         /// <summary>
-        /// Обработчик события изменения значения по умолчанию.
+        /// Обработчик изменения значения по умолчанию.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private static void ValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void DefaultValue_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var numeric_editor = (LotusNumericEditor)sender;
-            var new_value = (double)args.NewValue;
-
-            numeric_editor.Value = new_value;
-            numeric_editor.SetPresentValue();
-            numeric_editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
+            // Инициализируем текущее значение из DefaultValue.
+            // Value_Changed обновит отображение и вызовет событие.
+            ((LotusNumericEditor)sender).Value = (double)args.NewValue;
         }
 
         /// <summary>
-        /// Обработчик события изменения формата отображения значения.
+        /// Обработчик изменения формата отображения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private static void Format_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        private static void AnyFormat_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
         {
-            var numeric_editor = (LotusNumericEditor)sender;
-            numeric_editor.SetPresentValue();
+            ((LotusNumericEditor)sender).SetPresentValue();
         }
-
-        /// <summary>
-        /// Обработчик события изменения формата отображения значения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S4144:Methods should not have identical implementations", Justification = "<Pending>")]
-        private static void FormatValueDefault_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var numeric_editor = (LotusNumericEditor)sender;
-            numeric_editor.SetPresentValue();
-        }
-
-        /// <summary>
-        /// Обработчик события изменения значения только для чтения.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void ReadOnly_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
-        {
-            var numeric_editor = (LotusNumericEditor)sender;
-            var new_read_only = (bool)args.NewValue;
-            if (new_read_only)
-            {
-                numeric_editor.miClear.IsEnabled = false;
-                numeric_editor.miPaste.IsEnabled = false;
-                numeric_editor.miDefault.IsEnabled = false;
-            }
-        }
-        #endregion
-
-        #region Fields
-        protected internal bool _isDirectText;
         #endregion
 
         #region Properties
@@ -206,8 +144,8 @@ namespace Lotus.Windows
         /// </summary>
         public double Value
         {
-            get { return (double)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (double)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
         /// <summary>
@@ -215,8 +153,8 @@ namespace Lotus.Windows
         /// </summary>
         public double MinValue
         {
-            get { return (double)GetValue(MinValueProperty); }
-            set { SetValue(MinValueProperty, value); }
+            get => (double)GetValue(MinValueProperty);
+            set => SetValue(MinValueProperty, value);
         }
 
         /// <summary>
@@ -224,8 +162,8 @@ namespace Lotus.Windows
         /// </summary>
         public double MaxValue
         {
-            get { return (double)GetValue(MaxValueProperty); }
-            set { SetValue(MaxValueProperty, value); }
+            get => (double)GetValue(MaxValueProperty);
+            set => SetValue(MaxValueProperty, value);
         }
 
         /// <summary>
@@ -233,8 +171,8 @@ namespace Lotus.Windows
         /// </summary>
         public double Step
         {
-            get { return (double)GetValue(StepProperty); }
-            set { SetValue(StepProperty, value); }
+            get => (double)GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
         }
 
         /// <summary>
@@ -242,17 +180,17 @@ namespace Lotus.Windows
         /// </summary>
         public double DefaultValue
         {
-            get { return (double)GetValue(DefaultValueProperty); }
-            set { SetValue(DefaultValueProperty, value); }
+            get => (double)GetValue(DefaultValueProperty);
+            set => SetValue(DefaultValueProperty, value);
         }
 
         /// <summary>
-        /// Формат отображения значения.
+        /// Формат отображения значения (приоритетный, задаётся извне).
         /// </summary>
         public string FormatValue
         {
-            get { return (string)GetValue(FormatValueProperty); }
-            set { SetValue(FormatValueProperty, value); }
+            get => (string)GetValue(FormatValueProperty);
+            set => SetValue(FormatValueProperty, value);
         }
 
         /// <summary>
@@ -260,8 +198,8 @@ namespace Lotus.Windows
         /// </summary>
         public string FormatValueDefault
         {
-            get { return (string)GetValue(FormatValueDefaultProperty); }
-            set { SetValue(FormatValueDefaultProperty, value); }
+            get => (string)GetValue(FormatValueDefaultProperty);
+            set => SetValue(FormatValueDefaultProperty, value);
         }
 
         /// <summary>
@@ -269,17 +207,17 @@ namespace Lotus.Windows
         /// </summary>
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
 
         /// <summary>
-        /// The ValueChanged event is called when the TextField of the control changes.
+        /// Событие изменения значения.
         /// </summary>
         public event RoutedEventHandler ValueChanged
         {
-            add { AddHandler(ValueChangedEvent, value); }
-            remove { RemoveHandler(ValueChangedEvent, value); }
+            add => AddHandler(ValueChangedEvent, value);
+            remove => RemoveHandler(ValueChangedEvent, value);
         }
         #endregion
 
@@ -295,230 +233,150 @@ namespace Lotus.Windows
 
         #region Main methods
         /// <summary>
-        /// Режим отображения величины.
+        /// Обновляет отображение форматированного значения в текстовом поле.
+        /// Не обновляет, если поле находится в фокусе (пользователь редактирует).
         /// </summary>
         private void SetPresentValue()
         {
-            _isDirectText = true;
-            if (string.IsNullOrEmpty(FormatValue))
+            if (TextField.IsFocused)
             {
-                if (TextField.IsFocused == false)
-                {
-                    TextField.Text = string.Format(FormatValueDefault, Value);
-                }
+                return;
+            }
+
+            var format = string.IsNullOrEmpty(FormatValue) ? FormatValueDefault : FormatValue;
+            TextField.Text = string.Format(format, Value);
+        }
+
+        /// <summary>
+        /// Применяет введённый текст: парсит, корректирует и обновляет отображение.
+        /// Вызывается при потере фокуса или нажатии Enter.
+        /// </summary>
+        private void ApplyTextValue()
+        {
+            if (XNumberConverter.TryParseDouble(TextField.Text, out var result))
+            {
+                Value = result; // CoerceValue выполнит корректировку по Min/Max.
             }
             else
             {
-                if (TextField.IsFocused == false)
-                {
-                    TextField.Text = string.Format(FormatValue, Value);
-                }
+                Value = MinValue > 0 ? MinValue : 0;
             }
-            _isDirectText = false;
-        }
 
-        /// <summary>
-        /// Переустановка текста.
-        /// </summary>
-        private void ResetText()
-        {
-            _isDirectText = true;
-            TextField.Text = 0 < MinValue ? MinValue.ToString() : "0";
-            _isDirectText = false;
-            TextField.SelectAll();
+            var format = string.IsNullOrEmpty(FormatValue) ? FormatValueDefault : FormatValue;
+            TextField.Text = string.Format(format, Value);
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
-        /// Обработчик события предварительного ввода текста.
+        /// Обработчик нажатия клавиши в текстовом поле.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnTextField_PreviewTextInput(object sender, TextCompositionEventArgs args)
+        private void OnTextField_KeyDown(object sender, KeyEventArgs args)
         {
-            // Method intentionally left empty.
-        }
-
-        /// <summary>
-        /// Обработчик события изменения текста.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnTextField_TextChanged(object sender, TextChangedEventArgs args)
-        {
-            if (_isDirectText == false)
+            if (args.Key == Key.Enter)
             {
-                if (XNumberHelper.TryParseDouble(TextField.Text, out var result))
-                {
-                    Value = result;
-                    if (Value < MinValue) Value = MinValue;
-                    if (Value > MaxValue) Value = MaxValue;
-                }
-                else
-                {
-                    ResetText();
-                }
+                ApplyTextValue();
+                args.Handled = true;
             }
         }
 
         /// <summary>
-        /// Потеря фокуса текстового поля.
+        /// Обработчик потери фокуса текстовым полем.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnTextField_LostFocus(object sender, RoutedEventArgs args)
         {
-            // 1) Пробуем преобразовать текст в число
-            if (XNumberHelper.TryParseDouble(TextField.Text, out var result))
-            {
-                Value = result;
-                if (Value < MinValue) Value = MinValue;
-                if (Value > MaxValue) Value = MaxValue;
-
-                // 2) Форматируем поле
-                _isDirectText = true;
-                if (string.IsNullOrEmpty(FormatValue))
-                {
-                    TextField.Text = string.Format(FormatValueDefault, Value);
-                }
-                else
-                {
-                    TextField.Text = string.Format(FormatValue, Value);
-                }
-                _isDirectText = false;
-            }
-            else
-            {
-                ResetText();
-            }
+            ApplyTextValue();
         }
 
         /// <summary>
-        /// Обработчик события увеличения значения.
+        /// Обработчик увеличения значения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonUp_Click(object sender, RoutedEventArgs args)
         {
             Value += Step;
-            if (Value > MaxValue)
-            {
-                Value = MaxValue;
-            }
         }
 
         /// <summary>
-        /// Обработчик события уменьшения значения.
+        /// Обработчик уменьшения значения.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonDown_Click(object sender, RoutedEventArgs args)
         {
             Value -= Step;
-            if (Value < MinValue)
-            {
-                Value = MinValue;
-            }
         }
 
         /// <summary>
-        /// Обработчик события открытия контекстного меню.
+        /// Обработчик открытия контекстного меню кнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonMenu_Click(object sender, RoutedEventArgs args)
         {
-            contextMenu.IsOpen = true;
-        }
-
-        /// <summary>
-        /// Установка разрядности - ноль цифр после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadioRadixZero_Checked(object sender, RoutedEventArgs args)
-        {
-            if (string.IsNullOrEmpty(FormatValue))
+            if (sender is Button { ContextMenu: { } menu })
             {
-                FormatValueDefault = "{0}";
+                menu.IsOpen = true;
             }
         }
 
         /// <summary>
-        /// Установка разрядности - одна цифра после запятой.
+        /// Обработчик выбора разрядности отображения.
+        /// Формат берётся из свойства Tag радиокнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnRadioRadixOne_Checked(object sender, RoutedEventArgs args)
+        private void OnRadioRadix_Checked(object sender, RoutedEventArgs args)
         {
-            if (string.IsNullOrEmpty(FormatValue))
+            if (!string.IsNullOrEmpty(FormatValue) || sender is not RadioButton { Tag: string tag })
             {
-                FormatValueDefault = "{0:F1}";
+                return;
             }
+
+            FormatValueDefault = tag;
         }
 
         /// <summary>
-        /// Установка разрядности - две цифры после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadioRadixTwo_Checked(object sender, RoutedEventArgs args)
-        {
-            if (string.IsNullOrEmpty(FormatValue))
-            {
-                FormatValueDefault = "{0:F2}";
-            }
-        }
-
-        /// <summary>
-        /// Установка разрядности - три цифры после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadioRadixThree_Checked(object sender, RoutedEventArgs args)
-        {
-            if (string.IsNullOrEmpty(FormatValue))
-            {
-                FormatValueDefault = "{0:F3}";
-            }
-        }
-
-        /// <summary>
-        /// Копирование значения.
+        /// Обработчик копирования значения в буфер обмена.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemCopyValue_Click(object sender, RoutedEventArgs args)
         {
-            _copyValue = Value;
+            Clipboard.SetText(Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
         }
 
         /// <summary>
-        /// Вставка значения.
+        /// Обработчик вставки значения из буфера обмена.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemPasteValue_Click(object sender, RoutedEventArgs args)
         {
-            Value = _copyValue;
+            if (Clipboard.ContainsText() &&
+                XNumberConverter.TryParseDouble(Clipboard.GetText(), out var result))
+            {
+                Value = result;
+            }
         }
 
         /// <summary>
-        /// Установка значения по умолчанию.
+        /// Обработчик восстановления значения по умолчанию.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemSetDefaultValue_Click(object sender, RoutedEventArgs args)
         {
-            if (IsReadOnly == false)
-            {
-                Value = DefaultValue;
-            }
+            Value = DefaultValue;
         }
 
         /// <summary>
-        /// Очистка значения.
+        /// Обработчик очистки значения (сброс в ноль).
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>

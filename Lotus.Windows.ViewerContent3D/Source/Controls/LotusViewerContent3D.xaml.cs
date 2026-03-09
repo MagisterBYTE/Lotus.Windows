@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,11 +11,11 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-using HelixToolkit.SharpDX.Core;
-using HelixToolkit.SharpDX.Core.Animations;
-using HelixToolkit.SharpDX.Core.Assimp;
-using HelixToolkit.SharpDX.Core.Model;
-using HelixToolkit.SharpDX.Core.Model.Scene;
+using HelixToolkit.SharpDX;
+using HelixToolkit.SharpDX.Animations;
+using HelixToolkit.SharpDX.Assimp;
+using HelixToolkit.SharpDX.Model;
+using HelixToolkit.SharpDX.Model.Scene;
 using HelixToolkit.Wpf.SharpDX;
 using HelixToolkit.Wpf.SharpDX.Controls;
 
@@ -72,8 +73,8 @@ namespace Lotus.Windows
         protected static readonly PropertyChangedEventArgs PropertyArgsGridColor = new(nameof(GridColor));
         protected static readonly PropertyChangedEventArgs PropertyArgsGridTransform = new(nameof(GridTransform));
 
-        private static string OpenFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Importer.SupportedFormatsString}";
-        private static string ExportFileFilter = $"{HelixToolkit.SharpDX.Core.Assimp.Exporter.SupportedFormatsString}";
+        private static string OpenFileFilter = $"{HelixToolkit.SharpDX.Assimp.Importer.SupportedFormatsString}";
+        private static string ExportFileFilter = $"{HelixToolkit.SharpDX.Assimp.Exporter.SupportedFormatsString}";
         #endregion
 
         #region Static methods
@@ -851,7 +852,7 @@ namespace Lotus.Windows
         protected void InitGrid()
         {
             // floor plane grid
-            GridGeometry = LineBuilder.GenerateGrid(new SharpDX.Vector3(0, 1, 0), 0, 10);
+            GridGeometry = LineBuilder.GenerateGrid(new Vector3(0, 1, 0), 0, 10);
             GridColor = Colors.DarkGray;
             GridTransform = new TranslateTransform3D(-5, 0, -5);
         }
@@ -882,7 +883,7 @@ namespace Lotus.Windows
 
                 if (postProcessSteps != Assimp.PostProcessSteps.None)
                 {
-                    loader.Configuration.AssimpPostProcessSteps = postProcessSteps;
+                    //loader.Configuration.AssimpPostProcessSteps = postProcessSteps;
                 }
 
                 return loader.Load(fileName);

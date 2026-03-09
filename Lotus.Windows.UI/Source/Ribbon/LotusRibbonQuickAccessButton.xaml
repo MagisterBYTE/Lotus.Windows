@@ -10,13 +10,7 @@
     Loaded="OnRibbonQuickAccessButton_Loaded"
     mc:Ignorable="d">
     <fluent:Button
-        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                         AncestorType=MenuItem},
-                          Path=Command}"
-        Header="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                        AncestorType=MenuItem},
-                         Path=Command.Text}"
-        Icon="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                      AncestorType=MenuItem},
-                       Path=Command.MiddleIcon}" />
+        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=Command}"
+        Header="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=Command.Text}"
+        Icon="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}, Path=Command.MiddleIcon}" />
 </fluent:QuickAccessMenuItem>

@@ -19,9 +19,9 @@ namespace Lotus.Windows
     /// </remarks>
     public static class XWindowsSerialization
     {
-        #region ЗАПИСЬ/ЧТЕНИЕ ИЗ БИНАРНОГО ПОТОКА 
+        #region Write/Read BinaryWriter
 
-        #region ЗАПИСЬ ДАННЫХ 
+        #region Write data 
         /// <summary>
         /// Запись данных двухмерного вектора.
         /// </summary>
@@ -179,7 +179,7 @@ namespace Lotus.Windows
         }
         #endregion
 
-        #region ЧТЕНИЕ ДАННЫХ 
+        #region Read data 
         /// <summary>
         /// Чтение данных двухмерного вектора, оптимизированная версия.
         /// </summary>
@@ -357,9 +357,9 @@ namespace Lotus.Windows
 
         #endregion
 
-        #region ЗАПИСЬ/ЧТЕНИЕ ИЗ ПОТОКА XML 
+        #region Write/Read XmlWriter
 
-        #region ЗАПИСЬ ДАННЫХ 
+        #region Write data 
         /// <summary>
         /// Запись значение цвета в формат атрибутов.
         /// </summary>
@@ -387,7 +387,7 @@ namespace Lotus.Windows
         }
         #endregion
 
-        #region ЧТЕНИЕ ДАННЫХ 
+        #region Read data 
         /// <summary>
         /// Чтение данных цветового значения из формата атрибутов.
         /// </summary>
@@ -398,7 +398,7 @@ namespace Lotus.Windows
         public static Color ReadWinColorFromAttribute(this XmlReader xmlReader, string name, Color defaultValue)
         {
             string? value;
-            if ((value = xmlReader.GetAttribute(name)) != null)
+            if ((value = xmlReader.GetAttribute(name)) is not null)
             {
                 return XWindowsColorExtension.DeserializeFromString(value);
             }
@@ -414,7 +414,7 @@ namespace Lotus.Windows
         public static Vector ReadWinVectorFromAttribute(this XmlReader xmlReader, string name)
         {
             string? value;
-            if ((value = xmlReader.GetAttribute(name)) != null)
+            if ((value = xmlReader.GetAttribute(name)) is not null)
             {
                 return XWindowsVectorExtension.DeserializeFromString(value);
             }

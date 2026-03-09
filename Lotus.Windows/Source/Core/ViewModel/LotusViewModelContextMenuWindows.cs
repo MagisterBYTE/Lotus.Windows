@@ -124,7 +124,7 @@ namespace Lotus.Windows
                     Header = name
                 };
                 MenuItem.Click += OnItemClick;
-                if (icon != null)
+                if (icon is not null)
                 {
                     MenuItem.Icon = new System.Windows.Controls.Image
                     {
@@ -167,11 +167,11 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         private void OnItemClick(object sender, System.Windows.RoutedEventArgs args)
         {
-            if (OnAction != null)
+            if (OnAction is not null)
             {
                 OnAction(ViewModel!);
             }
-            if (OnAfterAction != null)
+            if (OnAfterAction is not null)
             {
                 OnAfterAction(ViewModel!);
             }
@@ -307,10 +307,10 @@ namespace Lotus.Windows
                 for (var i = 0; i < Items.Count; i++)
                 {
                     var item = Items[i] as CUIContextMenuItemWindows;
-                    if (item != null)
+                    if (item is not null)
                     {
                         // Если у экземпляра меню есть уже родитель то удаляем
-                        if (item.MenuItem.Items != null)
+                        if (item.MenuItem.Items is not null)
                         {
                             var item_collection = item.MenuItem.Items;
                             item_collection.Remove(item.MenuItem);

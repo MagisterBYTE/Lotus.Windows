@@ -27,7 +27,7 @@ namespace Lotus.Windows
         {
             var val = (double)value;
 
-            if (parameter != null)
+            if (parameter is not null)
             {
                 return val.ToString(parameter.ToString());
             }
@@ -56,7 +56,7 @@ namespace Lotus.Windows
             else
             {
                 str = str.Trim();
-                return XNumberHelper.ParseDouble(str);
+                return XNumberConverter.ParseDouble(str);
             }
         }
         #endregion
@@ -80,9 +80,9 @@ namespace Lotus.Windows
         {
             var val = (double)value;
 
-            if (parameter != null)
+            if (parameter is not null)
             {
-                return val - XNumberHelper.ParseDouble(parameter.ToString()!);
+                return val - XNumberConverter.ParseDouble(parameter.ToString()!);
             }
             else
             {
@@ -102,9 +102,9 @@ namespace Lotus.Windows
         {
             var val = (double)value;
 
-            if (parameter != null)
+            if (parameter is not null)
             {
-                return val + XNumberHelper.ParseDouble(parameter.ToString()!);
+                return val + XNumberConverter.ParseDouble(parameter.ToString()!);
             }
             else
             {

@@ -1,8 +1,7 @@
-﻿<Window
+<Window
     x:Class="Lotus.Windows.LotusGrowlNotification"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ctrl="clr-namespace:Lotus.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="300"
@@ -18,284 +17,148 @@
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusGrowlNotification.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <!--#region Конверторы данных-->
-        <ctrl:CNotificationTypeToImageConverter
-            x:Key="NotificationTypeToImageConverterKey"
-            Error="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_error_32.png"
-            Info="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_information_32.png"
-            Warning="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_warning_32.png" />
-        <!--#endregion-->
-
-        <!--#region Стили-->
-        <SolidColorBrush
-            x:Key="NormalBorderBrush"
-            Color="Black" />
-        <SolidColorBrush
-            x:Key="DefaultedBorderBrush"
-            Color="Black" />
-        <SolidColorBrush
-            x:Key="DisabledForegroundBrush"
-            Color="#888" />
-        <SolidColorBrush
-            x:Key="DisabledBackgroundBrush"
-            Color="#EEE" />
-        <SolidColorBrush
-            x:Key="DisabledBorderBrush"
-            Color="#AAA" />
-        <SolidColorBrush
-            x:Key="WindowBackgroundBrush"
-            Color="#FFF" />
-        <SolidColorBrush
-            x:Key="SelectedBackgroundBrush"
-            Color="#DDD" />
-
-        <Style x:Key="ButtonFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Border>
-                            <Rectangle
-                                Margin="2"
-                                Stroke="#60000000"
-                                StrokeDashArray="1 2"
-                                StrokeThickness="1" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <LinearGradientBrush x:Key="CloseNormal" StartPoint="0.5,0" EndPoint="0.5,1">
-            <GradientStop Offset="0.0" Color="#394452" />
-            <GradientStop Offset="1.0" Color="#343e4a" />
-        </LinearGradientBrush>
-        <LinearGradientBrush x:Key="CloseOver" StartPoint="0.5,0" EndPoint="0.5,1">
-            <GradientStop Offset="0.0" Color="#515a6b" />
-            <GradientStop Offset="1.0" Color="#474f5d" />
-        </LinearGradientBrush>
-        <SolidColorBrush
-            x:Key="ClosePressed"
-            Color="#090909" />
-
-        <Style
-            x:Key="CloseButton"
-            TargetType="{x:Type Button}">
-            <Setter Property="SnapsToDevicePixels" Value="true" />
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
-            <Setter Property="MinHeight" Value="16" />
-            <Setter Property="MinWidth" Value="16" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Border
-                                x:Name="Border"
-                                Background="{StaticResource CloseNormal}"
-                                BorderBrush="{StaticResource NormalBorderBrush}"
-                                BorderThickness="0"
-                                ClipToBounds="False"
-                                CornerRadius="3">
-                                <Border.Effect>
-                                    <DropShadowEffect
-                                        BlurRadius="5"
-                                        Opacity=".4"
-                                        ShadowDepth="0"
-                                        Color="Black" />
-                                </Border.Effect>
-                                <Grid>
-                                    <Image
-                                        Margin="2"
-                                        IsHitTestVisible="False"
-                                        Source="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_application_exit_32.png">
-                                        <Image.Effect>
-                                            <DropShadowEffect
-                                                BlurRadius="1"
-                                                Direction="90"
-                                                ShadowDepth="1" />
-                                        </Image.Effect>
-                                    </Image>
-                                    <ContentPresenter
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        RecognizesAccessKey="True" />
-                                </Grid>
-                            </Border>
+            <!--  Шаблон отображения уведомления. Остаётся здесь, так как ссылается на обработчик SizeChanged из code-behind.  -->
+            <DataTemplate x:Key="MessageTemplate">
+                <Grid
+                    x:Name="NotificationWindow"
+                    Background="Transparent"
+                    SizeChanged="NotificationWindow_SizeChanged"
+                    Tag="{Binding Path=ID}">
+                    <Border
+                        Name="border"
+                        Margin="5"
+                        Background="#2a3345"
+                        BorderThickness="0"
+                        CornerRadius="5">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="10"
+                                Opacity="0.8"
+                                ShadowDepth="0" />
+                        </Border.Effect>
+                        <Grid
+                            Width="280"
+                            Height="100"
+                            Margin="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Width="32"
+                                Margin="4"
+                                Source="{Binding Path=NoticeType, Converter={StaticResource LotusNotificationTypeToImageConverterKey}}" />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="2,4,4,2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Arial"
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                Text="{Binding Path=Title}"
+                                TextOptions.TextFormattingMode="Display"
+                                TextOptions.TextRenderingMode="ClearType"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap" />
+                            <Button
+                                x:Name="CloseButton"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Width="24"
+                                Height="24"
+                                Margin="0,0,12,0"
+                                HorizontalAlignment="Right"
+                                Style="{StaticResource LotusGrowlCloseButtonStyleKey}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Margin="2,2,4,4"
+                                VerticalAlignment="Center"
+                                FontFamily="Arial"
+                                Foreground="White"
+                                Text="{Binding Path=Message}"
+                                TextOptions.TextFormattingMode="Display"
+                                TextOptions.TextRenderingMode="ClearType"
+                                TextTrimming="CharacterEllipsis"
+                                TextWrapping="Wrap" />
                         </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource CloseOver}" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource ClosePressed}" />
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocused" Value="true">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DefaultedBorderBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DefaultedBorderBrush}" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource DisabledBackgroundBrush}" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--#region Анимации раскадровки-->
-        <Storyboard x:Key="CollapseStoryboard">
-            <DoubleAnimation
-                Storyboard.TargetProperty="Height"
-                From="100"
-                To="0"
-                Duration="0:0:0.5" />
-        </Storyboard>
-        <!--#endregion-->
-
-        <DataTemplate
-            x:Key="MessageTemplate"
-            DataType="controls:Notification">
-            <Grid
-                x:Name="NotificationWindow"
-                Background="Transparent"
-                SizeChanged="NotificationWindow_SizeChanged"
-                Tag="{Binding Path=ID}">
-                <Border
-                    Name="border"
-                    Margin="5"
-                    Background="#2a3345"
-                    BorderThickness="0"
-                    CornerRadius="5">
-                    <Border.Effect>
-                        <DropShadowEffect
-                            BlurRadius="10"
-                            Opacity="0.8"
-                            ShadowDepth="0" />
-                    </Border.Effect>
-                    <Grid
-                        Width="280"
-                        Height="100"
-                        Margin="6">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Width="32"
-                            Margin="4"
-                            Source="{Binding Path=NoticeType,
-                                             Converter={StaticResource NotificationTypeToImageConverterKey}}" />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="2,4,4,2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontFamily="Arial"
-                            FontSize="14"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Text="{Binding Path=Title}"
-                            TextOptions.TextFormattingMode="Display"
-                            TextOptions.TextRenderingMode="ClearType"
-                            TextTrimming="CharacterEllipsis"
-                            TextWrapping="Wrap" />
-                        <Button
-                            x:Name="CloseButton"
-                            Grid.Row="0"
-                            Grid.Column="3"
-                            Width="24"
-                            Height="24"
-                            Margin="0,0,12,0"
-                            HorizontalAlignment="Right"
-                            Style="{StaticResource CloseButton}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="3"
-                            Margin="2,2,4,4"
-                            VerticalAlignment="Center"
-                            FontFamily="Arial"
-                            Foreground="White"
-                            Text="{Binding Path=Message}"
-                            TextOptions.TextFormattingMode="Display"
-                            TextOptions.TextRenderingMode="ClearType"
-                            TextTrimming="CharacterEllipsis"
-                            TextWrapping="Wrap" />
-                    </Grid>
-                </Border>
-            </Grid>
-            <DataTemplate.Triggers>
-                <EventTrigger
-                    RoutedEvent="Window.Loaded"
-                    SourceName="NotificationWindow">
-                    <BeginStoryboard x:Name="FadeInStoryBoard">
-                        <Storyboard>
-                            <DoubleAnimation
-                                Storyboard.TargetName="NotificationWindow"
-                                Storyboard.TargetProperty="Opacity"
-                                From="0.01"
-                                To="1"
-                                Duration="0:0:1" />
-                            <DoubleAnimation
-                                BeginTime="0:0:4"
-                                Storyboard.TargetName="NotificationWindow"
-                                Storyboard.TargetProperty="Opacity"
-                                From="1"
-                                To="0"
-                                Duration="0:0:1" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Trigger.EnterActions>
-                        <SeekStoryboard
-                            BeginStoryboardName="FadeInStoryBoard"
-                            Offset="0:0:2" />
-                        <PauseStoryboard BeginStoryboardName="FadeInStoryBoard" />
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <SeekStoryboard
-                            BeginStoryboardName="FadeInStoryBoard"
-                            Offset="0:0:2" />
-                        <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard" />
-                    </Trigger.ExitActions>
-                </Trigger>
-                <EventTrigger
-                    RoutedEvent="Button.Click"
-                    SourceName="CloseButton">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                Storyboard.TargetName="NotificationWindow"
-                                Storyboard.TargetProperty="(Grid.Opacity)"
-                                From="1"
-                                To="0"
-                                Duration="0:0:0" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <Trigger SourceName="NotificationWindow" Property="Opacity" Value="0">
-                    <Setter TargetName="NotificationWindow" Property="Visibility" Value="Hidden" />
-                    <Trigger.EnterActions>
-                        <BeginStoryboard Storyboard="{StaticResource CollapseStoryboard}" />
-                    </Trigger.EnterActions>
-                </Trigger>
-            </DataTemplate.Triggers>
-        </DataTemplate>
+                    </Border>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <EventTrigger
+                        RoutedEvent="FrameworkElement.Loaded"
+                        SourceName="NotificationWindow">
+                        <BeginStoryboard x:Name="FadeInStoryBoard">
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="NotificationWindow"
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.01"
+                                    To="1"
+                                    Duration="0:0:1" />
+                                <DoubleAnimation
+                                    BeginTime="0:0:4"
+                                    Storyboard.TargetName="NotificationWindow"
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="1"
+                                    To="0"
+                                    Duration="0:0:1" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Trigger.EnterActions>
+                            <SeekStoryboard
+                                BeginStoryboardName="FadeInStoryBoard"
+                                Offset="0:0:2" />
+                            <PauseStoryboard BeginStoryboardName="FadeInStoryBoard" />
+                        </Trigger.EnterActions>
+                        <Trigger.ExitActions>
+                            <SeekStoryboard
+                                BeginStoryboardName="FadeInStoryBoard"
+                                Offset="0:0:2" />
+                            <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard" />
+                        </Trigger.ExitActions>
+                    </Trigger>
+                    <EventTrigger
+                        RoutedEvent="Button.Click"
+                        SourceName="CloseButton">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetName="NotificationWindow"
+                                    Storyboard.TargetProperty="(Grid.Opacity)"
+                                    From="1"
+                                    To="0"
+                                    Duration="0:0:0" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <Trigger SourceName="NotificationWindow" Property="Opacity" Value="0">
+                        <Setter TargetName="NotificationWindow" Property="Visibility" Value="Hidden" />
+                        <Trigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource LotusGrowlCollapseStoryboardKey}" />
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
     <ItemsControl
         x:Name="NotificationsControl"

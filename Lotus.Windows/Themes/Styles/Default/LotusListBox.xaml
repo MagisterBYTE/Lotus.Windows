@@ -1,0 +1,50 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Элемент списка Lotus  -->
+    <Style
+        x:Key="LotusListBoxItemStyleKey"
+        TargetType="ListBoxItem">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border
+                        x:Name="Bd"
+                        Padding="{TemplateBinding Padding}"
+                        Background="Transparent">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LotusAccentLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource LotusAccentBrush}" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Стандартный список Lotus  -->
+    <Style
+        x:Key="LotusListBoxStyleKey"
+        TargetType="ListBox">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LotusBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource LotusListBoxItemStyleKey}" />
+    </Style>
+
+</ResourceDictionary>

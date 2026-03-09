@@ -1,0 +1,55 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Стиль дерева данных Lotus  -->
+    <Style
+        BasedOn="{StaticResource {x:Type TreeView}}"
+        TargetType="{x:Type ctrl:LotusTreeView}">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+        <!--  Дефолтный селектор шаблонов: для ILotusViewModelHierarchy показывает Name и раскрывает IViewModels  -->
+        <Setter Property="ItemTemplateSelector">
+            <Setter.Value>
+                <ctrl:ViewModelHierarchyTemplateSelector>
+                    <ctrl:ViewModelHierarchyTemplateSelector.HierarchyTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding IViewModels}">
+                            <TextBlock Text="{Binding Name}" />
+                        </HierarchicalDataTemplate>
+                    </ctrl:ViewModelHierarchyTemplateSelector.HierarchyTemplate>
+                </ctrl:ViewModelHierarchyTemplateSelector>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="FontWeight" Value="Normal" />
+                    <Style.Triggers>
+                        <!--  Выбранный элемент — жирный шрифт  -->
+                        <DataTrigger
+                            Binding="{Binding Path=IsSelected}"
+                            Value="True">
+                            <Setter Property="FontWeight" Value="Bold" />
+                        </DataTrigger>
+                        <!--  Представленный элемент — тёмно-синий фон, курсив, крупнее  -->
+                        <DataTrigger
+                            Binding="{Binding Path=IsPresented}"
+                            Value="True">
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="FontStyle" Value="Italic" />
+                            <Setter Property="Background" Value="{StaticResource LotusAccentDarkBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

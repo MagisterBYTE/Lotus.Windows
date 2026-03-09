@@ -136,7 +136,7 @@ namespace Lotus.Windows
         /// <param name="propertyName">Имя свойства.</param>
         public void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            if (PropertyChanged != null)
+            if (PropertyChanged is not null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
@@ -148,7 +148,7 @@ namespace Lotus.Windows
         /// <param name="args">Аргументы события.</param>
         public void NotifyPropertyChanged(PropertyChangedEventArgs args)
         {
-            if (PropertyChanged != null)
+            if (PropertyChanged is not null)
             {
                 PropertyChanged(this, args);
             }

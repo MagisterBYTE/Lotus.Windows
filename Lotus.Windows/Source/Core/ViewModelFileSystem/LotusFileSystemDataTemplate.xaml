@@ -76,16 +76,13 @@
                 Margin="4,0"
                 VerticalAlignment="Center"
                 Text="{Binding Path=Model.Name}"
-                Visibility="{Binding IsEditMode,
-                                     Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
+                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanTrueToCollapsedConverterKey}}" />
             <TextBox
                 Margin="4,0"
                 VerticalAlignment="Center"
                 AcceptsReturn="False"
-                Text="{Binding Path=Model.Name,
-                               UpdateSourceTrigger=LostFocus}"
-                Visibility="{Binding IsEditMode,
-                                     Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />
+                Text="{Binding Path=Model.Name, UpdateSourceTrigger=LostFocus}"
+                Visibility="{Binding IsEditMode, Converter={StaticResource BooleanFalseToCollapsedConverterKey}}" />
         </StackPanel>
     </HierarchicalDataTemplate>
 

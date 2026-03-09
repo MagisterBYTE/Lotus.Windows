@@ -22,7 +22,7 @@ namespace Lotus.Windows
             var mime_type = "application/unknown";
             var ext = System.IO.Path.GetExtension(fileName).ToLower();
             var regKey = Microsoft.Win32.Registry.ClassesRoot!.OpenSubKey(ext)!;
-            if (regKey != null && regKey.GetValue("Content Type") != null)
+            if (regKey is not null && regKey.GetValue("Content Type") is not null)
                 mime_type = regKey.GetValue("Content Type")!.ToString()!;
             return mime_type;
         }

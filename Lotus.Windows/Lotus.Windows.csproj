@@ -2,7 +2,7 @@
  <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;Publish</Configurations>
@@ -12,9 +12,9 @@
     <Authors>MagisterBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <Copyright>MagisterBYTE aka DanielDem</Copyright>
-    <AssemblyVersion>3.1.0.0</AssemblyVersion>
-    <FileVersion>3.1.0.0</FileVersion>
-    <Version>3.1.0</Version>
+    <AssemblyVersion>5.1.0.0</AssemblyVersion>
+    <FileVersion>5.1.0.0</FileVersion>
+    <Version>5.1.0</Version>
     <Title>Lotus.Windows</Title>
     <PackageTags></PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -28,10 +28,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\Lotus.Basis\Lotus.Core\.claude\rules\BaseRulesAndQuality.md" Link=".claude\rules\BaseRulesAndQuality.md" />
     <None Include="..\..\Resources\IconTemplate.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include=".claude\plans.md" />
     <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -241,9 +243,9 @@
    </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.124" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.129" />
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.3" />
   </ItemGroup>
 
    <ItemGroup Condition="'$(Configuration)' == 'Publish'">
@@ -470,5 +472,10 @@
     <Page Update="Themes\GraphicsResources.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include=".claude\rules\" />
+    <Folder Include="Themes\Styles\" />
   </ItemGroup>
 </Project>

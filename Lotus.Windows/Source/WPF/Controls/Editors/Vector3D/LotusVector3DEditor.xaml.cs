@@ -1,82 +1,119 @@
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 using Lotus.Core;
 using Lotus.Maths;
-
-using Xceed.Wpf.Toolkit.PropertyGrid;
-using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace Lotus.Windows
 {
     /** \addtogroup WindowsWPFControlsEditor
 	*@{*/
     /// <summary>
-    /// Элемент-редактор для редактирования свойства типа трехмерного вектора.
+    /// Элемент-редактор для редактирования свойства типа трёхмерного вектора.
     /// </summary>
-    public partial class LotusVector3DEditor : UserControl, ITypeEditor
+    public partial class LotusVector3DEditor : UserControl
     {
-        #region Static fields
-        /// <summary>
-        /// Универсальный конвертер типа Vector3D между различными типами представлений.
-        /// </summary>
-        public static readonly Vector3DToVector3DConverter VectorConverter = new();
-
-        /// <summary>
-        /// Текущие скопированное значение.
-        /// </summary>
-        public static Vector3D CopyValue
-        {
-            get { return _copyValue; }
-        }
-
-        private static Vector3D _copyValue = new();
-        #endregion
-
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Значение вектора.
         /// </summary>
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value), typeof(Vector3D),
-            typeof(LotusVector3DEditor), new FrameworkPropertyMetadata(Vector3D.Zero, OnValuePropertyChanged));
-        #endregion
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register(nameof(Value), typeof(Vector3D), typeof(LotusVector3DEditor),
+                new FrameworkPropertyMetadata(Vector3D.Zero,
+                    FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    Value_Changed));
 
-        #region DependencyProperty methods
         /// <summary>
-        /// Изменение свойства зависимости.
+        /// Значение по умолчанию.
         /// </summary>
-        /// <param name="obj">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private static void OnValuePropertyChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
-        {
-            var editor_vector = (LotusVector3DEditor)obj;
-            Vector3D? value = (Vector3D)args.NewValue;
-            if (value.HasValue)
-            {
-                editor_vector.IsEnabled = false;
-                editor_vector.spinnerX.Value = value.Value.X;
-                editor_vector.spinnerY.Value = value.Value.Y;
-                editor_vector.spinnerZ.Value = value.Value.Z;
-                editor_vector.IsEnabled = true;
-            }
-        }
+        public static readonly DependencyProperty DefaultValueProperty =
+            DependencyProperty.Register(nameof(DefaultValue), typeof(Vector3D), typeof(LotusVector3DEditor),
+                new FrameworkPropertyMetadata(Vector3D.Zero));
+
+        /// <summary>
+        /// Шаг приращения.
+        /// </summary>
+        public static readonly DependencyProperty StepProperty =
+            DependencyProperty.Register(nameof(Step), typeof(double), typeof(LotusVector3DEditor),
+                new FrameworkPropertyMetadata(1.0));
+
+        /// <summary>
+        /// Режим только для чтения.
+        /// </summary>
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(LotusVector3DEditor),
+                new FrameworkPropertyMetadata(false));
+
+        /// <summary>
+        /// Событие изменения значения.
+        /// </summary>
+        public static readonly RoutedEvent ValueChangedEvent =
+            EventManager.RegisterRoutedEvent(nameof(ValueChanged), RoutingStrategy.Bubble,
+                typeof(RoutedEventHandler), typeof(LotusVector3DEditor));
         #endregion
 
-        #region Fields
-        protected internal PropertyItem _propertyItem;
-        protected internal string _formatRadix;
+        #region DependencyProperty callbacks
+        /// <summary>
+        /// Обработчик изменения значения вектора.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="args">Аргументы события.</param>
+        private static void Value_Changed(DependencyObject sender, DependencyPropertyChangedEventArgs args)
+        {
+            var editor = (LotusVector3DEditor)sender;
+            editor.SetPresentValue();
+            editor.RaiseEvent(new RoutedEventArgs(ValueChangedEvent));
+        }
         #endregion
 
         #region Properties
         /// <summary>
         /// Значение вектора.
         /// </summary>
+        [TypeConverter(typeof(LotusVector3DTypeConverter))]
         public Vector3D Value
         {
-            get { return (Vector3D)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get => (Vector3D)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
+        }
+
+        /// <summary>
+        /// Значение по умолчанию.
+        /// </summary>
+        [TypeConverter(typeof(LotusVector3DTypeConverter))]
+        public Vector3D DefaultValue
+        {
+            get => (Vector3D)GetValue(DefaultValueProperty);
+            set => SetValue(DefaultValueProperty, value);
+        }
+
+        /// <summary>
+        /// Шаг приращения.
+        /// </summary>
+        public double Step
+        {
+            get => (double)GetValue(StepProperty);
+            set => SetValue(StepProperty, value);
+        }
+
+        /// <summary>
+        /// Режим только для чтения.
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
+        }
+
+        /// <summary>
+        /// Событие изменения значения.
+        /// </summary>
+        public event RoutedEventHandler ValueChanged
+        {
+            add => AddHandler(ValueChangedEvent, value);
+            remove => RemoveHandler(ValueChangedEvent, value);
         }
         #endregion
 
@@ -90,192 +127,137 @@ namespace Lotus.Windows
         }
         #endregion
 
-        #region Create FrameworkElement 
+        #region Main methods
         /// <summary>
-        /// Элемент редактор свойства типа Vector3D.
+        /// Обновляет отображение компонентов вектора в редакторах.
+        /// WPF подавляет повторное срабатывание события DependencyProperty при одинаковом значении,
+        /// поэтому дополнительная защита от рекурсии не требуется.
         /// </summary>
-        /// <param name="propertyItem">Параметры свойства.</param>
-        /// <returns>Редактор.</returns>
-        public FrameworkElement ResolveEditor(PropertyItem propertyItem)
+        private void SetPresentValue()
         {
-            var binding = new Binding(nameof(Value))
-            {
-                Source = propertyItem,
-                ValidatesOnExceptions = true,
-                ValidatesOnDataErrors = true,
-                Mode = propertyItem.IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
-                Converter = VectorConverter,
-                ConverterParameter = propertyItem.PropertyType
-            };
-
-            // Привязываемся к свойству
-            BindingOperations.SetBinding(this, ValueProperty, binding);
-
-            // Сохраняем объект
-            _propertyItem = propertyItem;
-
-            return this;
+            EditorX.Value = Value.X;
+            EditorY.Value = Value.Y;
+            EditorZ.Value = Value.Z;
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
-        /// Обработчик события изменения координат X.
+        /// Обработчик изменения компонента X.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnSpinnerX_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+        private void OnEditorX_ValueChanged(object sender, RoutedEventArgs args)
         {
-            if (spinnerX.Value != null)
-            {
-                Value = new Vector3D(spinnerX.Value.Value, Value.Y, Value.Z);
-            }
+            Value = new Vector3D(EditorX.Value, Value.Y, Value.Z);
         }
 
         /// <summary>
-        /// Обработчик события изменения координат Y.
+        /// Обработчик изменения компонента Y.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnSpinnerY_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+        private void OnEditorY_ValueChanged(object sender, RoutedEventArgs args)
         {
-            if (spinnerY.Value != null)
-            {
-                Value = new Vector3D(Value.X, spinnerY.Value.Value, Value.Z);
-            }
+            Value = new Vector3D(Value.X, EditorY.Value, Value.Z);
         }
 
         /// <summary>
-        /// Обработчик события изменения координат Z.
+        /// Обработчик изменения компонента Z.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnSpinnerZ_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> args)
+        private void OnEditorZ_ValueChanged(object sender, RoutedEventArgs args)
         {
-            if (spinnerZ.Value != null)
-            {
-                Value = new Vector3D(Value.X, Value.Y, spinnerZ.Value.Value);
-            }
+            Value = new Vector3D(Value.X, Value.Y, EditorZ.Value);
         }
 
         /// <summary>
-        /// Открытие контекстного меню.
+        /// Обработчик открытия контекстного меню кнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnButtonMenu_Click(object sender, RoutedEventArgs args)
         {
-            ButtonMenu.ContextMenu.IsOpen = true;
-            if (_copyValue != Vector3D.Zero)
+            if (sender is Button { ContextMenu: { } menu })
             {
-                miPaste.Header = "Вставить (" + _copyValue.ToString("F1") + ")";
+                menu.IsOpen = true;
             }
         }
 
         /// <summary>
-        /// Установка разрядности - ноль цифр после запятой.
+        /// Обработчик выбора разрядности отображения.
+        /// Строка формата берётся из свойства Tag радиокнопки.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
-        private void OnRadixZero_Checked(object sender, RoutedEventArgs args)
+        private void OnRadioRadix_Checked(object sender, RoutedEventArgs args)
         {
-            _formatRadix = "F0";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
-            spinnerZ.FormatString = _formatRadix;
+            if (sender is not RadioButton { Tag: string tag })
+            {
+                return;
+            }
+
+            EditorX.FormatValueDefault = tag;
+            EditorY.FormatValueDefault = tag;
+            EditorZ.FormatValueDefault = tag;
         }
 
         /// <summary>
-        /// Установка разрядности - одна цифра после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadixOne_Checked(object sender, RoutedEventArgs args)
-        {
-            _formatRadix = "F1";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
-            spinnerZ.FormatString = _formatRadix;
-        }
-
-        /// <summary>
-        /// Установка разрядности - две цифры после запятой.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnRadixTwo_Checked(object sender, RoutedEventArgs args)
-        {
-            _formatRadix = "F2";
-            spinnerX.FormatString = _formatRadix;
-            spinnerY.FormatString = _formatRadix;
-            spinnerZ.FormatString = _formatRadix;
-        }
-
-        /// <summary>
-        /// Копирование вектора.
+        /// Обработчик копирования вектора в буфер обмена.
+        /// Формат: "X,Y,Z" с инвариантной культурой.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemCopyVector_Click(object sender, RoutedEventArgs args)
         {
-            _copyValue = new Vector3D(spinnerX.Value.GetValueOrDefault(), spinnerY.Value.GetValueOrDefault(),
-                spinnerZ.Value.GetValueOrDefault());
-            if (_copyValue != Vector3D.Zero)
-            {
-                miPaste.Header = "Вставить (" + _copyValue.ToStringValue(_formatRadix) + ")";
-            }
+            var x = Value.X.ToString(CultureInfo.InvariantCulture);
+            var y = Value.Y.ToString(CultureInfo.InvariantCulture);
+            var z = Value.Z.ToString(CultureInfo.InvariantCulture);
+            Clipboard.SetText($"{x},{y},{z}");
         }
 
         /// <summary>
-        /// Вставка вектора.
+        /// Обработчик вставки вектора из буфера обмена.
+        /// Ожидаемый формат: "X,Y,Z".
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemPasteVector_Click(object sender, RoutedEventArgs args)
         {
-            spinnerX.Value = _copyValue.X;
-            spinnerY.Value = _copyValue.Y;
-            spinnerZ.Value = _copyValue.Y;
-        }
-
-        /// <summary>
-        /// Установка значения по умолчанию вектора.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
-        {
-            if (_propertyItem != null)
+            if (!Clipboard.ContainsText())
             {
-                for (var i = 0; i < _propertyItem.PropertyDescriptor.Attributes.Count; i++)
-                {
-                    var attr = _propertyItem.PropertyDescriptor.Attributes[i];
-                    if (attr is LotusDefaultValueAttribute def_value)
-                    {
-                        var value = def_value.DefaultValue;
+                return;
+            }
 
-                        // Если все правильно
-                        if (value != null && value.GetType() == _propertyItem.PropertyType)
-                        {
-                            // Конвертируем
-                            Value = (Vector3D)VectorConverter.Convert(value, _propertyItem.PropertyType,
-                                _propertyItem.PropertyType, CultureInfo.CurrentUICulture);
-                        }
-                    }
-                }
+            var parts = Clipboard.GetText().Split(',');
+            if (parts.Length == 3 &&
+                XNumberConverter.TryParseDouble(parts[0].Trim(), out var x) &&
+                XNumberConverter.TryParseDouble(parts[1].Trim(), out var y) &&
+                XNumberConverter.TryParseDouble(parts[2].Trim(), out var z))
+            {
+                Value = new Vector3D(x, y, z);
             }
         }
 
         /// <summary>
-        /// Очистка вектора.
+        /// Обработчик очистки вектора (сброс в ноль).
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void OnMenuItemClearVector_Click(object sender, RoutedEventArgs args)
         {
-            spinnerX.Value = 0;
-            spinnerY.Value = 0;
-            spinnerZ.Value = 0;
+            Value = Vector3D.Zero;
+        }
+
+        /// <summary>
+        /// Обработчик восстановления значения по умолчанию.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="args">Аргументы события.</param>
+        private void OnMenuItemSetDefaultVector_Click(object sender, RoutedEventArgs args)
+        {
+            Value = DefaultValue;
         }
         #endregion
     }

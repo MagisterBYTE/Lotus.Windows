@@ -12,11 +12,10 @@ using Lotus.Core;
 
 namespace Lotus.Windows
 {
-
-    /** \addtogroup WindowsWPFControlsCommon
+    /** \addtogroup WindowsWPFControlsSpecial
 	*@{*/
     /// <summary>
-    /// Тип сообщения.
+    /// Тип уведомления.
     /// </summary>
     public enum TNotificationType
     {
@@ -37,12 +36,9 @@ namespace Lotus.Windows
     }
 
     /// <summary>
-    /// Сообщение.
+    /// Данные уведомления.
     /// </summary>
-    /// <remarks>
-    /// Класс представляющий собой структуру сообщения.
-    /// </remarks>
-    public class CNotification : PropertyChangedBase
+    public class Notification : PropertyChangedBase
     {
         #region Static fields
         private static readonly PropertyChangedEventArgs PropertyArgsNoticeType = new(nameof(NoticeType));
@@ -60,11 +56,11 @@ namespace Lotus.Windows
 
         #region Properties
         /// <summary>
-        /// Тип сообщения.
+        /// Тип уведомления.
         /// </summary>
         public TNotificationType NoticeType
         {
-            get { return _noticeType; }
+            get => _noticeType;
             set
             {
                 if (_noticeType != value)
@@ -80,7 +76,7 @@ namespace Lotus.Windows
         /// </summary>
         public string Message
         {
-            get { return _message; }
+            get => _message;
             set
             {
                 if (_message != value)
@@ -92,11 +88,11 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Уникальный идентификатор сообщения.
+        /// Уникальный идентификатор уведомления.
         /// </summary>
         public int ID
         {
-            get { return _id; }
+            get => _id;
             set
             {
                 if (_id != value)
@@ -108,11 +104,11 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        /// Заголовок сообщения.
+        /// Заголовок уведомления.
         /// </summary>
         public string Title
         {
-            get { return _title; }
+            get => _title;
             set
             {
                 if (_title != value)
@@ -126,9 +122,9 @@ namespace Lotus.Windows
     }
 
     /// <summary>
-    /// Наблюдаемая коллекция для сообщений.
+    /// Наблюдаемая коллекция уведомлений.
     /// </summary>
-    public class CNotifications : ObservableCollection<CNotification>
+    public class Notifications : ObservableCollection<Notification>
     {
     }
 
@@ -136,11 +132,11 @@ namespace Lotus.Windows
     /// Конвертер типа <see cref="TNotificationType"/> в соответствующую графическую пиктограмму.
     /// </summary>
     [ValueConversion(typeof(TNotificationType), typeof(BitmapSource))]
-    public sealed class CNotificationTypeToImageConverter : IValueConverter
+    public sealed class NotificationTypeToImageConverter : IValueConverter
     {
         #region Properties
         /// <summary>
-        /// Пиктограмма сообщения.
+        /// Пиктограмма информации.
         /// </summary>
         public BitmapSource Info { get; set; } = default!;
 
@@ -155,68 +151,36 @@ namespace Lotus.Windows
         public BitmapSource Error { get; set; } = default!;
         #endregion
 
-        #region Methods 
+        #region Methods
         /// <summary>
-        /// Конвертер типа NotificationType в соответствующую графическую пиктограмму.
+        /// Конвертация типа уведомления в пиктограмму.
         /// </summary>
-        /// <param name="value">Значение.</param>
-        /// <param name="targetType">Целевой тип.</param>
-        /// <param name="parameter">Дополнительный параметр.</param>
-        /// <param name="culture">Культура.</param>
-        /// <returns>Графическая пиктограмма.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            var val = (TNotificationType)value;
-            switch (val)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+            (TNotificationType)value switch
             {
-                case TNotificationType.Info:
-                    {
-                        return Info;
-                    }
-                case TNotificationType.Warning:
-                    {
-                        return Warning;
-                    }
-                case TNotificationType.Error:
-                    {
-                        return Error;
-                    }
-                default:
-                    return Info;
-            }
-        }
+                TNotificationType.Warning => Warning,
+                TNotificationType.Error => Error,
+                _ => Info
+            };
 
-        /// <summary>
-        /// Конвертация графической пиктограммы в тип NotificationType.
-        /// </summary>
-        /// <param name="value">Значение.</param>
-        /// <param name="targetType">Целевой тип.</param>
-        /// <param name="parameter">Дополнительный параметр.</param>
-        /// <param name="culture">Культура.</param>
-        /// <returns>Тип NotificationType.</returns>
-        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
+        /// <inheritdoc />
+        public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
         #endregion
     }
 
     /// <summary>
-    /// Элемент для уведомления о сообщениях, предупреждениях и ошибках.
+    /// Всплывающее окно уведомлений (Growl).
     /// </summary>
     public partial class LotusGrowlNotification : Window
     {
-        #region Const
-        /// <summary>
-        /// Максимальное количество видимых оповещений.
-        /// </summary>
-        private const int MaxNotifications = 4;
+        #region Constants
+        private const int _maxNotifications = 4;
         #endregion
 
         #region Fields
-        private int mCount;
-        private CNotifications mCurrentNotifications;
-        private CNotifications mBufferNotifications;
+        private int _count;
+        private Notifications _currentNotifications;
+        private Notifications _bufferNotifications;
         #endregion
 
         #region Constructors
@@ -226,126 +190,92 @@ namespace Lotus.Windows
         public LotusGrowlNotification()
         {
             InitializeComponent();
-            mCurrentNotifications = [];
-            mBufferNotifications = [];
-            NotificationsControl.DataContext = mCurrentNotifications;
+            _currentNotifications = [];
+            _bufferNotifications = [];
+            NotificationsControl.DataContext = _currentNotifications;
         }
         #endregion
 
         #region Main methods
         /// <summary>
-        /// Добавление сообщения.
+        /// Добавление уведомления.
         /// </summary>
-        /// <param name="notification">Сообщение.</param>
-        public void AddNotification(CNotification notification)
+        /// <param name="notification">Уведомление.</param>
+        public void AddNotification(Notification notification)
         {
-            notification.ID = mCount++;
-            if (mCurrentNotifications.Count + 1 > MaxNotifications)
-            {
-                mBufferNotifications.Add(notification);
-            }
+            notification.ID = _count++;
+            if (_currentNotifications.Count + 1 > _maxNotifications)
+                _bufferNotifications.Add(notification);
             else
-            {
-                mCurrentNotifications.Add(notification);
-            }
+                _currentNotifications.Add(notification);
 
-            //Show window if there're notifications
-            if (mCurrentNotifications.Count > 0 && !IsActive)
-            {
+            if (_currentNotifications.Count > 0 && !IsActive)
                 Show();
-            }
         }
 
         /// <summary>
-        /// Добавление сообщения.
+        /// Добавление уведомления по типу и тексту.
         /// </summary>
-        /// <param name="noticeType">Тип сообщения.</param>
+        /// <param name="noticeType">Тип уведомления.</param>
         /// <param name="message">Текст сообщения.</param>
         public void AddNotification(TNotificationType noticeType, string message)
         {
-            var notification = new CNotification
+            var notification = new Notification
             {
                 NoticeType = noticeType,
                 Message = message,
-                ID = mCount++
+                ID = _count++,
+                Title = noticeType switch
+                {
+                    TNotificationType.Info => "Информация",
+                    TNotificationType.Warning => "Предупреждение",
+                    TNotificationType.Error => "Ошибка",
+                    _ => string.Empty
+                }
             };
 
-            switch (noticeType)
-            {
-                case TNotificationType.Info:
-                    {
-                        notification.Title = "Информация";
-                    }
-                    break;
-                case TNotificationType.Warning:
-                    {
-                        notification.Title = "Предупреждение";
-                    }
-                    break;
-                case TNotificationType.Error:
-                    {
-                        notification.Title = "Ошибка";
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            if (mCurrentNotifications.Count + 1 > MaxNotifications)
-            {
-                mBufferNotifications.Add(notification);
-            }
+            if (_currentNotifications.Count + 1 > _maxNotifications)
+                _bufferNotifications.Add(notification);
             else
-            {
-                mCurrentNotifications.Add(notification);
-            }
+                _currentNotifications.Add(notification);
 
-            //Show window if there're notifications
-            if (mCurrentNotifications.Count > 0 && !IsActive)
-            {
+            if (_currentNotifications.Count > 0 && !IsActive)
                 Show();
-            }
         }
 
         /// <summary>
-        /// Удаление сообщения.
+        /// Удаление уведомления.
         /// </summary>
-        /// <param name="notification">Сообщение.</param>
-        public void RemoveNotification(CNotification notification)
+        /// <param name="notification">Уведомление.</param>
+        public void RemoveNotification(Notification notification)
         {
-            if (mCurrentNotifications.Contains(notification))
+            if (_currentNotifications.Contains(notification))
+                _currentNotifications.Remove(notification);
+
+            if (_bufferNotifications.Count > 0)
             {
-                mCurrentNotifications.Remove(notification);
+                _currentNotifications.Add(_bufferNotifications[0]);
+                _bufferNotifications.RemoveAt(0);
             }
 
-            if (mBufferNotifications.Count > 0)
-            {
-                mCurrentNotifications.Add(mBufferNotifications[0]);
-                mBufferNotifications.RemoveAt(0);
-            }
-
-            //Close window if there's nothing to show
-            if (mCurrentNotifications.Count < 1)
-            {
+            if (_currentNotifications.Count < 1)
                 Hide();
-            }
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
-        /// Изменение размеров окна.
+        /// Обработка схлопывания уведомления по завершении анимации.
         /// </summary>
         /// <param name="sender">Источник события.</param>
         /// <param name="args">Аргументы события.</param>
         private void NotificationWindow_SizeChanged(object sender, SizeChangedEventArgs args)
         {
             if (args.NewSize.Height != 0.0)
-            {
                 return;
-            }
+
             var element = (sender as Grid)!;
-            RemoveNotification(mCurrentNotifications.First(n => n.ID == XNumberHelper.ParseInt(element.Tag.ToString()!)));
+            RemoveNotification(_currentNotifications.First(n => n.ID == XNumberConverter.ParseInt(element.Tag.ToString()!)));
         }
         #endregion
     }

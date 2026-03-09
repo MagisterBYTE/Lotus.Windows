@@ -163,7 +163,7 @@ namespace Lotus.Windows
             if (Path.HasExtension(fileName))
             {
                 var sysicon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
-                if (sysicon != null)
+                if (sysicon is not null)
                 {
                     var bmp_src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
                         sysicon.Handle,

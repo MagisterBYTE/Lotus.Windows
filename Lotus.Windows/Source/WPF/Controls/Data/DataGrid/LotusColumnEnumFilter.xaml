@@ -1,45 +1,61 @@
-﻿<UserControl
+<UserControl
     x:Class="Lotus.Windows.LotusColumnEnumFilter"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctrl="clr-namespace:Lotus.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="queryEnumControl"
-    d:DesignHeight="32"
-    d:DesignWidth="800"
-    Loaded="OnUserControl_Loaded"
+    x:Name="root"
+    d:DesignHeight="56"
+    d:DesignWidth="200"
     mc:Ignorable="d">
-    <ctrl:LotusStackPanel
-        HorizontalAlignment="Stretch"
-        Orientation="Horizontal">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusToggleButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ValueConverters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+        <!--  Список значений с чекбоксами  -->
         <ComboBox
-            Name="comboBoxSourceItems"
-            ctrl:LotusStackPanel.Fill="Fill"
+            x:Name="comboBoxSourceItems"
+            Height="22"
+            Margin="2"
             IsEditable="True"
-            IsEnabled="{Binding ElementName=queryEnumControl,
-                                Path=QueryItem.NotCalculation,
-                                Converter={StaticResource BooleanInverseConverterKey}}"
+            IsEnabled="{Binding ElementName=root, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
             IsReadOnly="True"
-            ItemsSource="{Binding ElementName=queryEnumControl,
-                                  Path=QueryItem.SourceItems}"
-            SelectionChanged="OnComboBoxSourceItems_Selected">
+            ItemsSource="{Binding ElementName=root, Path=QueryItem.SourceItems}"
+            SelectionChanged="OnComboBoxSourceItems_Selected"
+            Style="{StaticResource LotusComboBoxStyleKey}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox
-                            VerticalAlignment="Center"
-                            Checked="OnCheckBox_Checked"
-                            Content="{Binding}"
-                            Unchecked="OnCheckBox_Unchecked" />
-                    </StackPanel>
+                    <CheckBox
+                        Margin="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Checked="OnCheckBox_Checked"
+                        Content="{Binding}"
+                        Unchecked="OnCheckBox_Unchecked" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ToggleButton
-            Content="A"
-            IsChecked="{Binding ElementName=queryEnumControl,
-                                Path=QueryItem.NotCalculation,
-                                Converter={StaticResource BooleanInverseConverterKey}}" />
-    </ctrl:LotusStackPanel>
+        <!--  Оператор и кнопка выключения  -->
+        <DockPanel Margin="2,1,2,2">
+            <ToggleButton
+                Width="24"
+                Content="A"
+                DockPanel.Dock="Right"
+                IsChecked="{Binding ElementName=root, Path=QueryItem.NotCalculation, Mode=TwoWay, Converter={StaticResource BooleanInverseConverterKey}}"
+                Style="{StaticResource LotusToggleButtonStyleKey}" />
+            <ComboBox
+                IsEnabled="{Binding ElementName=root, Path=QueryItem.NotCalculation, Converter={StaticResource BooleanInverseConverterKey}}"
+                ItemsSource="{Binding ElementName=root, Path=QueryItem.FilterFunctions}"
+                SelectedItem="{Binding ElementName=root, Path=QueryItem.FilterFunction, Mode=TwoWay}"
+                Style="{StaticResource LotusComboBoxStyleKey}" />
+        </DockPanel>
+    </StackPanel>
 </UserControl>

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!--  Основные цвета темы Lotus  -->
+    <Color x:Key="LotusAccentColor">#6CA6CD</Color>
+
+    <!--  Мягкий синий (основной)  -->
+    <Color x:Key="LotusAccentLightColor">#E3F0FA</Color>
+
+    <!--  Очень светлый синий (фон выделения)  -->
+    <Color x:Key="LotusAccentDarkColor">#4A90C2</Color>
+
+    <!--  Темнее (для рамок/нажатия)  -->
+
+    <Color x:Key="LotusTextColor">#333333</Color>
+    <Color x:Key="LotusBorderColor">#ABABAB</Color>
+    <Color x:Key="LotusForegroundDisabledColor">#cccccc</Color>
+
+    <!--  Кисти  -->
+    <SolidColorBrush
+        x:Key="LotusAccentBrush"
+        Color="{StaticResource LotusAccentColor}" />
+    <SolidColorBrush
+        x:Key="LotusAccentLightBrush"
+        Color="{StaticResource LotusAccentLightColor}" />
+    <SolidColorBrush
+        x:Key="LotusAccentDarkBrush"
+        Color="{StaticResource LotusAccentDarkColor}" />
+    <SolidColorBrush
+        x:Key="LotusBorderBrush"
+        Color="{StaticResource LotusBorderColor}" />
+    <SolidColorBrush
+        x:Key="LotusForegroundBrush"
+        Color="{StaticResource LotusTextColor}" />
+    <SolidColorBrush
+        x:Key="LotusBackgroundDisableBrushKey"
+        Color="{StaticResource LotusForegroundDisabledColor}" />
+
+    <!--  Настройки шрифта  -->
+    <FontFamily x:Key="LotusFontFamily">Segoe UI</FontFamily>
+    <sys:Double x:Key="LotusFontSize">14</sys:Double>
+
+</ResourceDictionary>

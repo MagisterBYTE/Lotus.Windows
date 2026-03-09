@@ -9,7 +9,7 @@ namespace Lotus.Windows
     /** \addtogroup WindowsWPFExtension
 	*@{*/
     /// <summary>
-    ///.
+    /// Структура данных цвет BGRA.
     /// </summary>
     [StructLayout(LayoutKind.Explicit)]
     public struct PixelColor
@@ -23,17 +23,16 @@ namespace Lotus.Windows
         [FieldOffset(3)] public byte Alpha;
     }
 
-
     /// <summary>
     /// Статический класс реализующий методы расширения для типа <see cref="BitmapSource"/>.
     /// </summary>
     public static class XWindowsBitmapSourceExtension
     {
         /// <summary>
-        ///.
+        /// Получить массив цветов.
         /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
+        /// <param name="bitmap">Источник изображения.</param>
+        /// <returns>Массив цветов.</returns>
         public static PixelColor[,] GetPixels(this BitmapSource bitmap)
         {
             var source = bitmap;
@@ -67,12 +66,11 @@ namespace Lotus.Windows
             return pixels;
         }
 
-
         /// <summary>
-        ///.
+        /// Получить массив цветов.
         /// </summary>
-        /// <param name="bitmap"></param>
-        /// <returns></returns>
+        /// <param name="bitmap">Источник изображения.</param>
+        /// <returns>Массив цветов.</returns>
         public static System.Drawing.Color[] GetPixels(this Bitmap bitmap)
         {
             var height = bitmap.Height;
@@ -91,12 +89,12 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        ///.
+        /// Присвоить массив цветов указанному изображению.
         /// </summary>
-        /// <param name="bitmap"></param>
-        /// <param name="pixels"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="bitmap">Изображение.</param>
+        /// <param name="pixels">Массив цветов.</param>
+        /// <param name="x">Начальные координаты по X.</param>
+        /// <param name="y">Начальные координаты по Y.</param>
         public static void PutPixels(this WriteableBitmap bitmap, PixelColor[,] pixels, int x, int y)
         {
             var width = pixels.GetLength(0);
@@ -105,13 +103,13 @@ namespace Lotus.Windows
         }
 
         /// <summary>
-        ///.
+        /// Присвоить массив цветов указанному изображению.
         /// </summary>
-        /// <param name="bitmap"></param>
-        /// <param name="pixels"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
+        /// <param name="bitmap">Изображение.</param>
+        /// <param name="pixels">Массив цветов.</param>
+        /// <param name="x">Начальные координаты по X.</param>
+        /// <param name="y">Начальные координаты по Y.</param>
+        /// <param name="width">Ширина массива.</param>
         public static void PutPixels(this Bitmap bitmap, System.Drawing.Color[] pixels, int x, int y, int width)
         {
             var height = pixels.GetLength(0) / width;

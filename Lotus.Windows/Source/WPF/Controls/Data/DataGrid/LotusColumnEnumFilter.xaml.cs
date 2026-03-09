@@ -10,23 +10,23 @@ namespace Lotus.Windows
     /// </summary>
     public partial class LotusColumnEnumFilter : UserControl
     {
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Элемент запроса для перечисляемых данных.
         /// </summary>
         public static readonly DependencyProperty QueryItemProperty = DependencyProperty.Register(nameof(QueryItem),
-            typeof(CQueryItemEnum), typeof(LotusColumnEnumFilter),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            typeof(QueryItemEnum), typeof(LotusColumnEnumFilter),
+            new FrameworkPropertyMetadata(null));
         #endregion
 
         #region Properties
         /// <summary>
         /// Элемент запроса для перечисляемых данных.
         /// </summary>
-        public CQueryItemEnum QueryItem
+        public QueryItemEnum? QueryItem
         {
-            get { return (CQueryItemEnum)GetValue(QueryItemProperty); }
-            set { SetValue(QueryItemProperty, value); }
+            get => (QueryItemEnum?)GetValue(QueryItemProperty);
+            set => SetValue(QueryItemProperty, value);
         }
         #endregion
 
@@ -37,68 +37,46 @@ namespace Lotus.Windows
         public LotusColumnEnumFilter()
         {
             InitializeComponent();
-            QueryItem = new CQueryItemEnum();
         }
         #endregion
 
-        #region Event handlers 
+        #region Event handlers
         /// <summary>
-        /// Загрузка элемента отображения.
+        /// Отметка чекбокса — добавить значение в фильтр.
         /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
-        private void OnUserControl_Loaded(object sender, RoutedEventArgs args)
-        {
-            // Method intentionally left empty.
-        }
-
-        /// <summary>
-        /// Выбор фильтра.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
         private void OnCheckBox_Checked(object sender, RoutedEventArgs args)
         {
-            if (sender is CheckBox check_box)
+            if (sender is not CheckBox checkBox || QueryItem == null) return;
+            if (!QueryItem.FilteredItems.Contains(checkBox.Content))
             {
-                // Если нет то добавляем
-                if (QueryItem.FiltredItems.Contains(check_box.Content) == false)
-                {
-                    QueryItem.FiltredItems.Add(check_box.Content);
-                    QueryItem.OnPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
-                    comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
-                }
+                QueryItem.FilteredItems.Add(checkBox.Content);
+                QueryItem.NotifyFilteredItemsChanged();
+                comboBoxSourceItems.Text = QueryItem.JoinFilteredItems();
             }
         }
 
         /// <summary>
-        /// Отмена выбора фильтра.
+        /// Снятие чекбокса — убрать значение из фильтра.
         /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
         private void OnCheckBox_Unchecked(object sender, RoutedEventArgs args)
         {
-            if (sender is CheckBox check_box)
+            if (sender is not CheckBox checkBox || QueryItem == null) return;
+            var index = QueryItem.FilteredItems.IndexOf(checkBox.Content);
+            if (index > -1)
             {
-                // Если есть то удаляем
-                var index = QueryItem.FiltredItems.IndexOf(check_box.Content);
-                if (index > -1)
-                {
-                    QueryItem.FiltredItems.RemoveAt(index);
-                    QueryItem.OnPropertyChanged(CQueryItem.PropertyArgsSQLQueryItem);
-                    comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
-                }
+                QueryItem.FilteredItems.RemoveAt(index);
+                QueryItem.NotifyFilteredItemsChanged();
+                comboBoxSourceItems.Text = QueryItem.JoinFilteredItems();
             }
         }
 
         /// <summary>
-        /// Выбор фильтра.
+        /// Выбор в ComboBox — обновить отображаемый текст.
         /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="args">Аргументы события.</param>
         private void OnComboBoxSourceItems_Selected(object sender, SelectionChangedEventArgs args)
         {
-            comboBoxSourceItems.Text = QueryItem.JoinFiltredItems();
+            if (QueryItem != null)
+                comboBoxSourceItems.Text = QueryItem.JoinFilteredItems();
         }
         #endregion
     }

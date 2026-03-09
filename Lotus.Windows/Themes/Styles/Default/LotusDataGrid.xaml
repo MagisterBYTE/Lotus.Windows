@@ -1,0 +1,326 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Ресурсы цветов и кистей таблицы  -->
+    <Color x:Key="LotusDataGridHeaderBackgroundColor">#FF1F3B53</Color>
+    <Color x:Key="LotusDataGridHeaderHoverColor">#FF448DCA</Color>
+    <SolidColorBrush
+        x:Key="LotusDataGridBackgroundBrush"
+        Color="White" />
+    <SolidColorBrush
+        x:Key="LotusDataGridAlternatingRowBrush"
+        Color="#F9F9F9" />
+    <SolidColorBrush
+        x:Key="LotusDataGridGridLinesBrush"
+        Color="#E0E0E0" />
+    <SolidColorBrush
+        x:Key="LotusDataGridHeaderBackgroundBrush"
+        Color="#FF1F3B53" />
+    <SolidColorBrush
+        x:Key="LotusDataGridHeaderForegroundBrush"
+        Color="#FF000000" />
+    <SolidColorBrush
+        x:Key="LotusDataGridSortIconBrush"
+        Color="#FF444444" />
+    <SolidColorBrush
+        x:Key="LotusDataGridSeparatorBrush"
+        Color="#FFC9CACA" />
+    <SolidColorBrush
+        x:Key="LotusDataGridSelectedForegroundBrush"
+        Color="White" />
+
+    <!--  Конвертер видимости строки фильтра  -->
+    <ctrl:BooleanFalseToCollapsedConverter x:Key="LotusDataGridBoolFalseToCollapsedKey" />
+
+    <!--  DataTemplates для фильтр-контролов (выбираются автоматически по типу QueryItem)  -->
+    <DataTemplate DataType="{x:Type ctrl:QueryItemString}">
+        <ctrl:LotusColumnStringFilter QueryItem="{Binding}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ctrl:QueryItemNumber}">
+        <ctrl:LotusColumnNumberFilter QueryItem="{Binding}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ctrl:QueryItemDateTime}">
+        <ctrl:LotusColumnDateTimeFilter QueryItem="{Binding}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ctrl:QueryItemEnum}">
+        <ctrl:LotusColumnEnumFilter QueryItem="{Binding}" />
+    </DataTemplate>
+
+    <!--  Стиль изменения ширины столбца  -->
+    <Style
+        x:Key="LotusDataGridColumnHeaderGripperStyleKey"
+        TargetType="{x:Type Thumb}">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="SizeWE" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Базовый стиль таблицы данных (доступен по ключу для явного использования)  -->
+    <Style
+        x:Key="LotusDataGridStyleKey"
+        BasedOn="{StaticResource {x:Type DataGrid}}"
+        TargetType="DataGrid">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+        <Setter Property="Background" Value="{StaticResource LotusDataGridBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LotusBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource LotusDataGridGridLinesBrush}" />
+        <Setter Property="RowBackground" Value="Transparent" />
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource LotusDataGridAlternatingRowBrush}" />
+        <Setter Property="RowStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource LotusAccentLightBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource LotusAccentBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource LotusDataGridSelectedForegroundBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{StaticResource LotusAccentDarkBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource LotusDataGridSelectedForegroundBrush}" />
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource LotusDataGridSelectedForegroundBrush}" />
+                            <Setter Property="Background" Value="Transparent" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Неявный стиль LotusDataGrid: добавляет фильтры в заголовки столбцов  -->
+    <Style
+        BasedOn="{StaticResource LotusDataGridStyleKey}"
+        TargetType="{x:Type ctrl:LotusDataGrid}">
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Foreground" Value="{StaticResource LotusDataGridHeaderForegroundBrush}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="IsTabStop" Value="False" />
+                    <Setter Property="SeparatorBrush" Value="{StaticResource LotusDataGridSeparatorBrush}" />
+                    <Setter Property="Padding" Value="4" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Grid x:Name="Root">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--  Фон заголовка  -->
+                                    <Rectangle
+                                        x:Name="BackgroundRectangle"
+                                        Grid.ColumnSpan="2"
+                                        Fill="{StaticResource LotusDataGridHeaderBackgroundBrush}"
+                                        Stretch="Fill" />
+                                    <Rectangle
+                                        x:Name="BackgroundGradient"
+                                        Grid.ColumnSpan="2"
+                                        Stretch="Fill">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint=".7,0" EndPoint=".7,1">
+                                                <GradientStop Offset="0.015" Color="#FCFFFFFF" />
+                                                <GradientStop Offset="0.375" Color="#F7FFFFFF" />
+                                                <GradientStop Offset="0.6" Color="#E5FFFFFF" />
+                                                <GradientStop Offset="1" Color="#D1FFFFFF" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <!--  Содержимое: заголовок + иконка сортировки  -->
+                                    <Grid
+                                        Margin="4,2,9,2"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter
+                                            Grid.Column="0"
+                                            Content="{TemplateBinding Content}" />
+                                        <Path
+                                            x:Name="SortIcon"
+                                            Grid.Column="1"
+                                            Width="8"
+                                            Margin="4,0,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
+                                            Fill="{StaticResource LotusDataGridSortIconBrush}"
+                                            Opacity="0"
+                                            RenderTransformOrigin=".5,.5"
+                                            Stretch="Uniform">
+                                            <Path.RenderTransform>
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+
+                                    <!--  Разделитель столбца  -->
+                                    <Rectangle
+                                        x:Name="VerticalSeparator"
+                                        Grid.Column="1"
+                                        Width="1"
+                                        VerticalAlignment="Stretch"
+                                        Fill="{TemplateBinding SeparatorBrush}"
+                                        Visibility="{TemplateBinding SeparatorVisibility}" />
+
+                                    <!--  Строка фильтра  -->
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BorderBrush="{StaticResource LotusDataGridSeparatorBrush}"
+                                        BorderThickness="1,1,1,1"
+                                        Visibility="{Binding RelativeSource={RelativeSource AncestorType=ctrl:LotusDataGrid}, Path=IsShowFilterColumn, Converter={StaticResource LotusDataGridBoolFalseToCollapsedKey}}">
+                                        <ContentControl
+                                            Margin="1"
+                                            Content="{Binding Path=Column.(ctrl:LotusDataGrid.ColumnQueryItem), RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Border>
+
+                                    <!--  Захваты для изменения ширины  -->
+                                    <Thumb
+                                        x:Name="PART_LeftHeaderGripper"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource LotusDataGridColumnHeaderGripperStyleKey}" />
+                                    <Thumb
+                                        x:Name="PART_RightHeaderGripper"
+                                        HorizontalAlignment="Right"
+                                        Style="{StaticResource LotusDataGridColumnHeaderGripperStyleKey}" />
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="MouseOver">
+                                                <Storyboard>
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundRectangle"
+                                                        Storyboard.TargetProperty="(Fill).Color"
+                                                        To="{StaticResource LotusDataGridHeaderHoverColor}"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color"
+                                                        To="#7FFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color"
+                                                        To="#CCFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color"
+                                                        To="#F2FFFFFF"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Pressed">
+                                                <Storyboard>
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundRectangle"
+                                                        Storyboard.TargetProperty="(Fill).Color"
+                                                        To="{StaticResource LotusDataGridHeaderHoverColor}"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[0].Color"
+                                                        To="#D8FFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color"
+                                                        To="#C6FFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color"
+                                                        To="#8CFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color"
+                                                        To="#3FFFFFFF"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SortStates">
+                                            <VisualState x:Name="Unsorted" />
+                                            <VisualState x:Name="SortAscending">
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="Opacity"
+                                                        To="1.0"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SortDescending">
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="Opacity"
+                                                        To="1.0"
+                                                        Duration="0" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="(RenderTransform).ScaleY"
+                                                        To="-.9"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

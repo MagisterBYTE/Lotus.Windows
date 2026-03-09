@@ -114,7 +114,7 @@ namespace Lotus.Windows
         {
             // Конфигурация диалога
             var dialog = new Microsoft.Win32.SaveFileDialog();
-            if (extension != null)
+            if (extension is not null)
             {
                 dialog.DefaultExt = extension[0] == XCharHelper.Dot ? extension : XCharHelper.Dot + extension;
                 dialog.Filter = GetFilterFromExt(extension);

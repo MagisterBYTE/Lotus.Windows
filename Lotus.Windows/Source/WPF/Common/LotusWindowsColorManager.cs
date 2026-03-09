@@ -97,7 +97,7 @@ namespace Lotus.Windows
         {
             var result = Colors.White;
 
-            if (KnownColors != null)
+            if (KnownColors is not null)
             {
                 for (var i = 0; i < KnownColors.Count; i++)
                 {
@@ -120,7 +120,7 @@ namespace Lotus.Windows
         {
             var result = Brushes.White;
 
-            if (KnownBrushes != null)
+            if (KnownBrushes is not null)
             {
 
                 for (var i = 0; i < KnownBrushes.Count; i++)
@@ -142,7 +142,7 @@ namespace Lotus.Windows
         /// <returns>Найденную кисть или новую кисть на основе цвета.</returns>
         public static SolidColorBrush GetBrushByColor(Color color)
         {
-            if (KnownBrushes != null)
+            if (KnownBrushes is not null)
             {
                 for (var i = 0; i < KnownBrushes.Count; i++)
                 {

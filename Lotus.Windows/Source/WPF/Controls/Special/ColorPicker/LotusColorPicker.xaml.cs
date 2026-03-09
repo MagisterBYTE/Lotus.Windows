@@ -9,9 +9,9 @@ namespace Lotus.Windows
     /// <summary>
     /// Элемент для выбора цвета.
     /// </summary>
-    public partial class LotusColorPicker : UserControl
+    public class LotusColorPicker : UserControl
     {
-        #region Declare DependencyProperty 
+        #region Declare DependencyProperty
         /// <summary>
         /// Свойство цвет.
         /// </summary>
@@ -130,12 +130,17 @@ namespace Lotus.Windows
         #endregion
 
         #region Constructors
+        static LotusColorPicker()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LotusColorPicker),
+                new FrameworkPropertyMetadata(typeof(LotusColorPicker)));
+        }
+
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
         public LotusColorPicker()
         {
-            InitializeComponent();
         }
         #endregion
     }

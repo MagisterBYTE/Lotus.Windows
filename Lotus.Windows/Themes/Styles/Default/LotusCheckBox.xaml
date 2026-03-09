@@ -1,0 +1,63 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Стандартный чекбокс Lotus  -->
+    <Style
+        x:Key="LotusCheckBoxStyleKey"
+        TargetType="CheckBox">
+        <Setter Property="FontFamily" Value="{StaticResource LotusFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource LotusFontSize}" />
+        <Setter Property="Foreground" Value="{StaticResource LotusForegroundBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Background="Transparent">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            x:Name="checkBorder"
+                            Width="18"
+                            Height="18"
+                            Background="White"
+                            BorderBrush="{StaticResource LotusBorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="3">
+                            <Path
+                                x:Name="checkMark"
+                                Margin="2"
+                                Data="M 0 5 L 3 8 L 8 0"
+                                Stretch="Uniform"
+                                Stroke="{StaticResource LotusAccentBrush}"
+                                StrokeThickness="2"
+                                Visibility="Collapsed" />
+                        </Border>
+                        <ContentPresenter
+                            Grid.Column="1"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="checkBorder" Property="Background" Value="{StaticResource LotusAccentLightBrush}" />
+                            <Setter TargetName="checkBorder" Property="BorderBrush" Value="{StaticResource LotusAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="checkBorder" Property="BorderBrush" Value="{StaticResource LotusAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

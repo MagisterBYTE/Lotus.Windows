@@ -18,11 +18,11 @@ namespace Lotus.Windows
         /// <param name="y">Позиция по Y.</param>
         public static void SetPosition(this Geometry geometry, double x, double y)
         {
-            var transform_group = geometry.Transform as TransformGroup;
-            if (transform_group != null)
+            var transformGroup = geometry.Transform as TransformGroup;
+            if (transformGroup is not null)
             {
-                var translate_in_group = transform_group.Children[0] as TranslateTransform;
-                if (translate_in_group != null)
+                var translate_in_group = transformGroup.Children[0] as TranslateTransform;
+                if (translate_in_group is not null)
                 {
                     translate_in_group.X = x;
                     translate_in_group.Y = y;
@@ -31,7 +31,7 @@ namespace Lotus.Windows
             }
 
             var translate = geometry.Transform as TranslateTransform;
-            if (translate != null)
+            if (translate is not null)
             {
                 translate.X = x;
                 translate.Y = y;
@@ -45,11 +45,11 @@ namespace Lotus.Windows
         /// <param name="point">Позиция.</param>
         public static void SetPosition(this Geometry geometry, Point point)
         {
-            var transform_group = geometry.Transform as TransformGroup;
-            if (transform_group != null)
+            var transformGroup = geometry.Transform as TransformGroup;
+            if (transformGroup is not null)
             {
-                var translate_in_group = transform_group.Children[0] as TranslateTransform;
-                if (translate_in_group != null)
+                var translate_in_group = transformGroup.Children[0] as TranslateTransform;
+                if (translate_in_group is not null)
                 {
                     translate_in_group.X = point.X;
                     translate_in_group.Y = point.Y;
@@ -58,7 +58,7 @@ namespace Lotus.Windows
             }
 
             var translate = geometry.Transform as TranslateTransform;
-            if (translate != null)
+            if (translate is not null)
             {
                 translate.X = point.X;
                 translate.Y = point.Y;
@@ -72,11 +72,11 @@ namespace Lotus.Windows
         /// <param name="angle">Угол поворота.</param>
         public static void SetAngle(this Geometry geometry, double angle)
         {
-            var transform_group = geometry.Transform as TransformGroup;
-            if (transform_group != null)
+            var transformGroup = geometry.Transform as TransformGroup;
+            if (transformGroup is not null)
             {
-                var rotation_in_group = transform_group.Children[1] as RotateTransform;
-                if (rotation_in_group != null)
+                var rotation_in_group = transformGroup.Children[1] as RotateTransform;
+                if (rotation_in_group is not null)
                 {
                     var bounds_rect = Rect.Empty;
                     rotation_in_group.Angle = angle;
@@ -87,7 +87,7 @@ namespace Lotus.Windows
             }
 
             var rotation = geometry.Transform as RotateTransform;
-            if (rotation != null)
+            if (rotation is not null)
             {
                 rotation.Angle = angle;
             }

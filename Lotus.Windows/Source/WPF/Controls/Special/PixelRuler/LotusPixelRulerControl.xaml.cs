@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -12,7 +13,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Единица измерения линейки.
     /// </summary>
-    [TypeConverter(typeof(EnumToStringConverter<TRulerDimensionType>))]
+    [TypeConverter(typeof(EnumDescriptionConverter<TRulerDimensionType>))]
     public enum TRulerDimensionType
     {
         /// <summary>
@@ -46,7 +47,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Расположение маркеров линейки.
     /// </summary>
-    [TypeConverter(typeof(EnumToStringConverter<TRulerDimensionType>))]
+    [TypeConverter(typeof(EnumDescriptionConverter<TRulerMarksLocation>))]
     public enum TRulerMarksLocation
     {
         /// <summary>
@@ -65,7 +66,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Элемент - Линейка.
     /// </summary>
-    public partial class LotusPixelRulerControl : FrameworkElement
+    public class LotusPixelRulerControl : FrameworkElement
     {
         #region Declare DependencyProperty 
         /// <summary>
@@ -418,7 +419,6 @@ namespace Lotus.Windows
         /// </summary>
         public LotusPixelRulerControl()
         {
-            InitializeComponent();
             _typefaceNumber = new Typeface("Arial");
             _segmentHeight = Height - 10;
             UnitStartOffset = 5;

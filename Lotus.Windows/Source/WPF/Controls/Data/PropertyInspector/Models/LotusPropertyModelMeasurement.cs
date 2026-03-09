@@ -75,10 +75,10 @@ namespace Lotus.Windows
         /// </summary>
         protected void GetInfoFromAttributesRange()
         {
-            if (_info != null)
+            if (_info is not null)
             {
                 var min_value = _info.GetAttribute<LotusMinValueAttribute>();
-                if (min_value != null)
+                if (min_value is not null)
                 {
                     _minValue = Convert.ToDouble(min_value.MinValue);
                 }
@@ -88,7 +88,7 @@ namespace Lotus.Windows
                 }
 
                 var max_value = _info.GetAttribute<LotusMaxValueAttribute>();
-                if (max_value != null)
+                if (max_value is not null)
                 {
                     _maxValue = Convert.ToDouble(max_value.MaxValue);
                 }

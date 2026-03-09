@@ -1,122 +1,205 @@
-﻿<UserControl
+<UserControl
     x:Class="Lotus.Windows.LotusVector2DEditor"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:core="http://schemas.lotus.core"
+    xmlns:core="clr-namespace:Lotus.Core;assembly=Lotus.Core"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     d:DesignHeight="30"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/ValueConverters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--  Строковые ресурсы пунктов меню  -->
+            <sys:String x:Key="LotusVector2DCopyKey">Копировать</sys:String>
+            <sys:String x:Key="LotusVector2DPasteKey">Вставить</sys:String>
+            <sys:String x:Key="LotusVector2DClearKey">Очистка</sys:String>
+            <sys:String x:Key="LotusVector2DDefaultKey">Значение по умолчанию</sys:String>
+            <sys:String x:Key="LotusVector2DRadix0Key">Разрядность 0</sys:String>
+            <sys:String x:Key="LotusVector2DRadix1Key">Разрядность 0,0</sys:String>
+            <sys:String x:Key="LotusVector2DRadix2Key">Разрядность 0,00</sys:String>
+
+            <!--  Иконки пунктов меню  -->
+            <BitmapImage
+                x:Key="LotusVector2DIconCopyKey"
+                UriSource="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_copy_32.png" />
+            <BitmapImage
+                x:Key="LotusVector2DIconPasteKey"
+                UriSource="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_paste_32.png" />
+            <BitmapImage
+                x:Key="LotusVector2DIconDeleteKey"
+                UriSource="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_delete_32.png" />
+            <BitmapImage
+                x:Key="LotusVector2DIconRefreshKey"
+                UriSource="/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_refresh_32.png" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="14" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+
         <TextBlock
-            Grid.Row="0"
             Grid.Column="0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="12"
             Text="X" />
-        <xctk:DoubleUpDown
-            x:Name="spinnerX"
-            Grid.Row="0"
+        <ctrl:LotusNumericEditor
+            x:Name="EditorX"
             Grid.Column="1"
             Margin="1"
-            HorizontalAlignment="Stretch"
-            FormatString="F2"
-            ParsingNumberStyle="Float"
-            ValueChanged="OnSpinnerX_ValueChanged" />
+            FormatValueDefault="{}{0:F2}"
+            IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ctrl:LotusVector2DEditor}, Path=IsReadOnly}"
+            MaxValue="1E15"
+            MinValue="-1E15"
+            ValueChanged="OnEditorX_ValueChanged" />
 
         <TextBlock
-            Grid.Row="0"
             Grid.Column="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="12"
             Text="Y" />
-        <xctk:DoubleUpDown
-            x:Name="spinnerY"
-            Grid.Row="0"
+        <ctrl:LotusNumericEditor
+            x:Name="EditorY"
             Grid.Column="3"
             Margin="1"
-            HorizontalAlignment="Stretch"
-            FormatString="F2"
-            ParsingNumberStyle="Float"
-            ValueChanged="OnSpinnerY_ValueChanged" />
+            FormatValueDefault="{}{0:F2}"
+            IsReadOnly="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ctrl:LotusVector2DEditor}, Path=IsReadOnly}"
+            MaxValue="1E15"
+            MinValue="-1E15"
+            ValueChanged="OnEditorY_ValueChanged" />
 
+        <!--  Кнопка открытия меню. Tag передаёт IsReadOnly в ContextMenu через PlacementTarget  -->
         <Button
             x:Name="ButtonMenu"
-            Grid.Row="0"
             Grid.Column="4"
             Click="OnButtonMenu_Click"
-            Content="▼">
+            Content="{x:Static core:XStringHelper.TriangleDown}"
+            Style="{StaticResource LotusButtonStyleKey}"
+            Tag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ctrl:LotusVector2DEditor}, Path=IsReadOnly}">
             <Button.ContextMenu>
                 <ContextMenu>
+
+                    <!--  Копировать (всегда доступно)  -->
                     <MenuItem
-                        x:Name="miCopy"
                         Click="OnMenuItemCopyVector_Click"
-                        Header="Копировать">
+                        Header="{StaticResource LotusVector2DCopyKey}">
                         <MenuItem.Icon>
                             <Image
-                                Width="22"
-                                Height="22"
-                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_copy_32.png"
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource LotusVector2DIconCopyKey}"
                                 Stretch="Fill" />
                         </MenuItem.Icon>
                     </MenuItem>
+
+                    <!--  Вставить (недоступно в режиме только для чтения)  -->
                     <MenuItem
-                        x:Name="miPaste"
                         Click="OnMenuItemPasteVector_Click"
-                        Header="Вставить">
+                        Header="{StaticResource LotusVector2DPasteKey}">
                         <MenuItem.Icon>
                             <Image
-                                Width="22"
-                                Height="22"
-                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_paste_32.png"
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource LotusVector2DIconPasteKey}"
                                 Stretch="Fill" />
                         </MenuItem.Icon>
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                        Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
                     </MenuItem>
+
+                    <!--  Очистка (недоступно в режиме только для чтения)  -->
                     <MenuItem
-                        x:Name="miClear"
                         Click="OnMenuItemClearVector_Click"
-                        Header="Очистка">
+                        Header="{StaticResource LotusVector2DClearKey}">
                         <MenuItem.Icon>
                             <Image
-                                Width="22"
-                                Height="22"
-                                Source="/Lotus.Windows;component/Resources/Icons/Edit/Oxygen_edit_delete_32.png"
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource LotusVector2DIconDeleteKey}"
                                 Stretch="Fill" />
                         </MenuItem.Icon>
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                        Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
                     </MenuItem>
+
                     <Separator />
+
+                    <!--  Значение по умолчанию (недоступно в режиме только для чтения)  -->
                     <MenuItem
-                        x:Name="miDefault"
                         Click="OnMenuItemSetDefaultVector_Click"
-                        Header="Значение по умолчанию">
+                        Header="{StaticResource LotusVector2DDefaultKey}">
                         <MenuItem.Icon>
                             <Image
-                                Width="22"
-                                Height="22"
-                                Source="/Lotus.Windows;component/Resources/Icons/View/Oxygen_view_refresh_32.png"
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource LotusVector2DIconRefreshKey}"
                                 Stretch="Fill" />
                         </MenuItem.Icon>
+                        <MenuItem.Style>
+                            <Style TargetType="MenuItem">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding PlacementTarget.Tag, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                        Value="True">
+                                        <Setter Property="IsEnabled" Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.Style>
                     </MenuItem>
+
                     <Separator />
-                    <RadioButton Checked="OnRadixZero_Checked">Разрядность 0</RadioButton>
-                    <RadioButton Checked="OnRadixOne_Checked">Разрядность 0,0</RadioButton>
+
+                    <!--  Выбор разрядности. Tag содержит строку формата.  -->
                     <RadioButton
-                        Checked="OnRadixTwo_Checked"
-                        IsChecked="True">
-                        Разрядность 0,00
-                    </RadioButton>
+                        Checked="OnRadioRadix_Checked"
+                        Content="{StaticResource LotusVector2DRadix0Key}"
+                        Tag="{}{0}" />
+                    <RadioButton
+                        Checked="OnRadioRadix_Checked"
+                        Content="{StaticResource LotusVector2DRadix1Key}"
+                        Tag="{}{0:F1}" />
+                    <RadioButton
+                        Checked="OnRadioRadix_Checked"
+                        Content="{StaticResource LotusVector2DRadix2Key}"
+                        IsChecked="True"
+                        Tag="{}{0:F2}" />
+
                 </ContextMenu>
             </Button.ContextMenu>
         </Button>

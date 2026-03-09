@@ -1,0 +1,139 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+
+    <!--  Конвертер типа уведомления в иконку  -->
+    <ctrl:NotificationTypeToImageConverter
+        x:Key="LotusNotificationTypeToImageConverterKey"
+        Error="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_error_32.png"
+        Info="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_information_32.png"
+        Warning="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_dialog_warning_32.png" />
+
+    <!--  Кисти кнопки закрытия  -->
+    <SolidColorBrush
+        x:Key="LotusGrowlNormalBorderBrush"
+        Color="Black" />
+    <SolidColorBrush
+        x:Key="LotusGrowlDefaultedBorderBrush"
+        Color="Black" />
+    <SolidColorBrush
+        x:Key="LotusGrowlDisabledForegroundBrush"
+        Color="#888" />
+    <SolidColorBrush
+        x:Key="LotusGrowlDisabledBackgroundBrush"
+        Color="#EEE" />
+    <SolidColorBrush
+        x:Key="LotusGrowlDisabledBorderBrush"
+        Color="#AAA" />
+
+    <LinearGradientBrush x:Key="LotusGrowlCloseNormalBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="#394452" />
+        <GradientStop Offset="1.0" Color="#343e4a" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="LotusGrowlCloseOverBrush" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Offset="0.0" Color="#515a6b" />
+        <GradientStop Offset="1.0" Color="#474f5d" />
+    </LinearGradientBrush>
+    <SolidColorBrush
+        x:Key="LotusGrowlClosePressedBrush"
+        Color="#090909" />
+
+    <!--  Стиль визуальной рамки фокуса кнопки  -->
+    <Style x:Key="LotusGrowlButtonFocusVisualStyleKey">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border>
+                        <Rectangle
+                            Margin="2"
+                            Stroke="#60000000"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Стиль кнопки закрытия уведомления  -->
+    <Style
+        x:Key="LotusGrowlCloseButtonStyleKey"
+        TargetType="{x:Type Button}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource LotusGrowlButtonFocusVisualStyleKey}" />
+        <Setter Property="MinHeight" Value="16" />
+        <Setter Property="MinWidth" Value="16" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Border
+                            x:Name="border"
+                            Background="{StaticResource LotusGrowlCloseNormalBrush}"
+                            BorderBrush="{StaticResource LotusGrowlNormalBorderBrush}"
+                            BorderThickness="0"
+                            ClipToBounds="False"
+                            CornerRadius="3">
+                            <Border.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="5"
+                                    Opacity=".4"
+                                    ShadowDepth="0"
+                                    Color="Black" />
+                            </Border.Effect>
+                            <Grid>
+                                <Image
+                                    Margin="2"
+                                    IsHitTestVisible="False"
+                                    Source="/Lotus.Windows;component/Resources/Icons/Status/Oxygen_application_exit_32.png">
+                                    <Image.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="1"
+                                            Direction="90"
+                                            ShadowDepth="1" />
+                                    </Image.Effect>
+                                </Image>
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    RecognizesAccessKey="True" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LotusGrowlCloseOverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LotusGrowlClosePressedBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LotusGrowlDefaultedBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsDefaulted" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LotusGrowlDefaultedBorderBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LotusGrowlDisabledBackgroundBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LotusGrowlDisabledBorderBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource LotusGrowlDisabledForegroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Анимация схлопывания уведомления  -->
+    <Storyboard x:Key="LotusGrowlCollapseStoryboardKey">
+        <DoubleAnimation
+            Storyboard.TargetProperty="Height"
+            From="100"
+            To="0"
+            Duration="0:0:0.5" />
+    </Storyboard>
+
+</ResourceDictionary>

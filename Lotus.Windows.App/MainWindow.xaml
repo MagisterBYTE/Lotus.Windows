@@ -1,0 +1,732 @@
+<Window
+    x:Class="Lotus.Windows.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows;assembly=Lotus.Windows"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Lotus.Windows — Тестовое приложение"
+    Width="1000"
+    Height="700"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Generic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <TabControl Margin="8">
+
+        <!--  LotusTextBox  -->
+        <TabItem Header="LotusTextBox">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusTextBox — тестирование" />
+
+                    <!--  Обычное текстовое поле  -->
+                    <TextBlock Text="Обычное поле:" />
+                    <ctrl:LotusTextBox
+                        Width="300"
+                        HorizontalAlignment="Left" />
+
+                    <!--  С текстом-заполнителем  -->
+                    <TextBlock Text="С текстом-заполнителем:" />
+                    <ctrl:LotusTextBox
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        PlaceholderText="Введите имя..." />
+
+                    <!--  С кнопкой очистки  -->
+                    <TextBlock Text="С кнопкой очистки:" />
+                    <ctrl:LotusTextBox
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        PlaceholderText="Поиск..."
+                        ShowButtonClear="True" />
+
+                    <!--  С кнопкой очистки и начальным текстом  -->
+                    <TextBlock Text="С кнопкой очистки и начальным текстом:" />
+                    <ctrl:LotusTextBox
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        ShowButtonClear="True"
+                        Text="Начальный текст" />
+
+                    <!--  Отключённое поле  -->
+                    <TextBlock Text="Отключённое:" />
+                    <ctrl:LotusTextBox
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        IsEnabled="False"
+                        PlaceholderText="Недоступно"
+                        Text="Отключено" />
+
+                    <!--  Расширенная ширина  -->
+                    <TextBlock Text="Расширенная ширина:" />
+                    <ctrl:LotusTextBox
+                        HorizontalAlignment="Stretch"
+                        FontSize="16"
+                        PlaceholderText="Широкое поле с заполнителем..."
+                        ShowButtonClear="True" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusNumericEditor  -->
+        <TabItem Header="LotusNumericEditor">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusNumericEditor — тестирование" />
+
+                    <!--  Базовое использование  -->
+                    <TextBlock Text="Базовое (0..100, шаг 1):" />
+                    <ctrl:LotusNumericEditor
+                        Width="200"
+                        HorizontalAlignment="Left" />
+
+                    <!--  С отрицательным диапазоном  -->
+                    <TextBlock Text="Отрицательный диапазон (-100..100, шаг 5):" />
+                    <ctrl:LotusNumericEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        MaxValue="100"
+                        MinValue="-100"
+                        Step="5"
+                        Value="-25" />
+
+                    <!--  С форматом и значением по умолчанию  -->
+                    <TextBlock Text="Дробное (0..1, шаг 0.01, формат F3):" />
+                    <ctrl:LotusNumericEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        DefaultValue="0.5"
+                        FormatValue="{}{0:F3}"
+                        MaxValue="1"
+                        MinValue="0"
+                        Step="0.01" />
+
+                    <!--  Только для чтения  -->
+                    <TextBlock Text="Только для чтения:" />
+                    <ctrl:LotusNumericEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        IsReadOnly="True"
+                        Value="42" />
+
+                    <!--  Большой диапазон  -->
+                    <TextBlock Text="Большой диапазон (0..1 000 000, шаг 1000):" />
+                    <ctrl:LotusNumericEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        FormatValueDefault="{}{0:N0}"
+                        MaxValue="1000000"
+                        MinValue="0"
+                        Step="1000"
+                        Value="50000" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusMeasurementEditor  -->
+        <TabItem Header="LotusMeasurementEditor">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusMeasurementEditor — тестирование" />
+
+                    <!--  Базовое использование  -->
+                    <TextBlock Text="Базовое (0..100, шаг 1):" />
+                    <ctrl:LotusMeasurementEditor
+                        Width="200"
+                        HorizontalAlignment="Left" />
+
+                    <!--  С единицей длины и шагом  -->
+                    <TextBlock Text="Длина (0..1000 м, шаг 0.5, формат F2):" />
+                    <ctrl:LotusMeasurementEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        DefaultValue="10"
+                        FormatValue="{}{0:F2}"
+                        MaxValue="1000"
+                        MinValue="0"
+                        Step="0.5" />
+
+                    <!--  С отрицательным диапазоном  -->
+                    <TextBlock Text="Диапазон (-50..50, шаг 5):" />
+                    <ctrl:LotusMeasurementEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        DefaultValue="-10"
+                        MaxValue="50"
+                        MinValue="-50"
+                        Step="5" />
+
+                    <!--  С форматом по умолчанию и значением по умолчанию  -->
+                    <TextBlock Text="С форматом F3 и значением по умолчанию 3.14:" />
+                    <ctrl:LotusMeasurementEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        DefaultValue="3.14"
+                        FormatValueDefault="{}{0:F3}"
+                        MaxValue="10"
+                        MinValue="0"
+                        Step="0.001" />
+
+                    <!--  Только для чтения  -->
+                    <TextBlock Text="Только для чтения:" />
+                    <ctrl:LotusMeasurementEditor
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        DefaultValue="42"
+                        IsReadOnly="True" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusVector2DEditor  -->
+        <TabItem Header="LotusVector2DEditor">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusVector2DEditor — тестирование" />
+
+                    <!--  Базовое использование  -->
+                    <TextBlock Text="Базовое (0, 0):" />
+                    <ctrl:LotusVector2DEditor
+                        Width="300"
+                        HorizontalAlignment="Left" />
+
+                    <!--  С начальным значением  -->
+                    <TextBlock Text="Со значением (3.14, -2.71):" />
+                    <ctrl:LotusVector2DEditor
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        Value="3.14 -2.71" />
+
+                    <!--  Только для чтения  -->
+                    <TextBlock Text="Только для чтения:" />
+                    <ctrl:LotusVector2DEditor
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        IsReadOnly="True" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusVector3DEditor  -->
+        <TabItem Header="LotusVector3DEditor">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusVector3DEditor — тестирование" />
+
+                    <!--  Базовое использование  -->
+                    <TextBlock Text="Базовое (0, 0, 0):" />
+                    <ctrl:LotusVector3DEditor HorizontalAlignment="Stretch" />
+
+                    <!--  Только для чтения  -->
+                    <TextBlock Text="Только для чтения:" />
+                    <ctrl:LotusVector3DEditor
+                        HorizontalAlignment="Stretch"
+                        IsReadOnly="True" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusGrowlNotification  -->
+        <TabItem Header="LotusGrowlNotification">
+            <StackPanel Margin="4">
+
+                <TextBlock
+                    Margin="0,0,0,4"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusGrowlNotification — тестирование" />
+
+                <TextBlock Text="Всплывающие уведомления (Growl). Нажмите кнопку для показа:" />
+
+                <WrapPanel Margin="0,8,0,0">
+                    <Button
+                        Margin="4"
+                        Click="OnShowGrowlInfo_Click"
+                        Content="Показать Info" />
+                    <Button
+                        Margin="4"
+                        Click="OnShowGrowlWarning_Click"
+                        Content="Показать Warning" />
+                    <Button
+                        Margin="4"
+                        Click="OnShowGrowlError_Click"
+                        Content="Показать Error" />
+                </WrapPanel>
+
+            </StackPanel>
+        </TabItem>
+
+        <!--  LotusWindowLongTaskInformer  -->
+        <TabItem Header="LotusWindowLongTaskInformer">
+            <StackPanel Margin="4">
+
+                <TextBlock
+                    Margin="0,0,0,4"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusWindowLongTaskInformer — тестирование" />
+
+                <TextBlock Text="Окно отображения прогресса длительной операции." />
+
+                <Button
+                    Width="200"
+                    Margin="0,8,0,0"
+                    HorizontalAlignment="Left"
+                    Click="OnShowLongTaskInformer_Click"
+                    Content="Открыть окно прогресса" />
+
+            </StackPanel>
+        </TabItem>
+
+        <!--  LotusLoggerControl  -->
+        <TabItem Header="LotusLoggerControl">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,4"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusLoggerControl — тестирование" />
+
+                <ctrl:LotusLoggerControl
+                    x:Name="loggerControl"
+                    Grid.Row="1" />
+            </Grid>
+        </TabItem>
+
+        <!--  LotusPixelRulerControl  -->
+        <TabItem Header="LotusPixelRulerControl">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusPixelRulerControl — тестирование" />
+
+                    <!--  Аппаратные единицы, маркеры сверху  -->
+                    <TextBlock Text="Аппаратные единицы (DeviceUnit), маркеры сверху:" />
+                    <ctrl:LotusPixelRulerControl
+                        Margin="0,2,0,8"
+                        HorizontalAlignment="Stretch"
+                        AutoSize="True"
+                        DimensionType="DeviceUnit"
+                        MarksLocation="Up"
+                        SmallStep="5"
+                        Step="50"
+                        UnitLength="2000" />
+
+                    <!--  Миллиметры, маркеры снизу  -->
+                    <TextBlock Text="Миллиметры, маркеры снизу:" />
+                    <ctrl:LotusPixelRulerControl
+                        Margin="0,2,0,8"
+                        HorizontalAlignment="Stretch"
+                        AutoSize="True"
+                        DimensionType="Milliliter"
+                        MarksLocation="Down"
+                        SmallStep="1"
+                        Step="10"
+                        UnitLength="2000" />
+
+                    <!--  Сантиметры  -->
+                    <TextBlock Text="Сантиметры:" />
+                    <ctrl:LotusPixelRulerControl
+                        Margin="0,2,0,8"
+                        HorizontalAlignment="Stretch"
+                        AutoSize="True"
+                        DimensionType="Centimeter"
+                        MarksLocation="Up"
+                        SmallStep="1"
+                        Step="5"
+                        UnitLength="2000" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusColorPicker  -->
+        <TabItem Header="LotusColorPicker">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusColorPicker — тестирование" />
+
+                    <!--  Начальный цвет по умолчанию (чёрный)  -->
+                    <TextBlock Text="По умолчанию (чёрный):" />
+                    <ctrl:LotusColorPicker
+                        Width="300"
+                        Padding="2"
+                        HorizontalAlignment="Left" />
+
+                    <!--  Начальный цвет — красный  -->
+                    <TextBlock Text="Начальный цвет — красный:" />
+                    <ctrl:LotusColorPicker
+                        Width="300"
+                        Padding="2"
+                        HorizontalAlignment="Left"
+                        Color="Red" />
+
+                    <!--  Начальный цвет — произвольный  -->
+                    <TextBlock Text="Произвольный цвет (#4A90C2):" />
+                    <ctrl:LotusColorPicker
+                        Width="300"
+                        Padding="2"
+                        HorizontalAlignment="Left"
+                        Color="#4A90C2" />
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusMenuItemIcon  -->
+        <TabItem Header="LotusMenuItemIcon">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusMenuItemIcon — тестирование" />
+
+                    <TextBlock Text="Меню с иконками из команд:" />
+                    <Menu
+                        Margin="0,4,0,8"
+                        HorizontalAlignment="Left">
+                        <MenuItem Header="Файл">
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.FileNew}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.FileOpen}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.FileSave}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.FileSaveAs}" />
+                            <Separator />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.FileClose}" />
+                        </MenuItem>
+                        <MenuItem Header="Правка">
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.EditCopy}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.EditCut}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.EditPaste}" />
+                            <Separator />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.EditUndo}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.EditRedo}" />
+                        </MenuItem>
+                        <MenuItem Header="Запись">
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.RecordAdd}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.RecordRemove}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.RecordMoveUp}" />
+                            <ctrl:LotusMenuItemIcon Command="{x:Static ctrl:XCommandManager.RecordMoveDown}" />
+                        </MenuItem>
+                    </Menu>
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusButtonCommandIcon  -->
+        <TabItem Header="LotusButtonCommandIcon">
+            <ScrollViewer>
+                <StackPanel Margin="4">
+
+                    <TextBlock
+                        Margin="0,0,0,4"
+                        Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                        Text="LotusButtonCommandIcon — тестирование" />
+
+                    <!--  Кнопки файловых команд  -->
+                    <TextBlock Text="Файловые команды:" />
+                    <WrapPanel Margin="0,4,0,8">
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.FileNew}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.FileOpen}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.FileSave}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.FileSaveAs}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.FileClose}" />
+                    </WrapPanel>
+
+                    <!--  Кнопки редактирования  -->
+                    <TextBlock Text="Редактирование:" />
+                    <WrapPanel Margin="0,4,0,8">
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.EditCopy}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.EditCut}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.EditPaste}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.EditUndo}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.EditRedo}" />
+                    </WrapPanel>
+
+                    <!--  Кнопки записей  -->
+                    <TextBlock Text="Управление записями:" />
+                    <WrapPanel Margin="0,4,0,8">
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.RecordAdd}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.RecordRemove}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.RecordMoveUp}" />
+                        <ctrl:LotusButtonCommandIcon
+                            Margin="4"
+                            Command="{x:Static ctrl:XCommandManager.RecordMoveDown}" />
+                    </WrapPanel>
+
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <!--  LotusTreeView  -->
+        <TabItem Header="LotusTreeView">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusTreeView — иерархические данные, выбор, раскрытие, двойной клик" />
+
+                <ctrl:LotusTreeView
+                    x:Name="demoTreeView"
+                    Grid.Row="1" />
+            </Grid>
+        </TabItem>
+
+        <!--  LotusPropertyInspector  -->
+        <TabItem Header="LotusPropertyInspector">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusPropertyInspector — редактирование свойств объекта" />
+
+                <WrapPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,4">
+                    <Button
+                        Margin="4,0"
+                        Click="OnInspectorSetObject1_Click"
+                        Content="Объект 1 (разные типы)" />
+                    <Button
+                        Margin="4,0"
+                        Click="OnInspectorSetObject2_Click"
+                        Content="Объект 2 (числа)" />
+                    <Button
+                        Margin="4,0"
+                        Click="OnInspectorClear_Click"
+                        Content="Сбросить" />
+                </WrapPanel>
+
+                <ctrl:LotusPropertyInspector
+                    x:Name="propertyInspector"
+                    Grid.Row="2" />
+            </Grid>
+        </TabItem>
+
+        <!--  LotusDataGrid  -->
+        <TabItem Header="LotusDataGrid">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusDataGrid — фильтрация по типу свойства, корректный SelectedObjects" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,4"
+                    Orientation="Horizontal">
+                    <ToggleButton
+                        x:Name="toggleFilter"
+                        Padding="8,4"
+                        Click="OnToggleFilter_Click"
+                        Content="Показать фильтры" />
+                    <TextBlock
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Выбрано: " />
+                    <TextBlock
+                        x:Name="selectedCountText"
+                        VerticalAlignment="Center"
+                        Text="0" />
+                </StackPanel>
+
+                <ctrl:LotusDataGrid
+                    x:Name="demoDataGrid"
+                    Grid.Row="2"
+                    AutoGenerateColumns="True"
+                    CanUserAddRows="False"
+                    SelectionMode="Extended" />
+
+                <TextBlock
+                    x:Name="selectedItemsText"
+                    Grid.Row="3"
+                    Margin="0,4,0,0"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </TabItem>
+
+        <!--  LotusContentViewer  -->
+        <TabItem Header="LotusContentViewer">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusContentViewer — масштабирование колесом мыши, перемещение средней кнопкой" />
+
+                <ctrl:LotusContentViewer
+                    Grid.Row="1"
+                    Background="#1E1E1E"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    MinContentScale="0.1"
+                    MaxContentScale="10">
+                    <Canvas Width="800" Height="600" Background="White">
+                        <Rectangle
+                            Canvas.Left="50"
+                            Canvas.Top="50"
+                            Width="200"
+                            Height="100"
+                            Fill="CornflowerBlue"
+                            Stroke="DarkBlue"
+                            StrokeThickness="2" />
+                        <Ellipse
+                            Canvas.Left="300"
+                            Canvas.Top="200"
+                            Width="150"
+                            Height="150"
+                            Fill="Salmon"
+                            Stroke="DarkRed"
+                            StrokeThickness="2" />
+                        <TextBlock
+                            Canvas.Left="50"
+                            Canvas.Top="400"
+                            FontSize="24"
+                            Text="Тестовый контент" />
+                    </Canvas>
+                </ctrl:LotusContentViewer>
+            </Grid>
+        </TabItem>
+
+        <!--  LotusStackPanel  -->
+        <TabItem Header="LotusStackPanel">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusStackPanel — горизонтальное размещение (Auto + Fill + Ignored)" />
+
+                <!--  Horizontal: Auto + Fill + Auto  -->
+                <ctrl:LotusStackPanel
+                    Grid.Row="1"
+                    Height="36"
+                    Margin="0,0,0,4"
+                    Orientation="Horizontal"
+                    MarginBetweenChildren="4">
+                    <Button ctrl:LotusStackPanel.Fill="Auto" Content="Auto" />
+                    <Button ctrl:LotusStackPanel.Fill="Fill" Content="Fill (растягивается)" />
+                    <Button ctrl:LotusStackPanel.Fill="Auto" Content="Auto" />
+                </ctrl:LotusStackPanel>
+
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusStackPanel — вертикальное размещение (Auto + Fill + Ignored)" />
+
+                <!--  Vertical: Auto + Fill + Ignored  -->
+                <ctrl:LotusStackPanel
+                    Grid.Row="3"
+                    Margin="0,0,0,4"
+                    Orientation="Vertical"
+                    MarginBetweenChildren="4">
+                    <Button ctrl:LotusStackPanel.Fill="Auto" Content="Auto (верх)" />
+                    <Button ctrl:LotusStackPanel.Fill="Ignored" Content="Ignored (не учитывается)" />
+                    <Button ctrl:LotusStackPanel.Fill="Auto" Content="Auto (низ)" />
+                </ctrl:LotusStackPanel>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
+</Window>

@@ -22,13 +22,13 @@ namespace Lotus.Windows
         {
             do
             {
-                if (sourceObj is TElement)
+                if (sourceObj is TElement element)
                 {
-                    return (TElement)sourceObj;
+                    return element;
                 }
                 sourceObj = VisualTreeHelper.GetParent(sourceObj);
             }
-            while (sourceObj != null);
+            while (sourceObj is not null);
 
             return null;
         }
@@ -50,7 +50,7 @@ namespace Lotus.Windows
 
             //check if the parent matches the type we're looking for
             var parent = parent_object as TElement;
-            if (parent != null)
+            if (parent is not null)
             {
                 return parent;
             }
@@ -79,11 +79,11 @@ namespace Lotus.Windows
                 }
                 else
                 {
-                    var сhild_of_child = FindVisualChild<TElement>(сhild);
+                    var сhildOfChild = FindVisualChild<TElement>(сhild);
 
-                    if (сhild_of_child != null)
+                    if (сhildOfChild is not null)
                     {
-                        return сhild_of_child;
+                        return сhildOfChild;
                     }
                 }
             }
@@ -100,7 +100,7 @@ namespace Lotus.Windows
         public static TElement? FindLogicalChild<TElement>(this DependencyObject sourceObj)
             where TElement : DependencyObject
         {
-            if (sourceObj != null)
+            if (sourceObj is not null)
             {
                 foreach (var child in LogicalTreeHelper.GetChildren(sourceObj))
                 {
@@ -110,11 +110,11 @@ namespace Lotus.Windows
                     }
                     else
                     {
-                        var сhild_of_child = FindLogicalChild<TElement>((child as DependencyObject)!);
+                        var сhildOfChild = FindLogicalChild<TElement>((child as DependencyObject)!);
 
-                        if (сhild_of_child != null)
+                        if (сhildOfChild is not null)
                         {
-                            return сhild_of_child;
+                            return сhildOfChild;
                         }
                     }
                 }
@@ -140,7 +140,7 @@ namespace Lotus.Windows
                 {
                     elements.Add(element);
                 }
-                else if (child != null)
+                else if (child is not null)
                 {
                     FillVisualChildList(child, elements);
                 }
@@ -155,19 +155,19 @@ namespace Lotus.Windows
         /// <returns>Перечислитель.</returns>
         public static IEnumerable<TType> EnumerateVisualChildren<TType>(this DependencyObject sourceObj) where TType : DependencyObject
         {
-            if (sourceObj != null)
+            if (sourceObj is not null)
             {
                 for (var i = 0; i < VisualTreeHelper.GetChildrenCount(sourceObj); i++)
                 {
                     var child = VisualTreeHelper.GetChild(sourceObj, i);
-                    if (child is TType)
+                    if (child is TType type)
                     {
-                        yield return (TType)child;
+                        yield return type;
                     }
 
-                    foreach (var child_of_child in EnumerateVisualChildren<TType>(child))
+                    foreach (var сhildOfChild in EnumerateVisualChildren<TType>(child))
                     {
-                        yield return child_of_child;
+                        yield return сhildOfChild;
                     }
                 }
             }
@@ -181,18 +181,18 @@ namespace Lotus.Windows
         /// <returns>Перечислитель.</returns>
         public static IEnumerable<TType> EnumerateLogicalChildren<TType>(this DependencyObject sourceObj) where TType : DependencyObject
         {
-            if (sourceObj != null)
+            if (sourceObj is not null)
             {
                 foreach (var child in LogicalTreeHelper.GetChildren(sourceObj))
                 {
-                    if (child is TType)
+                    if (child is TType type)
                     {
-                        yield return (TType)child;
+                        yield return type;
                     }
 
-                    foreach (var child_of_child in EnumerateLogicalChildren<TType>((child as DependencyObject)!))
+                    foreach (var сhildOfChild in EnumerateLogicalChildren<TType>((child as DependencyObject)!))
                     {
-                        yield return child_of_child;
+                        yield return сhildOfChild;
                     }
                 }
             }

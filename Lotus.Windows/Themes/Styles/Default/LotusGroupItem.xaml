@@ -1,0 +1,54 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Группа со свёртыванием, заголовок формируется автоматически из имени группы и количества элементов  -->
+    <Style
+        x:Key="LotusGroupItemExpanderStyleKey"
+        TargetType="GroupItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupItem">
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    Text=":" />
+                                <TextBlock Text="{Binding Items.Count}" />
+                            </StackPanel>
+                        </Expander.Header>
+                        <Expander.Content>
+                            <ItemsPresenter />
+                        </Expander.Content>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Группа со свёртыванием, заголовок задаётся через GroupStyle.HeaderTemplate  -->
+    <Style
+        x:Key="LotusGroupItemExpanderHeaderStyleKey"
+        TargetType="GroupItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupItem">
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <ContentPresenter />
+                        </Expander.Header>
+                        <Expander.Content>
+                            <ItemsPresenter />
+                        </Expander.Content>
+                    </Expander>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

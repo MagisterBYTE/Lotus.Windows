@@ -17,7 +17,7 @@ namespace Lotus.Windows
         public static readonly Dictionary<string, CommandBinding> CommandBindings = [];
         #endregion
 
-        #region КОМАНДЫ РАБОТЫ С ФАЙЛОМ 
+        #region Command files 
         /// <summary>
         /// Новый.
         /// </summary>
@@ -61,7 +61,7 @@ namespace Lotus.Windows
             Properties.Resources.Oxygen_document_close_32.ToBitmapSource());
         #endregion
 
-        #region КОМАНДЫ РАБОТЫ С РЕПОЗИТОРИЕМ 
+        #region Command repository
         /// <summary>
         /// Создать.
         /// </summary>
@@ -99,7 +99,7 @@ namespace Lotus.Windows
             Properties.Resources.Fatcow_database_go_32.ToBitmapSource());
         #endregion
 
-        #region КОМАНДЫ РАБОТЫ С ЗАПИСЬЮ 
+        #region Command record
         /// <summary>
         /// Добавить запись.
         /// </summary>
@@ -137,7 +137,7 @@ namespace Lotus.Windows
             Properties.Resources.Oxygen_arrow_down_22.ToBitmapSource());
         #endregion
 
-        #region КОМАНДЫ ОБЩЕГО РЕДАКТИРОВАНИЯ 
+        #region Command record
         /// <summary>
         /// Скопировать.
         /// </summary>

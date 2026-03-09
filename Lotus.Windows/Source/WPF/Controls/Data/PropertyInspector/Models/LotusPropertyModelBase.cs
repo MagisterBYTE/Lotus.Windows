@@ -66,7 +66,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Базовая модель отображения свойства объекта.
     /// </summary>
-    public class CPropertyModelBase : PropertyChangedBase, IComparable<CPropertyModelBase>, IDisposable
+    public class PropertyModelBase : PropertyChangedBase, IComparable<PropertyModelBase>, IDisposable
     {
         #region Static fields
         protected static readonly PropertyChangedEventArgs PropertyArgsIsValueFromList = new(nameof(IsValueFromList));
@@ -137,22 +137,22 @@ namespace Lotus.Windows
             get { return _instance; }
             set
             {
-                if (_instance != null)
+                if (_instance is not null)
                 {
                     // Если объект поддерживает стандартную нотификацию
                     var property_changed_prev = _instance as INotifyPropertyChanged;
-                    if (property_changed_prev != null)
+                    if (property_changed_prev is not null)
                     {
                         property_changed_prev.PropertyChanged -= OnPropertyChangedFromInstance;
                     }
                 }
 
                 _instance = value;
-                if (_instance != null)
+                if (_instance is not null)
                 {
                     // Если объект поддерживает стандартную нотификацию
                     var property_changed = _instance as INotifyPropertyChanged;
-                    if (property_changed != null)
+                    if (property_changed is not null)
                     {
                         property_changed.PropertyChanged += OnPropertyChangedFromInstance;
                     }
@@ -174,7 +174,7 @@ namespace Lotus.Windows
             {
                 if (string.IsNullOrEmpty(_displayName))
                 {
-                    if (_info != null)
+                    if (_info is not null)
                     {
                         return _info.Name;
                     }
@@ -274,7 +274,7 @@ namespace Lotus.Windows
         /// </summary>
         public bool IsDefaultValue
         {
-            get { return _defaultValue != null; }
+            get { return _defaultValue is not null; }
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Lotus.Windows
         /// </summary>
         public bool IsListValues
         {
-            get { return _listValues != null || _listValuesMemberName.IsExists(); }
+            get { return _listValues is not null || _listValuesMemberName.IsExists(); }
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CPropertyModelBase()
+        public PropertyModelBase()
         {
         }
 
@@ -397,7 +397,7 @@ namespace Lotus.Windows
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
         /// <param name="propertyInfo">Метаданные свойства.</param>
-        public CPropertyModelBase(PropertyInfo propertyInfo)
+        public PropertyModelBase(PropertyInfo propertyInfo)
             : this(propertyInfo, TPropertyType.Unknow)
         {
         }
@@ -407,7 +407,7 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="propertyInfo">Метаданные свойства.</param>
         /// <param name="propertyType">Допустимый тип свойства.</param>
-        public CPropertyModelBase(PropertyInfo propertyInfo, TPropertyType propertyType)
+        public PropertyModelBase(PropertyInfo propertyInfo, TPropertyType propertyType)
         {
             _info = propertyInfo;
             _propertyType = propertyType;
@@ -420,7 +420,7 @@ namespace Lotus.Windows
         /// <param name="propertyInfo">Метаданные свойства.</param>
         /// <param name="propertyDesc">Список описания свойства.</param>
         /// <param name="propertyType">Допустимый тип свойства.</param>
-        public CPropertyModelBase(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc,
+        public PropertyModelBase(PropertyInfo propertyInfo, List<CPropertyDesc> propertyDesc,
             TPropertyType propertyType)
         {
             _info = propertyInfo;
@@ -436,7 +436,7 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="other">Сравниваемый объект.</param>
         /// <returns>Статус сравнения объектов.</returns>
-        public int CompareTo(CPropertyModelBase? other)
+        public int CompareTo(PropertyModelBase? other)
         {
             if (other == null) return 0;
 
@@ -508,46 +508,46 @@ namespace Lotus.Windows
         /// </summary>
         protected void ApplyInfoFromAttributes()
         {
-            if (_info != null)
+            if (_info is not null)
             {
                 var display_name = _info.GetAttribute<DisplayNameAttribute>();
-                if (display_name != null && string.IsNullOrEmpty(_displayName))
+                if (display_name is not null && string.IsNullOrEmpty(_displayName))
                 {
                     _displayName = display_name.DisplayName;
                 }
 
                 var description = _info.GetAttribute<DescriptionAttribute>();
-                if (description != null && string.IsNullOrEmpty(_description))
+                if (description is not null && string.IsNullOrEmpty(_description))
                 {
                     _description = description.Description;
                 }
 
                 var property_order = _info.GetAttribute<LotusPropertyOrderAttribute>();
-                if (property_order != null)
+                if (property_order is not null)
                 {
                     _propertyOrder = property_order.Order;
                 }
 
                 var auto_order = _info.GetAttribute<LotusAutoOrderAttribute>();
-                if (auto_order != null)
+                if (auto_order is not null)
                 {
                     _propertyOrder = auto_order.Order;
                 }
 
                 var category = _info.GetAttribute<CategoryAttribute>();
-                if (category != null && string.IsNullOrEmpty(_category))
+                if (category is not null && string.IsNullOrEmpty(_category))
                 {
                     _category = category.Category;
                 }
 
                 var category_order = _info.GetAttribute<LotusCategoryOrderAttribute>();
-                if (category_order != null)
+                if (category_order is not null)
                 {
                     _categoryOrder = category_order.Order;
                 }
 
                 var read_only = _info.GetAttribute<ReadOnlyAttribute>();
-                if (read_only != null)
+                if (read_only is not null)
                 {
                     _isReadOnly = read_only.IsReadOnly;
                 }
@@ -557,13 +557,13 @@ namespace Lotus.Windows
                 }
 
                 var default_value = _info.GetAttribute<DefaultValueAttribute>();
-                if (default_value != null)
+                if (default_value is not null)
                 {
                     _defaultValue = default_value.Value!;
                 }
 
                 var list_values = _info.GetAttribute<LotusListValuesAttribute>();
-                if (list_values != null)
+                if (list_values is not null)
                 {
                     _listValues = list_values.ListValues;
                     _listValuesMemberName = list_values.MemberName;
@@ -571,13 +571,13 @@ namespace Lotus.Windows
                 }
 
                 var format_value = _info.GetAttribute<LotusNumberFormatAttribute>();
-                if (format_value != null && string.IsNullOrEmpty(_formatValue))
+                if (format_value is not null && string.IsNullOrEmpty(_formatValue))
                 {
                     _formatValue = format_value.FormatValue;
                 }
 
                 var button_method = _info.GetAttribute<LotusButtonAttribute>();
-                if (button_method != null && button_method.MethodName.IsExists())
+                if (button_method is not null && button_method.MethodName.IsExists())
                 {
                     _buttonCaption = button_method.Label;
                     _buttonMethodName = button_method.MethodName;
@@ -591,12 +591,12 @@ namespace Lotus.Windows
         /// <param name="descs">Список описания свойства.</param>
         protected void ApplyInfoFromDecs(List<CPropertyDesc> descs)
         {
-            if (descs != null && descs.Count > 0)
+            if (descs is not null && descs.Count > 0)
             {
                 for (var i = 0; i < descs.Count; i++)
                 {
                     var desc = descs[i];
-                    if (desc != null)
+                    if (desc is not null)
                     {
                         if (string.IsNullOrEmpty(desc.DisplayName) == false)
                         {
@@ -628,12 +628,12 @@ namespace Lotus.Windows
                             _isReadOnly = true;
                         }
 
-                        if (desc.DefaultValue != null)
+                        if (desc.DefaultValue is not null)
                         {
                             _defaultValue = desc.DefaultValue;
                         }
 
-                        if (desc.ListValues != null)
+                        if (desc.ListValues is not null)
                         {
                             _listValues = desc.ListValues;
                         }
@@ -673,7 +673,7 @@ namespace Lotus.Windows
             {
                 var enumerable = CPropertyDesc.GetValue(_listValues, _listValuesMemberName,
                     _listValuesMemberType, _instance) as IEnumerable;
-                if (contextMenu != null && enumerable != null)
+                if (contextMenu is not null && enumerable is not null)
                 {
                     contextMenu.Items.Clear();
                     foreach (var item in enumerable)

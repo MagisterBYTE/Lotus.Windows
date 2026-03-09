@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Numerics;
 
 using Lotus.Core;
 
@@ -13,44 +14,65 @@ namespace Lotus.Windows
     /// <remarks>
     /// Поддерживаются стандартные операторы сравнения и стандартная операция BETWEEN.
     /// </remarks>
-    public class CQueryItemDateTime : CQueryItem
+    public class QueryItemDateTime : QueryItem
     {
         #region Static fields
-        private static readonly PropertyChangedEventArgs PropertyArgsComparisonOperator = new(nameof(ComparisonOperator));
+        private static readonly PropertyChangedEventArgs PropertyArgsFilterFunction = new(nameof(FilterFunction));
         private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueLeft = new(nameof(ComparisonValueLeft));
         private static readonly PropertyChangedEventArgs PropertyArgsComparisonValueRight = new(nameof(ComparisonValueRight));
+        private static readonly TFilterFunction[] FilterFunctionsStatic =
+        [
+            TFilterFunction.Equals,
+            TFilterFunction.NotEqual,
+            TFilterFunction.LessThan,
+            TFilterFunction.LessThanOrEqual,
+            TFilterFunction.GreaterThan,
+            TFilterFunction.GreaterThanOrEqual,
+            TFilterFunction.Between
+        ];
         #endregion
 
         #region Fields
-        protected internal TComparisonOperator _comparisonOperator;
+        protected internal TFilterFunction _filterFunction;
         protected internal DateTime _comparisonValueLeft;
         protected internal DateTime _comparisonValueRight;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Оператор сравнения.
+        /// Функция фильтрации.
         /// </summary>
-        public TComparisonOperator ComparisonOperator
+        public TFilterFunction FilterFunction
         {
             get
             {
-                return _comparisonOperator;
+                return _filterFunction;
             }
             set
             {
-                if (_comparisonOperator != value)
+                if (_filterFunction != value)
                 {
-                    _comparisonOperator = value;
-                    OnPropertyChanged(PropertyArgsComparisonOperator);
+                    _filterFunction = value;
+                    OnPropertyChanged(PropertyArgsFilterFunction);
                     OnPropertyChanged(PropertyArgsSQLQueryItem);
-                    QueryOwned?.OnNotifyUpdated(this, nameof(ComparisonOperator));
+                    QueryOwned?.OnNotifyUpdated(this, nameof(FilterFunction));
                 }
             }
         }
 
         /// <summary>
-        /// Значение для сравнения слева.
+        /// Набор доступных функций фильтрации для DateTime
+        /// </summary>
+        public TFilterFunction[] FilterFunctions
+        {
+            get
+            {
+                return QueryItemDateTime.FilterFunctionsStatic;
+            }
+        }
+
+        /// <summary>
+        /// Значение для сравнения слева (или для сравнения по равенству).
         /// </summary>
         public DateTime ComparisonValueLeft
         {
@@ -96,20 +118,20 @@ namespace Lotus.Windows
         /// <summary>
         /// Конструктор по умолчанию инициализирует объект класса предустановленными значениями.
         /// </summary>
-        public CQueryItemDateTime()
+        public QueryItemDateTime()
         {
-            _comparisonValueLeft = DateTime.Now;
-            _comparisonValueRight = DateTime.Now;
+            _comparisonValueLeft = DateTime.MinValue;
+            _comparisonValueRight = DateTime.MinValue;
         }
 
         /// <summary>
         /// Конструктор инициализирует объект класса указанными параметрами.
         /// </summary>
-        /// <param name="comparisonOperator">Оператор сравнения.</param>
+        /// <param name="filterFunction">Функция фильтрации.</param>
         /// <param name="comparisonValue">Значение для сравнения.</param>
-        public CQueryItemDateTime(TComparisonOperator comparisonOperator, DateTime comparisonValue)
+        public QueryItemDateTime(TFilterFunction filterFunction, DateTime comparisonValue)
         {
-            _comparisonOperator = comparisonOperator;
+            _filterFunction = filterFunction;
             _comparisonValueLeft = comparisonValue;
         }
 
@@ -118,9 +140,9 @@ namespace Lotus.Windows
         /// </summary>
         /// <param name="comparisonValueLeft">Значение для сравнения слева.</param>
         /// <param name="comparisonValueRight">Значение для сравнения справа.</param>
-        public CQueryItemDateTime(DateTime comparisonValueLeft, DateTime comparisonValueRight)
+        public QueryItemDateTime(DateTime comparisonValueLeft, DateTime comparisonValueRight)
         {
-            _comparisonOperator = TComparisonOperator.Equality;
+            _filterFunction = TFilterFunction.Equals;
             _comparisonValueLeft = comparisonValueLeft;
             _comparisonValueRight = comparisonValueRight;
         }
@@ -141,6 +163,74 @@ namespace Lotus.Windows
 
         #region Main methods
         /// <summary>
+        /// Проверяет, соответствует ли объект текущему условию фильтрации.
+        /// </summary>
+        /// <param name="item">Проверяемый объект.</param>
+        /// <returns>Статус проверки.</returns>
+        public override bool MatchesFilter(object? item)
+        {
+            if(item is null) return false;
+
+            // Извлекаем свойство
+            var valueRaw = XReflection.GetPropertyValue(item, PropertyName);
+
+            if (valueRaw is null) return false;
+
+            var value = XDateTimeConverter.ToDateTime(valueRaw, DateTime.MinValue);
+            if(value == DateTime.MinValue) return false;
+
+            var status = false;
+            switch (_filterFunction)
+            {
+                case TFilterFunction.Equals:
+                    status = _comparisonValueLeft == value;
+                    break;
+                case TFilterFunction.NotEqual:
+                    status = _comparisonValueLeft != value;
+                    break;
+                case TFilterFunction.LessThan:
+                    status = _comparisonValueLeft < value;
+                    break;
+                case TFilterFunction.LessThanOrEqual:
+                    status = _comparisonValueLeft <= value;
+                    break;
+                case TFilterFunction.GreaterThan:
+                    status = _comparisonValueLeft > value;
+                    break;
+                case TFilterFunction.GreaterThanOrEqual:
+                    status = _comparisonValueLeft >= value;
+                    break;
+                case TFilterFunction.Between:
+                    status = (_comparisonValueLeft <= value && _comparisonValueRight >= value);
+                    break;
+                case TFilterFunction.Contains:
+                    break;
+                case TFilterFunction.StartsWith:
+                    break;
+                case TFilterFunction.EndsWith:
+                    break;
+                case TFilterFunction.Like:
+                    break;
+                case TFilterFunction.NotEmpty:
+                    break;
+                case TFilterFunction.Empty:
+                    break;
+                case TFilterFunction.IncludeAny:
+                    break;
+                case TFilterFunction.IncludeAll:
+                    break;
+                case TFilterFunction.IncludeEquals:
+                    break;
+                case TFilterFunction.IncludeNone:
+                    break;
+                default:
+                    break;
+            }
+
+            return status;
+        }
+
+        /// <summary>
         /// Формирование SQL запроса.
         /// </summary>
         /// <param name="sqlQuery">SQL запрос.</param>
@@ -149,7 +239,7 @@ namespace Lotus.Windows
         {
             if (_notCalculation == false)
             {
-                if (_comparisonOperator == TComparisonOperator.Equality)
+                if (_filterFunction == TFilterFunction.Equals)
                 {
                     if (_comparisonValueRight > _comparisonValueLeft)
                     {
@@ -160,38 +250,13 @@ namespace Lotus.Windows
                 }
                 else
                 {
-                    sqlQuery += " " + _propertyName + _comparisonOperator.GetOperatorOfString() + _comparisonValueLeft.ToString();
+                    //sqlQuery += " " + _propertyName + _filterFunction.GetOperatorOfString() + _comparisonValueLeft.ToString();
                     return true;
                 }
             }
 
             return false;
         }
-        #endregion
-
-        #region Binding methods
-#if USE_WINDOWS
-        /// <summary>
-        /// Привязка выпадающего списка к оператору сравнения.
-        /// </summary>
-        /// <param name="comboBox">Выпадающий список.</param>
-        public void BindingComboBoxToComparisonOperator(in System.Windows.Controls.ComboBox comboBox)
-        {
-            if (comboBox != null)
-            {
-                var binding = new System.Windows.Data.Binding
-                {
-                    Source = this,
-                    Path = new System.Windows.PropertyPath(path: nameof(ComparisonOperator)),
-                    Converter = EnumToStringConverter.Instance
-                };
-
-                comboBox.ItemsSource = XEnumHelper.GetDescriptions(typeof(TComparisonOperator));
-                System.Windows.Data.BindingOperations.SetBinding(comboBox,
-                    System.Windows.Controls.ComboBox.SelectedValueProperty, binding);
-            }
-        }
-#endif
         #endregion
     }
     /**@}*/

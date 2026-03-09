@@ -1,0 +1,58 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/LotusResourceStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusButton.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Размер иконки команды  -->
+    <sys:Double x:Key="LotusButtonCommandIconIconSize">22</sys:Double>
+
+    <!--  Кнопка с иконкой и текстом из связанной команды  -->
+    <Style
+        BasedOn="{StaticResource LotusButtonStyleKey}"
+        TargetType="{x:Type ctrl:LotusButtonCommandIcon}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ctrl:LotusButtonCommandIcon}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3">
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Image
+                                Width="{StaticResource LotusButtonCommandIconIconSize}"
+                                Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Command.MiddleIcon}" />
+                            <Label
+                                Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Command.Text}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LotusAccentLightBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LotusAccentBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource LotusAccentBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource LotusAccentDarkBrush}" />
+                            <Setter Property="Foreground" Value="White" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
