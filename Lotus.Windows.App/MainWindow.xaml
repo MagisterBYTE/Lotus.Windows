@@ -634,6 +634,126 @@
             </Grid>
         </TabItem>
 
+        <!--  LotusTreeGrid  -->
+        <TabItem Header="LotusTreeGrid">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Margin="0,0,0,8"
+                    Style="{StaticResource LotusTextBlockHeaderStyleKey}"
+                    Text="LotusTreeGrid — иерархия как в смете (раздел / подраздел / позиция), фильтры, правка позиций" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,0,0,4"
+                    Orientation="Horizontal">
+                    <ToggleButton
+                        x:Name="toggleTreeGridFilters"
+                        Padding="8,4"
+                        Click="OnToggleTreeGridFilters_Click"
+                        Content="Показать фильтры" />
+                </StackPanel>
+
+                <ctrl:LotusTreeGrid
+                    x:Name="demoTreeGrid"
+                    Grid.Row="2"
+                    AutoGenerateColumns="False"
+                    CanUserAddRows="False"
+                    SelectionMode="Single">
+                    <ctrl:LotusTreeGrid.Resources>
+                        <Style x:Key="TreeGridTextCellStyle" TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SpansAllColumns}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style x:Key="TreeGridTextEditStyle" TargetType="TextBox">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SpansAllColumns}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ctrl:LotusTreeGrid.Resources>
+                    <ctrl:LotusTreeGrid.Columns>
+                        <DataGridTemplateColumn
+                            Width="2*"
+                            Header="Наименование"
+                            CellTemplate="{StaticResource LotusTreeGridNameCellTemplateKey}"
+                            SortMemberPath="DisplayName"
+                            ctrl:LotusDataGrid.ColumnFilterType="String">
+                            <ctrl:LotusDataGrid.ColumnQueryItem>
+                                <ctrl:QueryItemTreeGridString PropertyName="DisplayName" />
+                            </ctrl:LotusDataGrid.ColumnQueryItem>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn
+                            Header="Ед. изм."
+                            Binding="{Binding [Unit], Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                            SortMemberPath="Unit"
+                            ElementStyle="{StaticResource TreeGridTextCellStyle}"
+                            EditingElementStyle="{StaticResource TreeGridTextEditStyle}"
+                            ctrl:LotusDataGrid.ColumnFilterType="String">
+                            <ctrl:LotusDataGrid.ColumnQueryItem>
+                                <ctrl:QueryItemTreeGridString PropertyName="Unit" />
+                            </ctrl:LotusDataGrid.ColumnQueryItem>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Кол-во"
+                            Binding="{Binding [Quantity], Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:N2}}"
+                            SortMemberPath="Quantity"
+                            ElementStyle="{StaticResource TreeGridTextCellStyle}"
+                            EditingElementStyle="{StaticResource TreeGridTextEditStyle}"
+                            ctrl:LotusDataGrid.ColumnFilterType="Number">
+                            <ctrl:LotusDataGrid.ColumnQueryItem>
+                                <ctrl:QueryItemTreeGridNumber PropertyName="Quantity" />
+                            </ctrl:LotusDataGrid.ColumnQueryItem>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Цена"
+                            Binding="{Binding [Price], Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:N2}}"
+                            SortMemberPath="Price"
+                            ElementStyle="{StaticResource TreeGridTextCellStyle}"
+                            EditingElementStyle="{StaticResource TreeGridTextEditStyle}"
+                            ctrl:LotusDataGrid.ColumnFilterType="Number">
+                            <ctrl:LotusDataGrid.ColumnQueryItem>
+                                <ctrl:QueryItemTreeGridNumber PropertyName="Price" />
+                            </ctrl:LotusDataGrid.ColumnQueryItem>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn
+                            Header="Сумма"
+                            Binding="{Binding [Amount], Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat={}{0:N2}}"
+                            SortMemberPath="Amount"
+                            IsReadOnly="True"
+                            ElementStyle="{StaticResource TreeGridTextCellStyle}"
+                            EditingElementStyle="{StaticResource TreeGridTextEditStyle}"
+                            ctrl:LotusDataGrid.ColumnFilterType="Number">
+                            <ctrl:LotusDataGrid.ColumnQueryItem>
+                                <ctrl:QueryItemTreeGridNumber PropertyName="Amount" />
+                            </ctrl:LotusDataGrid.ColumnQueryItem>
+                        </DataGridTextColumn>
+                    </ctrl:LotusTreeGrid.Columns>
+                </ctrl:LotusTreeGrid>
+
+                <TextBlock
+                    x:Name="treeGridSelectionText"
+                    Grid.Row="3"
+                    Margin="0,4,0,0"
+                    TextWrapping="Wrap" />
+            </Grid>
+        </TabItem>
+
         <!--  LotusContentViewer  -->
         <TabItem Header="LotusContentViewer">
             <Grid Margin="4">

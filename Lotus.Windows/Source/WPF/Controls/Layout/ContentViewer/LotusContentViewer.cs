@@ -549,7 +549,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Элемент ScrollViewer.
         /// </summary>
-        public ScrollViewer ScrollOwner
+        public ScrollViewer? ScrollOwner
         {
             get { return _scrollOwner; }
             set { _scrollOwner = value; }
@@ -801,7 +801,7 @@ namespace Lotus.Windows
         /// <param name="new_сontent_scale">Новый масштаб.</param>
         /// <param name="content_zoom_focus">Точка масштабирования в координатах контента.</param>
         /// <param name="callback">Метод обратного вызова.</param>
-        private void AnimatedZoomPointToViewportCenter(double new_сontent_scale, Point content_zoom_focus, EventHandler callback)
+        private void AnimatedZoomPointToViewportCenter(double new_сontent_scale, Point content_zoom_focus, EventHandler? callback)
         {
             new_сontent_scale = Math.Min(Math.Max(new_сontent_scale, MinContentScale), MaxContentScale);
 
@@ -821,7 +821,7 @@ namespace Lotus.Windows
             _enableContentOffsetUpdateFromScale = true;
 
             XAnimationHelper.StartAnimation(this, ContentScaleProperty, new_сontent_scale, AnimationDuration,
-                delegate (object sender, EventArgs args)
+                delegate (object? sender, EventArgs args)
                 {
                     _enableContentOffsetUpdateFromScale = false;
 
@@ -1318,7 +1318,7 @@ namespace Lotus.Windows
         public void AnimatedZoomTo(double newScale, Rect contentRect)
         {
             AnimatedZoomPointToViewportCenter(newScale, new Point(contentRect.X + (contentRect.Width / 2), contentRect.Y + (contentRect.Height / 2)),
-                delegate (object sender, EventArgs args)
+                delegate (object? sender, EventArgs args)
                 {
                     //
                     // At the end of the animation, ensure that we are snapped to the specified _content offset.
@@ -1398,11 +1398,11 @@ namespace Lotus.Windows
         /// <summary>
         /// Анимация масштабирования с центром в указанной точке в координатах контента.
         /// </summary>
-        /// <param name="newСontentScale">Новый масштаб.</param>
+        /// <param name="newContentScale">Новый масштаб.</param>
         /// <param name="contentZoomFocus">Точка масштабирования.</param>
-        public void AnimatedZoomAboutPoint(double newСontentScale, Point contentZoomFocus)
+        public void AnimatedZoomAboutPoint(double newContentScale, Point contentZoomFocus)
         {
-            newСontentScale = Math.Min(Math.Max(newСontentScale, MinContentScale), MaxContentScale);
+            newContentScale = Math.Min(Math.Max(newContentScale, MinContentScale), MaxContentScale);
 
             XAnimationHelper.CancelAnimation(this, ContentZoomFocusXProperty);
             XAnimationHelper.CancelAnimation(this, ContentZoomFocusYProperty);
@@ -1419,8 +1419,8 @@ namespace Lotus.Windows
             //
             _enableContentOffsetUpdateFromScale = true;
 
-            XAnimationHelper.StartAnimation(this, ContentScaleProperty, newСontentScale, AnimationDuration,
-                delegate (object sender, EventArgs args)
+            XAnimationHelper.StartAnimation(this, ContentScaleProperty, newContentScale, AnimationDuration,
+                delegate (object? sender, EventArgs args)
                 {
                     _enableContentOffsetUpdateFromScale = false;
 

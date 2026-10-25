@@ -21,10 +21,12 @@
                 <ControlTemplate TargetType="ToggleButton">
                     <Border
                         Name="border"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="3">
+                        CornerRadius="3"
+                        SnapsToDevicePixels="True">
                         <ContentPresenter
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" />

@@ -13,7 +13,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Единица измерения линейки.
     /// </summary>
-    [TypeConverter(typeof(EnumDescriptionConverter<TRulerDimensionType>))]
+    //[TypeConverter(typeof(EnumDescriptionConverter<TRulerDimensionType>))]
     public enum TRulerDimensionType
     {
         /// <summary>
@@ -47,7 +47,7 @@ namespace Lotus.Windows
     /// <summary>
     /// Расположение маркеров линейки.
     /// </summary>
-    [TypeConverter(typeof(EnumDescriptionConverter<TRulerMarksLocation>))]
+    //[TypeConverter(typeof(EnumDescriptionConverter<TRulerMarksLocation>))]
     public enum TRulerMarksLocation
     {
         /// <summary>

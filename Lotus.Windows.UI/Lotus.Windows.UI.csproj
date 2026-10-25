@@ -11,9 +11,9 @@
     <Authors>MagisterBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <Copyright>MagisterBYTE aka DanielDem</Copyright>
-    <AssemblyVersion>5.1.0.0</AssemblyVersion>
-    <FileVersion>5.1.0.0</FileVersion>
-    <Version>5.1.0</Version>
+    <AssemblyVersion>5.2.0.0</AssemblyVersion>
+    <FileVersion>5.2.0.0</FileVersion>
+    <Version>5.2.0</Version>
     <Title>Lotus.Windows.UI</Title>
     <PackageTags></PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -38,15 +38,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="4.72.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.72.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="4.72.1" />
-    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.72.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Aero" Version="5.0.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="5.0.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2010" Version="5.0.1" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="5.0.1" />
     <PackageReference Include="Fluent.Ribbon" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Publish'">
-    <PackageReference Include="Lotus.Windows" Version="3.1.0" />
+    <PackageReference Include="Lotus.Windows" Version="5.2.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' != 'Publish'">

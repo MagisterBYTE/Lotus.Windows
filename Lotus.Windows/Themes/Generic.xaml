@@ -25,6 +25,7 @@
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusComboBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusListBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusDataGrid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusTreeGrid.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusTreeView.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusStatusBar.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusGroupItem.xaml" />

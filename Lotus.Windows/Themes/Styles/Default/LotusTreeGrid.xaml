@@ -1,0 +1,292 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Lotus.Windows">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Lotus.Windows;component/Themes/Styles/Default/LotusDataGrid.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--  Треугольник как у LotusComboBox (вниз); свёрнуто — отдельная геометрия «вправо» в том же Viewbox (без RotateTransform, чтобы не съезжало по вертикали).  -->
+    <Style
+        x:Key="LotusTreeGridExpanderToggleStyleKey"
+        TargetType="ToggleButton">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Width" Value="20" />
+        <Setter Property="Height" Value="22" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="IsThreeState" Value="False" />
+        <Setter Property="Visibility" Value="Visible" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border
+                        Padding="2"
+                        Background="Transparent"
+                        SnapsToDevicePixels="True">
+                        <Viewbox
+                            Width="12"
+                            Height="12"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Stretch="Uniform">
+                            <Path
+                                x:Name="Glyph"
+                                Width="10"
+                                Height="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="M 2,0 L 2,10 L 8,5 Z"
+                                Fill="{StaticResource LotusAccentBrush}"
+                                Stretch="Uniform" />
+                        </Viewbox>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Glyph" Property="Data" Value="M 0,3 L 5,8 L 10,3 Z" />
+                        </Trigger>
+                        <!--  Выделенная строка: тот же цвет, что и текст (иначе Accent сливается с фоном выделения).  -->
+                        <DataTrigger
+                            Binding="{Binding IsSelected, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridRow}}"
+                            Value="True">
+                            <Setter TargetName="Glyph" Property="Fill" Value="{StaticResource LotusDataGridSelectedForegroundBrush}" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger
+                Binding="{Binding HasChildren}"
+                Value="False">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Ячейка «дерево»: отступы уровня + раскрытие + наименование  -->
+    <DataTemplate x:Key="LotusTreeGridNameCellTemplateKey">
+        <DockPanel LastChildFill="True">
+            <ItemsControl
+                DockPanel.Dock="Left"
+                ItemsSource="{Binding Indents}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle
+                            Width="16"
+                            Height="1" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ToggleButton
+                x:Name="ExpanderToggle"
+                DockPanel.Dock="Left"
+                IsChecked="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                Style="{StaticResource LotusTreeGridExpanderToggleStyleKey}" />
+            <TextBlock
+                VerticalAlignment="Center"
+                Text="{Binding DisplayName}"
+                TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+    </DataTemplate>
+
+    <!--  Неявный стиль: как LotusDataGrid, но фильтры привязаны к LotusTreeGrid  -->
+    <Style
+        BasedOn="{StaticResource LotusDataGridStyleKey}"
+        TargetType="{x:Type ctrl:LotusTreeGrid}">
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style
+                    BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"
+                    TargetType="DataGridColumnHeader">
+                    <Setter Property="Foreground" Value="{StaticResource LotusDataGridHeaderForegroundBrush}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <Setter Property="IsTabStop" Value="False" />
+                    <Setter Property="SeparatorBrush" Value="{StaticResource LotusDataGridSeparatorBrush}" />
+                    <Setter Property="Padding" Value="4" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                <Grid x:Name="Root">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle
+                                        x:Name="BackgroundRectangle"
+                                        Grid.ColumnSpan="2"
+                                        Fill="{StaticResource LotusDataGridHeaderBackgroundBrush}"
+                                        Stretch="Fill" />
+                                    <Rectangle
+                                        x:Name="BackgroundGradient"
+                                        Grid.ColumnSpan="2"
+                                        Stretch="Fill">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint=".7,0" EndPoint=".7,1">
+                                                <GradientStop Offset="0.015" Color="#FCFFFFFF" />
+                                                <GradientStop Offset="0.375" Color="#F7FFFFFF" />
+                                                <GradientStop Offset="0.6" Color="#E5FFFFFF" />
+                                                <GradientStop Offset="1" Color="#D1FFFFFF" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <Grid
+                                        Margin="4,2,9,2"
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <ContentPresenter
+                                            Grid.Column="0"
+                                            Content="{TemplateBinding Content}" />
+                                        <Path
+                                            x:Name="SortIcon"
+                                            Grid.Column="1"
+                                            Width="8"
+                                            Margin="4,0,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z "
+                                            Fill="{StaticResource LotusDataGridSortIconBrush}"
+                                            Opacity="0"
+                                            RenderTransformOrigin=".5,.5"
+                                            Stretch="Uniform">
+                                            <Path.RenderTransform>
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Grid>
+                                    <Rectangle
+                                        x:Name="VerticalSeparator"
+                                        Grid.Column="1"
+                                        Width="1"
+                                        VerticalAlignment="Stretch"
+                                        Fill="{TemplateBinding SeparatorBrush}"
+                                        Visibility="{TemplateBinding SeparatorVisibility}" />
+                                    <Border
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BorderBrush="{StaticResource LotusDataGridSeparatorBrush}"
+                                        BorderThickness="1,1,1,1"
+                                        Visibility="{Binding RelativeSource={RelativeSource AncestorType=ctrl:LotusTreeGrid}, Path=IsShowFilterColumn, Converter={StaticResource LotusDataGridBoolFalseToCollapsedKey}}">
+                                        <ContentControl
+                                            Margin="1"
+                                            Content="{Binding Path=Column.(ctrl:LotusDataGrid.ColumnQueryItem), RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </Border>
+                                    <Thumb
+                                        x:Name="PART_LeftHeaderGripper"
+                                        HorizontalAlignment="Left"
+                                        Style="{StaticResource LotusDataGridColumnHeaderGripperStyleKey}" />
+                                    <Thumb
+                                        x:Name="PART_RightHeaderGripper"
+                                        HorizontalAlignment="Right"
+                                        Style="{StaticResource LotusDataGridColumnHeaderGripperStyleKey}" />
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="MouseOver">
+                                                <Storyboard>
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundRectangle"
+                                                        Storyboard.TargetProperty="(Fill).Color"
+                                                        To="{StaticResource LotusDataGridHeaderHoverColor}"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color"
+                                                        To="#7FFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color"
+                                                        To="#CCFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color"
+                                                        To="#F2FFFFFF"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Pressed">
+                                                <Storyboard>
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundRectangle"
+                                                        Storyboard.TargetProperty="(Fill).Color"
+                                                        To="{StaticResource LotusDataGridHeaderHoverColor}"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[0].Color"
+                                                        To="#D8FFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color"
+                                                        To="#C6FFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color"
+                                                        To="#8CFFFFFF"
+                                                        Duration="0" />
+                                                    <ColorAnimation
+                                                        Storyboard.TargetName="BackgroundGradient"
+                                                        Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color"
+                                                        To="#3FFFFFFF"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SortStates">
+                                            <VisualState x:Name="Unsorted" />
+                                            <VisualState x:Name="SortAscending">
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="Opacity"
+                                                        To="1.0"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SortDescending">
+                                                <Storyboard>
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="Opacity"
+                                                        To="1.0"
+                                                        Duration="0" />
+                                                    <DoubleAnimation
+                                                        Storyboard.TargetName="SortIcon"
+                                                        Storyboard.TargetProperty="(RenderTransform).ScaleY"
+                                                        To="-.9"
+                                                        Duration="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

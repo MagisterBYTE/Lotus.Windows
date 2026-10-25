@@ -122,6 +122,11 @@ namespace Lotus.Windows
         private readonly QueryBase _query = new();
         #endregion
 
+        /// <summary>
+        /// Запрос по столбцам (фильтры заголовков). Для расширений производных таблиц.
+        /// </summary>
+        protected QueryBase ColumnFilterQuery => _query;
+
         #region Properties
         /// <summary>
         /// Статус отображения фильтров в заголовках столбцов.
@@ -228,7 +233,10 @@ namespace Lotus.Windows
             ApplyFilter();
         }
 
-        private void AttachQueryItem(DataGridColumn column, QueryItem queryItem)
+        /// <summary>
+        /// Подключить элемент запроса к столбцу (для столбцов, созданных вручную).
+        /// </summary>
+        protected void AttachQueryItem(DataGridColumn column, QueryItem queryItem)
         {
             queryItem._queryOwned = _query;
             _query._items.Add(queryItem);
@@ -255,6 +263,15 @@ namespace Lotus.Windows
 
         private bool FilterItem(object item)
         {
+            if (!PassesColumnFilters(item)) return false;
+            return RowPassesCustomFilter(item);
+        }
+
+        /// <summary>
+        /// Проверка строки по активным фильтрам столбцов.
+        /// </summary>
+        protected virtual bool PassesColumnFilters(object item)
+        {
             foreach (var qi in _query._items)
             {
                 if (qi.NotCalculation || !IsQueryItemActive(qi)) continue;
@@ -263,7 +280,15 @@ namespace Lotus.Windows
             return true;
         }
 
-        private static bool IsQueryItemActive(QueryItem qi) => qi switch
+        /// <summary>
+        /// Дополнительная фильтрация строки (по умолчанию не ограничивает).
+        /// </summary>
+        protected virtual bool RowPassesCustomFilter(object item) => true;
+
+        /// <summary>
+        /// Проверка, участвует ли элемент запроса в активной фильтрации.
+        /// </summary>
+        protected static bool IsQueryItemActive(QueryItem qi) => qi switch
         {
             QueryItemString q  => !string.IsNullOrEmpty(q.SearchValue),
             QueryItemNumber q  => q.ComparisonValueLeft != 0 || q.ComparisonValueRight != 0,

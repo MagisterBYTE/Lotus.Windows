@@ -125,7 +125,7 @@ namespace Lotus.Windows
         /// <summary>
         /// Значение по умолчанию.
         /// </summary>
-        [TypeConverter(typeof(LotusVector2DTypeConverter))]
+        //[TypeConverter(typeof(LotusVector2DTypeConverter))]
         public Vector2D DefaultValue
         {
             get => (Vector2D)GetValue(DefaultValueProperty);

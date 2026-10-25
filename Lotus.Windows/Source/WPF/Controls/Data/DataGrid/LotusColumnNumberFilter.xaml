@@ -55,6 +55,7 @@
                 Width="24"
                 Content="A"
                 DockPanel.Dock="Right"
+                Padding="1"
                 IsChecked="{Binding ElementName=root, Path=QueryItem.NotCalculation, Mode=TwoWay, Converter={StaticResource BooleanInverseConverterKey}}"
                 Style="{StaticResource LotusToggleButtonStyleKey}" />
             <ComboBox

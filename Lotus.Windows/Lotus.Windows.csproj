@@ -12,9 +12,9 @@
     <Authors>MagisterBYTE aka DanielDem</Authors>
     <Company>LotusPlatform</Company>
     <Copyright>MagisterBYTE aka DanielDem</Copyright>
-    <AssemblyVersion>5.1.0.0</AssemblyVersion>
-    <FileVersion>5.1.0.0</FileVersion>
-    <Version>5.1.0</Version>
+    <AssemblyVersion>5.2.0.0</AssemblyVersion>
+    <FileVersion>5.2.0.0</FileVersion>
+    <Version>5.2.0</Version>
     <Title>Lotus.Windows</Title>
     <PackageTags></PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -28,12 +28,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\Lotus.Basis\Lotus.Core\.claude\rules\BaseRulesAndQuality.md" Link=".claude\rules\BaseRulesAndQuality.md" />
     <None Include="..\..\Resources\IconTemplate.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include=".claude\plans.md" />
     <None Include="Readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
@@ -234,24 +232,17 @@
      <None Remove="Resources\Icons\View\Oxygen_view_right_new_32.png" />
    </ItemGroup>
 
-   <ItemGroup>
-     <Page Remove="Themes\Infragistics\IG\IG.MSControls.Toolkit.Implicit.xaml" />
-     <Page Remove="Themes\Infragistics\MetroDark\MetroDark.MSControls.Toolkit.Implicit.xaml" />
-     <Page Remove="Themes\Infragistics\Metro\Metro.MSControls.Toolkit.Implicit.xaml" />
-     <Page Remove="Themes\Infragistics\Office2010Blue\Office2010Blue.MSControls.Toolkit.Implicit.xaml" />
-     <Page Remove="Themes\Infragistics\Office2013\Office2013.MSControls.Toolkit.Implicit.xaml" />
-   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.129" />
     <PackageReference Include="DotNetProjects.WpfToolkit.Layout" Version="6.1.94" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.13" />
   </ItemGroup>
 
    <ItemGroup Condition="'$(Configuration)' == 'Publish'">
-     <PackageReference Include="Lotus.Core" Version="3.1.0" />
-     <PackageReference Include="Lotus.Math" Version="3.1.0" />
-     <PackageReference Include="Lotus.UnitMeasurement" Version="3.1.0" />
+     <PackageReference Include="Lotus.Core" Version="5.2.0" />
+     <PackageReference Include="Lotus.Math" Version="5.2.0" />
+     <PackageReference Include="Lotus.UnitMeasurement" Version="5.2.0" />
    </ItemGroup>
 
    <ItemGroup Condition="'$(Configuration)' != 'Publish'">
@@ -475,7 +466,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include=".claude\rules\" />
     <Folder Include="Themes\Styles\" />
   </ItemGroup>
 </Project>

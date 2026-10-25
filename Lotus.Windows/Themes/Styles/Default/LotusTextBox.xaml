@@ -21,7 +21,7 @@
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{StaticResource LotusAccentBrush}" />
-                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="SnapsToDevicePixels" Value="true" />
                 <Setter Property="UseLayoutRounding" Value="true" />
             </Trigger>

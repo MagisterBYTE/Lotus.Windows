@@ -75,10 +75,14 @@
                     VerticalContentAlignment="Center"
                     IsEditable="false"
                     IsReadOnly="{Binding IsReadOnly}"
-                    ItemStringFormat="{Binding FormatValue}"
                     ItemsSource="{Binding EnumValues}"
-                    SelectedItem="{Binding Value, Converter={StaticResource EnumToStringConverterKey}, Mode=TwoWay}"
+                    SelectedItem="{Binding Value, Mode=TwoWay}"
                     Style="{StaticResource LotusComboBoxStyleKey}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumToStringConverterKey}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
                     <ComboBox.ItemContainerStyle>
                         <Style TargetType="{x:Type ComboBoxItem}">
                             <Style.Triggers>

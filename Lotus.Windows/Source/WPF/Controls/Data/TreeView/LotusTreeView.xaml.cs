@@ -171,6 +171,7 @@ namespace Lotus.Windows
         /// </summary>
         public LotusTreeView()
         {
+            SelectedItemChanged += OnTreeView_SelectedItemChanged;
             AddHandler(TreeViewItem.SelectedEvent, new RoutedEventHandler(OnTreeViewItem_Selected));
             AddHandler(TreeViewItem.KeyDownEvent, new KeyEventHandler(OnTreeViewItem_KeyDown));
             AddHandler(TreeViewItem.MouseDoubleClickEvent, new MouseButtonEventHandler(OnTreeViewItem_MouseDoubleClick));
